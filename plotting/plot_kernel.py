@@ -70,7 +70,13 @@ deskernel_l30_h = np.loadtxt(datadir + 'des_kernel_l30_h.txt')
 deskernel_l100_h = np.loadtxt(datadir + 'des_kernel_l100_h.txt')
 deskernel_l500_h= np.loadtxt(datadir + 'des_kernel_l500_h.txt')
 
+desikernel_l30 = np.loadtxt(datadir + 'desi_kernel_l30.txt')
+desikernel_l100 = np.loadtxt(datadir + 'desi_kernel_l100.txt')
+desikernel_l500 = np.loadtxt(datadir + 'desi_kernel_l500.txt')
 
+desikernel_l30_h = np.loadtxt(datadir + 'desi_kernel_l30_h.txt')
+desikernel_l100_h = np.loadtxt(datadir + 'desi_kernel_l100_h.txt')
+desikernel_l500_h= np.loadtxt(datadir + 'desi_kernel_l500_h.txt')
 
 # ============================================
 # SIZE OF THE PICTURE
@@ -152,6 +158,11 @@ plt.plot(cibkernel_l30[:,0],cibkernel_l500[:,1]/np.max(cibkernel_l500[:,1]),colo
 plt.plot(deskernel_l30[:,0],deskernel_l30[:,1]/np.max(deskernel_l30[:,1]),color='#4daf4a',label=r'$DES$')
 plt.plot(deskernel_l30[:,0],deskernel_l100[:,1]/np.max(deskernel_l100[:,1]),color='#4daf4a',linestyle=':')
 plt.plot(deskernel_l30[:,0],deskernel_l500[:,1]/np.max(deskernel_l500[:,1]),color='#4daf4a',linestyle='--')
+
+plt.plot(desikernel_l30[:,0],desikernel_l30[:,1]/np.max(desikernel_l30[:,1]),color='#984ea3',label=r'$DESI$')
+# plt.plot(desikernel_l30[:,0],deskernel_l100[:,1]/np.max(desikernel_l100[:,1]),color='#984ea3',linestyle=':')
+# plt.plot(desikernel_l30[:,0],desikernel_l500[:,1]/np.max(desikernel_l500[:,1]),color='#984ea3',linestyle='--')
+
 
 
 

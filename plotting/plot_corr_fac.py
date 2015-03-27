@@ -45,12 +45,18 @@ image_dir = '../images/'
 
 
 # Import data
-clkappades = np.loadtxt(datadir + 'cldesk.txt')
-clkappacib = np.loadtxt(datadir + 'clcibk.txt')
-cldes = np.loadtxt(datadir + 'cldes.txt')
-clcib = np.loadtxt(datadir + 'clcib.txt')
-clkappa = np.loadtxt(datadir + 'clk.txt')
-ell = np.loadtxt(datadir + 'ells_.txt')
+clkappades = np.loadtxt(datadir + 'cldeskdes.txt')
+clkappacib = np.loadtxt(datadir + 'clcibkdes.txt')
+cldes = np.loadtxt(datadir + 'cldesdes.txt')
+clcib = np.loadtxt(datadir + 'clcibdes.txt')
+clkappa = np.loadtxt(datadir + 'clkdes.txt')
+ell = np.loadtxt(datadir + 'ells_des.txt')
+
+desi_ell = np.loadtxt(datadir + 'ells.txt')
+cldesi = np.loadtxt(datadir + 'cldesi.txt')
+clkappadesi = np.loadtxt(datadir + 'cldesik.txt')
+desi_clkappa = np.loadtxt(datadir + 'clk.txt')
+
 
 # ADD NOISE
 # using table 6 of 1309.0382v1
@@ -61,12 +67,10 @@ ell = np.loadtxt(datadir + 'ells_.txt')
 # DES NOISE Evaluation
 
 degree_sq = 500
-rad_sq= 500 * (np.pi/180)**2
-fsky = rad_sq/4. /np.pi
+rad_sq = 500 * (np.pi / 180) ** 2
+fsky = rad_sq / 4. / np.pi
 n_gal = 3207184
-nlgg = 1./(3207184./rad_sq) * np.ones_like(cldes) # they mention N=2.1 10^-8 in Tommaso's paper
-
-
+nlgg = 1. / (3207184. / rad_sq) * np.ones_like(cldes)  # they mention N=2.1 10^-8 in Tommaso's paper
 
 
 # ============================================
@@ -100,7 +104,7 @@ plt.rcParams['font.size'] = font_size
 
 plt.rcParams['axes.labelsize'] = font_size * 1.3
 plt.rcParams['axes.linewidth'] = font_size / 22.
-plt.rcParams['axes.titlesize'] = font_size*1.3
+plt.rcParams['axes.titlesize'] = font_size * 1.3
 plt.rcParams['legend.fontsize'] = font_size
 plt.rcParams['xtick.labelsize'] = font_size / 1.2
 plt.rcParams['ytick.labelsize'] = font_size / 1.2
@@ -138,16 +142,18 @@ fg = plt.figure(figsize=fig_dims)
 
 ax1 = fg.add_subplot(111)
 
-plt.plot(ell, clkappacib/np.sqrt(clkappa*(clcib+225.)),color='#e41a1c',linestyle='--')
-plt.plot(ell, clkappacib/np.sqrt(clkappa*(clcib)),color='#e41a1c',label='CIB Hall model')
-plt.plot(ell, clkappades/np.sqrt(clkappa*cldes),color='#377eb8',label='D.E.S')
-plt.plot(ell, clkappades/np.sqrt(clkappa*(cldes+nlgg)),color='#377eb8',linestyle='--')
+plt.plot(ell, clkappacib / np.sqrt(clkappa * (clcib + 225.)), color='#e41a1c', linestyle='--')
+plt.plot(ell, clkappacib / np.sqrt(clkappa * (clcib)), color='#e41a1c', label='CIB Hall model')
+plt.plot(ell, clkappades / np.sqrt(clkappa * cldes), color='#377eb8', label='D.E.S')
+plt.plot(ell, clkappades / np.sqrt(clkappa * (cldes + nlgg)), color='#377eb8', linestyle='--')
+plt.plot( desi_ell, clkappadesi / np.sqrt(desi_clkappa * cldesi), color='#4daf4a', label='DESI')
 
 
 plt.xlabel(r'\ell')
-plt.ylabel(r' $\frac{C_{\ell}^{I\kappa}}{\sqrt{C_{\ell}^{II} C_{\ell}^{\kappa \kappa}  }  }$ ')
+plt.ylabel(r' $\rho_{\ell} = \frac{C_{\ell}^{I\kappa}}{\sqrt{C_{\ell}^{II} C_{\ell}^{\kappa \kappa}  }  }$ ')
 plt.legend(loc='best')
 plt.xlim(40, 1000)
+plt.ylim(0.,1.)
 fg.tight_layout(pad=0.4)
 
 # ============================================

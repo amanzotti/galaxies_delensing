@@ -1,7 +1,7 @@
 \input{/Users/alessandromanzotti/Work/preamble_onecol_notitle.tex}
 \usepackage{hyperref}
 \usepackage{amsmath}
-\def\ublu{\bl'}
+\usepackage{natbib}
 \newcommand{\bx}{{\bf x}}
 \newcommand{\bk}{{\bf k}}
 \newcommand{\bq}{{\bf q}}
@@ -13,6 +13,7 @@
 \def\arcsec{$^{\prime\prime}$}
 \def\nl{N_\ell}
 \def\sl{S_\ell}
+\def\ublu{\bl'}
 \newcommand{\conv}[2]{\left(\frac{#1}{#2}\right)}
 \def\arctanh{\mathop{\rm arctanh}\nolimits}
 %\renewcommand{\eqref}[1] {equation $($\ref{#1}$)$}
@@ -88,6 +89,7 @@
 \begin{abstract}
 Goal: test if, at least on a small patch of the sky $~500$ deg$^{2}$ LSS survey like D.E.S or DESI can improve the reconstruction of the lensing potential that lenses the CMB photons.
 This would be crucial to build a template of the B-mode signal coming from the lensing of the primordial E-mode. This will be at multipoles higher than 200 the main contaminants of the primordial B-mode.
+Preliminary: CIB performs as an equivalent $\rho_{\text{eff}}$  (correlation coefficient constant over $\ell$) of 0.8. Both D.E.S and DESI are significantly worse, $\rho_{\text{eff}}<0.6$. DESI is slightly better than D.E.S. To delens we need the bulk of the redshift distribution to follow the CMB kernel, having a few outliers at redshift $z>1.5$ is not enough. We also have to keep in mind the results of \citet{smith:2012}, even a perfect LSS survey can not help too much the delensing technique, with the possible exception of futuristic 21 cm.
 \end{abstract}
 
 \vspace{1cm}
@@ -203,7 +205,7 @@ D.E.S, Planck CIB, DESI?
 
 \section{Forecast} \label{sec:for}
 
-\bibliographystyle{abbrv}
+\bibliographystyle{unsrtnat}
 \bibliography{DES_rec_phi_paper}
 
 \end{document}
