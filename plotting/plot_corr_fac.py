@@ -56,6 +56,8 @@ desi_ell = np.loadtxt(datadir + 'ells.txt')
 cldesi = np.loadtxt(datadir + 'cldesi.txt')
 clkappadesi = np.loadtxt(datadir + 'cldesik.txt')
 desi_clkappa = np.loadtxt(datadir + 'clk.txt')
+# combined rho coming from multiple_survey_delens.py on midway
+rho_comb = np.loadtxt(datadir + 'rho_comb_des_cib.txt')
 
 
 # ADD NOISE
@@ -147,6 +149,7 @@ plt.plot(ell, clkappacib / np.sqrt(clkappa * (clcib)), color='#e41a1c', label='C
 plt.plot(ell, clkappades / np.sqrt(clkappa * cldes), color='#377eb8', label='D.E.S')
 plt.plot(ell, clkappades / np.sqrt(clkappa * (cldes + nlgg)), color='#377eb8', linestyle='--')
 plt.plot( desi_ell, clkappadesi / np.sqrt(desi_clkappa * cldesi), color='#4daf4a', label='DESI')
+plt.plot( rho_comb[:,0], rho_comb[:,1], color='#984ea3', linestyle='-.', label='CIB+D.E.S no noise')
 
 
 plt.xlabel(r'\ell')

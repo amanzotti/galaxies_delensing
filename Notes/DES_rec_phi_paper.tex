@@ -87,9 +87,9 @@
 
         % Enter your date or \today between curly braces
 \begin{abstract}
-Goal: test if, at least on a small patch of the sky $~500$ deg$^{2}$ LSS survey like D.E.S or DESI can improve the reconstruction of the lensing potential that lenses the CMB photons.
-This would be crucial to build a template of the B-mode signal coming from the lensing of the primordial E-mode. This will be at multipoles higher than 200 the main contaminants of the primordial B-mode.
-Preliminary: CIB performs as an equivalent $\rho_{\text{eff}}$  (correlation coefficient constant over $\ell$) of 0.8. Both D.E.S and DESI are significantly worse, $\rho_{\text{eff}}<0.6$. DESI is slightly better than D.E.S. To delens we need the bulk of the redshift distribution to follow the CMB kernel, having a few outliers at redshift $z>1.5$ is not enough. We also have to keep in mind the results of \citet{smith:2012}, even a perfect LSS survey can not help too much the delensing technique, with the possible exception of futuristic 21 cm.
+Goal: test if LSS survey like D.E.S or DESI can improve the reconstruction of the lensing potential that lenses the CMB photons.
+This would be crucial to build a template of the B-mode signal coming from the lensing of the primordial E-mode. The lensed B-mode component will be, at multipoles higher than 200, the main contaminants of the primordial B-mode.
+Preliminary: CIB performs as an equivalent $\rho_{\text{eff}}$  (correlation coefficient with cmb lensing potential constant over $\ell$) of 0.8. Both D.E.S and DESI are significantly worse, $\rho_{\text{eff}}<0.6$. DESI is slightly better than D.E.S. To delens we need the bulk of the redshift distribution to follow the CMB kernel, having a few outliers at redshift $z>1.5$ is not enough. We also have to keep in mind the results of \citet{smith:2012}: even a perfect LSS survey can not help too much the delensing process, with the possible exception of futuristic 21 cm.
 \end{abstract}
 
 \vspace{1cm}
@@ -105,7 +105,7 @@ Preliminary: CIB performs as an equivalent $\rho_{\text{eff}}$  (correlation coe
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=1.]{../images/spectra.pdf}
-\caption{Correlation factor between galaxies survey and CMB lensing potential.}
+\caption{Correlation factor between galaxies survey and CMB lensing potential as a function of the multipole $\ell$.}
 \label{fig:corr}
 \end{center}
 \end{figure}
@@ -126,12 +126,12 @@ Preliminary: CIB performs as an equivalent $\rho_{\text{eff}}$  (correlation coe
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=1.]{../images/compare_kernel.pdf}
-\caption{Comparison of the different kernels used in this analysis. This allow to understand  
-Redshift distribution of D.E.S galaxies (I suspect this is the benchmark, anyway taken from Giannantionio et al.). }
+\caption{Comparison of the different kernels used in this analysis. This allow to understand how well and where in redshift space different LSS surveys trace the CMB lensing potential. 
+Redshift distribution of D.E.S galaxies (I suspect this is the benchmark, anyway taken from Giannantionio et al.). DESI taken from their white paper. }
 \label{fig:corr}
 \end{center}
 \end{figure}
-As for the temperature, the intensity map of photons on the sky, also the Q and U mode decomponsition of their polarization is modified by lensing as: 
+As for the temperature, the intensity map of photons on the sky, also the Q and U mode decomposition of their polarization is modified by lensing as: 
 \be
 Q(\hat{\mathbf{n}}) = Q_{\mathrm{unlensed}}(\hat{\mathbf{n}}+\mathbf{d});~~
 U(\hat{\mathbf{n}}) = U_{\mathrm{unlensed}}(\hat{\mathbf{n}}+\mathbf{d})
@@ -162,13 +162,13 @@ Now the full B-mode power spectrum measured on the sky is
 C_l^{BB,\mathrm{full}} = C_l^{BB,r} + C_l^{BB,\mathrm{lens}} + N_l^{BB}.
 \ee
 
-Now, if we have an LSS measurements I that traces the lensing potential responsible for the lensing of the CMB we can build a template of the true lensing B mode on the sky with a weighted convolution:
+If we have an LSS measurements I($\hat n$) that traces the lensing potential responsible for the lensing of the CMB we can build a template of the lensing B mode on the sky with a weighted convolution:
 \be
 \hat{B}^{\mathrm{lens}}(\bl) = \int \frac{d^2 \bl'}{(2 \pi)^2} W(\bl,\bl') f(\bl,\bl') E^N(\ublu) I(\bl - \bl')
 \ee
 where $f(\bl,\bl')$ is a weight that must be determined.
 
-The residual lensing b mode will be 
+The residual lensing B mode will be 
 \beqn
 B^\mathrm{res}(\bl) &=&  B^\mathrm{lens}(\bl) - \hat{B}^\mathrm{lens}(\bl) =  \int \frac{d^2 \bl'}{(2 \pi)^2} W(\bl,\bl') \times \nonumber \\ &&\left( E(\ublu) \kappa(\bl - \bl' ) -  f(\bl,\bl') E^N(\ublu) I(\bl - \bl' ) \right) 
 \eeqn
@@ -197,6 +197,24 @@ with
 \ee
 
 The bigger $\rho_l$ is for a LSS field the more it is correlated with the lensing potential acting on the CMB photons. An higher correlation allows for a better reconstruction of the $\phi^{CMB}$ and, as a consequence, of $B^{lens}$.
+
+\subsection{Galaxies contribution at different redshift}\label{sec:galcontrib}
+
+Let's now assume that we have n different tracers of the gravitational potentials $I_{i}$ with $i\in \{1,..,n\}$. It can be shown that the optimal way to combine them to obtain the optimal estimator of $\phi$ or, in other word maximizing the correlation factor $\rho$ is:
+\beqn
+I 		&=&	\sum_{i}c^{i}I^{i} \nonumber \\
+c_{i} 	&=& (C^{-1})_{ij}C^{\kappa I^{j}}
+\eeqn
+where C is the covariance matrix of the LSS tracers.
+
+\be
+\rho^{2} = \sum_{i,j}\frac{C^{\kappa i}~(C^{-1})_{ij}~C^{\kappa j}}{C^{\kappa\kappa}}
+\ee
+
+The gain we  have in adding a new tracer is not only proportional to its correlation with the CMB lensing but it also depends on how much it is correlated with the already used set of tracers. For example there s a very small gain in adding different CIB frequencies because they are highly correlated with each other.
+On the contrary a CMB reconstructed lensing potential or some low redshift survey like D.E.S can help.
+
+
 
 \section{Data} \label{sec:data}
 

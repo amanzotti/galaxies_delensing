@@ -49,10 +49,10 @@ clbb = np.loadtxt(datadir + 'cbb.txt')
 cbb_res_des = np.loadtxt(datadir + 'cbb_res_des.txt')
 cbb_res_desi = np.loadtxt(datadir + 'cbb_res_desi.txt')
 cbb_res_cib = np.loadtxt(datadir + 'cbb_res_cib.txt')
+cbb_res_comb = np.loadtxt(datadir + 'cbb_res_comb.txt')
 cbb_res_cib_525 = np.loadtxt(datadir + 'cbb_res_cib_525.txt')
 ell = np.loadtxt(datadir + 'cbb_res_cib.txt')
 
-print cbb_res_cib_525
 
 
 
@@ -127,12 +127,14 @@ ax1 = fg.add_subplot(111)
 
 plt.loglog(ell,clbb,label='$C^{BB}$')
 # plt.loglog(ell,clbb*(1-0.7**2),linestyle='-.',label=r'$\rho_{eff}=0.7$')
-plt.loglog(ell,clbb*(1-0.8**2),linestyle='-.',label=r'$\rho_{eff}=0.8$')
-plt.loglog(ell,clbb*(1-0.5**2),linestyle='-.',label=r'$\rho_{eff}=0.5$')
+plt.loglog(ell,clbb*(1-0.8**2),linestyle='-.')#,label=r'$\rho_{eff}=0.8$')
+plt.loglog(ell,clbb*(1-0.5**2),linestyle='-.')#,label=r'$\rho_{eff}=0.5$')
 plt.loglog(ell,cbb_res_des,label=r'D.E.S')
 plt.loglog(ell,cbb_res_desi,label=r'DESI')
 plt.loglog(ell, cbb_res_cib_525,label=r'CIB')
+plt.loglog(ell, cbb_res_comb,label=r'CIB+D.E.S')
 
+# plt.loglog(ell, cbb_res_cib,label=r'CIB')
 
 
 
