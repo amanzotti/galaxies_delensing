@@ -1,52 +1,6 @@
-\begin{thebibliography}{13}
-\providecommand{\natexlab}[1]{#1}
-\providecommand{\url}[1]{\texttt{#1}}
-\expandafter\ifx\csname urlstyle\endcsname\relax
-  \providecommand{\doi}[1]{doi: #1}\else
-  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+\begin{thebibliography}{10}
 
-\bibitem[{Smith} et~al.(2012){Smith}, {Hanson}, {LoVerde}, {Hirata}, and
-  {Zahn}]{smith:2012}
-K.~M. {Smith}, D.~{Hanson}, M.~{LoVerde}, C.~M. {Hirata}, and O.~{Zahn}.
-\newblock {Delensing CMB polarization with external datasets}.
-\newblock \emph{\jcap}, 6:\penalty0 014, June 2012.
-\newblock \doi{10.1088/1475-7516/2012/06/014}.
-
-\bibitem[{Hall} et~al.(2010){Hall}, {Keisler}, {Knox}, {Reichardt}, {Ade},
-  {Aird}, {Benson}, {Bleem}, {Carlstrom}, {Chang}, {Cho}, {Crawford}, {Crites},
-  {de Haan}, {Dobbs}, {George}, {Halverson}, {Holder}, {Holzapfel}, {Hrubes},
-  {Joy}, {Lee}, {Leitch}, {Lueker}, {McMahon}, {Mehl}, {Meyer}, {Mohr},
-  {Montroy}, {Padin}, {Plagge}, {Pryke}, {Ruhl}, {Schaffer}, {Shaw},
-  {Shirokoff}, {Spieler}, {Stalder}, {Staniszewski}, {Stark}, {Switzer},
-  {Vanderlinde}, {Vieira}, {Williamson}, and {Zahn}]{hall:2010}
-N.~R. {Hall}, R.~{Keisler}, L.~{Knox}, C.~L. {Reichardt}, P.~A.~R. {Ade}, K.~A.
-  {Aird}, B.~A. {Benson}, L.~E. {Bleem}, J.~E. {Carlstrom}, C.~L. {Chang},
-  H.-M. {Cho}, T.~M. {Crawford}, A.~T. {Crites}, T.~{de Haan}, M.~A. {Dobbs},
-  E.~M. {George}, N.~W. {Halverson}, G.~P. {Holder}, W.~L. {Holzapfel}, J.~D.
-  {Hrubes}, M.~{Joy}, A.~T. {Lee}, E.~M. {Leitch}, M.~{Lueker}, J.~J.
-  {McMahon}, J.~{Mehl}, S.~S. {Meyer}, J.~J. {Mohr}, T.~E. {Montroy},
-  S.~{Padin}, T.~{Plagge}, C.~{Pryke}, J.~E. {Ruhl}, K.~K. {Schaffer},
-  L.~{Shaw}, E.~{Shirokoff}, H.~G. {Spieler}, B.~{Stalder}, Z.~{Staniszewski},
-  A.~A. {Stark}, E.~R. {Switzer}, K.~{Vanderlinde}, J.~D. {Vieira},
-  R.~{Williamson}, and O.~{Zahn}.
-\newblock {Angular Power Spectra of the Millimeter-wavelength Background Light
-  from Dusty Star-forming Galaxies with the South Pole Telescope}.
-\newblock \emph{\apj}, 718:\penalty0 632--646, August 2010.
-\newblock \doi{10.1088/0004-637X/718/2/632}.
-
-\bibitem[{Sherwin} and {Schmittfull}(2015)]{sherwin:2015}
-B.~D. {Sherwin} and M.~{Schmittfull}.
-\newblock {Delensing the CMB with the Cosmic Infrared Background}.
-\newblock \emph{ArXiv e-prints}, February 2015.
-
-\bibitem[{Ade} et~al.(2014){Ade}, {Aikin}, {Barkats}, {Benton}, {Bischoff},
-  {Bock}, {Brevik}, {Buder}, {Bullock}, {Dowell}, {Duband}, {Filippini},
-  {Fliescher}, {Golwala}, {Halpern}, {Hasselfield}, {Hildebrandt}, {Hilton},
-  {Hristov}, {Irwin}, {Karkare}, {Kaufman}, {Keating}, {Kernasovskiy}, {Kovac},
-  {Kuo}, {Leitch}, {Lueker}, {Mason}, {Netterfield}, {Nguyen}, {O'Brient},
-  {Ogburn}, {Orlando}, {Pryke}, {Reintsema}, {Richter}, {Schwarz}, {Sheehy},
-  {Staniszewski}, {Sudiwala}, {Teply}, {Tolan}, {Turner}, {Vieregg}, {Wong},
-  {Yoon}, and {Bicep2 Collaboration}]{ade:2014}
+\bibitem{ade:2014}
 P.~A.~R. {Ade}, R.~W. {Aikin}, D.~{Barkats}, S.~J. {Benton}, C.~A. {Bischoff},
   J.~J. {Bock}, J.~A. {Brevik}, I.~{Buder}, E.~{Bullock}, C.~D. {Dowell},
   L.~{Duband}, J.~P. {Filippini}, S.~{Fliescher}, S.~R. {Golwala},
@@ -60,21 +14,30 @@ P.~A.~R. {Ade}, R.~W. {Aikin}, D.~{Barkats}, S.~J. {Benton}, C.~A. {Bischoff},
   {Yoon}, and {Bicep2 Collaboration}.
 \newblock {Detection of B-Mode Polarization at Degree Angular Scales by
   BICEP2}.
-\newblock \emph{Physical Review Letters}, 112\penalty0 (24):\penalty0 241101,
-  June 2014.
-\newblock \doi{10.1103/PhysRevLett.112.241101}.
+\newblock {\em Physical Review Letters}, 112(24):241101, June 2014.
 
-\bibitem[{Hanson} et~al.(2013){Hanson}, {Hoover}, {Crites}, {Ade}, {Aird},
-  {Austermann}, {Beall}, {Bender}, {Benson}, {Bleem}, {Bock}, {Carlstrom},
-  {Chang}, {Chiang}, {Cho}, {Conley}, {Crawford}, {de Haan}, {Dobbs},
-  {Everett}, {Gallicchio}, {Gao}, {George}, {Halverson}, {Harrington},
-  {Henning}, {Hilton}, {Holder}, {Holzapfel}, {Hrubes}, {Huang}, {Hubmayr},
-  {Irwin}, {Keisler}, {Knox}, {Lee}, {Leitch}, {Li}, {Liang}, {Luong-Van},
-  {Marsden}, {McMahon}, {Mehl}, {Meyer}, {Mocanu}, {Montroy}, {Natoli},
-  {Nibarger}, {Novosad}, {Padin}, {Pryke}, {Reichardt}, {Ruhl}, {Saliwanchik},
-  {Sayre}, {Schaffer}, {Schulz}, {Smecher}, {Stark}, {Story}, {Tucker},
-  {Vanderlinde}, {Vieira}, {Viero}, {Wang}, {Yefremenko}, {Zahn}, and
-  {Zemcov}]{hanson:2013}
+\bibitem{boulanger:1996}
+F.~{Boulanger}, A.~{Abergel}, J.-P. {Bernard}, W.~B. {Burton}, F.-X. {Desert},
+  D.~{Hartmann}, G.~{Lagache}, and J.-L. {Puget}.
+\newblock {The dust/gas correlation at high Galactic latitude.}
+\newblock {\em \aap}, 312:256--262, August 1996.
+
+\bibitem{hall:2010}
+N.~R. {Hall}, R.~{Keisler}, L.~{Knox}, C.~L. {Reichardt}, P.~A.~R. {Ade}, K.~A.
+  {Aird}, B.~A. {Benson}, L.~E. {Bleem}, J.~E. {Carlstrom}, C.~L. {Chang},
+  H.-M. {Cho}, T.~M. {Crawford}, A.~T. {Crites}, T.~{de Haan}, M.~A. {Dobbs},
+  E.~M. {George}, N.~W. {Halverson}, G.~P. {Holder}, W.~L. {Holzapfel}, J.~D.
+  {Hrubes}, M.~{Joy}, A.~T. {Lee}, E.~M. {Leitch}, M.~{Lueker}, J.~J.
+  {McMahon}, J.~{Mehl}, S.~S. {Meyer}, J.~J. {Mohr}, T.~E. {Montroy},
+  S.~{Padin}, T.~{Plagge}, C.~{Pryke}, J.~E. {Ruhl}, K.~K. {Schaffer},
+  L.~{Shaw}, E.~{Shirokoff}, H.~G. {Spieler}, B.~{Stalder}, Z.~{Staniszewski},
+  A.~A. {Stark}, E.~R. {Switzer}, K.~{Vanderlinde}, J.~D. {Vieira},
+  R.~{Williamson}, and O.~{Zahn}.
+\newblock {Angular Power Spectra of the Millimeter-wavelength Background Light
+  from Dusty Star-forming Galaxies with the South Pole Telescope}.
+\newblock {\em \apj}, 718:632--646, August 2010.
+
+\bibitem{hanson:2013}
 D.~{Hanson}, S.~{Hoover}, A.~{Crites}, P.~A.~R. {Ade}, K.~A. {Aird}, J.~E.
   {Austermann}, J.~A. {Beall}, A.~N. {Bender}, B.~A. {Benson}, L.~E. {Bleem},
   J.~J. {Bock}, J.~E. {Carlstrom}, C.~L. {Chang}, H.~C. {Chiang}, H.-M. {Cho},
@@ -91,94 +54,46 @@ D.~{Hanson}, S.~{Hoover}, A.~{Crites}, P.~A.~R. {Ade}, K.~A. {Aird}, J.~E.
   G.~{Wang}, V.~{Yefremenko}, O.~{Zahn}, and M.~{Zemcov}.
 \newblock {Detection of B-Mode Polarization in the Cosmic Microwave Background
   with Data from the South Pole Telescope}.
-\newblock \emph{Physical Review Letters}, 111\penalty0 (14):\penalty0 141301,
-  October 2013.
-\newblock \doi{10.1103/PhysRevLett.111.141301}.
+\newblock {\em Physical Review Letters}, 111(14):141301, October 2013.
 
-\bibitem[{Szapudi} et~al.(2001){Szapudi}, {Prunet}, and
-  {Colombi}]{szapudi:2001}
-I.~{Szapudi}, S.~{Prunet}, and S.~{Colombi}.
-\newblock {Fast Clustering Analysis of Inhomogeneous Megapixel CMB maps}.
-\newblock \emph{ArXiv Astrophysics e-prints}, July 2001.
-
-\bibitem[Hivon et~al.(2002)Hivon, G{\'o}rski, Netterfield, Crill, Prunet, and
-  Hansen]{0004-637X-567-1-2}
+\bibitem{0004-637X-567-1-2}
 Eric Hivon, Krzysztof~M. G{\'o}rski, C.~Barth Netterfield, Brendan~P. Crill,
   Simon Prunet, and Frode Hansen.
 \newblock Master of the cosmic microwave background anisotropy power spectrum:
   A fast method for statistical analysis of large and complex cosmic microwave
   background data sets.
-\newblock \emph{The Astrophysical Journal}, 567\penalty0 (1):\penalty0 2, 2002.
-\newblock URL \url{http://stacks.iop.org/0004-637X/567/i=1/a=2}.
+\newblock {\em The Astrophysical Journal}, 567(1):2, 2002.
 
-\bibitem[{Planck Collaboration} et~al.(2014{\natexlab{a}}){Planck
-  Collaboration}, {Ade}, {Aghanim}, {Armitage-Caplan}, {Arnaud}, {Ashdown},
-  {Atrio-Barandela}, {Aumont}, {Baccigalupi}, {Banday}, and
-  et~al.]{planck-collaboration:2014}
+\bibitem{lewis:2006}
+A.~{Lewis} and A.~{Challinor}.
+\newblock {Weak gravitational lensing of the CMB}.
+\newblock {\em \physrep}, 429:1--65, June 2006.
+
+\bibitem{planck-collaboration:2014}
 {Planck Collaboration}, P.~A.~R. {Ade}, N.~{Aghanim}, C.~{Armitage-Caplan},
   M.~{Arnaud}, M.~{Ashdown}, F.~{Atrio-Barandela}, J.~{Aumont},
   C.~{Baccigalupi}, A.~J. {Banday}, and et~al.
 \newblock {Planck 2013 results. XVIII. The gravitational lensing-infrared
   background correlation}.
-\newblock \emph{\aap}, 571:\penalty0 A18, November 2014{\natexlab{a}}.
-\newblock \doi{10.1051/0004-6361/201321540}.
+\newblock {\em \aap}, 571:A18, November 2014.
 
-\bibitem[{Planck Collaboration} et~al.(2014{\natexlab{b}}){Planck
-  Collaboration}, {Ade}, {Aghanim}, {Armitage-Caplan}, {Arnaud}, {Ashdown},
-  {Atrio-Barandela}, {Aumont}, {Baccigalupi}, {Banday}, and
-  et~al.]{planck-collaboration:2014a}
+\bibitem{planck-collaboration:2014a}
 {Planck Collaboration}, P.~A.~R. {Ade}, N.~{Aghanim}, C.~{Armitage-Caplan},
   M.~{Arnaud}, M.~{Ashdown}, F.~{Atrio-Barandela}, J.~{Aumont},
   C.~{Baccigalupi}, A.~J. {Banday}, and et~al.
 \newblock {Planck 2013 results. XXX. Cosmic infrared background measurements
   and implications for star formation}.
-\newblock \emph{\aap}, 571:\penalty0 A30, November 2014{\natexlab{b}}.
-\newblock \doi{10.1051/0004-6361/201322093}.
+\newblock {\em \aap}, 571:A30, November 2014.
 
-\bibitem[{Planck Collaboration} et~al.(2011){Planck Collaboration}, {Ade},
-  {Aghanim}, {Arnaud}, {Ashdown}, {Aumont}, {Baccigalupi}, {Balbi}, {Banday},
-  {Barreiro}, and et~al.]{planck-collaboration:2011}
+\bibitem{planck-collaboration:2011}
 {Planck Collaboration}, P.~A.~R. {Ade}, N.~{Aghanim}, M.~{Arnaud},
   M.~{Ashdown}, J.~{Aumont}, C.~{Baccigalupi}, A.~{Balbi}, A.~J. {Banday},
   R.~B. {Barreiro}, and et~al.
 \newblock {Planck early results. XVIII. The power spectrum of cosmic infrared
   background anisotropies}.
-\newblock \emph{\aap}, 536:\penalty0 A18, December 2011.
-\newblock \doi{10.1051/0004-6361/201116461}.
+\newblock {\em \aap}, 536:A18, December 2011.
 
-\bibitem[{Plank Collaboration} et~al.(2014){Plank Collaboration}, {Ade},
-  {Aghanim}, {Alves}, {Aniano}, {Arnaud}, {Ashdown}, {Aumont}, {Baccigalupi},
-  {Banday}, {Barreiro}, {Bartolo}, {Battaner}, {Benabed}, {Benoit-Levy},
-  {Bernard}, {Bersanelli}, {Bielewicz}, {Bonaldi}, {Bonavera}, {Bond},
-  {Borrill}, {Bouchet}, {Boulanger}, {Burigana}, {Butler}, {Calabrese},
-  {Cardoso}, {Catalano}, {Chamballu}, {Chiang}, {Christensen}, {Clements},
-  {Colombi}, {Colombo}, {Couchot}, {Crill}, {Curto}, {Cuttaia}, {Danese},
-  {Davies}, {Davis}, {de Bernardis}, {de Rosa}, {de Zotti}, {Delabrouille},
-  {Dickinson}, {Diego}, {Dole}, {Donzelli}, {Dore}, {Douspis}, {Draine},
-  {Ducout}, {Dupac}, {Efstathiou}, {Elsner}, {Ensslin}, {Eriksen}, {Falgarone},
-  {Finelli}, {Forni}, {Frailis}, {Fraisse}, {Franceschi}, {Frejsel},
-  {Galeotta}, {Galli}, {Ganga}, {Ghosh}, {Giard}, {Gjerlow}, {Gonzalez-Nuevo},
-  {Gorski}, {Gregorio}, {Gruppuso}, {Guillet}, {Hansen}, {Hanson}, {Harrison},
-  {Henrot-Versille}, {Hernandez-Monteagudo}, {Herranz}, {Hildebrandt}, {Hivon},
-  {Holmes}, {Hovest}, {Huffenberger}, {Hurier}, {Jaffe}, {Jaffe}, {Jones},
-  {Keihanen}, {Keskitalo}, {Kisner}, {Kneissl}, {Knoche}, {Kunz},
-  {Kurki-Suonio}, {Lagache}, {Lamarre}, {Lasenby}, {Lattanzi}, {Lawrence},
-  {Leonardi}, {Levrier}, {Liguori}, {Lilje}, {Linden-Vornle}, {Lopez-Caniego},
-  {Lubin}, {Macias-Perez}, {Maffei}, {Maino}, {Mandolesi}, {Maris}, {Marshall},
-  {Martin}, {Martinez-Gonzalez}, {Masi}, {Matarrese}, {Mazzotta}, {Melchiorri},
-  {Mendes}, {Mennella}, {Migliaccio}, {Miville-Deschenes}, {Moneti}, {Montier},
-  {Morgante}, {Mortlock}, {Munshi}, {Murphy}, {Naselsky}, {Natoli},
-  {Norgaard-Nielsen}, {Novikov}, {Novikov}, {Oxborrow}, {Pagano}, {Pajot},
-  {Paladini}, {Paoletti}, {Pasian}, {Perdereau}, {Perotto}, {Perrotta},
-  {Pettorino}, {Piacentini}, {Piat}, {Plaszczynski}, {Pointecouteau},
-  {Polenta}, {Ponthieu}, {Popa}, {Pratt}, {Prunet}, {Puget}, {Rachen}, {Reach},
-  {Rebolo}, {Reinecke}, {Remazeilles}, {Renault}, {Ristorcelli}, {Rocha},
-  {Roudier}, {Rubio-Martin}, {Rusholme}, {Sandri}, {Santos}, {Scott},
-  {Spencer}, {Stolyarov}, {Sudiwala}, {Sunyaev}, {Sutton}, {Suur-Uski},
-  {Sygnet}, {Tauber}, {Terenzi}, {Toffolatti}, {Tomasi}, {Tristram}, {Tucci},
-  {Umana}, {Valenziano}, {Valiviita}, {Van Tent}, {Vielva}, {Villa}, {Wade},
-  {Wandelt}, {Wehus}, {Ysard}, {Yvon}, {Zacchei}, and
-  {Zonca}]{plank-collaboration:2014}
+\bibitem{plank-collaboration:2014}
 {Plank Collaboration}, P.~A.~R. {Ade}, N.~{Aghanim}, M.~I.~R. {Alves},
   G.~{Aniano}, M.~{Arnaud}, M.~{Ashdown}, J.~{Aumont}, C.~{Baccigalupi}, A.~J.
   {Banday}, R.~B. {Barreiro}, N.~{Bartolo}, E.~{Battaner}, K.~{Benabed},
@@ -224,19 +139,21 @@ Eric Hivon, Krzysztof~M. G{\'o}rski, C.~Barth Netterfield, Brendan~P. Crill,
   A.~{Zacchei}, and A.~{Zonca}.
 \newblock {Planck intermediate results. XXIX. All-sky dust modelling with
   Planck, IRAS, and WISE observations}.
-\newblock \emph{ArXiv e-prints}, September 2014.
+\newblock {\em ArXiv e-prints}, September 2014.
 
-\bibitem[{Boulanger} et~al.(1996){Boulanger}, {Abergel}, {Bernard}, {Burton},
-  {Desert}, {Hartmann}, {Lagache}, and {Puget}]{boulanger:1996}
-F.~{Boulanger}, A.~{Abergel}, J.-P. {Bernard}, W.~B. {Burton}, F.-X. {Desert},
-  D.~{Hartmann}, G.~{Lagache}, and J.-L. {Puget}.
-\newblock {The dust/gas correlation at high Galactic latitude.}
-\newblock \emph{\aap}, 312:\penalty0 256--262, August 1996.
+\bibitem{sherwin:2015}
+B.~D. {Sherwin} and M.~{Schmittfull}.
+\newblock {Delensing the CMB with the Cosmic Infrared Background}.
+\newblock {\em ArXiv e-prints}, February 2015.
 
-\bibitem[{Lewis} and {Challinor}(2006)]{lewis:2006}
-A.~{Lewis} and A.~{Challinor}.
-\newblock {Weak gravitational lensing of the CMB}.
-\newblock \emph{\physrep}, 429:\penalty0 1--65, June 2006.
-\newblock \doi{10.1016/j.physrep.2006.03.002}.
+\bibitem{smith:2012}
+K.~M. {Smith}, D.~{Hanson}, M.~{LoVerde}, C.~M. {Hirata}, and O.~{Zahn}.
+\newblock {Delensing CMB polarization with external datasets}.
+\newblock {\em \jcap}, 6:14, June 2012.
+
+\bibitem{szapudi:2001}
+I.~{Szapudi}, S.~{Prunet}, and S.~{Colombi}.
+\newblock {Fast Clustering Analysis of Inhomogeneous Megapixel CMB maps}.
+\newblock {\em ArXiv Astrophysics e-prints}, July 2001.
 
 \end{thebibliography}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  31 MAR 2015 16:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  3 APR 2015 09:52
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -224,14 +224,6 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \epsfxsize=\dimen113
 \epsfysize=\dimen114
 )
-(/usr/local/texlive/2014/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2014/04/23 v1.1a Standard LaTeX Color (DPC)
-
-(/usr/local/texlive/2014/texmf-dist/tex/latex/latexconfig/color.cfg
-File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
-)
-Package color Info: Driver file: pdftex.def on input line 137.
-)
 (/usr/local/texlive/2014/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
 
@@ -376,6 +368,14 @@ Package: inputenc 2014/04/30 v1.2b Input encoding file
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/applemac.def
 File: applemac.def 2014/04/30 v1.2b Input encoding file
 ))
+(/usr/local/texlive/2014/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2014/04/23 v1.1a Standard LaTeX Color (DPC)
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 137.
+)
 (/usr/local/texlive/2014/texmf-dist/tex/latex/oberdiek/epstopdf.sty
 Package: epstopdf 2010/02/09 v2.5 Conversion with epstopdf on the fly (HO)
 
@@ -433,7 +433,7 @@ Package caption Info: hyperref package is loaded.
 Package grfext Info: Graphics extension search list:
 (grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
 G,.JBIG2,.JB2,.eps,.gif]
-(grfext)             \AppendGraphicsExtensions on input line 22.
+(grfext)             \AppendGraphicsExtensions on input line 16.
 )
 Class revtex4-1 Info: Patching LaTeX tabular. on input line 82.
 Class revtex4-1 Info: Robustifying \LaTeX's \boldmath command on input line 82.
@@ -441,11 +441,7 @@ Class revtex4-1 Info: Robustifying \LaTeX's \boldmath command on input line 82.
 Class revtex4-1 Info: cite was not loaded (OK!) on input line 82.
 Class revtex4-1 Info: mcite was not loaded (OK!) on input line 82.
 Class revtex4-1 Info: multicol was not loaded (OK!) on input line 82.
- (./DES_rec_phi_paper.aux
-
-LaTeX Warning: Label `fig:corr' multiply defined.
-
-)
+ (./DES_rec_phi_paper.aux)
 \openout1 = `DES_rec_phi_paper.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
@@ -462,7 +458,8 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 82.
 LaTeX Font Info:    ... okay on input line 82.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 82.
 LaTeX Font Info:    ... okay on input line 82.
- (/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
+
+(/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count126
 \scratchdimen=\dimen134
@@ -550,21 +547,21 @@ Class revtex4-1 Warning: Assuming \noaffiliation for authors.
 File: ../images/spectra.pdf Graphic file (type pdf)
 
 <use ../images/spectra.pdf>
-Package pdftex.def Info: ../images/spectra.pdf used on input line 107.
+Package pdftex.def Info: ../images/spectra.pdf used on input line 108.
 (pdftex.def)             Requested size: 277.19931pt x 221.75943pt.
 
-<../images/clbb_res.pdf, id=34, 277.20001pt x 221.76pt>
+<../images/clbb_res.pdf, id=36, 277.20001pt x 221.76pt>
 File: ../images/clbb_res.pdf Graphic file (type pdf)
 
 <use ../images/clbb_res.pdf>
-Package pdftex.def Info: ../images/clbb_res.pdf used on input line 118.
+Package pdftex.def Info: ../images/clbb_res.pdf used on input line 121.
 (pdftex.def)             Requested size: 277.19931pt x 221.75943pt.
 
-<../images/compare_kernel.pdf, id=35, 277.20001pt x 221.76pt>
+<../images/compare_kernel.pdf, id=39, 277.20001pt x 221.76pt>
 File: ../images/compare_kernel.pdf Graphic file (type pdf)
 
 <use ../images/compare_kernel.pdf>
-Package pdftex.def Info: ../images/compare_kernel.pdf used on input line 128.
+Package pdftex.def Info: ../images/compare_kernel.pdf used on input line 132.
 (pdftex.def)             Requested size: 277.19931pt x 221.75943pt.
  [1{/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <../i
 mages/spectra.pdf>] [2 <../images/clbb_res.pdf> <../images/compare_kernel.pdf
@@ -572,25 +569,28 @@ mages/spectra.pdf>] [2 <../images/clbb_res.pdf> <../images/compare_kernel.pdf
 pdfTeX warning: /usr/texbin/pdflatex (file ../images/compare_kernel.pdf): PDF i
 nclusion: multiple pdfs with page group included in a single page
 >] [3] (./DES_rec_phi_paper.bbl [4]) [5]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 224.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 238.
  (./DES_rec_phi_paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 224.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 224.
-Package rerunfilecheck Info: File `DES_rec_phi_paper.out' has not changed.
-(rerunfilecheck)             Checksum: 162BABE6995085F7585636B5114728D4;490.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 238.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 238.
 
 
-LaTeX Warning: There were multiply-defined labels.
+Package rerunfilecheck Warning: File `DES_rec_phi_paper.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
 
+Package rerunfilecheck Info: Checksums for `DES_rec_phi_paper.out':
+(rerunfilecheck)             Before: 162BABE6995085F7585636B5114728D4;490
+(rerunfilecheck)             After:  FCD5EE0D58FF17C71168D021EAD67425;505.
  ) 
 Here is how much of TeX's memory you used:
- 9988 strings out of 493117
- 145577 string characters out of 6135433
- 269360 words of memory out of 5000000
- 13275 multiletter control sequences out of 15000+600000
- 14161 words of font info for 53 fonts, out of 8000000 for 9000
+ 9989 strings out of 493117
+ 145606 string characters out of 6135433
+ 264463 words of memory out of 5000000
+ 13277 multiletter control sequences out of 15000+600000
+ 13994 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 44i,11n,40p,2429b,501s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 44i,11n,40p,668b,511s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></
@@ -613,12 +613,11 @@ st/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2014/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2014/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2014/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2014/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmtt9.pfb>
-Output written on DES_rec_phi_paper.pdf (5 pages, 558483 bytes).
+/type1/public/amsfonts/cm/cmti9.pfb>
+Output written on DES_rec_phi_paper.pdf (5 pages, 548896 bytes).
 PDF statistics:
- 281 PDF objects out of 1000 (max. 8388607)
- 243 compressed objects within 3 object streams
+ 272 PDF objects out of 1000 (max. 8388607)
+ 233 compressed objects within 3 object streams
  43 named destinations out of 1000 (max. 500000)
  72 words of extra memory for PDF output out of 10000 (max. 10000000)
 

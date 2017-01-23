@@ -6,6 +6,7 @@ import scipy as sp
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
+from itertools import cycle
 
 import matplotlib.pyplot as plt
 
@@ -35,6 +36,7 @@ pyximport.install(reload_support=True)
 try:
     cmap = palettable.colorbrewer.get_map('RdBu', 'diverging', 11, reverse=True).mpl_colormap
     plt.rcParams['image.cmap'] = cmap
+
 except Exception, e:
     print 'probably palettable not found'
 
@@ -57,7 +59,13 @@ cldesi = np.loadtxt(datadir + 'cldesi.txt')
 clkappadesi = np.loadtxt(datadir + 'cldesik.txt')
 desi_clkappa = np.loadtxt(datadir + 'clk.txt')
 # combined rho coming from multiple_survey_delens.py on midway
-rho_comb = np.loadtxt(datadir + 'rho_comb_des_cib.txt')
+rho_comb_des_cib = np.loadtxt(datadir + 'rho_comb_des_cib.txt')
+rho_comb_des_cib_cmb= np.loadtxt(datadir + 'rho_comb_des_cib_cmb.txt')
+rho_des = np.loadtxt(datadir + 'rho_des.txt')
+rho_cib = np.loadtxt(datadir + 'rho_cib.txt')
+rho_cmb = np.loadtxt(datadir + 'rho_cmb.txt')
+
+
 
 
 # ADD NOISE
@@ -78,7 +86,7 @@ nlgg = 1. / (3207184. / rad_sq) * np.ones_like(cldes)  # they mention N=2.1 10^-
 # ============================================
 # SIZE OF THE PICTURE
 # ============================================
-WIDTH = 462.0  # the number latex spits out
+WIDTH = 700.0  # the number latex spits out
 # the fraction of the width you'd like the figure to occupy, 0.5 if double
 # column cause
 FACTOR = 0.6
@@ -110,8 +118,7 @@ plt.rcParams['axes.titlesize'] = font_size * 1.3
 plt.rcParams['legend.fontsize'] = font_size
 plt.rcParams['xtick.labelsize'] = font_size / 1.2
 plt.rcParams['ytick.labelsize'] = font_size / 1.2
-plt.rcParams['axes.color_cycle'] = '#e41a1c,#377eb8,#4daf4a,#984ea3,#ff7f00,#ffff33,#a65628'
-
+# plt.rcParams['axes.color_cycle'] = '#e41a1c,#377eb8,#4daf4a,#984ea3,#ff7f00,#ffff33,#a65628'
 
 # ============================================
 
@@ -136,7 +143,8 @@ plt.rcParams['legend.frameon'] = False
 plt.rcParams['legend.numpoints'] = 1
 plt.rcParams['legend.handletextpad'] = 0.3
 # ============================================
-
+lines = ["-","--","-.",":"]
+linecycler = cycle(lines)
 
 # PLOTS
 fg = plt.figure(figsize=fig_dims)
@@ -144,12 +152,17 @@ fg = plt.figure(figsize=fig_dims)
 
 ax1 = fg.add_subplot(111)
 
-plt.plot(ell, clkappacib / np.sqrt(clkappa * (clcib + 225.)), color='#e41a1c', linestyle='--')
-plt.plot(ell, clkappacib / np.sqrt(clkappa * (clcib)), color='#e41a1c', label='CIB Hall model')
-plt.plot(ell, clkappades / np.sqrt(clkappa * cldes), color='#377eb8', label='D.E.S')
-plt.plot(ell, clkappades / np.sqrt(clkappa * (cldes + nlgg)), color='#377eb8', linestyle='--')
-plt.plot( desi_ell, clkappadesi / np.sqrt(desi_clkappa * cldesi), color='#4daf4a', label='DESI')
-plt.plot( rho_comb[:,0], rho_comb[:,1], color='#984ea3', linestyle='-.', label='CIB+D.E.S no noise')
+ax1.set_color_cycle(palettable.colorbrewer.qualitative.Dark2_8.mpl_colors)
+
+# plt.plot(ell, clkappacib / np.sqrt(clkappa * (clcib + 225.)), linestyle='--')
+plt.plot(rho_cib[:,0], rho_cib[:,1],  label='CIB Hall model', linestyle = next(linecycler))
+plt.plot(rho_des[:,0], rho_des[:,1],  label='D.E.S', linestyle = next(linecycler))
+plt.plot(rho_cmb[:,0], rho_cmb[:,1],  label='CMB', linestyle = next(linecycler))
+
+# plt.plot(ell, clkappades / np.sqrt(clkappa * (cldes + nlgg)), color='#377eb8', linestyle='--')
+plt.plot( desi_ell, clkappadesi / np.sqrt(desi_clkappa * cldesi),  label='DESI', linestyle = next(linecycler))
+plt.plot( rho_comb_des_cib[:,0], rho_comb_des_cib[:,1],   label='CIB+D.E.S', linestyle = next(linecycler))
+plt.plot( rho_comb_des_cib_cmb[:,0], rho_comb_des_cib_cmb[:,1],  label='CIB+D.E.S+CMB', linestyle = next(linecycler))
 
 
 plt.xlabel(r'\ell')
