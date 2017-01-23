@@ -1,13 +1,24 @@
+'''
+
+
+
+'''
+
+
+
 import numpy as np
 import kappa_cmb_kernel as kappa_kernel
 import gals_kernel
 import hall_CIB_kernel as cib_hall
 import scipy.integrate
 from scipy.interpolate import RectBivariateSpline, interp1d, InterpolatedUnivariateSpline
-zpower = np.loadtxt('output/matter_power_nl/z.txt')
-kpower = np.loadtxt('output/matter_power_nl/k_h.txt')
-powerarray = np.loadtxt('output/matter_power_nl/p_k.txt')
-powerarray = np.loadtxt('output/matter_power_nl/p_k.txt').reshape([np.size(zpower), np.size(kpower)]).T
+
+spectra_dir = '/home/manzotti/cosmosis/modules/limber/'
+
+zpower = np.loadtxt(spectra_dir+'output/matter_power_nl/z.txt')
+kpower = np.loadtxt(spectra_dir+'output/matter_power_nl/k_h.txt')
+powerarray = np.loadtxt(spectra_dir+'output/matter_power_nl/p_k.txt')
+powerarray = np.loadtxt(spectra_dir+'output/matter_power_nl/p_k.txt').reshape([np.size(zpower), np.size(kpower)]).T
 rbs = RectBivariateSpline(kpower, zpower, powerarray)
 
 omega_m = 0.3
@@ -15,16 +26,16 @@ omega_m = 0.3
 h0 = 0.7
 
 
-h = np.loadtxt('output/distances/h.txt')
+h = np.loadtxt(spectra_dir+'output/distances/h.txt')
 tmp = h[::-1]
 h = tmp
 
 xlss = 13615.317054155654
-zdist = np.loadtxt('output/distances/z.txt')
+zdist = np.loadtxt(spectra_dir+'output/distances/z.txt')
 tmp = zdist[::-1]
 zdist = tmp
 
-d_m = np.loadtxt('output/distances/d_m.txt')
+d_m = np.loadtxt(spectra_dir+'output/distances/d_m.txt')
 tmp = d_m[::-1]
 d_m = tmp
 
@@ -36,14 +47,14 @@ chispline = interp1d(zdist, d_m)
 z_chi_spline = interp1d(d_m, zdist)
 hspline = interp1d(zdist, h)
 
-dndz_filename = 'data_input/DES/N_z_wavg_spread_model_0.2_1.2_tpz.txt'
+dndz_filename = spectra_dir+'data_input/DES/N_z_wavg_spread_model_0.2_1.2_tpz.txt'
 dndz_des = np.loadtxt(dndz_filename)
 dndzfun = interp1d(dndz_des[:, 0], dndz_des[:, 1])
 norm = scipy.integrate.quad(dndzfun, dndz_des[0, 0], dndz_des[-1, 0])[0]
 # normalize
 dndzfun_des = interp1d(dndz_des[:, 0], dndz_des[:, 1] / norm)
 
-dndz_filename = 'data_input/DESI/DESI_dndz.txt'
+dndz_filename = spectra_dir+'data_input/DESI/DESI_dndz.txt'
 dndz = np.loadtxt(dndz_filename)
 dndz[:, 1] = np.sum(dndz[:, 1:], axis=1)
 norm = scipy.integrate.quad(dndzfun, dndz[0, 0], dndz[-2, 0], limit=100, epsrel=1.49e-03)[0]
@@ -94,10 +105,10 @@ for i, z in enumerate(z_desi):
     x = chispline(z)
     w_desi[i] = desi.w_lxz(l, x, z) / hspline(z)
 
-np.savetxt('output/limber_spectra/desi_kernel_l30.txt', np.vstack((z_desi, w_desi)).T)
-np.savetxt('output/limber_spectra/des_kernel_l30.txt', np.vstack((z_des, w_des)).T)
-np.savetxt('output/limber_spectra/cib_kernel_l30.txt', np.vstack((z_cib, w_cib)).T)
-np.savetxt('output/limber_spectra/kappa_kernel_l30.txt', np.vstack((z_kappa, w_kappa)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/desi_kernel_l30.txt', np.vstack((z_desi, w_desi)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/des_kernel_l30.txt', np.vstack((z_des, w_des)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/cib_kernel_l30.txt', np.vstack((z_cib, w_cib)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/kappa_kernel_l30.txt', np.vstack((z_kappa, w_kappa)).T)
 
 l = 30
 z_kappa = np.linspace(0, 13, 500)
@@ -131,13 +142,13 @@ for i, z in enumerate(z_desi):
     x = chispline(z)
     w_desi[i] = desi.w_lxz(l, x, z)
 
-np.savetxt('output/limber_spectra/desi_kernel_l30_h.txt', np.vstack((z_desi, w_desi)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/desi_kernel_l30_h.txt', np.vstack((z_desi, w_desi)).T)
 # plt.plot(z_des,w_des,label='des')
 
 
-np.savetxt('output/limber_spectra/des_kernel_l30_h.txt', np.vstack((z_des, w_des)).T)
-np.savetxt('output/limber_spectra/cib_kernel_l30_h.txt', np.vstack((z_cib, w_cib)).T)
-np.savetxt('output/limber_spectra/kappa_kernel_l30_h.txt', np.vstack((z_kappa, w_kappa)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/des_kernel_l30_h.txt', np.vstack((z_des, w_des)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/cib_kernel_l30_h.txt', np.vstack((z_cib, w_cib)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/kappa_kernel_l30_h.txt', np.vstack((z_kappa, w_kappa)).T)
 
 
 # ========================================================================
@@ -177,11 +188,11 @@ for i, z in enumerate(z_desi):
     x = chispline(z)
     w_desi[i] = desi.w_lxz(l, x, z) / hspline(z)
 
-np.savetxt('output/limber_spectra/desi_kernel_l100.txt', np.vstack((z_desi, w_desi)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/desi_kernel_l100.txt', np.vstack((z_desi, w_desi)).T)
 
-np.savetxt('output/limber_spectra/des_kernel_l100.txt', np.vstack((z_des, w_des)).T)
-np.savetxt('output/limber_spectra/cib_kernel_l100.txt', np.vstack((z_cib, w_cib)).T)
-np.savetxt('output/limber_spectra/kappa_kernel_l100.txt', np.vstack((z_kappa, w_kappa)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/des_kernel_l100.txt', np.vstack((z_des, w_des)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/cib_kernel_l100.txt', np.vstack((z_cib, w_cib)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/kappa_kernel_l100.txt', np.vstack((z_kappa, w_kappa)).T)
 
 
 l = 100
@@ -219,11 +230,11 @@ for i, z in enumerate(z_desi):
     x = chispline(z)
     w_desi[i] = desi.w_lxz(l, x, z)
 
-np.savetxt('output/limber_spectra/desi_kernel_l100_h.txt', np.vstack((z_desi, w_desi)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/desi_kernel_l100_h.txt', np.vstack((z_desi, w_desi)).T)
 
-np.savetxt('output/limber_spectra/des_kernel_l100_h.txt', np.vstack((z_des, w_des)).T)
-np.savetxt('output/limber_spectra/cib_kernel_l100_h.txt', np.vstack((z_cib, w_cib)).T)
-np.savetxt('output/limber_spectra/kappa_kernel_l100_h.txt', np.vstack((z_kappa, w_kappa)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/des_kernel_l100_h.txt', np.vstack((z_des, w_des)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/cib_kernel_l100_h.txt', np.vstack((z_cib, w_cib)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/kappa_kernel_l100_h.txt', np.vstack((z_kappa, w_kappa)).T)
 
 # ========================================================================
 
@@ -262,10 +273,10 @@ for i, z in enumerate(z_desi):
     x = chispline(z)
     w_desi[i] = desi.w_lxz(l, x, z) / hspline(z)
 
-np.savetxt('output/limber_spectra/desi_kernel_l500.txt', np.vstack((z_desi, w_desi)).T)
-np.savetxt('output/limber_spectra/des_kernel_l500.txt', np.vstack((z_des, w_des)).T)
-np.savetxt('output/limber_spectra/cib_kernel_l500.txt', np.vstack((z_cib, w_cib)).T)
-np.savetxt('output/limber_spectra/kappa_kernel_l500.txt', np.vstack((z_kappa, w_kappa)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/desi_kernel_l500.txt', np.vstack((z_desi, w_desi)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/des_kernel_l500.txt', np.vstack((z_des, w_des)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/cib_kernel_l500.txt', np.vstack((z_cib, w_cib)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/kappa_kernel_l500.txt', np.vstack((z_kappa, w_kappa)).T)
 
 l = 500
 z_kappa = np.linspace(0, 13, 500)
@@ -299,7 +310,7 @@ for i, z in enumerate(z_desi):
     x = chispline(z)
     w_desi[i] = desi.w_lxz(l, x, z)
 
-np.savetxt('output/limber_spectra/desi_kernel_l500_h.txt', np.vstack((z_desi, w_desi)).T)
-np.savetxt('output/limber_spectra/des_kernel_l500_h.txt', np.vstack((z_des, w_des)).T)
-np.savetxt('output/limber_spectra/cib_kernel_l500_h.txt', np.vstack((z_cib, w_cib)).T)
-np.savetxt('output/limber_spectra/kappa_kernel_l500_h.txt', np.vstack((z_kappa, w_kappa)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/desi_kernel_l500_h.txt', np.vstack((z_desi, w_desi)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/des_kernel_l500_h.txt', np.vstack((z_des, w_des)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/cib_kernel_l500_h.txt', np.vstack((z_cib, w_cib)).T)
+np.savetxt(spectra_dir+'output/limber_spectra/kappa_kernel_l500_h.txt', np.vstack((z_kappa, w_kappa)).T)
