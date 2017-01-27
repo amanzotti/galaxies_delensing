@@ -16,10 +16,10 @@ def generate_CMB_rho():
     '''
 
     clpp_th = np.loadtxt(
-        '/home/manzotti/my_version_cosmosis/cosmosis-standard-library/structure/PS_limber/cib_des_delens/cmb_cl/pp.txt')
+        '/home/manzotti/cosmosis/modules/limber/cib_des_delens/cmb_cl/pp.txt')
 
     ells_cmb = np.loadtxt(
-        '/home/manzotti/my_version_cosmosis/cosmosis-standard-library/structure/PS_limber/cib_des_delens/cmb_cl/ell.txt')
+        '/home/manzotti/cosmosis/modules/limber/cib_des_delens/cmb_cl/ell.txt')
 
     # noise is a 2d array first column is ell second is cl
     noise_cl = np.loadtxt(
@@ -35,34 +35,35 @@ def generate_CMB_rho():
 
 lmin = 60
 
-datadir = '/home/manzotti/my_version_cosmosis/cosmosis-standard-library/structure/PS_limber/cib_des_delens/'
+datadir = '/home/manzotti/cosmosis/modules/limber/cib_des_delens/'
 
 clpp = np.loadtxt(datadir + 'cmb_cl/pp.txt')
 clee = np.loadtxt(datadir + 'cmb_cl/ee.txt')
 ells_cmb = np.loadtxt(datadir + 'cmb_cl/ell.txt')
 
 clee *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
-clpp = clpp / (ells_cmb.astype(float)) ** 4
+clpp = clpp * 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
 
 
-lbins = np.logspace(1, 3.2, 90)
+lbins = np.logspace(1, 3.5, 190)
 
 clbb = lensing.utils.calc_lensed_clbb_first_order(
     lbins, clee, clpp, lmax=ells_cmb[-1], nx=2048, dx=4. / 60. / 180. * np.pi)
+
 clbb_th = np.loadtxt(
-    '/home/manzotti/my_version_cosmosis/cosmosis-standard-library/structure/PS_limber/cib_des_delens/cmb_cl/bb.txt')
+    '/home/manzotti/cosmosis/modules/limber/cib_des_delens/cmb_cl/bb.txt')
 clbb_th *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
 
 
 rho_cib = np.loadtxt(
-    '/home/manzotti/my_version_cosmosis/cosmosis-standard-library/structure/PS_limber/cib_des_delens/limber_spectra/rho_cib.txt')
+    '/home/manzotti/cosmosis/modules/limber/cib_des_delens/limber_spectra/rho_cib.txt')
 rho_des = np.loadtxt(
-    '/home/manzotti/my_version_cosmosis/cosmosis-standard-library/structure/PS_limber/cib_des_delens/limber_spectra/rho_des.txt')
+    '/home/manzotti/cosmosis/modules/limber/cib_des_delens/limber_spectra/rho_des.txt')
 rho_des_cib = np.loadtxt(
-    '/home/manzotti/my_version_cosmosis/cosmosis-standard-library/structure/PS_limber/cib_des_delens/limber_spectra/rho_comb_des_cib.txt')
+    '/home/manzotti/cosmosis/modules/limber/cib_des_delens/limber_spectra/rho_comb_des_cib.txt')
 
 rho_des_cib_cmb = np.loadtxt(
-    '/home/manzotti/my_version_cosmosis/cosmosis-standard-library/structure/PS_limber/cib_des_delens/limber_spectra/rho_comb_des_cib_cmb.txt')
+    '/home/manzotti/cosmosis/modules/limber/cib_des_delens/limber_spectra/rho_comb_des_cib_cmb.txt')
 
 for i, l in enumerate(rho_cib[:, 0]):
     if l < lmin:
@@ -74,6 +75,8 @@ rho_des_cib_fun = interp1d(rho_des_cib[:, 0], rho_des_cib[:, 1])
 rho_des_cib_cmb_fun = interp1d(rho_des_cib_cmb[:, 0], rho_des_cib_cmb[:, 1])
 
 # print ells_cmb,ells_desi,ells_des
+
+# nle noise
 
 clbb_cib = lensing.utils.calc_lensed_clbb_first_order(
     lbins, clee, clpp * (1. - rho_cib_fun(ells_cmb) ** 2), lmax=ells_cmb[-1], nx=2048, dx=4. / 60. / 180. * np.pi)
