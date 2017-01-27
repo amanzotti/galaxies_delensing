@@ -78,14 +78,16 @@ rho_des_cib_cmb_fun = interp1d(rho_des_cib_cmb[:, 0], rho_des_cib_cmb[:, 1])
 
 # nle noise
 
+nle = lensing.utils.nl(1, 1, lmax=ells_cmb[-1])
+
 clbb_cib = lensing.utils.calc_lensed_clbb_first_order(
-    lbins, clee, clpp * (1. - rho_cib_fun(ells_cmb) ** 2), lmax=ells_cmb[-1], nx=2048, dx=4. / 60. / 180. * np.pi)
+    lbins, clee, clpp * (1. - (clee / (clee + nle)) * rho_cib_fun(ells_cmb) ** 2), lmax=ells_cmb[-1], nx=2048, dx=4. / 60. / 180. * np.pi)
 clbb_des = lensing.utils.calc_lensed_clbb_first_order(
-    lbins, clee, clpp * (1. - rho_des_fun(ells_cmb) ** 2), lmax=ells_cmb[-1], nx=2048, dx=4. / 60. / 180. * np.pi)
+    lbins, clee, clpp * (1. - (clee / (clee + nle)) * rho_cib_fun(ells_cmb) ** 2), lmax=ells_cmb[-1], nx=2048, dx=4. / 60. / 180. * np.pi)
 clbb_des_cib = lensing.utils.calc_lensed_clbb_first_order(
-    lbins, clee, clpp * (1. - rho_des_cib_fun(ells_cmb) ** 2), lmax=ells_cmb[-1], nx=2048, dx=4. / 60. / 180. * np.pi)
+    lbins, clee, clpp * (1. - (clee / (clee + nle)) * rho_cib_fun(ells_cmb) ** 2), lmax=ells_cmb[-1], nx=2048, dx=4. / 60. / 180. * np.pi)
 clbb_des_cib_cmb = lensing.utils.calc_lensed_clbb_first_order(
-    lbins, clee, clpp * (1. - rho_des_cib_cmb_fun(ells_cmb) ** 2), lmax=ells_cmb[-1], nx=2048, dx=4. / 60. / 180. * np.pi)
+    lbins, clee, clpp * (1. - (clee / (clee + nle)) * rho_cib_fun(ells_cmb) ** 2), lmax=ells_cmb[-1], nx=2048, dx=4. / 60. / 180. * np.pi)
 
 np.savetxt(datadir + 'limber_spectra/cbb_res_cib.txt',
            np.array(clbb_cib.specs['cl'], dtype=float))
