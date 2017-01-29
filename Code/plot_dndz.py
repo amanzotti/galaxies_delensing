@@ -45,8 +45,7 @@ image_dir = '../images/'
 
 
 # Import data
-des_dndz=np.loadtxt("/Users/alessandromanzotti/Work/Software/cosmosis_new/cosmosis-standard-library/structure/PS_limber/data_input/DES/N_z_wavg_spread_model_0.2_1.2_tpz.txt")
-
+des_dndz = np.loadtxt("/home/manzotti/cosmosis/modules/limber/data_input/DES/N_z_wavg_spread_model_0.2_1.2_tpz.txt")
 
 
 # ============================================
@@ -80,7 +79,7 @@ plt.rcParams['font.size'] = font_size
 
 plt.rcParams['axes.labelsize'] = font_size
 plt.rcParams['axes.linewidth'] = font_size / 22.
-plt.rcParams['axes.titlesize'] = font_size*1.3
+plt.rcParams['axes.titlesize'] = font_size * 1.3
 plt.rcParams['legend.fontsize'] = font_size
 plt.rcParams['xtick.labelsize'] = font_size / 1.2
 plt.rcParams['ytick.labelsize'] = font_size / 1.2
@@ -118,7 +117,7 @@ fg = plt.figure(figsize=fig_dims)
 
 ax1 = fg.add_subplot(111)
 
-plt.plot(des_dndz[:,0], des_dndz[:,1],label='D.E.S')
+plt.plot(des_dndz[:, 0], des_dndz[:, 1], label='D.E.S')
 
 plt.xlabel(r'z')
 plt.ylabel(r' $dN/dz$ ')

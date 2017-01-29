@@ -59,7 +59,7 @@ cibkernel_l500 = np.loadtxt(datadir + 'cib_kernel_l500.txt')
 
 cibkernel_l30_h = np.loadtxt(datadir + 'cib_kernel_l30_h.txt')
 cibkernel_l100_h = np.loadtxt(datadir + 'cib_kernel_l100_h.txt')
-cibkernel_l500_h= np.loadtxt(datadir + 'cib_kernel_l500_h.txt')
+cibkernel_l500_h = np.loadtxt(datadir + 'cib_kernel_l500_h.txt')
 
 
 deskernel_l30 = np.loadtxt(datadir + 'des_kernel_l30.txt')
@@ -68,7 +68,7 @@ deskernel_l500 = np.loadtxt(datadir + 'des_kernel_l500.txt')
 
 deskernel_l30_h = np.loadtxt(datadir + 'des_kernel_l30_h.txt')
 deskernel_l100_h = np.loadtxt(datadir + 'des_kernel_l100_h.txt')
-deskernel_l500_h= np.loadtxt(datadir + 'des_kernel_l500_h.txt')
+deskernel_l500_h = np.loadtxt(datadir + 'des_kernel_l500_h.txt')
 
 desikernel_l30 = np.loadtxt(datadir + 'desi_kernel_l30.txt')
 desikernel_l100 = np.loadtxt(datadir + 'desi_kernel_l100.txt')
@@ -76,7 +76,7 @@ desikernel_l500 = np.loadtxt(datadir + 'desi_kernel_l500.txt')
 
 desikernel_l30_h = np.loadtxt(datadir + 'desi_kernel_l30_h.txt')
 desikernel_l100_h = np.loadtxt(datadir + 'desi_kernel_l100_h.txt')
-desikernel_l500_h= np.loadtxt(datadir + 'desi_kernel_l500_h.txt')
+desikernel_l500_h = np.loadtxt(datadir + 'desi_kernel_l500_h.txt')
 
 # ============================================
 # SIZE OF THE PICTURE
@@ -109,7 +109,7 @@ plt.rcParams['font.size'] = font_size
 
 plt.rcParams['axes.labelsize'] = font_size * 1.3
 plt.rcParams['axes.linewidth'] = font_size / 22.
-plt.rcParams['axes.titlesize'] = font_size*1.3
+plt.rcParams['axes.titlesize'] = font_size * 1.3
 plt.rcParams['legend.fontsize'] = font_size
 plt.rcParams['xtick.labelsize'] = font_size / 1.2
 plt.rcParams['ytick.labelsize'] = font_size / 1.2
@@ -147,32 +147,28 @@ fg = plt.figure(figsize=fig_dims)
 
 ax1 = fg.add_subplot(111)
 
-plt.plot(kappakernel_l30[:,0],kappakernel_l30[:,1]/np.max(kappakernel_l30[:,1]),color='#e41a1c',label=r'$CMB$')
-plt.plot(kappakernel_l30[:,0],kappakernel_l100[:,1]/np.max(kappakernel_l100[:,1]),color='#e41a1c',linestyle=':')
-plt.plot(kappakernel_l30[:,0],kappakernel_l500[:,1]/np.max(kappakernel_l500[:,1]),color='#e41a1c',linestyle='--')
+plt.plot(kappakernel_l30[:, 0], kappakernel_l30[:, 1] / np.max(kappakernel_l30[:, 1]), color='#e41a1c', label=r'$CMB$')
+plt.plot(kappakernel_l30[:, 0], kappakernel_l100[:, 1] / np.max(kappakernel_l100[:, 1]), color='#e41a1c', linestyle=':')
+plt.plot(kappakernel_l30[:, 0], kappakernel_l500[:, 1] / np.max(kappakernel_l500[:, 1]), color='#e41a1c', linestyle='--')
 
-plt.plot(cibkernel_l30[:,0],cibkernel_l30[:,1]/np.max(cibkernel_l30[:,1]),color='#377eb8',label=r'$CIB$')
-plt.plot(cibkernel_l30[:,0],cibkernel_l100[:,1]/np.max(cibkernel_l100[:,1]),color='#377eb8',linestyle=':')
-plt.plot(cibkernel_l30[:,0],cibkernel_l500[:,1]/np.max(cibkernel_l500[:,1]),color='#377eb8',linestyle='--')
+plt.plot(cibkernel_l30[:, 0], cibkernel_l30[:, 1] / np.max(cibkernel_l30[:, 1]), color='#377eb8', label=r'$CIB$')
+plt.plot(cibkernel_l30[:, 0], cibkernel_l100[:, 1] / np.max(cibkernel_l100[:, 1]), color='#377eb8', linestyle=':')
+plt.plot(cibkernel_l30[:, 0], cibkernel_l500[:, 1] / np.max(cibkernel_l500[:, 1]), color='#377eb8', linestyle='--')
 
-plt.plot(deskernel_l30[:,0],deskernel_l30[:,1]/np.max(deskernel_l30[:,1]),color='#4daf4a',label=r'$DES$')
-plt.plot(deskernel_l30[:,0],deskernel_l100[:,1]/np.max(deskernel_l100[:,1]),color='#4daf4a',linestyle=':')
-plt.plot(deskernel_l30[:,0],deskernel_l500[:,1]/np.max(deskernel_l500[:,1]),color='#4daf4a',linestyle='--')
+plt.plot(deskernel_l30[:, 0], deskernel_l30[:, 1] / np.max(deskernel_l30[:, 1]), color='#4daf4a', label=r'$DES$')
+plt.plot(deskernel_l30[:, 0], deskernel_l100[:, 1] / np.max(deskernel_l100[:, 1]), color='#4daf4a', linestyle=':')
+plt.plot(deskernel_l30[:, 0], deskernel_l500[:, 1] / np.max(deskernel_l500[:, 1]), color='#4daf4a', linestyle='--')
 
-plt.plot(desikernel_l30[:,0],desikernel_l30[:,1]/np.max(desikernel_l30[:,1]),color='#984ea3',label=r'$DESI$')
+plt.plot(desikernel_l30[:, 0], desikernel_l30[:, 1] / np.max(desikernel_l30[:, 1]), color='#984ea3', label=r'$DESI$')
 # plt.plot(desikernel_l30[:,0],deskernel_l100[:,1]/np.max(desikernel_l100[:,1]),color='#984ea3',linestyle=':')
 # plt.plot(desikernel_l30[:,0],desikernel_l500[:,1]/np.max(desikernel_l500[:,1]),color='#984ea3',linestyle='--')
-
-
-
-
 
 
 plt.xlabel(r'z')
 plt.ylabel(r' $W(\ell,z)$ ')
 plt.legend(loc='best')
 plt.xlim(0, 4)
-plt.ylim(0,1.2)
+plt.ylim(0, 1.2)
 fg.tight_layout(pad=0.4)
 
 # ============================================

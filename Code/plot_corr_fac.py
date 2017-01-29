@@ -41,31 +41,29 @@ except Exception, e:
     print 'probably palettable not found'
 
 
-datadir = '../Data/limber_spectra/'
+datadir = '/home/manzotti/cosmosis/modules/limber/cib_des_delens/limber_spectra/'
 
 image_dir = '../images/'
 
 
 # Import data
-clkappades = np.loadtxt(datadir + 'cldeskdes.txt')
-clkappacib = np.loadtxt(datadir + 'clcibkdes.txt')
-cldes = np.loadtxt(datadir + 'cldesdes.txt')
-clcib = np.loadtxt(datadir + 'clcibdes.txt')
-clkappa = np.loadtxt(datadir + 'clkdes.txt')
-ell = np.loadtxt(datadir + 'ells_des.txt')
+clkappades = np.loadtxt(datadir + 'cldesk_delens.txt')
+clkappacib = np.loadtxt(datadir + 'clcibk_delens.txt')
+cldes = np.loadtxt(datadir + 'cldesdes_delens.txt')
+clcib = np.loadtxt(datadir + 'clcibcib_delens.txt')
+clkappa = np.loadtxt(datadir + 'clk_delens.txt')
+ell = np.loadtxt(datadir + 'ells__delens.txt')
 
-desi_ell = np.loadtxt(datadir + 'ells.txt')
-cldesi = np.loadtxt(datadir + 'cldesi.txt')
-clkappadesi = np.loadtxt(datadir + 'cldesik.txt')
-desi_clkappa = np.loadtxt(datadir + 'clk.txt')
+# desi_ell = np.loadtxt(datadir + 'ells.txt')
+# cldesi = np.loadtxt(datadir + 'cldesi.txt')
+# clkappadesi = np.loadtxt(datadir + 'cldesik.txt')
+# desi_clkappa = np.loadtxt(datadir + 'clk.txt')
 # combined rho coming from multiple_survey_delens.py on midway
 rho_comb_des_cib = np.loadtxt(datadir + 'rho_comb_des_cib.txt')
-rho_comb_des_cib_cmb= np.loadtxt(datadir + 'rho_comb_des_cib_cmb.txt')
+rho_comb_des_cib_cmb = np.loadtxt(datadir + 'rho_comb_des_cib_cmb.txt')
 rho_des = np.loadtxt(datadir + 'rho_des.txt')
 rho_cib = np.loadtxt(datadir + 'rho_cib.txt')
 rho_cmb = np.loadtxt(datadir + 'rho_cmb.txt')
-
-
 
 
 # ADD NOISE
@@ -143,7 +141,7 @@ plt.rcParams['legend.frameon'] = False
 plt.rcParams['legend.numpoints'] = 1
 plt.rcParams['legend.handletextpad'] = 0.3
 # ============================================
-lines = ["-","--","-.",":"]
+lines = ["-", "--", "-.", ":"]
 linecycler = cycle(lines)
 
 # PLOTS
@@ -155,21 +153,21 @@ ax1 = fg.add_subplot(111)
 ax1.set_color_cycle(palettable.colorbrewer.qualitative.Dark2_8.mpl_colors)
 
 # plt.plot(ell, clkappacib / np.sqrt(clkappa * (clcib + 225.)), linestyle='--')
-plt.plot(rho_cib[:,0], rho_cib[:,1],  label='CIB Hall model', linestyle = next(linecycler))
-plt.plot(rho_des[:,0], rho_des[:,1],  label='D.E.S', linestyle = next(linecycler))
-plt.plot(rho_cmb[:,0], rho_cmb[:,1],  label='CMB', linestyle = next(linecycler))
+plt.plot(rho_cib[:, 0], rho_cib[:, 1], label='CIB Hall model', linestyle=next(linecycler))
+plt.plot(rho_des[:, 0], rho_des[:, 1], label='D.E.S', linestyle=next(linecycler))
+plt.plot(rho_cmb[:, 0], rho_cmb[:, 1], label='CMB', linestyle=next(linecycler))
 
 # plt.plot(ell, clkappades / np.sqrt(clkappa * (cldes + nlgg)), color='#377eb8', linestyle='--')
-plt.plot( desi_ell, clkappadesi / np.sqrt(desi_clkappa * cldesi),  label='DESI', linestyle = next(linecycler))
-plt.plot( rho_comb_des_cib[:,0], rho_comb_des_cib[:,1],   label='CIB+D.E.S', linestyle = next(linecycler))
-plt.plot( rho_comb_des_cib_cmb[:,0], rho_comb_des_cib_cmb[:,1],  label='CIB+D.E.S+CMB', linestyle = next(linecycler))
+# plt.plot(desi_ell, clkappadesi / np.sqrt(desi_clkappa * cldesi), label='DESI', linestyle=next(linecycler))
+plt.plot(rho_comb_des_cib[:, 0], rho_comb_des_cib[:, 1], label='CIB+D.E.S', linestyle=next(linecycler))
+plt.plot(rho_comb_des_cib_cmb[:, 0], rho_comb_des_cib_cmb[:, 1], label='CIB+D.E.S+CMB', linestyle=next(linecycler))
 
 
-plt.xlabel(r'\ell')
+plt.xlabel(r'$\ell$')
 plt.ylabel(r' $\rho_{\ell} = \frac{C_{\ell}^{I\kappa}}{\sqrt{C_{\ell}^{II} C_{\ell}^{\kappa \kappa}  }  }$ ')
 plt.legend(loc='best')
 plt.xlim(40, 1000)
-plt.ylim(0.,1.)
+plt.ylim(0., 1.)
 fg.tight_layout(pad=0.4)
 
 # ============================================
