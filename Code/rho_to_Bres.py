@@ -35,26 +35,35 @@ def generate_CMB_rho():
 
 
 def compute_res(label_survey):
-    rho = np.loadtxt(
-        '/home/manzotti/cosmosis/modules/limber/galaxies_delens/limber_spectra/rho_' + label_survey + '.txt')
-    rho_fun = interp1d(rho[:, 0], rho[:, 1])
-    clbb_res = lensing.utils.calc_lensed_clbb_first_order(
-        lbins, clee, clpp * (1. - (clee / (clee + nle)) * rho_fun(ells_cmb) ** 2), lmax=ells_cmb[-1], nx=2048, dx=4. / 60. / 180. * np.pi)
+
+    if label_survey == 'test':
+        clbb_res = lensing.utils.calc_lensed_clbb_first_order(
+            lbins, clee, clpp, lmax=ells_cmb[-1], nx=2048, dx=4. / 60. / 180. * np.pi)
+    else:
+        rho = np.loadtxt(
+            '/home/manzotti/cosmosis/modules/limber/galaxies_delens/limber_spectra/rho_' + label_survey + '.txt')
+        rho_fun = interp1d(rho[:, 0], rho[:, 1], bounds_error=False, fill_value=0.)
+        clbb_res = lensing.utils.calc_lensed_clbb_first_order(
+            lbins, clee, clpp * (1. - (clee / (clee + nle)) * rho_fun(ells_cmb) ** 2), lmax=ells_cmb[-1], nx=2048, dx=4. / 60. / 180. * np.pi)
     np.savetxt(datadir + 'limber_spectra/cbb_res_' + label_survey + '.txt',
                np.array(clbb_res.specs['cl'], dtype=float))
 
 
 def compute_res_2(label_survey, clee, clpp, nle):
-    rho = np.loadtxt(
-        '/home/manzotti/cosmosis/modules/limber/galaxies_delens/limber_spectra/rho_' + label_survey + '.txt')
-    rho_fun = interp1d(rho[:, 0], rho[:, 1], bounds_error=False, fill_value=0.)
 
-    def integrand(ell):
-        # print(ell**5 / 4. / np.pi * clpp(ell) * clee(ell))
-        return ell**5 / 4. / np.pi * clpp(ell) * clee(ell) * (1. - (clee(ell) / (clee(ell) + nle(ell))) * rho_fun(ell) ** 2)
+    if label_survey == 'test':
+        def integrand(ell):
+            return ell**5 / 4. / np.pi * clpp(ell) * clee(ell)
+    else:
+        rho = np.loadtxt(
+            '/home/manzotti/cosmosis/modules/limber/galaxies_delens/limber_spectra/rho_' + label_survey + '.txt')
+        rho_fun = interp1d(rho[:, 0], rho[:, 1], bounds_error=False, fill_value=0.)
+
+        def integrand(ell):
+            return ell**5 / 4. / np.pi * clpp(ell) * clee(ell) * (1. - (clee(ell) / (clee(ell) + nle(ell))) * rho_fun(ell) ** 2)
 
     clbb_res = integrate.quad(integrand, 4, 2500, limit=100, epsrel=1.49e-09)
-    np.savetxt(datadir + 'limber_spectra/cbb_res_' + label_survey + 'test2.txt', clbb_res[0] * np.ones_like(rho[:, 0]))
+    np.savetxt(datadir + 'limber_spectra/cbb_res_' + label_survey + 'test2.txt', clbb_res[0] * np.ones(2000))
 
 
 def compute_res_3(label_survey, clee_fun, clpp_fun, nle_fun):
@@ -72,15 +81,20 @@ def compute_res_3(label_survey, clee_fun, clpp_fun, nle_fun):
 
 
 def compute_res_3_parallel(label_survey):
-    rho = np.loadtxt(
-        '/home/manzotti/cosmosis/modules/limber/galaxies_delens/limber_spectra/rho_' + label_survey + '.txt')
-    rho_fun = interp1d(rho[:, 0], rho[:, 1], bounds_error=False, fill_value=0.)
+
     print('start integration')
 
-    def integrand(theta, ell, L):
-        #     print(ell,theta)
-        clee = clee_fun(ell)
-        return (ell / (2. * np.pi)**2 * (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee * (np.sin(2. * theta))**2) * (1. - (clee / (clee + nle_fun(ell))) * rho_fun(ell) ** 2)
+    if label_survey == 'test':
+        def integrand(theta, ell, L):
+            clee = clee_fun(ell)
+            return (ell / (2. * np.pi)**2 * (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee * (np.sin(2. * theta))**2)
+    else:
+        rho = np.loadtxt(
+            '/home/manzotti/cosmosis/modules/limber/galaxies_delens/limber_spectra/rho_' + label_survey + '.txt')
+        rho_fun = interp1d(rho[:, 0], rho[:, 1], bounds_error=False, fill_value=0.)
+        def integrand(theta, ell, L):
+            clee = clee_fun(ell)
+            return (ell / (2. * np.pi)**2 * (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee * (np.sin(2. * theta))**2) * (1. - (clee / (clee + nle_fun(ell))) * rho_fun(ell) ** 2)
 
     clbb_res_ell = [integrate.dblquad(integrand, 4, 3000, lambda x: 0, lambda x: 2. * np.pi, args=(L,))[0] for L in np.arange(4, 500, 10)]
     np.savetxt(datadir + 'limber_spectra/cbb_res_' + label_survey + 'test3.txt', clbb_res_ell)
@@ -105,12 +119,12 @@ clbb_th = np.loadtxt(
     '/home/manzotti/cosmosis/modules/limber/galaxies_delens/cmb_cl/bb.txt')
 clbb_th *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
 
-surveys = ['cib', 'des', 'comb_des_cib', 'comb_des_cib_cmb', 'ska10', 'ska5', 'ska1', 'ska01', 'lsst', 'euclid']
+surveys = ['test', 'cib', 'des', 'comb_des_cib', 'comb_des_cib_cmb', 'ska10', 'ska5', 'ska1', 'ska01', 'lsst', 'euclid']
 
 nle = lensing.utils.nl(1, 1, lmax=ells_cmb[-1])[2:]
 
-# B_res = Parallel(n_jobs=len(surveys), verbose=50)(delayed(
-#     compute_res)(i) for i in surveys)
+B_res = Parallel(n_jobs=len(surveys), verbose=50)(delayed(
+    compute_res)(i) for i in surveys)
 
 clee_fun = interp1d(ells_cmb, clee, bounds_error=False, fill_value=0.)
 clpp_fun = interp1d(ells_cmb, clpp, bounds_error=False, fill_value=0.)
