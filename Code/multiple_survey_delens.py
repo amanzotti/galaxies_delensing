@@ -70,7 +70,7 @@ rho_cib = np.zeros((np.size(lbins)))
 
 
 labels = ['k', 'euclid', 'des_weak', 'lsst', 'ska10', 'ska01',
-          'ska5', 'ska1', 'lkern', 'cib', 'desi', 'des']
+          'ska5', 'ska1', 'cib', 'desi', 'des']
 cl_cross_k = {}
 cl_auto = {}
 rho = {}
@@ -91,28 +91,54 @@ for label in labels:
 # Multiple surveys
 
 labels = ['cib', 'des']
-
+cmb = 'S4'
 cgk = np.zeros((len(labels) + 1, np.size(lbins)))
 cgg = np.zeros((len(labels) + 1, len(labels) + 1, np.size(lbins)))
 
-for i in np.arange(0, n_slices):
+for i in np.arange(0, len(labels)):
     cgk[i, :] = np.loadtxt(output_dir +
                            '/limber_spectra/cl_k' + labels[i] + '_delens.txt')
 
-    for j in np.arange(i, n_slices):
+    for j in np.arange(i, len(labels)):
         cgg[i, j, :] = np.loadtxt(output_dir +
                                   '/limber_spectra/cl_' + labels[i] + labels[j] + '_delens.txt')
         cgg[j, i, :] = cgg[i, j, :]
 
 
-# add cmb lensing
+if cmb == 'S3' :
+    noise = 7.0
+    beam = 3
+    noise_phi = np.loadtxt('./quicklens/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
+    noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
+    # noise_cmb = nl(noise, beam, lmax=4000)
 
+    noise_cl[:, 1] = noise_cl[:, 1] * noise_cl[:, 0] ** 4 / \
+        4.  # because the power C_kk is l^4/4 C_phi
+    noise_fun = interp1d(np.arange(0, len(noise_phi)), noise_phi)
+    ckk_noise = np.zeros_like(ckk)
+    ckk_noise = noise_fun(lbins)
+
+
+elif cmb=='S4':
+    noise = 1.
+    beam = 1
+    noise_phi = np.loadtxt('./quicklens/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
+    noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
+    # noise_cmb = nl(noise, beam, lmax=4000)
+
+    noise_cl[:, 1] = noise_cl[:, 1] * noise_cl[:, 0] ** 4 / \
+        4.  # because the power C_kk is l^4/4 C_phi
+    noise_fun = interp1d(np.arange(0, len(noise_phi)), noise_phi)
+    ckk_noise = np.zeros_like(ckk)
+    ckk_noise = noise_fun(lbins)
+
+# add cmb lensing
 cgk[-1, :] = ckk
 cgg[-1, :, :] = cgk[:, :]
 cgg[:, -1, :] = cgg[-1, :, :]
 # add noise
 cgg[-1, -1, :] = ckk + ckk_noise
-
+rho_cmb = ckk / (ckk + ckk_noise)
 rho_comb = np.zeros_like(lbins)
 rho_gals = np.zeros_like(lbins)
 # See eq A9 of Sherwin CIB
