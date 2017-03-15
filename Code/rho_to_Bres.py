@@ -124,8 +124,16 @@ def load_res(labels):
     return res_list
 
 lmin = 60
+cosmosis_dir = '/home/manzotti/cosmosis/'
+inifile = '/home/manzotti/cosmosis/modules/limber/galaxies_delens.ini'
 
-datadir = '/home/manzotti/cosmosis/modules/limber/galaxies_delens/'
+Config_ini = ConfigParser.ConfigParser()
+values = ConfigParser.ConfigParser()
+Config_ini.read(inifile)
+values_file = Config_ini.get('pipeline', 'values')
+output_dir = Config_ini.get('test', 'save_dir')
+
+datadir = output_dir
 
 clpp = np.loadtxt(datadir + 'cmb_cl/pp.txt')
 clee = np.loadtxt(datadir + 'cmb_cl/ee.txt')
@@ -139,11 +147,11 @@ lbins = np.logspace(1, 3.5, 190)
 
 
 clbb_th = np.loadtxt(
-    '/home/manzotti/cosmosis/modules/limber/galaxies_delens/cmb_cl/bb.txt')
+    output_dir + 'cmb_cl/bb.txt')
 clbb_th *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
 
 surveys = ['test', 'cib', 'des', 'comb_des_cib', 'comb_des_cib_cmb',
-      'ska10', 'ska5', 'ska1', 'ska01', 'lsst', 'euclid']
+           'ska10', 'ska5', 'ska1', 'ska01', 'lsst', 'euclid']
 
 # surveys = ['test']
 # generating noise in E-modes

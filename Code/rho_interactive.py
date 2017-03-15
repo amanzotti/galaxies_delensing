@@ -6,11 +6,11 @@ import numpy as np
 import scipy.integrate
 from scipy.interpolate import RectBivariateSpline, interp1d, InterpolatedUnivariateSpline
 import ConfigParser
-from bokeh.io import curdoc, vplot
+from bokeh.io import curdoc, vplot, output_notebook
 from bokeh.layouts import row, widgetbox, column
 from bokeh.models import ColumnDataSource, CustomJS
-from bokeh.models.widgets import Slider, TextInput, CheckboxGroup, Button
-from bokeh.plotting import figure, output_file, show
+from bokeh.models.widgets import Slider, TextInput, RadioButtonGroup, Button
+from bokeh.plotting import figure, output_file, show, save
 from bokeh.models.widgets import CheckboxButtonGroup
 
 cosmosis_dir = '/home/manzotti/cosmosis/'
@@ -85,40 +85,61 @@ for i in np.arange(0, n_slices):
     cgg[j, i, :] = cgg[i, j, :]
 
 output_file("./lines.html", title="line plot example")
-p = figure(title="rho example", x_axis_label=r'$\ell$', y_axis_label='$\rho$')
-source = ColumnDataSource(data=dict(x=lbins, y=rho['cib']))
-source_des = ColumnDataSource(data=dict(x=lbins, y=rho['des']))
-p.line('x', 'y', source=source, line_width=3, line_alpha=0.6)
-# show(widgetbox(checkbox_button_group))
-callback = CustomJS(args=dict(source=source, source2=source_des), code="""
+# output_notebook()
+radio_button_group = RadioButtonGroup(
+    labels=["CIB", "DES"], active=0)
+
+
+
+p = figure(title="Tracer corralation", x_axis_label=r'$\ell$', y_axis_label=r'$\rho$', plot_width=800, plot_height=400)
+p.title.text = 'init'
+source = ColumnDataSource(data=dict(x=lbins, y=rho['cib'], cib = rho['cib'], des = rho['des']))
+r = p.line('x', 'y', source=source, line_width=3, line_alpha=0.6)
+p.xaxis.bounds = (0, 2000)
+p.yaxis.bounds = (0, 1)
+
+def update_data(attrname, old, new):
+
+    # Get the current slider values
+    print('in here')
+    print(old,new)
+    print(new==1)
+    p.title.text = "active " +radio_button_group.active
+    # Generate the new curve
+    if new ==1:
+        y = rho['des']
+    else:
+        y = rho['cib']
+    r.data_source.data['y'] = y
+
+callback = CustomJS(args=dict(source=source), code="""
         var data = source.get('data');
-        var data2 = source2.get('data');
-        data['x'] = data2['x'];
-        data['y'] = data2['y'];
+        data['x'] = data['x'];
+        data['y'] = data['des'];
         source.trigger('change');
     """)
 
-callback2 = CustomJS(args=dict(source=source, source2=source), code="""
+callback2 = CustomJS(args=dict(source=source), code="""
         var data = source.get('data');
-        var data2 = source2.get('data');
-        data['x'] = data2['x'];
-        data['y'] = data2['y'];
+        data['x'] = data['x'];
+        data['y'] = data['cib'];
         source.trigger('change');
     """)
 
 toggle1 = Button(label="CIB", callback=callback2, name='cib')
 toggle2 = Button(label="DES", callback=callback, name='des')
-layout = column(toggle1, toggle2, p)
-show(layout)
-# add cmb lensing
 
-cgk[-1, :] = ckk
-cgg[-1, :, :] = cgk[:, :]
-cgg[:, -1, :] = cgg[-1, :, :]
-# add noise
-cgg[-1, -1, :] = ckk  # + ckk_noise
+layout = column(toggle1,toggle2, p)
+save(layout)
+# # add cmb lensing
+
+# cgk[-1, :] = ckk
+# cgg[-1, :, :] = cgk[:, :]
+# cgg[:, -1, :] = cgg[-1, :, :]
+# # add noise
+# cgg[-1, -1, :] = ckk  # + ckk_noise
 
 
-for i, ell in enumerate(lbins):
-  rho_comb[i] = np.dot(cgk[:, i], np.dot(np.linalg.inv(cgg[:, :, i]), cgk[:, i])) / ckk[i]
-  rho_gals[i] = np.dot(cgk[:-1, i], np.dot(np.linalg.inv(cgg[:-1, :-1, i]), cgk[:-1, i])) / ckk[i]
+# for i, ell in enumerate(lbins):
+#   rho_comb[i] = np.dot(cgk[:, i], np.dot(np.linalg.inv(cgg[:, :, i]), cgk[:, i])) / ckk[i]
+#   rho_gals[i] = np.dot(cgk[:-1, i], np.dot(np.linalg.inv(cgg[:-1, :-1, i]), cgk[:-1, i])) / ckk[i]
