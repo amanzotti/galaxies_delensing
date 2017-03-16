@@ -1,4 +1,73 @@
-\input{/Users/alessandromanzotti/Work/preamble_onecol_notitle.tex}
+
+\documentclass[onecolumn,amsmath,amssymb,floatfix,superscriptaddress,notitlepage,aps,prd]{revtex4-1}
+\usepackage{bm}
+\usepackage{epsfig}
+\usepackage{natbib}
+\usepackage{graphicx,epsfig}
+\usepackage{hyperref}
+\usepackage{ifthen}
+\usepackage{xstring}
+\usepackage{graphicx}\usepackage[top=2.5 cm, bottom=2.5 cm, left=1.05in, right=1.05in]{geometry}
+\usepackage[applemac]{inputenc}
+\usepackage{amsmath,amssymb} 
+\usepackage{color}
+\usepackage{epstopdf}
+\usepackage[caption=false]{subcaption}
+\epstopdfDeclareGraphicsRule{.gif}{png}{.png}{convert gif:#1 png:\OutputFile}
+\AppendGraphicsExtensions{.gif}
+% notes to make comment
+
+\newcommand{\note}[1]{\textsc{#1}}
+
+
+% For various journals
+%\newcommand{\apj}{ApJ}
+\newcommand{\physrep}{Physics Reports}
+\newcommand{\jcap}{JCAP}
+\newcommand{\apjl}{ApJL}
+\newcommand{\apjs}{ApJS}
+\newcommand{\aap}{A\&A}
+\newcommand{\mnras}{MNRAS}
+%\newcommand{\prd}{Phys. Rev. D}
+\newcommand{\physrev}{Phys. Rev.}
+\newcommand{\physrevlett}{Phys. Rev. Lett.}
+
+%--------- NEW COMMAND STUFF
+
+\def\simlt{\lesssim}
+\def\simgt{\gtrsim}
+\newcommand{\Omegamzero}{\Omega_{{\rm m,0}}}
+\newcommand{\alm}{a_{lm}}
+
+%\newcommand{\l}{\ell}}
+
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\ben{\begin{equation*}}
+\def\een{\end{equation*}}
+
+\def\ba{\begin{eqnarray}}
+\def\ea{\end{eqnarray}}
+\def\ban{\begin{eqnarray*}}
+\def\ean{\end{eqnarray*}}
+
+\newcommand{\refsec}[1]{section~\ref{sec:#1}}
+\newcommand{\reftab}[1]{Tab.~\ref{tab:#1}}
+\newcommand{\refeq}[1]{Eq.~(\ref{eqn:#1})}
+\newcommand{\refssec}[1]{section~\ref{subsec:#1}}
+\newcommand{\reffig}[1]{Fig.~\ref{fig:#1}}
+\newcommand{\refFig}[1]{Fig.~\ref{fig:#1}}
+
+
+
+\definecolor{darkgreen}{cmyk}{0.85,0.2,1.00,0.2} 
+\definecolor{purple}{cmyk}{0.5,1.0,0,0} 
+
+
+
+
+
+
 \usepackage{hyperref}
 \usepackage{amsmath}
 \usepackage{natbib}
