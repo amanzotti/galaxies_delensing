@@ -16,10 +16,12 @@
 \epstopdfDeclareGraphicsRule{.gif}{png}{.png}{convert gif:#1 png:\OutputFile}
 \AppendGraphicsExtensions{.gif}
 % notes to make comment
+\newcommand{\al}[1]{\begin{align} #1 \end{align}}
 
 \newcommand{\note}[1]{\textsc{#1}}
+	\newcommand{\bR}[1]{{\bm {\mR{#1}}} }
 
-
+\def\l{\ell}
 % For various journals
 %\newcommand{\apj}{ApJ}
 \newcommand{\physrep}{Physics Reports}
@@ -32,13 +34,21 @@
 \newcommand{\physrev}{Phys. Rev.}
 \newcommand{\physrevlett}{Phys. Rev. Lett.}
 
+\newcommand{\nver}{\hat{\mathbf{n}}}
+\newcommand{\cov}{\text{Cov}}
+\newcommand{\Nsim}{N_{\text{sim}}}
+\newcommand{\new}[1]{{\textcolor{blue}{\bf #1}}}
 %--------- NEW COMMAND STUFF
+	\newcommand{\PD}[2]{\dfrac{\partial #1}{\partial #2}}
 
 \def\simlt{\lesssim}
 \def\simgt{\gtrsim}
 \newcommand{\Omegamzero}{\Omega_{{\rm m,0}}}
 \newcommand{\alm}{a_{lm}}
-
+	% * subscript
+	\def\rom#1{%
+		_{\mathrm{#1}}%
+	}%
 %\newcommand{\l}{\ell}}
 
 \def\be{\begin{equation}}
@@ -57,6 +67,7 @@
 \newcommand{\refssec}[1]{section~\ref{subsec:#1}}
 \newcommand{\reffig}[1]{Fig.~\ref{fig:#1}}
 \newcommand{\refFig}[1]{Fig.~\ref{fig:#1}}
+	\newcommand{\mR}[1]{\mathrm{#1}}   % mathrm
 
 
 
@@ -144,7 +155,6 @@
 \def\fsky{f_{\mathrm{sky}}}
 \newcommand{\E}[1]{\times 10^{#1}}
 \newcommand{\bmm}[1]{{\mathbf{#1}}}
-\newcommand{\new}[1]{{\color{blue} #1}}
 \newcommand{\bsection}[1]{\section{\uppercase{#1}}}
 
 
@@ -165,6 +175,8 @@ Preliminary: CIB performs as an equivalent $\rho_{\text{eff}}$  (correlation coe
 
 \maketitle
 
+\section{Introduction}
+
 
 \section{Theory}
 \label{sec:th}
@@ -174,7 +186,7 @@ Preliminary: CIB performs as an equivalent $\rho_{\text{eff}}$  (correlation coe
 %=======================================
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[scale=1.]{../images/spectra.pdf}
+\includegraphics[scale=0.6]{../images/spectra.pdf}
 \caption{Correlation factor between galaxies survey and CMB lensing potential as a function of the multipole $\ell$. The ``CIB+D.E.S'' factor has been computed using \refeq{rho-combined}}
 \end{center}
 \label{fig:corr}
@@ -295,16 +307,101 @@ On the contrary a CMB reconstructed lensing potential or some low redshift surve
 \section{Tracers Model}
 \label{sec:data}
 
+In this equation, $\chi(z)$ is the comoving distance to redshift $z$, $\chi_*$ is the comoving distance to the last-scattering surface at $z_*\simeq 1090$, $H(z)$ is the Hubble factor at redshift $z$, $c$ is the speed of light, and $\Psi(\chi(z)\nver,z)$ is the three-dimensional gravitational potential at a point on the photon path given by $\chi(z)\nver$. Note that the deflection angle is given by $\mathbf{d}(\nver) = \nabla\phi(\nver)$, where $\nabla$ is the the two-dimensional gradient on the sphere. Because the lensing potential is an integrated measure of the projected gravitational potential, taking the two-dimensional Laplacian of the lensing potential we can define the lensing convergence $\kappa(\nver) = -\case{1}{2}\nabla^2\phi(\nver)$, which depends on the projected matter overdensity $\delta$ \citep{bart01}:
+\begin{equation}
+\kappa(\nver) = \int_0^{z_*} dz\, W^{\kappa}(z)\delta(\chi(z)\nver,z).
+\label{eqn:wkappa}
+\end{equation}
+The lensing kernel $W^{\kappa}$ is
+%
+\begin{equation}
+W^{\kappa}(z) = \frac{3\Omega_{\rm m}}{2c}\frac{H_0^2}{H(z)}(1+z)\chi(z)\frac{\chi_*-\chi(z)}{\chi_*},
+\end{equation}
+%
+where $\Omega_{\rm m}$ and $H_0$ are the present-day values of the Hubble and matter density parameters, respectively.
+
+
+%----------------------------------------------------------------------------------------------------%
+%\begin{eqnarray} \label{PS}
+%	C_\l^{XY} = \frac{2}{\pi}\Int{}{k}{k^2} P_{init}(k) \Delta_\l^X(k)\Delta_\l^Y(k) 
+%	\,, 
+%\end{eqnarray}
+%----------------------------------------------------------------------------------------------------%
+where $P_{init}(k)$ is the scalar power spectrum at an early time with $k$ being the Fourier wave 
+number. The functions $\Delta^X\l(k)$ and $\Delta^Y\l(k)$ are one of the following (see e.g., 
+\cite{Hu:2000ee,LoVerde:2006cj}):
+%----------------------------------------------------------------------------------------------------%
+%\begin{eqnarray}
+%
+%	\Delta^I_\l(k) &= k^2 \INT{}{z}{}{0}{z_{\rm max}} b(z) \D{N}{z}(z) D(z) j_\l(k\chi(z)) 
+%	\,, \label{eq:Delta^I} \\
+%	\Delta^\grad_\l(k) &= \frac{3\Omega\rom{m}H_0^2}{2}
+%	\notag \\
+%		&\times \INT{}{\chi}{}{0}{\chi_*} 
+%			\frac{\chi_*-\chi}{\chi_*\chi}\,\frac{D(z(\chi))}{a(\chi)}\,j_\l(k\chi)
+%	\,. 
+%	
+%\end{eqnarray}
+
+%----------------------------------------------------------------------------------------------------%
+
+
 \subsection{Galaxies}
-\subsection{C.I.B}
+
+The galaxy overdensity $g(\nver)$ in a given direction on the sky is also expressed as a LOS integral of the matter overdensity:
+\begin{equation}
+g(\nver) = \int_0^{z_*} dz\, W^{g}(z)\delta(\chi(z)\nver,z),
+\end{equation}
+where the kernel is
+\begin{equation}
+\label{eqn:wg}
+\begin{split}
+W^{g}(z) &= \frac{b(z)\frac{dN}{dz}}{\Bigl(\int dz'\,\frac{dN}{dz'}\Bigr)} + \frac{3\Omega_{\rm m}}{2c}\frac{H_0^2}{H(z)}(1+z)\chi(z) \\
+&\times \int_z^{z_*}dz'\,\Bigl(1-\frac{\chi(z)}{\chi(z')}\Bigr)(\alpha(z')-1)\frac{dN}{dz'}.
+\end{split}
+\end{equation}
+
+\subsection{Cosmic infrared Background}
+\label{sec:cib}
+In this work, the CMB lensing potential is estimated from maps of the cosmic infrared background (CIB).
+
+Following \cite{Addison:2011se}, we model the CIB power as $C_{\ell}^{{\rm CIB}\mbox{-}{\rm CIB}} = 3500 (l/3000)^{-1.25} {\rm Jy^2 / sr}$.
+We test that this model provides an accurate fit for the power of the \textit{Herschel} $500\,\mu$ map used in this work.
+For the cross-spectrum $C_{\ell}^{{\rm CIB}\mbox{-}\phi}$, we use the single-SED model of~\cite{hall10}.
+This places the peak of the CIB emissivity at redshift $z_c = 2$ with a broad redshift kernel of width $\sigma_z = 2$.
+This model is rescaled to agree with the results of
+~\citet{Holder:2013hqu} and \citet{planck2013XVIII} by choosing the corresponding linear bias parameter.
+Other multi-frequency CIB models are available \citep[e.g.,][]{Bethermin:2013nza}; however, given the level of noise, we are relatively insensitive to this choice.
+With these assumptions, depending on angular scale, $45-65\%$ of the CIB is correlated with the CMB lensing potential, as shown in \reffig{CIB}.
+
 \subsection{Weak Lensing}
 \cite{hall:2010,sherwin:2015,ade:2014,hanson:2013,szapudi:2001,0004-637X-567-1-2,planck-collaboration:2014,planck-collaboration:2014a,planck-collaboration:2011,plank-collaboration:2014,boulanger:1996,lewis:2006}
+\subsection{Internal CMB lensing}
 
 \section{Forecast}
 \label{sec:for}
 \subsection{CMB-S3 Era}
 \subsection{CMB-S4 Era}
 \subsection{Bias uncertainties degradation}
+
+%----------------------------------------------------------------------------------------------------%
+%\al{
+%	F_{ij} &\equiv \sum_{\l=\l\rom{min}}^{100} \frac{2\l+1}{2[C_\l^{\rm BB,res}+N_\l^{\rm BB}]^2}
+%		\PD{C^{\rm BB,res}_\l}{\theta_i}\PD{C^{\rm BB,res}_\l}{\theta_j}
+%	\notag \\
+%	&+ \sum_{L=2}^{1000} \frac{2L+1}{2} 
+%		\Tr \left[\bR{C}^{-1}_L\PD{\bR{C}_L}{\theta_i}\bR{C}^{-1}_L\PD{\bR{C}_L}{\theta_j}\right]
+%	\,, 
+%}
+%----------------------------------------------------------------------------------------------------%
+where $\theta_i=r$, $b_i$ or $p_i$ \footnote{In our analysis, since the fiducial value of $r$ is zero, 
+the derivative of $C_\l^{\rm BB,res}$ is non-zero if $\theta_i=r$.}. 
+The covariance matrix of the mass tracers $\bR{C}_L$ is given in Eq.~\eqref{Eq:cov}. 
+We compute the derivatives of the power spectra as described in appendix \ref{sec:deriv}. 
+Note that we omit the correction of the partial sky coverage since it does not affect our results, i.e., 
+
+
+
 \section{Conclusions}
 
 \bibliographystyle{plain}
