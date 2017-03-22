@@ -57,7 +57,8 @@ noise_phi = np.loadtxt('./quicklens/min_var_noise_{}muk_{}beam.txt'.format(noise
 noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
 # noise_cmb = nl(noise, beam, lmax=4000)
 
-noise_cl[:, 1] = noise_cl[:, 1] * noise_cl[:, 0] ** 4 / 4.  # because the power C_kk is l^4/4 C_phi
+# noise_cl[:, 1] = noise_cl[:, 1] * noise_cl[:, 0] ** 4 / 4.  # because
+# the power C_kk is l^4/4 C_phi
 noise_fun = interp1d(np.arange(0, len(noise_phi)), noise_phi)
 ckk_noise = np.zeros_like(ckk)
 ckk_noise = noise_fun(lbins)
@@ -69,31 +70,34 @@ rho_des = np.zeros((np.size(lbins)))
 rho_cib = np.zeros((np.size(lbins)))
 
 
-labels = ['k', 'euclid', 'des_weak', 'lsst', 'ska10', 'ska01',
+surveys = ['k', 'euclid', 'des_weak', 'lsst', 'ska10', 'ska01',
           'ska5', 'ska1', 'cib', 'desi', 'des']
 cl_cross_k = {}
 cl_auto = {}
 rho = {}
-for label in labels:
-    cl_cross_k[label] = np.loadtxt(output_dir +'/limber_spectra/cl_k' + label + '_delens.txt')
+for label in surveys:
+    cl_cross_k[label] = np.loadtxt(output_dir + '/limber_spectra/cl_k' + label + '_delens.txt')
     cl_auto[label] = np.loadtxt(output_dir +
                                 '/limber_spectra/cl_' + label + label + '_delens.txt')
+    if label == 'cib':
+        cl_auto[label] = np.array([3500. * (1. * l / 3000.)**(-1.25) for l in lbins])
+
     rho[label] = cl_cross_k[label] / np.sqrt(ckk[:] * cl_auto[label])
 
 
 # single survey save
-for label in labels:
+for label in surveys:
     np.savetxt(output_dir + '/limber_spectra/rho_{}.txt'.format(label),
                np.vstack((lbins, rho[label])).T)
 
 
 # Multiple surveys
 
-labels = ['lsst', 'cib', 'desi', 'des']
-cmb = 'S4'
+# labels = ['lsst', 'cib', 'desi', 'des']
+# cmb = 'S4'
 
-labels = ['cib', 'des']
-cmb = 'S4'
+# labels = ['cib', 'des']
+# cmb = 'now'
 
 
 cgk = np.zeros((len(labels) + 1, np.size(lbins)))
@@ -106,32 +110,40 @@ for i in np.arange(0, len(labels)):
     for j in np.arange(i, len(labels)):
         cgg[i, j, :] = np.loadtxt(output_dir +
                                   '/limber_spectra/cl_' + labels[i] + labels[j] + '_delens.txt')
+        if (labels[i] == 'cib' and labels[j] == 'cib'):
+            print('here')
+            cgg[i, j, :] = np.array([3500. * (1. * l / 3000.)**(-1.25) for l in lbins])
+
         cgg[j, i, :] = cgg[i, j, :]
 
-
 if cmb == 'S3':
-    noise = 7.0
-    beam = 3
+    noise = 5.0
+    beam = 1
     noise_phi = np.loadtxt('./quicklens/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
     noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
     # noise_cmb = nl(noise, beam, lmax=4000)
+    noise_fun = interp1d(np.arange(0, len(noise_phi)), noise_phi)
+    ckk_noise = np.zeros_like(ckk)
+    ckk_noise = noise_fun(lbins)
 
-    noise_cl[:, 1] = noise_cl[:, 1] * noise_cl[:, 0] ** 4 / \
-        4.  # because the power C_kk is l^4/4 C_phi
+elif cmb == 'S4':
+    noise = 1.0
+    beam = 1
+    noise_phi = np.loadtxt('./quicklens/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
+    noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
+    # noise_cmb = nl(noise, beam, lmax=4000)
     noise_fun = interp1d(np.arange(0, len(noise_phi)), noise_phi)
     ckk_noise = np.zeros_like(ckk)
     ckk_noise = noise_fun(lbins)
 
 
-elif cmb == 'S4':
-    noise = 1.
+elif cmb == 'now':
+    noise = 9.
     beam = 1
     noise_phi = np.loadtxt('./quicklens/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
     noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
     # noise_cmb = nl(noise, beam, lmax=4000)
 
-    noise_cl[:, 1] = noise_cl[:, 1] * noise_cl[:, 0] ** 4 / \
-        4.  # because the power C_kk is l^4/4 C_phi
     noise_fun = interp1d(np.arange(0, len(noise_phi)), noise_phi)
     ckk_noise = np.zeros_like(ckk)
     ckk_noise = noise_fun(lbins)
