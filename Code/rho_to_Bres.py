@@ -5,7 +5,6 @@ import configparser as ConfigParser
 import numpy as np
 from joblib import Parallel, delayed
 import scipy.integrate as integrate
-from numba import jit
 
 
 def bl(fwhm_arcmin, lmax):
@@ -26,21 +25,20 @@ def nl(noise_uK_arcmin, fwhm_arcmin, lmax):
     return (noise_uK_arcmin * np.pi / 180. / 60.)**2 / bl(fwhm_arcmin, lmax)**2
 
 
-def compute_res_parallel(label_survey):
+def compute_res_parallel(rho_filename):
 
     print('start integration')
 
-    if label_survey == 'test':
-        @jit
+    if rho_filename == 'test':
         def integrand(theta, ell, L):
             clee = clee_fun(ell)
             return (ell / (2. * np.pi)**2 * (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee * (np.sin(2. * theta))**2)
     else:
-        rho = np.loadtxt(
-            '/home/manzotti/galaxies_delensing/Data/limber_spectra/rho_' + label_survey + '.txt')
+        rho = np.loadtxt(rho_filename)
+        lbins = np.loadtxt('lbins.txt')
         rho_fun = InterpolatedUnivariateSpline(
-            rho[:, 0], np.nan_to_num(rho[:, 1]), ext='raise')
-        @jit
+            lbins, np.nan_to_num(rho), ext='raise')
+
         def integrand(theta, ell, L):
             clee = clee_fun(ell)
             return (ell / (2. * np.pi)**2 * (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee * (np.sin(2. * theta))**2) * (1. - (clee / (clee + nle_fun(ell))) * rho_fun(ell) ** 2)
@@ -48,7 +46,7 @@ def compute_res_parallel(label_survey):
     clbb_res_ell = [integrate.dblquad(
         integrand, 4, 1500, lambda x: 0, lambda x: 2. * np.pi, args=(L,), epsabs=1.49e-08, epsrel=1.49e-07)[0] for L in np.arange(10, 700, 10)]
 
-    np.savetxt(datadir + 'limber_spectra/cbb_res_' + label_survey + '.txt', clbb_res_ell)
+    np.savetxt(rho_filename.split('.txt')[0] + 'Cbb_res.txt', clbb_res_ell)
     np.savetxt(datadir + 'limber_spectra/cbb_res_ls.txt', np.arange(10, 700, 10))
 
     return clbb_res_ell
@@ -106,15 +104,18 @@ clpp_fun = InterpolatedUnivariateSpline(
 nle_fun = InterpolatedUnivariateSpline(
     ells_cmb[:5000], nle[:5000], ext=2)
 
+rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_cmb_current.txt', 'rho_gals_current.txt', 'rho_comb_current.txt', 'rho_cib.txt',
+             'rho_cmb_S3.txt', 'rho_gals_S3.txt', 'rho_comb_S3.txt', 'rho_cmb_S4.txt', 'rho_gals_S4.txt', 'rho_comb_S4.txt']
+
 # for label in surveys:
 #     B_res2 = compute_res_2(label, clee_fun, clpp_fun, nle_fun)
 
 # for label in surveys:
 #     compute_res_3(label, clee_fun, clpp_fun, nle_fun)
-compute_res_parallel('rho_cmbS4')
+# compute_res_parallel('rho_cmbS4')
 
-# B_res3 = Parallel(n_jobs=6, verbose=500)(delayed(
-#     compute_res_parallel)(i) for i in surveys)
+B_res3 = Parallel(n_jobs=6, verbose=500)(delayed(
+    compute_res_parallel)(i) for i in rho_names)
 
 
 # def compute_res(label_survey):

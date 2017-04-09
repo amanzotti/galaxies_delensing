@@ -71,7 +71,7 @@ rho_cib = np.zeros((np.size(lbins)))
 
 
 surveys = ['k', 'euclid', 'des_weak', 'lsst', 'ska10', 'ska01',
-          'ska5', 'ska1', 'cib', 'desi', 'des']
+           'ska5', 'ska1', 'cib', 'desi', 'des']
 cl_cross_k = {}
 cl_auto = {}
 rho = {}
@@ -115,6 +115,16 @@ for i in np.arange(0, len(labels)):
             cgg[i, j, :] = np.array([3500. * (1. * l / 3000.)**(-1.25) for l in lbins])
 
         cgg[j, i, :] = cgg[i, j, :]
+
+
+if cmb == 'Planck':
+
+    noise_phi = np.loadtxt('./quicklens/nlkk.dat')
+    # noise_cmb = nl(noise, beam, lmax=4000)
+    noise_fun = interp1d(noise_phi[:, 0], noise_phi[:, 1], bounds_error=False, fill_value=1e10)
+    ckk_noise = np.zeros_like(ckk)
+    ckk_noise = noise_fun(lbins)
+
 
 if cmb == 'S3':
     noise = 5.0
