@@ -1,47 +1,58 @@
-This is BibTeX, Version 0.99d (TeX Live 2014)
-Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+This is BibTeX, Version 0.99d (TeX Live 2016)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: DES_rec_phi_paper.aux
 The style file: plain.bst
 Database file #1: DES_rec_phi_paperNotes.bib
+Warning--entry type for "Note1" isn't style-file defined
+--line 1 of file DES_rec_phi_paperNotes.bib
 Database file #2: DES_rec_phi_paper.bib
-You've used 13 entries,
+Warning--I didn't find a database entry for "bart01"
+Warning--I didn't find a database entry for "Hu:2000ee"
+Warning--I didn't find a database entry for "LoVerde:2006cj"
+Warning--I didn't find a database entry for "Addison:2011se"
+Warning--I didn't find a database entry for "hall10"
+Warning--I didn't find a database entry for "Holder:2013hqu"
+Warning--I didn't find a database entry for "planck2013XVIII"
+Warning--I didn't find a database entry for "Bethermin:2013nza"
+You've used 14 entries,
             2118 wiz_defined-function locations,
-            572 strings with 13384 characters,
-and the built_in function-call counts, 15840 in all, are:
-= -- 1138
-> -- 2129
+            589 strings with 13711 characters,
+and the built_in function-call counts, 15984 in all, are:
+= -- 1149
+> -- 2130
 < -- 0
-+ -- 849
++ -- 850
 - -- 836
-* -- 1842
-:= -- 3010
-add.period$ -- 39
-call.type$ -- 13
-change.case$ -- 457
+* -- 1846
+:= -- 3023
+add.period$ -- 40
+call.type$ -- 14
+change.case$ -- 460
 chr.to.int$ -- 0
-cite$ -- 13
-duplicate$ -- 140
-empty$ -- 287
+cite$ -- 14
+duplicate$ -- 147
+empty$ -- 310
 format.name$ -- 836
-if$ -- 2708
+if$ -- 2744
 int.to.chr$ -- 0
-int.to.str$ -- 13
+int.to.str$ -- 14
 missing$ -- 13
-newline$ -- 68
+newline$ -- 71
 num.names$ -- 26
-pop$ -- 437
+pop$ -- 448
 preamble$ -- 1
-purify$ -- 444
+purify$ -- 447
 quote$ -- 0
-skip$ -- 92
+skip$ -- 100
 stack$ -- 0
-substring$ -- 191
-swap$ -- 13
+substring$ -- 196
+swap$ -- 14
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 52
+type$ -- 56
 warning$ -- 0
 while$ -- 36
-width$ -- 15
-write$ -- 142
+width$ -- 16
+write$ -- 147
+(There were 9 warnings)

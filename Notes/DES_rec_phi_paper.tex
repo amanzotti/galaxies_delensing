@@ -166,9 +166,19 @@
 
         % Enter your date or \today between curly braces
 \begin{abstract}
-Goal: test if LSS survey like D.E.S or DESI can improve the reconstruction of the lensing potential that lenses the CMB photons.
-This would be crucial to build a template of the B-mode signal coming from the lensing of the primordial E-mode. The lensed B-mode component will be, at multipoles higher than 200, the main contaminants of the primordial B-mode.
-Preliminary: CIB performs as an equivalent $\rho_{\text{eff}}$  (correlation coefficient with cmb lensing potential constant over $\ell$) of 0.8. Both D.E.S and DESI are significantly worse, $\rho_{\text{eff}}<0.6$. DESI is slightly better than D.E.S. To delens we need the bulk of the redshift distribution to follow the CMB kernel, having a few outliers at redshift $z>1.5$ is not enough. We also have to keep in mind the results of \cite{smith:2012}: even a perfect LSS survey can not help too much the delensing process, with the possible exception of futuristic 21 cm.
+\begin{itemize}
+\item Worry : they might ask for iterative delensing
+\item Worry : they might ask for internal bias
+\item Possible TODO : $n_{T}$
+\item Possible TODO : temperature $N_{eff}$
+
+\end{itemize}
+
+
+
+Removing the lensing component from the measurement of CMB B-modes will be important to constraint the amplitude of the primordial signal.
+Here we discuss the role of large scale structure surveys survey like D.E.S or DESI in improving the reconstruction of the lensing potential that lenses the CMB photons.
+This would be crucial to build a template of the B-mode signal coming from the lensing of the primordial E-mode. CIB performs as an equivalent $\rho_{\text{eff}}$  (correlation coefficient with cmb lensing potential constant over $\ell$) of 0.8. Both D.E.S and DESI are significantly worse, $\rho_{\text{eff}}<0.6$. DESI is slightly better than D.E.S. To delens we need the bulk of the redshift distribution to follow the CMB kernel, having a few outliers at redshift $z>1.5$ is not enough. We also have to keep in mind the results of \cite{smith:2012}: even a perfect LSS survey can not help too much the delensing process, with the possible exception of futuristic 21 cm.
 \end{abstract}
 
 \vspace{1cm}
@@ -186,41 +196,28 @@ Preliminary: CIB performs as an equivalent $\rho_{\text{eff}}$  (correlation coe
 %=======================================
 \begin{figure}[htbp]
 \begin{center}
-<<<<<<< HEAD
-\includegraphics[scale=1.]{../images/actual_scenario.pdf}
-=======
-\includegraphics[scale=0.6]{../images/spectra.pdf}
->>>>>>> caaaf3d21493ababd9764e3896f9c8739eb82b85
-\caption{Correlation factor between galaxies survey and CMB lensing potential as a function of the multipole $\ell$. The ``CIB+D.E.S'' factor has been computed using \refeq{rho-combined}}
+\includegraphics[scale=0.5]{../images/actual_scenario.pdf}
+\caption{Correlation factor between current galaxies survey and internally reconstructed  $\phi$ CMB lensing potential as a function of the multipole $\ell$. }
 \end{center}
-\label{fig:corr}
+\label{fig:corrnow}
 
 \end{figure}
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[scale=1.]{../images/actual_scenario.pdf}
-\caption{Correlation factor between galaxies survey and CMB lensing potential as a function of the multipole $\ell$. The ``CIB+D.E.S'' factor has been computed using \refeq{rho-combined}}
+\includegraphics[scale=0.5]{../images/S3_scenario.pdf}
+\caption{Correlation factor. Same as \reffig{corrnow} but for stage 3 experiments. }
 \end{center}
-\label{fig:corr}
+\label{fig:corrS3}
 
 \end{figure}
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[scale=1.]{../images/S3_scenario.pdf}
-\caption{Correlation factor between galaxies survey and CMB lensing potential as a function of the multipole $\ell$. The ``CIB+D.E.S'' factor has been computed using \refeq{rho-combined}}
+\includegraphics[scale=0.5]{../images/S4_scenario.pdf}
+\caption{Correlation factor. Same as \reffig{corrnow} but for stage 4 experiments. }
 \end{center}
-\label{fig:corr}
-
-\end{figure}
-
-\begin{figure}[htbp]
-\begin{center}
-\includegraphics[scale=1.]{../images/S4_scenario.pdf}
-\caption{Correlation factor between galaxies survey and CMB lensing potential as a function of the multipole $\ell$. The ``CIB+D.E.S'' factor has been computed using \refeq{rho-combined}}
-\end{center}
-\label{fig:corr}
+\label{fig:corrs4}
 
 \end{figure}
 %=======================================
@@ -358,7 +355,7 @@ where $\Omega_{\rm m}$ and $H_0$ are the present-day values of the Hubble and ma
 %\end{eqnarray}
 %----------------------------------------------------------------------------------------------------%
 where $P_{init}(k)$ is the scalar power spectrum at an early time with $k$ being the Fourier wave 
-number. The functions $\Delta^X\l(k)$ and $\Delta^Y\l(k)$ are one of the following (see e.g., 
+number. The functions $\Delta^X_{\ell}(k)$ and $\Delta^Y_{\ell}(k)$ are one of the following (see e.g., 
 \cite{Hu:2000ee,LoVerde:2006cj}):
 %----------------------------------------------------------------------------------------------------%
 %\begin{eqnarray}
@@ -376,6 +373,17 @@ number. The functions $\Delta^X\l(k)$ and $\Delta^Y\l(k)$ are one of the followi
 %----------------------------------------------------------------------------------------------------%
 
 
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{../images/cmb_internal.pdf}
+\caption{Correlation factor between CMB reconstructed potential and the real lensing potential for different CMB experiments}
+\end{center}
+\label{fig:corr-internal}
+
+\end{figure}
+
+
 \subsection{Galaxies}
 
 The galaxy overdensity $g(\nver)$ in a given direction on the sky is also expressed as a LOS integral of the matter overdensity:
@@ -386,8 +394,7 @@ where the kernel is
 \begin{equation}
 \label{eqn:wg}
 \begin{split}
-W^{g}(z) &= \frac{b(z)\frac{dN}{dz}}{\Bigl(\int dz'\,\frac{dN}{dz'}\Bigr)} + \frac{3\Omega_{\rm m}}{2c}\frac{H_0^2}{H(z)}(1+z)\chi(z) \\
-&\times \int_z^{z_*}dz'\,\Bigl(1-\frac{\chi(z)}{\chi(z')}\Bigr)(\alpha(z')-1)\frac{dN}{dz'}.
+W^{g}(z) &= \frac{b(z)\frac{dN}{dz}}{\Bigl(\int dz'\,\frac{dN}{dz'}\Bigr)}
 \end{split}
 \end{equation}
 
@@ -406,30 +413,77 @@ With these assumptions, depending on angular scale, $45-65\%$ of the CIB is corr
 
 \subsection{Weak Lensing}
 \cite{hall:2010,sherwin:2015,ade:2014,hanson:2013,szapudi:2001,0004-637X-567-1-2,planck-collaboration:2014,planck-collaboration:2014a,planck-collaboration:2011,plank-collaboration:2014,boulanger:1996,lewis:2006}
+
+
 \subsection{Internal CMB lensing}
+
+The ability of CMB experiments themselves to reconstruct the lensing potential with rapidly improve with the increasing sensitivity.
+
+Internal delensing is already competitive with galaxies delensing at very large scale.
+Potentially 
+
+To derive the delensing performance let us assume that our lensing reconstruction, given certain instrumental noise level and beam, results in a lensing map with reconstruction noise $N_l^{\kappa \kappa}$, so that its power spectrum is
+\beq
+\cl^{\kappa_\mathrm{rec} \kappa_\mathrm{rec}} = \cl^{\kappa \kappa } +N^{\kappa \kappa}_l 
+\eeq
+
+
 
 \section{Forecast}
 \label{sec:for}
+
+We defined the B-modes noise spectrum:
+\beq
+N_l^{BB} = \left({\Delta_P}/{T_{\mathrm{CMB}}}\right)^2  e^{ {l^2 \theta_\mathrm{FWHM}^2}/({8 \ln 2})}
+\eeq
+where $\theta_\mathrm{FWHM}$ is the full half width of the telescope  beam and $\Delta_P$ is the instrumental noise of the experiment.
+The gaussian covariance is then:
+\beq
+\sigma( C_{l}^{BB,\mathrm{full}} )= \sqrt{ \frac{2}{(2 {l}+1) \fsky }} \left( C_{{l}}^{BB,\mathrm{lens}}+N_{{l}}^{BB} \right).
+\eeq
+With this we can simply quantify the constraints on the tensor to scalar ration r:
+\beqn
+&\sigma(r)&= \left[\sum_l \frac{\left(\frac{\partial {C}_l^{BB,r}}{\partial r}\right)^2}{\sigma^2( C_{l}^{BB,\mathrm{full}} )} \right]^{-\frac{1}{2}}  \\ &\approx&  \left[ \frac{\sum_l (2 {l}+1) \fsky \left(\frac{\partial {C}_l^{BB,r}}{\partial r}\right)^2}{2} \right]^{-\frac{1}{2}}\langle C_l^{BB,\mathrm{lens}} +N^{BB}_l \rangle_{l<100}\nonumber
+\eeqn
+where to go from the first to the second line we use the fact that most of the constraint comes from large scale modes at $\ell <100$, thus larger mode can be ignore here.
+We quantify the improvement due to delensing as the factor $\alpha$ defined as the ration of the error before and after delensing:
+\beq
+\alpha = \frac{ \langle C_l^{BB,\mathrm{lens}} +N^{BB}_l[\Delta_P] \rangle_{l<100}}{\langle C_l^{BB,\mathrm{res}}[\Delta_P]+N^{BB}_l[\Delta_P] \rangle_{l<100}}
+\eeq
+
+
+
+
+\subsection{Current generation}
 \subsection{CMB-S3 Era}
+The accuracy of CMB is rapidly improving. For example the next generation of the SPT telescope, SPT3G has been deployed and is currently taking data. Furthermore other experiments have considerably increased the number of detectors (AdvACT etc.)
+
+
 \subsection{CMB-S4 Era}
+
+An ambitious program for a generation 4 ground CMB experiment is currently under planning. Moreover satellite experiments have been proposed.
+
+Following we assume an instrumental level of noise of $1 \mu K$-arcmin and a telescope beam of 1 arcmin.
+
+
 \subsection{Bias uncertainties degradation}
+The uncertainties in the theoretical assumptions used to model the galaxies can cause a degradation of the improvement of inflationary constraint of delensed spectra.
+In this section we quantify this effect.
+We will now marginalize over unknown galaxies parameters but we will use a full dataset of CMB and galaxies data. The idea is that as shown in the low level of noise in galaxies surveys might allow us to internally calibrate them.
+We will use a Fisher approach the Fisher matrix is:
+\beqn
+F_{pq} &=& \sum_{l_{a} =l^{BB}_{\mathrm{min}}}^{l^{BB}_{\mathrm{max}}}  \sum_{l_{b} =l^{BB}_{\mathrm{min}}}^{l^{BB}_{\mathrm{max}}}   \frac{\partial {C}_{l_a}^{BB,\mathrm{del}}}{\partial \theta_p } \left[ \mathrm{Cov}^{BB,BB}\right]_{l_a, l_b} ^{-1} \frac{\partial {C}_{l_b}^{BB,\mathrm{del}}}{\partial \theta_q }\nonumber \\&+&  \sum_j \frac{\frac{\partial {C}_j^{\kappa I}}{\partial \theta_p } \frac{\partial {C}_j^{\kappa I}}{\partial \theta_q }}{(\Delta C_j^{\kappa I})^2}
++\sum_j \frac{\frac{\partial {C}_j^{I I}}{\partial \theta_p } \frac{\partial {C}_j^{I I}}{\partial \theta_q }}{(\Delta C_j^{I  I})^2}
+\eeqn
 
-%----------------------------------------------------------------------------------------------------%
-%\al{
-%	F_{ij} &\equiv \sum_{\l=\l\rom{min}}^{100} \frac{2\l+1}{2[C_\l^{\rm BB,res}+N_\l^{\rm BB}]^2}
-%		\PD{C^{\rm BB,res}_\l}{\theta_i}\PD{C^{\rm BB,res}_\l}{\theta_j}
-%	\notag \\
-%	&+ \sum_{L=2}^{1000} \frac{2L+1}{2} 
-%		\Tr \left[\bR{C}^{-1}_L\PD{\bR{C}_L}{\theta_i}\bR{C}^{-1}_L\PD{\bR{C}_L}{\theta_j}\right]
-%	\,, 
-%}
-%----------------------------------------------------------------------------------------------------%
-where $\theta_i=r$, $b_i$ or $p_i$ \footnote{In our analysis, since the fiducial value of $r$ is zero, 
+\beq
+\alpha_{\mathrm{marginalized}} = \sigma_0(r) / \sigma_{\mathrm{marginalized/delensed}}(r)
+\eeq
+
+where the parameter array contains both the tensor to scalar rate $\theta=r$, and the galaxies surveys parameters like the bias $b_i$ or $p_i$ \footnote{In our analysis, since the fiducial value of $r$ is zero, 
 the derivative of $C_\l^{\rm BB,res}$ is non-zero if $\theta_i=r$.}. 
-The covariance matrix of the mass tracers $\bR{C}_L$ is given in Eq.~\eqref{Eq:cov}. 
-We compute the derivatives of the power spectra as described in appendix \ref{sec:deriv}. 
-Note that we omit the correction of the partial sky coverage since it does not affect our results, i.e., 
 
+We compute the derivatives of the power spectra as described 
 
 
 \section{Conclusions}

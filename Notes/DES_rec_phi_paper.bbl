@@ -69,6 +69,10 @@ A.~{Lewis} and A.~{Challinor}.
 \newblock {Weak gravitational lensing of the CMB}.
 \newblock {\em \physrep}, 429:1--65, June 2006.
 
+\bibitem{Note1}
+In our analysis, since the fiducial value of $r$ is zero, the derivative of
+  $C_{\ell }^{\protect \rm BB,res}$ is non-zero if $\theta _i=r$.
+
 \bibitem{planck-collaboration:2014}
 {Planck Collaboration}, P.~A.~R. {Ade}, N.~{Aghanim}, C.~{Armitage-Caplan},
   M.~{Arnaud}, M.~{Ashdown}, F.~{Atrio-Barandela}, J.~{Aumont},
