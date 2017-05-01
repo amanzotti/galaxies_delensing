@@ -70,18 +70,26 @@ def fl1l2(l1, l2, theta, x1='E', x2='E'):
 def F_alpha(l1, l2, theta, x1='E', x2='E'):
     fields = ''.join(sorted(x2 + x1)).upper()
     if fields == 'TT':
-        return (clbb_fun(l1) * clbb_fun(l2) * f_BB(l1, l2, theta, x1, x2) - clbb_fun(l1) * clbb_fun(l1) * f_BB(l1, l2, theta, x1, x2)) / (clbb_fun(l1) * clbb_fun(l1) * clbb_fun(l1) * clbb_fun(l1) - (clbb_fun(l1) * clbb_fun(l1))**2)
+        cltt1 = cltt_fun(l1)
+        cltt2 = cltt_fun(l2)
+        ftt = cltt1 * (l1 * l1 + l1 * l2 * np.cos(theta)) + \
+            cltt2 * (l2 * l2 + l1 * l2 * np.cos(theta))
+        return (ftt) / (2. * cltt1 * cltt2)
 
     elif fields == 'ET':
+        clee1 = clee_fun(l1)
+        clee2 = clee_fun(l2)
+        cltt1 = clee_fun(l1)
+        cltt2 = clee_fun(l2)
 
-        return (clbb_fun(l1) * clbb_fun(l2) * f_BB(l1, l2, theta, x1, x2) - clbb_fun(l1) * clbb_fun(l1) * f_BB(l1, l2, theta, x1, x2)) / (clbb_fun(l1) * clbb_fun(l1) * clbb_fun(l1) * clbb_fun(l1) - (clbb_fun(l1) * clbb_fun(l1))**2)
+        return (cltt1 * clee2 * fl1l2(l1, l2, theta, x1, x2) - clte_fun(l1) * clte_fun(l1) * fl1l2(l1, l2, theta, x1, x2)) / (cltt1 * clee2 * clee1 * cltt2 - (clte_fun(l1) * clte_fun(l2))**2)
 
     elif fields == 'EE':
 
-        return (clbb_fun(l1) * clbb_fun(l2) * f_BB(l1, l2, theta, x1, x2) - clbb_fun(l1) * clbb_fun(l1) * f_BB(l1, l2, theta, x1, x2)) / (clbb_fun(l1) * clbb_fun(l1) * clbb_fun(l1) * clbb_fun(l1) - (clbb_fun(l1) * clbb_fun(l1))**2)
+        return (fl1l2(l1, l2, theta, x1, x2)) / (2. * clee_fun(l1) * clee_fun(l2))
 
     elif fields == 'BE':
-        return (clbb_fun(l1) * clbb_fun(l2) * f_BB(l1, l2, theta, x1, x2) - clbb_fun(l1) * clbb_fun(l1) * f_BB(l1, l2, theta, x1, x2)) / (clbb_fun(l1) * clbb_fun(l1) * clbb_fun(l1) * clbb_fun(l1) - (clbb_fun(l1) * clbb_fun(l1))**2)
+        return (fl1l2(l1, l2, theta, x1, x2)) / (clbb_fun(l1) * clee_fun(l2))
     else:
         sys.exit('fields not recognized')
 
@@ -89,17 +97,20 @@ def F_alpha(l1, l2, theta, x1='E', x2='E'):
 
 
 def reconstruction_noise_integrand(theta, ell, L, x1, x2):
-    l2 = L**2 + ell**2 - 2. * ell * L * np.cos(theta)
-    return L**2 * (ell / (2. * np.pi)**2 * f_EB(ell, l2, theta, x1, x2) * F_alpha(ell, l2, theta, x1='E', x2='E'))
+    l2 = np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))
+    if l2 < 4.:
+        return 1e30
+    else:
+        return (ell / (2. * np.pi)**2 * fl1l2(ell, l2, theta, x1, x2) * F_alpha(ell, l2, theta, x1, x2))
 
 
-def reconstruction_noise(theta, ell, L, x1='E', x2='E'):
+def reconstruction_noise(x1='E', x2='E'):
     reconstruction_noise_ell = [integrate.dblquad(
-        reconstruction_noise_integrand, 4, 2500, lambda x: 0, lambda x: 2. * np.pi, args=(L, 'E', 'E'), epsabs=1.49e-08, epsrel=1.49e-07)[0] for L in np.arange(4, 1500, 10)]
-    np.savetxt(datadir + 'limber_spectra/' +
-               'Cphi_noise{}.txt'.format(x1 + x2), reconstruction_noise_ell)
-    np.savetxt(datadir + 'limber_spectra/cphi_noise_ls.txt', np.arange(4, 1500, 10))
-    return reconstruction_noise_ell
+        reconstruction_noise_integrand, 4, 2500, lambda x: 0, lambda x: 2. * np.pi, args=(L, x1, x2), epsabs=1.49e-08, epsrel=1.49e-07)[0] for L in np.arange(100, 110, 500)]
+#     np.savetxt(datadir + 'limber_spectra/' +
+#                'Cphi_noise{}.txt'.format(x1 + x2), reconstruction_noise_ell)
+#     np.savetxt(datadir + 'limber_spectra/cphi_noise_ls.txt', np.arange(4, 1500, 10))
+    return L**2 / reconstruction_noise_ell
 
 
 def compute_res_parallel(rho_filename):
@@ -121,7 +132,7 @@ def compute_res_parallel(rho_filename):
             return (ell / (2. * np.pi)**2 * (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee * (np.sin(2. * theta))**2) * (1. - (clee / (clee + nle_fun(ell))) * rho_fun(ell) ** 2)
 
     clbb_res_ell = [integrate.dblquad(
-        integrand, 4, 2500, lambda x: 0, lambda x: 2. * np.pi, args=(L,), epsabs=1.49e-08, epsrel=1.49e-07)[0] for L in np.arange(4, 1500, 10)]
+        integrand, 4, 2500, lambda x: 0, lambda x: 2. * np.pi, args=(L,), epsabs=1.49e-08, epsrel=1.49e-07)[0] for L in np.arange(10, 1500, 10)]
 
     np.savetxt(rho_filename.split('.txt')[0] + 'Cbb_res.txt', clbb_res_ell)
     np.savetxt(datadir + 'limber_spectra/cbb_res_ls.txt', np.arange(4, 1500, 10))
@@ -142,13 +153,13 @@ def compute_res(rho_filename, noise_pol=2., fwhm_beam=30.):
 
     datadir = output_dir
 
-    clpp = np.loadtxt(datadir + 'cmb_cl/pp.txt')
-    clee = np.loadtxt(datadir + 'cmb_cl/ee.txt')
-    clte = np.loadtxt(datadir + 'cmb_cl/te.txt')
-    cltt = np.loadtxt(datadir + 'cmb_cl/tt.txt')
+    clpp = np.loadtxt(datadir + '/cmb_cl/pp.txt')
+    clee = np.loadtxt(datadir + '/cmb_cl/ee.txt')
+    clte = np.loadtxt(datadir + '/cmb_cl/te.txt')
+    cltt = np.loadtxt(datadir + '/cmb_cl/tt.txt')
     # cltb = np.loadtxt(datadir + 'cmb_cl/ee.txt')
 
-    ells_cmb = np.loadtxt(datadir + 'cmb_cl/ell.txt')
+    ells_cmb = np.loadtxt(datadir + '/cmb_cl/ell.txt')
 
     clee *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
     clte *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
@@ -159,7 +170,7 @@ def compute_res(rho_filename, noise_pol=2., fwhm_beam=30.):
     lbins = np.logspace(1, 3.5, 190)
 
     clbb_th = np.loadtxt(
-        output_dir + 'cmb_cl/bb.txt')
+        output_dir + '/cmb_cl/bb.txt')
     clbb_th *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
     nle = nl(noise_pol, fwhm_beam, lmax=ells_cmb[-1])[2:]
 
@@ -190,7 +201,7 @@ def compute_res(rho_filename, noise_pol=2., fwhm_beam=30.):
             return (ell / (2. * np.pi)**2 * (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee * (np.sin(2. * theta))**2) * (1. - (clee / (clee + nle_fun(ell))) * rho_fun(ell) ** 2)
 
     clbb_res_ell = [integrate.dblquad(
-        integrand, 4, 2500, lambda x: 0, lambda x: 2. * np.pi, args=(L,), epsabs=1.49e-08, epsrel=1.49e-07)[0] for L in np.arange(4, 1500, 10)]
+        integrand, 4, 2500, lambda x: 0, lambda x: 2. * np.pi, args=(L,), epsabs=1.49e-06, epsrel=1.49e-05)[0] for L in np.arange(4, 1500, 10)]
 
     np.savetxt(rho_filename.split('.txt')[0] + 'Cbb_res.txt', clbb_res_ell)
     np.savetxt(datadir + 'limber_spectra/cbb_res_ls.txt', np.arange(4, 1500, 10))
@@ -211,6 +222,9 @@ if __name__ == "__main__":
     cosmosis_dir = '/home/manzotti/cosmosis/'
     inifile = '/home/manzotti/cosmosis/modules/limber/galaxies_delens.ini'
 
+    noise_pol = 2.
+    fwhm_beam = 30.
+
     Config_ini = ConfigParser.ConfigParser()
     values = ConfigParser.ConfigParser()
     Config_ini.read(inifile)
@@ -219,18 +233,37 @@ if __name__ == "__main__":
 
     datadir = output_dir
 
-    clpp = np.loadtxt(datadir + 'cmb_cl/pp.txt')
-    clee = np.loadtxt(datadir + 'cmb_cl/ee.txt')
-    ells_cmb = np.loadtxt(datadir + 'cmb_cl/ell.txt')
+    clpp = np.loadtxt(datadir + '/cmb_cl/pp.txt')
+    clee = np.loadtxt(datadir + '/cmb_cl/ee.txt')
+    clte = np.loadtxt(datadir + '/cmb_cl/te.txt')
+    cltt = np.loadtxt(datadir + '/cmb_cl/tt.txt')
+    # cltb = np.loadtxt(datadir + 'cmb_cl/ee.txt')
+
+    ells_cmb = np.loadtxt(datadir + '/cmb_cl/ell.txt')
 
     clee *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
+    clte *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
+    cltt *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
+
     clpp = clpp * 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
 
     lbins = np.logspace(1, 3.5, 190)
 
     clbb_th = np.loadtxt(
-        output_dir + 'cmb_cl/bb.txt')
+        output_dir + '/cmb_cl/bb.txt')
     clbb_th *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
+    nle = nl(noise_pol, fwhm_beam, lmax=ells_cmb[-1])[2:]
+
+    clee_fun = InterpolatedUnivariateSpline(
+        ells_cmb[:5000], clee[:5000], ext=2)
+    clte_fun = InterpolatedUnivariateSpline(
+        ells_cmb[:5000], clte[:5000], ext=2)
+    cltt_fun = InterpolatedUnivariateSpline(
+        ells_cmb[:5000], cltt[:5000], ext=2)
+    clpp_fun = InterpolatedUnivariateSpline(
+        ells_cmb[:5000], clpp[:5000], ext='zeros')
+    nle_fun = InterpolatedUnivariateSpline(
+        ells_cmb[:5000], nle[:5000], ext=2)
 
     surveys = ['test', 'cib', 'des', 'comb_des_cib', 'comb_des_cib_cmb',
                'ska10', 'ska5', 'ska1', 'ska01', 'lsst', 'euclid', 'rho_comb', 'rho_cmbS4', 'rho_cmbS3']
@@ -258,9 +291,11 @@ if __name__ == "__main__":
     # for label in surveys:
     #     compute_res_3(label, clee_fun, clpp_fun, nle_fun)
     # compute_res_parallel('rho_cmbS4')
+    print('doing integral')
+    noise = reconstruction_noise('T', 'T')
 
-    B_res3 = Parallel(n_jobs=6, verbose=500)(delayed(
-        compute_res_parallel)(i) for i in rho_names)
+    # B_res3 = Parallel(n_jobs=6, verbose=500)(delayed(
+    #     compute_res_parallel)(i) for i in rho_names)
 
     # def compute_res(label_survey):
     #     lbins = np.logspace(1, 3.5, 190)
