@@ -53,7 +53,7 @@ ckk = np.loadtxt(output_dir + '/limber_spectra/cl_kk_delens.txt')
 
 noise = 5.0
 beam = 3
-noise_phi = np.loadtxt('./quicklens/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
+noise_phi = np.loadtxt('./quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
 noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
 # noise_cmb = nl(noise, beam, lmax=4000)
 
@@ -119,7 +119,7 @@ for i in np.arange(0, len(labels)):
 
 if cmb == 'Planck':
 
-    noise_phi = np.loadtxt('./quicklens/nlkk.dat')
+    noise_phi = np.loadtxt('./quicklens_data/nlkk.dat')
     # noise_cmb = nl(noise, beam, lmax=4000)
     noise_fun = interp1d(noise_phi[:, 0], noise_phi[:, 1], bounds_error=False, fill_value=1e10)
     ckk_noise = np.zeros_like(ckk)
@@ -128,7 +128,7 @@ if cmb == 'Planck':
 if cmb == 'LiteBird':
     noise = 2.0
     beam = 30
-    noise_phi = np.loadtxt('./quicklens/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
+    noise_phi = np.loadtxt('./quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
     noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
     # noise_cmb = nl(noise, beam, lmax=4000)
     noise_fun = interp1d(np.arange(0, len(noise_phi)), noise_phi)
@@ -138,7 +138,7 @@ if cmb == 'LiteBird':
 if cmb == 'S3':
     noise = 5.0
     beam = 1
-    noise_phi = np.loadtxt('./quicklens/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
+    noise_phi = np.loadtxt('./quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
     noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
     # noise_cmb = nl(noise, beam, lmax=4000)
     noise_fun = interp1d(np.arange(0, len(noise_phi)), noise_phi)
@@ -148,7 +148,7 @@ if cmb == 'S3':
 elif cmb == 'S4':
     noise = 1.0
     beam = 1
-    noise_phi = np.loadtxt('./quicklens/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
+    noise_phi = np.loadtxt('./quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
     noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
     # noise_cmb = nl(noise, beam, lmax=4000)
     noise_fun = interp1d(np.arange(0, len(noise_phi)), noise_phi)
@@ -159,7 +159,7 @@ elif cmb == 'S4':
 elif cmb == 'now':
     noise = 9.
     beam = 1
-    noise_phi = np.loadtxt('./quicklens/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
+    noise_phi = np.loadtxt('./quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
     noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
     # noise_cmb = nl(noise, beam, lmax=4000)
 
