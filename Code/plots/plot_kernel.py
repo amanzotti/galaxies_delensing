@@ -67,10 +67,10 @@ desikernel_l500 = np.loadtxt(datadir + 'desi_kernel_l500.txt')
 # ============================================
 # SIZE OF THE PICTURE
 # ============================================
-WIDTH = 456.0  # the number latex spits out
+WIDTH = 246.0  # the number latex spits out
 # the fraction of the width you'd like the figure to occupy, 0.5 if double
 # column cause
-FACTOR = 0.6
+FACTOR = 0.99
 fig_width_pt = WIDTH * FACTOR
 
 inches_per_pt = 1.0 / 72.27
