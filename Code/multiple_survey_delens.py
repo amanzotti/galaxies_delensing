@@ -125,6 +125,15 @@ if cmb == 'Planck':
     ckk_noise = np.zeros_like(ckk)
     ckk_noise = noise_fun(lbins)
 
+if cmb == 'LiteBird':
+    noise = 2.0
+    beam = 30
+    noise_phi = np.loadtxt('./quicklens/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
+    noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
+    # noise_cmb = nl(noise, beam, lmax=4000)
+    noise_fun = interp1d(np.arange(0, len(noise_phi)), noise_phi)
+    ckk_noise = np.zeros_like(ckk)
+    ckk_noise = noise_fun(lbins)
 
 if cmb == 'S3':
     noise = 5.0
