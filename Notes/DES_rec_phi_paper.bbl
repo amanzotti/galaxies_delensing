@@ -37,6 +37,21 @@ N.~R. {Hall}, R.~{Keisler}, L.~{Knox}, C.~L. {Reichardt}, P.~A.~R. {Ade}, K.~A.
   from Dusty Star-forming Galaxies with the South Pole Telescope}.
 \newblock {\em \apj}, 718:632--646, August 2010.
 
+\bibitem{hall10}
+N.~R. {Hall}, L.~{Knox}, C.~L. {Reichardt}, P.~A.~R. {Ade}, K.~A. {Aird}, B.~A.
+  {Benson}, L.~E. {Bleem}, J.~E. {Carlstrom}, C.~L. {Chang}, {H.~-.} {Cho},
+  T.~M. {Crawford}, A.~T. {Crites}, T.~{de Haan}, M.~A. {Dobbs}, E.~M.
+  {George}, N.~W. {Halverson}, G.~P. {Holder}, W.~L. {Holzapfel}, J.~D.
+  {Hrubes}, M.~{Joy}, R.~{Keisler}, A.~T. {Lee}, E.~M. {Leitch}, M.~{Lueker},
+  J.~J. {McMahon}, J.~{Mehl}, S.~S. {Meyer}, J.~J. {Mohr}, T.~E. {Montroy},
+  S.~{Padin}, T.~{Plagge}, C.~{Pryke}, J.~E. {Ruhl}, K.~K. {Schaffer},
+  L.~{Shaw}, E.~{Shirokoff}, H.~G. {Spieler}, Z.~{Staniszewski}, A.~A. {Stark},
+  E.~R. {Switzer}, K.~{Vanderlinde}, J.~D. {Vieira}, R.~{Williamson}, and
+  O.~{Zahn}.
+\newblock {Angular Power Spectra of the Millimeter Wavelength Background Light
+  from Dusty Star-forming Galaxies with the South Pole Telescope}.
+\newblock {\em \apj}, 718:632--646, July 2010.
+
 \bibitem{hanson:2013}
 D.~{Hanson}, S.~{Hoover}, A.~{Crites}, P.~A.~R. {Ade}, K.~A. {Aird}, J.~E.
   {Austermann}, J.~A. {Beall}, A.~N. {Bender}, B.~A. {Benson}, L.~E. {Bleem},
@@ -71,7 +86,7 @@ A.~{Lewis} and A.~{Challinor}.
 
 \bibitem{Note1}
 In our analysis, since the fiducial value of $r$ is zero, the derivative of
-  $C_{\ell }^{\protect \rm BB,res}$ is non-zero if $\theta _i=r$.
+  $C_\ell ^{\protect \rm BB,res}$ is non-zero if $\theta _i=r$.
 
 \bibitem{planck-collaboration:2014}
 {Planck Collaboration}, P.~A.~R. {Ade}, N.~{Aghanim}, C.~{Armitage-Caplan},
@@ -149,11 +164,6 @@ In our analysis, since the fiducial value of $r$ is zero, the derivative of
 B.~D. {Sherwin} and M.~{Schmittfull}.
 \newblock {Delensing the CMB with the Cosmic Infrared Background}.
 \newblock {\em ArXiv e-prints}, February 2015.
-
-\bibitem{smith:2012}
-K.~M. {Smith}, D.~{Hanson}, M.~{LoVerde}, C.~M. {Hirata}, and O.~{Zahn}.
-\newblock {Delensing CMB polarization with external datasets}.
-\newblock {\em \jcap}, 6:14, June 2012.
 
 \bibitem{szapudi:2001}
 I.~{Szapudi}, S.~{Prunet}, and S.~{Colombi}.
