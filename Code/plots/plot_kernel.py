@@ -90,7 +90,7 @@ plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern Roman']})
 # ============================================
 
 
-font_size = 5.
+font_size = 8.
 plt.rcParams['font.size'] = font_size
 plt.rcParams['axes.labelsize'] = font_size * 1.3
 plt.rcParams['axes.linewidth'] = font_size / 10.
