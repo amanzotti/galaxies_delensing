@@ -172,7 +172,7 @@ fg.tight_layout()
 
 # ============================================
 # FINALLY SAVE
-plt.savefig(image_dir + 'compare_kernel.png', dpi=600, papertype='Letter',
-            format='png')
+plt.savefig(image_dir + 'compare_kernel.pdf', dpi=600, papertype='Letter',
+            format='pdf')
 
 plt.clf()

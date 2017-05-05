@@ -88,7 +88,7 @@ desi = gals_kernel.kern(dndz[:, 0], dndzfun_desi, hspline, omega_m, h0)
 
 des_weak = kappa_gals_kernel.kern(dndz_des[:, 0], dndzfun_des, chispline, hspline, omega_m, h0)
 
-l = 500
+l = 30
 z_kappa = np.linspace(0, 13, 500)
 w_kappa = np.zeros_like(z_kappa)
 for i, z in enumerate(z_kappa):
