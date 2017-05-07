@@ -88,14 +88,52 @@ desi = gals_kernel.kern(dndz[:, 0], dndzfun_desi, hspline, omega_m, h0)
 
 des_weak = kappa_gals_kernel.kern(dndz_des[:, 0], dndzfun_des, chispline, hspline, omega_m, h0)
 
-l = 30
+l = 100
 z_kappa = np.linspace(0, 13, 500)
 w_kappa = np.zeros_like(z_kappa)
 for i, z in enumerate(z_kappa):
 
     x = chispline(z)
-    w_kappa[i] = 1. / x * lkern.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
+    # w_kappa[i] = 1. / x * lkern.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
+    w_kappa[i] = lkern.w_lxz(l, x, z)
 
+# LSST
+z_lsst = np.linspace(0.01, 10, 200)
+dndzlsst = gals_kernel.dNdZ_parametric_LSST(z_lsst)
+dndzfun = interp1d(z_lsst, dndzlsst)
+norm = scipy.integrate.quad(dndzfun, 0.01, z_lsst[-1], limit=100, epsrel=1.49e-03)[0]
+# used the same bias model of euclid. Find something better
+dndzlsst = InterpolatedUnivariateSpline(z_lsst, dndzlsst / norm * 1. * np.sqrt(1. + z_lsst))
+lsst = gals_kernel.kern(z_lsst, dndzlsst, hspline, omega_m, h0, b=1.)
+w_lsst = np.zeros_like(z_lsst)
+for i, z in enumerate(z_lsst):
+
+    x = chispline(z)
+    # w_kappa[i] = 1. / x * lkern.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
+    w_lsst[i] = lsst.w_lxz(l, x, z)
+
+z_ska = np.linspace(0, 13, 500)
+w_ska = np.zeros_like(z_ska)
+dndzska10 = gals_kernel.dNdZ_parametric_SKA_10mujk(z_ska)
+dndzska1 = gals_kernel.dNdZ_parametric_SKA_1mujk(z_ska)
+dndzska5 = gals_kernel.dNdZ_parametric_SKA_5mujk(z_ska)
+dndzska01 = gals_kernel.dNdZ_parametric_SKA_01mujk(z_ska)
+
+# ===
+dndzfun = interp1d(z_ska, dndzska01)
+norm = scipy.integrate.quad(dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
+# print(norm)
+# normalize
+dndzska01 = InterpolatedUnivariateSpline(
+    z_ska, dndzska01 / norm * gals_kernel.dNdZ_SKA_bias(z_ska, mujk=0.1))
+ska01 = gals_kernel.kern(z_ska, dndzska01, hspline, omega_m, h0, b=1.)
+
+
+for i, z in enumerate(z_ska):
+
+    x = chispline(z)
+    # w_kappa[i] = 1. / x * lkern.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
+    w_ska[i] = ska01.w_lxz(l, x, z)
 
 
 z_kappa_gal = np.linspace(0, des_weak.zmax, 500)
@@ -103,8 +141,8 @@ w_kappa_gal = np.zeros_like(z_kappa_gal)
 for i, z in enumerate(z_kappa_gal):
 
     x = chispline(z)
-    w_kappa_gal[i] = 1. / x * des_weak.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
-
+    # w_kappa_gal[i] = 1. / x * des_weak.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
+    w_kappa_gal[i] = des_weak.w_lxz(l, x, z)
 
 # plt.plot(z_kappa,w_kappa,label='cmb kappa')
 
@@ -122,14 +160,18 @@ w_des = np.zeros_like(z_des)
 for i, z in enumerate(z_des):
 
     x = chispline(z)
-    w_des[i] = 1. / x * des.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
+    # w_des[i] = 1. / x * des.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
+    w_des[i] = des.w_lxz(l, x, z)
 
-z_desi = np.linspace(0.7, 1.8, 500)
+
+
+z_desi = np.linspace(0.4, 1.8, 500)
 w_desi = np.zeros_like(z_desi)
 for i, z in enumerate(z_desi):
 
     x = chispline(z)
-    w_desi[i] = 1. / x * desi.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
+    # w_desi[i] = 1. / x * desi.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
+    w_desi[i] = desi.w_lxz(l, x, z)
 
 datadir = '../Data/limber_spectra/'
 
@@ -138,3 +180,12 @@ np.savetxt(datadir + 'des_kernel_l{}.txt'.format(l), np.vstack((z_des, w_des)).T
 # np.savetxt(spectra_dir + 'output/kernel/cib_kernel_l30.txt', np.vstack((z_cib, w_cib)).T)
 np.savetxt(datadir + 'kappa_kernel_l{}.txt'.format(l),
            np.vstack((z_kappa, w_kappa)).T)
+
+np.savetxt(datadir + 'ska_kernel_l{}.txt'.format(l),
+           np.vstack((z_ska, w_ska)).T)
+
+np.savetxt(datadir + 'lsst_kernel_l{}.txt'.format(l),
+           np.vstack((z_lsst, w_lsst)).T)
+
+np.savetxt(datadir + 'weak_kernel_l{}.txt'.format(l),
+           np.vstack((z_kappa_gal, w_kappa_gal)).T)
