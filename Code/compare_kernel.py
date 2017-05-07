@@ -144,14 +144,12 @@ for i, z in enumerate(z_kappa_gal):
     # w_kappa_gal[i] = 1. / x * des_weak.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
     w_kappa_gal[i] = des_weak.w_lxz(l, x, z)
 
-# plt.plot(z_kappa,w_kappa,label='cmb kappa')
+z_cib = np.linspace(0, 13., 500)
+w_cib = np.zeros_like(z_cib)
+for i, z in enumerate(z_cib):
 
-# z_cib = np.linspace(0, 13., 500)
-# w_cib = np.zeros_like(z_cib)
-# for i, z in enumerate(z_cib):
-
-#     x = chispline(z)
-#     w_cib[i] = 1. / x * cib.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
+    x = chispline(z)
+    w_cib[i] = 1. / x * cib.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
 
 # plt.plot(z_cib,w_cib,label = 'cib')
 
@@ -162,7 +160,6 @@ for i, z in enumerate(z_des):
     x = chispline(z)
     # w_des[i] = 1. / x * des.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
     w_des[i] = des.w_lxz(l, x, z)
-
 
 
 z_desi = np.linspace(0.4, 1.8, 500)
@@ -177,7 +174,7 @@ datadir = '../Data/limber_spectra/'
 
 np.savetxt(datadir + 'desi_kernel_l{}.txt'.format(l), np.vstack((z_desi, w_desi)).T)
 np.savetxt(datadir + 'des_kernel_l{}.txt'.format(l), np.vstack((z_des, w_des)).T)
-# np.savetxt(spectra_dir + 'output/kernel/cib_kernel_l30.txt', np.vstack((z_cib, w_cib)).T)
+np.savetxt(datadir + 'cib_kernel_l{}.txt'.format(l), np.vstack((z_cib, w_cib)).T)
 np.savetxt(datadir + 'kappa_kernel_l{}.txt'.format(l),
            np.vstack((z_kappa, w_kappa)).T)
 

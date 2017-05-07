@@ -55,7 +55,7 @@ weakkernel_l100 = np.loadtxt(datadir + 'weak_kernel_l100.txt')
 
 
 # cibkernel_l30 = np.loadtxt(datadir + 'cib_kernel_l30.txt')
-# cibkernel_l100 = np.loadtxt(datadir + 'cib_kernel_l100.txt')
+cibkernel_l100 = np.loadtxt(datadir + 'cib_kernel_l100.txt')
 # cibkernel_l500 = np.loadtxt(datadir + 'cib_kernel_l500.txt')
 
 
@@ -130,6 +130,7 @@ plt.rcParams['path.simplify'] = False
 plt.rcParams['legend.frameon'] = False
 plt.rcParams['legend.numpoints'] = 1
 plt.rcParams['legend.handletextpad'] = 0.3
+plt.rcParams['legend.handlelength'] = font_size /9.
 # ============================================
 
 
@@ -146,8 +147,8 @@ plt.plot(kappakernel_l30[:, 0], kappakernel_l100[:, 1] /
 # plt.plot(kappakernel_l30[:, 0], kappakernel_l500[:, 1] /
 #          np.max(kappakernel_l500[:, 1]), color='#e41a1c', linestyle='--')
 
-# plt.plot(cibkernel_l30[:, 0], cibkernel_l30[:, 1] /
-#          np.max(cibkernel_l30[:, 1]), color='#377eb8', label=r'$CIB$')
+plt.plot(cibkernel_l100[:, 0], cibkernel_l100[:, 1] /
+         np.max(cibkernel_l100[:, 1]), label=r'$CIB$')
 # plt.plot(cibkernel_l30[:, 0], cibkernel_l100[:, 1] /
 #          np.max(cibkernel_l100[:, 1]), color='#377eb8', linestyle=':')
 # plt.plot(cibkernel_l30[:, 0], cibkernel_l500[:, 1] /
@@ -182,13 +183,13 @@ plt.plot(desikernel_l30[:, 0], desikernel_l100[:, 1] /
 #       np.max(desikernel_l30[:, 1]))
 plt.xlabel(r'z')
 plt.ylabel(r' $W(\ell,z)$ ')
-plt.legend(loc='best')
+plt.legend(loc='best', ncol =3 ,mode='expand' )
 plt.xlim(0, 4)
-plt.ylim(0, 1.2)
-# fg.tight_layout()
+plt.ylim(0, 1.3)
+fg.tight_layout()
 
 # ============================================
 # FINALLY SAVE
-plt.savefig(image_dir + 'compare_kernel.pdf', dpi=600, papertype='Letter')
+plt.savefig(image_dir + 'compare_kernel.pdf', papertype='Letter')
 plt.savefig(image_dir + 'compare_kernel.png', papertype='Letter')
 plt.clf()
