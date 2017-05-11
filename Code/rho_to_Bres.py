@@ -34,8 +34,10 @@ def compute_res_parallel(rho_filename):
             clee = clee_fun(ell)
             return (ell / (2. * np.pi)**2 * (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee * (np.sin(2. * theta))**2)
     else:
-        rho = np.loadtxt(rho_filename)
-        lbins = np.loadtxt('lbins.txt')
+        rho_filename = output_dir + 'limber_spectra/' + rho_filename
+        print(rho_filename)
+        rho = np.loadtxt(rho_filename)[:, 1]
+        lbins = np.loadtxt(rho_filename)[:, 0]
         rho_fun = InterpolatedUnivariateSpline(
             lbins, np.nan_to_num(rho), ext='raise')
 
@@ -44,12 +46,23 @@ def compute_res_parallel(rho_filename):
             return (ell / (2. * np.pi)**2 * (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee * (np.sin(2. * theta))**2) * (1. - (clee / (clee + nle_fun(ell))) * rho_fun(ell) ** 2)
 
     clbb_res_ell = [integrate.dblquad(
-        integrand, 4, 2500, lambda x: 0, lambda x: 2. * np.pi, args=(L,), epsabs=1.49e-08, epsrel=1.49e-07)[0] for L in np.arange(4, 1500, 10)]
+        integrand, 8, 3000, lambda x: 0, lambda x: 2. * np.pi, args=(L,), epsabs=1.49e-08, epsrel=1.49e-07)[0] for L in np.arange(4, 2500, 10)]
 
     np.savetxt(rho_filename.split('.txt')[0] + 'Cbb_res.txt', clbb_res_ell)
-    np.savetxt(datadir + 'limber_spectra/cbb_res_ls.txt', np.arange(4, 1500, 10))
+    np.savetxt(datadir + 'limber_spectra/cbb_res_ls.txt', np.arange(4, 2500, 10))
 
     return clbb_res_ell
+
+
+
+
+
+
+
+
+
+
+
 
 
 def compute_res(rho_filename, noise_pol=2., fwhm_beam=30.):
@@ -102,7 +115,7 @@ def compute_res(rho_filename, noise_pol=2., fwhm_beam=30.):
             return (ell / (2. * np.pi)**2 * (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee * (np.sin(2. * theta))**2) * (1. - (clee / (clee + nle_fun(ell))) * rho_fun(ell) ** 2)
 
     clbb_res_ell = [integrate.dblquad(
-        integrand, 4, 2500, lambda x: 0, lambda x: 2. * np.pi, args=(L,), epsabs=1.49e-08, epsrel=1.49e-07)[0] for L in np.arange(4, 1500, 10)]
+        integrand, 4, 3000, lambda x: 0, lambda x: 2. * np.pi, args=(L,), epsabs=1.49e-08, epsrel=1.49e-07)[0] for L in np.arange(4, 1500, 10)]
 
     np.savetxt(rho_filename.split('.txt')[0] + 'Cbb_res.txt', clbb_res_ell)
     np.savetxt(datadir + 'limber_spectra/cbb_res_ls.txt', np.arange(4, 1500, 10))
@@ -144,12 +157,12 @@ if __name__ == "__main__":
         output_dir + 'cmb_cl/bb.txt')
     clbb_th *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
 
-    surveys = ['test', 'cib', 'des', 'comb_des_cib', 'comb_des_cib_cmb',
-               'ska10', 'ska5', 'ska1', 'ska01', 'lsst', 'euclid', 'rho_comb', 'rho_cmbS4', 'rho_cmbS3']
+    # surveys = ['test', 'cib', 'des', 'comb_des_cib', 'comb_des_cib_cmb',
+    #            'ska10', 'ska5', 'ska1', 'ska01', 'lsst', 'euclid', 'rho_comb', 'rho_cmbS4', 'rho_cmbS3']
 
-    surveys = ['rho_cmbS3', 'rho_cmbS4']
+    # surveys = ['rho_cmbS3', 'rho_cmbS4']
     # generating noise in E-modes
-    nle = nl(1, 1, lmax=ells_cmb[-1])[2:]
+    # nle = nl(1, 1, lmax=ells_cmb[-1])[2:]
 
     # B_res = Parallel(n_jobs=len(surveys), verbose=50)(delayed(
     #     compute_res)(i) for i in surveys)
@@ -161,8 +174,8 @@ if __name__ == "__main__":
     nle_fun = InterpolatedUnivariateSpline(
         ells_cmb[:5000], nle[:5000], ext=2)
 
-    rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_cmb_current.txt', 'rho_gals_current.txt', 'rho_comb_current.txt', 'rho_cib.txt',
-                 'rho_cmb_S3.txt', 'rho_gals_S3.txt', 'rho_comb_S3.txt', 'rho_cmb_S4.txt', 'rho_gals_S4.txt', 'rho_comb_S4.txt']
+    # rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_cmb_current.txt', 'rho_gals_current.txt', 'rho_comb_current.txt', 'rho_cib.txt',
+    #              'rho_cmb_S3.txt', 'rho_gals_S3.txt', 'rho_comb_S3.txt', 'rho_cmb_S4.txt', 'rho_gals_S4.txt', 'rho_comb_S4.txt']
 
     # for label in surveys:
     #     B_res2 = compute_res_2(label, clee_fun, clpp_fun, nle_fun)
@@ -171,8 +184,7 @@ if __name__ == "__main__":
     #     compute_res_3(label, clee_fun, clpp_fun, nle_fun)
     # compute_res_parallel('rho_cmbS4')
 
-    B_res3 = Parallel(n_jobs=6, verbose=500)(delayed(
-        compute_res_parallel)(i) for i in rho_names)
+    B_res3 = Parallel(n_jobs=6, verbose=500)(delayed(compute_res_parallel)(i) for i in rho_names)
 
     # def compute_res(label_survey):
     #     lbins = np.logspace(1, 3.5, 190)

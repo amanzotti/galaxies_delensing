@@ -70,7 +70,7 @@ rho_des = np.zeros((np.size(lbins)))
 rho_cib = np.zeros((np.size(lbins)))
 
 
-surveys = ['k', 'euclid', 'des_weak', 'lsst', 'ska10', 'ska01',
+surveys = ['wise', 'k', 'euclid', 'des_weak', 'lsst', 'ska10', 'ska01',
            'ska5', 'ska1', 'cib', 'desi', 'des']
 cl_cross_k = {}
 cl_auto = {}
@@ -79,6 +79,15 @@ for label in surveys:
     cl_cross_k[label] = np.loadtxt(output_dir + '/limber_spectra/cl_k' + label + '_delens.txt')
     cl_auto[label] = np.loadtxt(output_dir +
                                 '/limber_spectra/cl_' + label + label + '_delens.txt')
+    if label == 'wise':
+        #  from Simone Our conservative masking leaves f sky = 0.47 and about
+        # 50 million galaxies.
+        steradians_on_sphere = 4 * np.pi
+        fsky = 0.447
+        n_gal = 50e6
+        gal_per_ster = n_gal / (steradians_on_sphere * fsky)
+        cl_auto[label] += 1 / gal_per_ster * np.ones_like(cl_auto[label])
+
     if label == 'cib':
         cl_auto[label] = np.array([3500. * (1. * l / 3000.)**(-1.25) for l in lbins])
 
@@ -183,9 +192,10 @@ for i, ell in enumerate(lbins):
     rho_gals[i] = np.sqrt(np.dot(
         cgk[:-1, i], np.dot(np.linalg.inv(cgg[:-1, :-1, i]), cgk[:-1, i])) / ckk[i])
 
-np.savetxt(output_dir + '/limber_spectra/rho_{}.txt'.format('rho_comb'),
+np.savetxt(output_dir + '/limber_spectra/rho_{}.txt'.format('comb'),
            np.vstack((lbins, rho_comb)).T)
-np.savetxt(output_dir + '/limber_spectra/rho_{}.txt'.format('rho_gals'),
+np.savetxt(output_dir + '/limber_spectra/rho_{}.txt'.format('gals'),
            np.vstack((lbins, rho_gals)).T)
-np.savetxt(output_dir + '/limber_spectra/rho_{}.txt'.format('rho_cmb' + cmb),
+np.savetxt(output_dir + '/limber_spectra/rho_{}.txt'.format('cmb_' + cmb),
            np.vstack((lbins, rho_cmb)).T)
+print('done')
