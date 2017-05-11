@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.9)  11 MAY 2017 16:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.9)  11 MAY 2017 18:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -376,12 +376,12 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 )))
-Class revtex4-1 Info: Patching LaTeX tabular. on input line 160.
-Class revtex4-1 Info: Robustifying \LaTeX's \boldmath command on input line 160
+Class revtex4-1 Info: Patching LaTeX tabular. on input line 164.
+Class revtex4-1 Info: Robustifying \LaTeX's \boldmath command on input line 164
 .
-Class revtex4-1 Info: cite was not loaded (OK!) on input line 160.
-Class revtex4-1 Info: mcite was not loaded (OK!) on input line 160.
-Class revtex4-1 Info: multicol was not loaded (OK!) on input line 160.
+Class revtex4-1 Info: cite was not loaded (OK!) on input line 164.
+Class revtex4-1 Info: mcite was not loaded (OK!) on input line 164.
+Class revtex4-1 Info: multicol was not loaded (OK!) on input line 164.
 
 (./DES_rec_phi_paper.aux
 
@@ -393,20 +393,20 @@ LaTeX Warning: Label `fig:corrnow' multiply defined.
 )
 \openout1 = `DES_rec_phi_paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 160.
-LaTeX Font Info:    ... okay on input line 160.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 160.
-LaTeX Font Info:    ... okay on input line 160.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 160.
-LaTeX Font Info:    ... okay on input line 160.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 160.
-LaTeX Font Info:    ... okay on input line 160.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 160.
-LaTeX Font Info:    ... okay on input line 160.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 160.
-LaTeX Font Info:    ... okay on input line 160.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 160.
-LaTeX Font Info:    ... okay on input line 160.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 164.
+LaTeX Font Info:    ... okay on input line 164.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 164.
+LaTeX Font Info:    ... okay on input line 164.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 164.
+LaTeX Font Info:    ... okay on input line 164.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 164.
+LaTeX Font Info:    ... okay on input line 164.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 164.
+LaTeX Font Info:    ... okay on input line 164.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 164.
+LaTeX Font Info:    ... okay on input line 164.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 164.
+LaTeX Font Info:    ... okay on input line 164.
  (/usr/local/texlive/2016/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count120
@@ -422,7 +422,7 @@ LaTeX Font Info:    ... okay on input line 160.
 \everyMPtoPDFconversion=\toks26
 )
 \AtBeginShipoutBox=\box44
-Package hyperref Info: Link coloring OFF on input line 160.
+Package hyperref Info: Link coloring OFF on input line 164.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
@@ -431,31 +431,31 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count126
 )
-LaTeX Info: Redefining \ref on input line 160.
-LaTeX Info: Redefining \pageref on input line 160.
-LaTeX Info: Redefining \nameref on input line 160.
+LaTeX Info: Redefining \ref on input line 164.
+LaTeX Info: Redefining \pageref on input line 164.
+LaTeX Info: Redefining \nameref on input line 164.
 
 (./DES_rec_phi_paper.out) (./DES_rec_phi_paper.out)
 \@outlinefile=\write5
 \openout5 = `DES_rec_phi_paper.out'.
 
-Class revtex4-1 Info: Taking \maketitle back from hyperref on input line 160.
+Class revtex4-1 Info: Taking \maketitle back from hyperref on input line 164.
 \openout3 = `DES_rec_phi_paperNotes.bib'.
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 172.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 176.
 
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 172.
-LaTeX Font Info:    Try loading font information for U+msa on input line 173.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 176.
+LaTeX Font Info:    Try loading font information for U+msa on input line 177.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 173.
+LaTeX Font Info:    Try loading font information for U+msb on input line 177.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -464,77 +464,102 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: ../images/compare_kernel.pdf Graphic file (type pdf)
 
 <use ../images/compare_kernel.pdf>
-Package pdftex.def Info: ../images/compare_kernel.pdf used on input line 302.
+Package pdftex.def Info: ../images/compare_kernel.pdf used on input line 306.
 (pdftex.def)             Requested size: 243.5394pt x 194.83151pt.
- [2 <../images/compare_kernel.pdf>]
-Underfull \hbox (badness 3240) in paragraph at lines 337--343
+
+
+Package natbib Warning: Citation `limber53' on page 2 undefined on input line 3
+29.
+
+[2 <../images/compare_kernel.pdf>]
+Underfull \hbox (badness 3240) in paragraph at lines 341--347
 []\OT1/cmr/m/n/10 CMB pho-tons in-ter-act grav-i-ta-tion-ally with low-
  []
 
-<../images/cmb_internal.pdf, id=152, 243.54001pt x 194.832pt>
+<../images/cmb_internal.pdf, id=151, 243.54001pt x 194.832pt>
 File: ../images/cmb_internal.pdf Graphic file (type pdf)
 
 <use ../images/cmb_internal.pdf>
-Package pdftex.def Info: ../images/cmb_internal.pdf used on input line 360.
+Package pdftex.def Info: ../images/cmb_internal.pdf used on input line 364.
 (pdftex.def)             Requested size: 219.18396pt x 175.34717pt.
+
+
+Package natbib Warning: Citation `yan:2013' on page 3 undefined on input line 3
+93.
+
+
+Package natbib Warning: Citation `ferraro:2015' on page 3 undefined on input li
+ne 394.
+
+
+Package natbib Warning: Citation `schaan:2016' on page 3 undefined on input lin
+e 400.
+
+
+Package natbib Warning: Citation `namikawa:2016a' on page 3 undefined on input 
+line 402.
 
 
 Package natbib Warning: Citation `Addison:2011se' on page 3 undefined on input 
-line 401.
+line 408.
+
+
+Package natbib Warning: Citation `hall10' on page 3 undefined on input line 410
+.
 
 
 Package natbib Warning: Citation `Holder:2013hqu' on page 3 undefined on input 
-line 406.
+line 413.
 
 
 Package natbib Warning: Citation `planck2013XVIII' on page 3 undefined on input
- line 406.
+ line 413.
 
 
 Package natbib Warning: Citation `Bethermin:2013nza' on page 3 undefined on inp
-ut line 407.
+ut line 414.
 
 [3 <../images/cmb_internal.pdf>]
-Overfull \hbox (15.63232pt too wide) in alignment at lines 434--436
+Overfull \hbox (15.63232pt too wide) in alignment at lines 441--443
  [][][] []
  []
 
-<../images/actual_scenario.pdf, id=196, 243.54001pt x 194.832pt>
+<../images/actual_scenario.pdf, id=190, 243.54001pt x 194.832pt>
 File: ../images/actual_scenario.pdf Graphic file (type pdf)
 
 <use ../images/actual_scenario.pdf>
-Package pdftex.def Info: ../images/actual_scenario.pdf used on input line 466.
+Package pdftex.def Info: ../images/actual_scenario.pdf used on input line 473.
 (pdftex.def)             Requested size: 219.18396pt x 175.34717pt.
 
-<../images/actual_scenario_planck.pdf, id=197, 243.54001pt x 194.832pt>
+<../images/actual_scenario_planck.pdf, id=191, 243.54001pt x 194.832pt>
 File: ../images/actual_scenario_planck.pdf Graphic file (type pdf)
 
 <use ../images/actual_scenario_planck.pdf>
 Package pdftex.def Info: ../images/actual_scenario_planck.pdf used on input lin
-e 475.
+e 482.
 (pdftex.def)             Requested size: 219.18396pt x 175.34717pt.
  [4 <../images/actual_scenario.pdf>]
 
-LaTeX Warning: A float is stuck (cannot be placed) on input line 497.
+LaTeX Warning: A float is stuck (cannot be placed) on input line 504.
 
 
-LaTeX Warning: A float is stuck (cannot be placed) on input line 497.
+LaTeX Warning: A float is stuck (cannot be placed) on input line 504.
 
 
 Class revtex4-1 Warning: Deferred float stuck during \clearpage processing.
 
-<../images/S3_scenario.pdf, id=233, 243.54001pt x 194.832pt>
+<../images/S3_scenario.pdf, id=224, 243.54001pt x 194.832pt>
 File: ../images/S3_scenario.pdf Graphic file (type pdf)
 
 <use ../images/S3_scenario.pdf>
-Package pdftex.def Info: ../images/S3_scenario.pdf used on input line 501.
+Package pdftex.def Info: ../images/S3_scenario.pdf used on input line 508.
 (pdftex.def)             Requested size: 219.18396pt x 175.34717pt.
 
-<../images/S4_scenario.pdf, id=237, 243.54001pt x 194.832pt>
+<../images/S4_scenario.pdf, id=228, 243.54001pt x 194.832pt>
 File: ../images/S4_scenario.pdf Graphic file (type pdf)
 
 <use ../images/S4_scenario.pdf>
-Package pdftex.def Info: ../images/S4_scenario.pdf used on input line 542.
+Package pdftex.def Info: ../images/S4_scenario.pdf used on input line 549.
 (pdftex.def)             Requested size: 219.18396pt x 175.34717pt.
  [5 <../images/actual_scenario_planck.pdf> <../images/S3_scenario.pdf
 
@@ -547,12 +572,12 @@ pdfTeX warning: /usr/local/texlive/2016/bin/x86_64-darwin/pdflatex (file ../ima
 ges/S4_scenario.pdf): PDF inclusion: multiple pdfs with page group included in 
 a single page
 >] (./DES_rec_phi_paper.bbl [6]
-Underfull \hbox (badness 1173) in paragraph at lines 98--104
+Underfull \hbox (badness 1173) in paragraph at lines 77--83
  []\OT1/cmr/m/n/9 Planck Col-lab-o-ra-tion, P. A. R. Ade, N. Aghanim,
  []
 
 
-Underfull \hbox (badness 1173) in paragraph at lines 106--112
+Underfull \hbox (badness 1173) in paragraph at lines 85--91
  []\OT1/cmr/m/n/9 Planck Col-lab-o-ra-tion, P. A. R. Ade, N. Aghanim,
  []
 
@@ -565,10 +590,10 @@ Use \frac instead.
 Package natbib Warning: There were undefined citations.
 
 [7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 606.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 614.
  (./DES_rec_phi_paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 606.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 606.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 614.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 614.
 Package rerunfilecheck Info: File `DES_rec_phi_paper.out' has not changed.
 (rerunfilecheck)             Checksum: 428CAF93F5D1E89342D65B7280482878;1129.
 
@@ -577,13 +602,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 8641 strings out of 494945
- 122052 string characters out of 6180694
- 257280 words of memory out of 5000000
+ 8639 strings out of 494945
+ 121994 string characters out of 6180694
+ 255832 words of memory out of 5000000
  11731 multiletter control sequences out of 15000+600000
  16807 words of font info for 62 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 34i,20n,28p,792b,484s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,20n,28p,792b,479s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></
@@ -608,10 +633,10 @@ nts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2016/texmf-dist/font
 s/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2016/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2016/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmti9.pfb>
-Output written on DES_rec_phi_paper.pdf (7 pages, 543826 bytes).
+Output written on DES_rec_phi_paper.pdf (7 pages, 544530 bytes).
 PDF statistics:
- 407 PDF objects out of 1000 (max. 8388607)
- 361 compressed objects within 4 object streams
- 75 named destinations out of 1000 (max. 500000)
+ 401 PDF objects out of 1000 (max. 8388607)
+ 355 compressed objects within 4 object streams
+ 73 named destinations out of 1000 (max. 500000)
  167 words of extra memory for PDF output out of 10000 (max. 10000000)
 

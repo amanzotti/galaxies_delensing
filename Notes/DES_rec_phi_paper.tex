@@ -29,9 +29,13 @@
 \newcommand{\apjs}{ApJS}
 \newcommand{\aap}{A\&A}
 \newcommand{\mnras}{MNRAS}
-%\newcommand{\prd}{Phys. Rev. D}
 \newcommand{\physrev}{Phys. Rev.}
 \newcommand{\physrevlett}{Phys. Rev. Lett.}
+\newcommand*\aj{AJ}
+%\newcommand*\prd{Phys.~Rev.~D}
+
+
+
 
 \newcommand{\nver}{\hat{\mathbf{n}}}
 \newcommand{\cov}{\text{Cov}}
@@ -384,15 +388,18 @@ Here $\frac{dN}{dz}$ is the number of galaxies as a function of redshift observe
 When computing the auto-spectrum of a galaxies density the shot noise term needs to be taken into account. This is done by adding a constant term to the power spectrum equal to the inverse of the number of galaxies per steradians.
  
 Different galaxy surveys in this work are fully characterized by their b(z), $\frac{dN}{dz}$ and the observed galaxies density.
-We test the delensing efficiency modelling current survey like WISE or D.E.S as well as future galaxy probes like D.E.S.I  LSST together with 21 cm measurement like SKA.
+We test the delensing efficiency modeling current survey like WISE or DES as well as future galaxy probes like DESI and LSST together with 21 cm measurement like SKA.
 
-WISE redsfhit distribution is taken from 
-DES is modeled using
-For DESI we used the ..
+WISE redshift distribution is taken from \cite{yan:2013} (see Fig. 4 therein). 
+To compute the noise term we assume that the available scale after masking WISE should be around $f_{sky}=0.44$ with 50 million galaxies \cite{ferraro:2015}.
 
-LSST is model following
+DES is modeled after the DES Science Verification data public release.
 
-We model SKA following
+For DESI we used the $\frac{dN}{dz}$ in Tab. 2.3 of the DESI Technical Design Report.
+
+LSST is modeled following \cite{schaan:2016} as $\frac{dN}{dz}\propto z^{\alpha}\exp^{-(z/z_{0})^{\beta}}$ with $\alpha = 1.27$, $\beta = 1.02$, and $z_{0}= 0.5$. Furthermore we assume a density of 26 galaxies per arcmin squared.
+
+We model both the SKA redshift distribution and bias survey following \cite{namikawa:2016a}. 
 
 
 \subsection{Cosmic infrared Background}
@@ -403,7 +410,7 @@ This model provides an accurate fit for the power of the \textit{Herschel} $500\
 For the cross-spectra with the CMB lensing or other galaxies tracers $C_{\ell}^{{\rm CIB}\mbox{-}j}$,we use the single-SED model of~\cite{hall10}.
 This places the peak of the CIB emissivity at redshift $z_c = 2$ with a broad redshift kernel of width $\sigma_z = 2$.
 This model is rescaled to agree with the results of
-~\citet{Holder:2013hqu} and \citet{planck2013XVIII} by choosing the corresponding linear bias parameter.
+~\cite{Holder:2013hqu} and \cite{planck2013XVIII} by choosing the corresponding linear bias parameter.
 Other multi-frequency CIB models are available \citep[e.g.,][]{Bethermin:2013nza}; however, given the level of noise, we are relatively insensitive to this choice.
 With these assumptions, depending on angular scale, $45-65\%$ of the CIB is correlated with the CMB lensing potential, as shown in \reffig{corrnow}.
 % \subsection{Weak Lensing}
@@ -601,6 +608,7 @@ This work was partially supported by the Kavli Institute for Cosmological Physic
 %%%=================================================================
 
 \bibliographystyle{plain}
-\bibliography{DES_rec_phi_paper,/home/manzotti/Astrophysics/sptpol_papers/BIBTEX/spt}
+%\bibliography{DES_rec_phi_paper,/Users/alessandromanzotti/Work/Astrophysics/latex_bib/cosmobib,/Users/alessandromanzotti/Work/Astrophysics/delensing/sptpol_papers/2016/delens100d/delens100d,/Users/alessandromanzotti/Work/Astrophysics/delensing/sptpol_papers/BIBTEX/spt}
 
+\bibliography{DES_rec_phi_paper}
 \end{document}
