@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.9)  11 MAY 2017 15:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.9)  11 MAY 2017 16:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -565,19 +565,13 @@ Use \frac instead.
 Package natbib Warning: There were undefined citations.
 
 [7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 607.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 606.
  (./DES_rec_phi_paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 607.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 607.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 606.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 606.
+Package rerunfilecheck Info: File `DES_rec_phi_paper.out' has not changed.
+(rerunfilecheck)             Checksum: 428CAF93F5D1E89342D65B7280482878;1129.
 
-
-Package rerunfilecheck Warning: File `DES_rec_phi_paper.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `DES_rec_phi_paper.out':
-(rerunfilecheck)             Before: 32BDFA8C428F73EFD152DD6F73B9B11F;1105
-(rerunfilecheck)             After:  428CAF93F5D1E89342D65B7280482878;1129.
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -589,7 +583,7 @@ Here is how much of TeX's memory you used:
  11731 multiletter control sequences out of 15000+600000
  16807 words of font info for 62 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 34i,20n,28p,789b,484s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,20n,28p,792b,484s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></
@@ -614,7 +608,7 @@ nts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2016/texmf-dist/font
 s/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2016/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2016/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmti9.pfb>
-Output written on DES_rec_phi_paper.pdf (7 pages, 543817 bytes).
+Output written on DES_rec_phi_paper.pdf (7 pages, 543826 bytes).
 PDF statistics:
  407 PDF objects out of 1000 (max. 8388607)
  361 compressed objects within 4 object streams
