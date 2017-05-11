@@ -159,7 +159,7 @@
 
 \begin{document}
 
-\title{Future CMB delensing with galaxies surveys.}         % Enter your title between curly braces
+\title{Future Cosmic Microwave Background delensing with galaxies surveys.}         % Enter your title between curly braces
 \author{A. Manzotti}        % Enter your name between curly braces
 \email{manzotti.alessandro@gmail.com}
 \affiliation{Kavli Institute for Cosmological Physics, University of Chicago, 5640 South Ellis Avenue, Chicago, IL 60637, USA}
@@ -200,43 +200,24 @@ This paper is organized as follow:
 
 
 
-\section{Theory}
+\section{Gravitational lensing B-mode}
 \label{sec:th}
 
-
-
-%=======================================
-
-
-
-
-% %=======================================
-% \begin{figure}[htbp]
-% \begin{center}
-% \includegraphics[scale=1.]{../images/clbb_res.pdf}
-% \caption{Residual lensing B modes power spectrum using different large scale structure. \refeq{combined}}
-% \end{center}
-% \label{fig:bres}
-% \end{figure}
-
-% %=======================================
-
-
-
-
-As for the temperature, the intensity map of photons on the sky, also the Q and U mode decomposition of their polarization is modified by lensing as:
+As for the CMB photons temperature, the intensity map of photons on the sky, also the Q and U mode decomposition of their polarization is remapped by lensing as:
 \be
-Q(\hat{\mathbf{n}}) = Q_{\mathrm{unlensed}}(\hat{\mathbf{n}}+\mathbf{d});~~
-U(\hat{\mathbf{n}}) = U_{\mathrm{unlensed}}(\hat{\mathbf{n}}+\mathbf{d})
+Q(\hat{\mathbf{n}}) = Q_{\mathrm{unlensed}}(\hat{\mathbf{n}}+\nabla\phi);~~
+U(\hat{\mathbf{n}}) = U_{\mathrm{unlensed}}(\hat{\mathbf{n}}+\nabla\phi)
 \ee
-where $\mathbf{d}$ is the deflection angle directly related to the lensing potential $\phi$.
+where $\nabla\phi$ is the deflection angle directly related to the lensing potential potential integrated along the line of sight $\phi$.
+The CMB polarization is usually decompose into odd-parity Fourier modes E and B. As shown in \cite{} this for symmetry reason the B-modes configuration is mainly sourced by tensor perturbations.
+However this promising sign of primordial gravitational waves is partially obscured by a secondary mechanism that can produce B-modes in the late universe. Indeed gravitational interaction with large scale structure generates CMB B-modes by distorting primordial E-modes.
 
-As a first approximation, the B mode resulting from the lensing of primordial E mode by a convergence field $\kappa$ is:
+As a first approximation, given a convergence field $\kappa= -\frac{1}{2}\nabla^2\phi $ the B mode resulting from the lensing of primordial E mode is:
 \be
 B^{\mathrm{lens}}(\bl) =  \int \frac{d^2 \bl'}{(2 \pi)^2} W(\bl,\bl') E(\ublu) \kappa(\bl - \bl')
-\label{eqn:}
+\label{eqn:blens}
 \ee
-where
+where different modes contributes with a different weight given by:
 \be
 W(\bl,\bl') = \frac{2 \bl' \cdot (\bl-\bl')}{|\bl-\bl'|^2} \sin(2\varphi_{\bl,\bl'}),
 \ee
@@ -251,35 +232,33 @@ From this we get that the power spectrum of the lensing component of the B-modes
 C_l^{BB,\mathrm{lens}}  = \int \frac{d^2 \bl'}{(2 \pi)^2} W^2 (\bl,\bl')C^{EE}_{l'} C^{\kappa \kappa}_{|\bl-\bl'|}.
 \ee
 
-Now the full B-mode power spectrum measured on the sky is
+The full B-mode power spectrum measured on the sky is given by a possible primordial component $C_l^{BB,r}$ together with the lensing $C_l^{BB,\mathrm{lens}}$ contribution and instrumental noise $N_l^{BB}$:
 \be
 C_l^{BB,\mathrm{full}} = C_l^{BB,r} + C_l^{BB,\mathrm{lens}} + N_l^{BB}.
 \ee
+Given the current constrains, the lensing component is a significant source of B-modes that, for GW searches purposes correspond to a white noise source of roughly $5 \mu K$-arcmin. This means that it is not only bigger than the biggest allowed GW contribution at scale bigger than several degrees but it is comparable with the decreasing level of instrumental noise. 
+For this reason it is very important to characterize it and eventually remove it form the data.
+This can be done for example using \refeq{blens} (or its real-space analogue) given a measurement of the E-mode field and the lensing potential $\phi$.
+While E is measured directly, we ca estimate $\phi$ using "tracers" of the dark matter distribution that creates the potential. 
 
-If we have an LSS measurements I($\hat n$) that traces the lensing potential responsible for the lensing of the CMB we can build a template of the lensing B mode on the sky with a weighted convolution:
+If we have a large scale structure field I($\nver$) that traces the lensing potential responsible for the lensing of the CMB the template of the lensing B mode on the sky is a weighted convolution:
 \be
 \hat{B}^{\mathrm{lens}}(\bl) = \int \frac{d^2 \bl'}{(2 \pi)^2} W(\bl,\bl') f(\bl,\bl') E^N(\ublu) I(\bl - \bl')
 \ee
-where $f(\bl,\bl')$ is a weight that must be determined.
+where $f(\bl,\bl')$ can be determined minimizing the difference with the true $B^{\mathrm{lens}}(\bl)$ defined in \refeq{blens}.
 
-The residual lensing B mode will be
+The residual lensing B mode due to an imperfect knowledge of the true E-mode and $\phi$ will be
 \beqn
 B^\mathrm{res}(\bl) &=&  B^\mathrm{lens}(\bl) - \hat{B}^\mathrm{lens}(\bl) =  \int \frac{d^2 \bl'}{(2 \pi)^2} W(\bl,\bl') \times \nonumber \\ &&\left( E(\ublu) \kappa(\bl - \bl' ) -  f(\bl,\bl') E^N(\ublu) I(\bl - \bl' ) \right)
 \eeqn
-and its power spectru
-m\beqn
-C_{{l}}^{BB,\mathrm{res}} &=&   \int \frac{d^2 \bl'}{(2 \pi)^2} W^2 (\bl,\bl')
- [ C^{EE}_{l'} C^{\kappa \kappa}_{|\bl-\bl'|} \nonumber \\ && -(f(\bl,\bl')+f^*(\bl,\bl')) C^{EE}_{l'} C^{\kappa I}_{|\bl-\bl'|} \\ \nonumber && + f^*(\bl,\bl') f(\bl,\bl') (C^{EE}_{{l'}}+ N^{EE}_{{l'}}) C^{II}_{|\bl-\bl'|} ]
- \eeqn
 
-
-We can now easily choose $f(\bl,\bl')$ so that the residual lensing B mode power is minimized. We find:
+The weights $f(\bl,\bl')$ so that the residual lensing B mode power is minimized are:
 \be
 f(\bl,\bl') = \left(\frac{C^{EE}_{{l'}}}{C^{EE}_{{l'}}+N^{EE}_{{l'}}}\right)  \frac{C^{\kappa I}_{|\bl-\bl'|}}{C^{II}_{|\bl-\bl'|} }
 \ee
 Notice that the first term consists in the usual inverse variance filter applied to the measured E-mode and the second minimize the difference between the reconstructed $\phi$ and the CMB lensing potential.
 
-We finally have that the residual power is:
+With this choice of $f(\bl,\bl')$ we finally have that the residual power is:
 \beqn
 C_{{l}}^{BB,\mathrm{res}} &=&   \int \frac{d^2 \bl'}{(2 \pi)^2}  W^2 (\bl,\bl')
  C^{EE}_{l'} C^{\kappa \kappa}_{|\bl-\bl'|}  \\
@@ -291,6 +270,7 @@ with
 \ee
 
 The bigger $\rho_l$ is for a LSS field the more it is correlated with the lensing potential acting on the CMB photons. An higher correlation allows for a better reconstruction of the $\phi^{CMB}$ and, as a consequence, of $B^{lens}$.
+
 
 \subsection{Multiple tracers of the lensing potential}\label{sec:galcontrib}
 
@@ -335,13 +315,13 @@ On the other hand CIB and 21 cm surveys are target to high redshift structures a
 \label{sec:data}
 In this section we briefly describe how the power spectra of \refsec{th} are computed and what it is assumed for the different tracers considered in this work.
 
-Given a 2D projected field $\delta^{i}$ this can be seen as a 3D field project along the line of site as:
+A 2D projected field $\delta^{i}$ that traces dark matter overdensities can be seen as a 3D field projected along the line of site as:
 
 \begin{equation}
-\delta^{i}(\theta) = \int_0^{\infty} dz\, W^{\kappa}(z)\delta^{i}(\chi(z)\nver,z).
+\delta^{i}(\nver) = \int_0^{\infty} dz\, W^{i}(z)\delta(\chi(z)\nver,z).
 \label{eqn:wkappa}
 \end{equation}
-
+where $\delta(\chi(z)\nver,z)$ correspond to the dark matter overdesity field at a comoving distance $\chi(z)$ at redshift $z$ in the angular direction $\nver$.
 Using the Limber approximation \cite{limber53} we can compute the power spectra of 2 fields $i,j$ as:
 \begin{equation}
 C_{\ell}^{ij}= \int_0^{\infty} \frac{dz}{c} \frac{H(z)}{\chi(z)^2}\, W^{i}(z)W^{j}(z)P(k,z).
@@ -365,18 +345,20 @@ W^{\kappa}(z) = \frac{3\Omega_{\rm m}}{2c}\frac{H_0^2}{H(z)}(1+z)\chi(z)\frac{\c
 \end{equation}
 %
 where $\Omega_{\rm m}$ and $H_0$ are the present day values of the Hubble and matter density parameters, respectively.
+
 The CMB lensing potential is \textit{the} field that we need to reconstruct in order to reverse the effect of large scale structure and delens the CMB.
-This lensing potential can be reconstructed from the CMB. In that case it can be see as a noisy tracer of the true field. While the CMB internal reconstruction fiels as the same kernel as the true one $W^{\kappa}(z)$.
-Given certain instrumental noise level and beam, results in a lensing map with reconstruction noise $N_l^{\kappa \kappa}$, so that its power spectrum is
+However the lensing potential can also be reconstructed from the CMB itself. In that case it can be see as a noisy tracer of the true field. While the CMB internal reconstruction fiels as the same kernel as the true one $W^{\kappa}(z)$.
+Given the instrumental noise level and the beam, we can compute the reconstruction noise $N_l^{\kappa \kappa}$, so that its power spectrum is
 \beq
 \cl^{\kappa_\mathrm{rec} \kappa_\mathrm{rec}} = \cl^{\kappa \kappa } +N^{\kappa \kappa}_l
 \eeq
+In this work the level of noise is computed assuming an iterative quadratic estimator is used in the reconstruction.
 
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=0.9]{../images/cmb_internal.pdf}
-\caption{Correlation factor between CMB reconstructed potential and the real lensing potential for different CMB experiments}
+\caption{\textbf{CMB alone:} Correlation factor between CMB internal reconstructed potential and the true lensing potential for different CMB experiments and corresponding noise reconstructions. }
 \end{center}
 \label{fig:corr-internal}
 
@@ -399,7 +381,18 @@ W^{g}(z) &= \frac{b(z)\frac{dN}{dz}}{\Bigl(\int dz'\,\frac{dN}{dz'}\Bigr)}.
 \end{split}
 \end{equation}
 Here $\frac{dN}{dz}$ is the number of galaxies as a function of redshift observed by the survey while $b(z)$ is the galaxy bias that connect at different redshift the amplitude of galaxies overdensity to the one of the dark matter.
-Different galaxy surveys in this work are fully characterized by their b(z) and $\frac{dN}{dz}$.
+When computing the auto-spectrum of a galaxies density the shot noise term needs to be taken into account. This is done by adding a constant term to the power spectrum equal to the inverse of the number of galaxies per steradians.
+ 
+Different galaxy surveys in this work are fully characterized by their b(z), $\frac{dN}{dz}$ and the observed galaxies density.
+We test the delensing efficiency modelling current survey like WISE or D.E.S as well as future galaxy probes like D.E.S.I  LSST together with 21 cm measurement like SKA.
+
+WISE redsfhit distribution is taken from 
+DES is modeled using
+For DESI we used the ..
+
+LSST is model following
+
+We model SKA following
 
 
 \subsection{Cosmic infrared Background}
@@ -416,18 +409,10 @@ With these assumptions, depending on angular scale, $45-65\%$ of the CIB is corr
 % \subsection{Weak Lensing}
 \cite{hall:2010,sherwin:2015,ade:2014,hanson:2013,szapudi:2001,0004-637X-567-1-2,planck-collaboration:2014,planck-collaboration:2014a,planck-collaboration:2011,plank-collaboration:2014,boulanger:1996,lewis:2006}
 
-We test the delensing efficiency modelling  current survey after D.E.S and using as future probe galaxy clustering measured with D.E.S.I and LSST together with 21 cm measurement like SKA.
 
-For DESI we used the ..
-
-LSST is model following
-
-
-
-We model SKA following
-
-
-
+%=================
+% FORECAST
+%=================
 
 \section{Forecast}
 \label{sec:for}
@@ -609,7 +594,13 @@ Delensing or more in general the ability to separate the lensing component of th
 In this paper we studied the possible impact of large scale structure surveys in this important endeavor.
 For current experiment CIB data had already proven to be very efficient in delensing. If no High res experiment is avaiable to reconstruct the lensing potential phi even a low-z experiment like D.E.S will improve th delensign efficiency by $~10\%$ if combined with Planck lensing and a CIB tracers.
 As expected the lower the noise in the CMB experiment the more the delensign efficiency will be predominately come from the internal CMB reconstruction of the lensing potential. Indeed using the CMB itself we reconstruct only the lenses that actually lens the CMB obtained an almost perfect cleaning in the absence of noise. This approach will need a careful study of possible biases coming from using the same source (the CMB) we are delensing to reconstruct the lensing effect itself. This has already been applied to data and studied. However the fairly good efficiency of galaxies tracers might come in end to cross-check these internal biases. This will probably be needed to confirm a possible detection of gravitation waves if this rely heavily on delensing.
-\section*{Acknowledgment}
+
+%=================================================================
+\section{Acknowledgments}
+We thank 
+This work was partially supported by the Kavli Institute for Cosmological Physics at the University of Chicago through grants NSF PHY-1125897 and an endowment from the Kavli Foundation and its founder Fred Kavli.
+%%%=================================================================
+
 \bibliographystyle{plain}
 \bibliography{DES_rec_phi_paper,/home/manzotti/Astrophysics/sptpol_papers/BIBTEX/spt}
 
