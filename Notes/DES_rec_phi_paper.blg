@@ -7,52 +7,49 @@ Warning--entry type for "Note1" isn't style-file defined
 --line 1 of file DES_rec_phi_paperNotes.bib
 Database file #2: DES_rec_phi_paper.bib
 Database file #3: /home/manzotti/Astrophysics/sptpol_papers/BIBTEX/spt.bib
-Warning--I didn't find a database entry for "bart01"
-Warning--I didn't find a database entry for "Hu:2000ee"
-Warning--I didn't find a database entry for "LoVerde:2006cj"
 Warning--I didn't find a database entry for "Addison:2011se"
 Warning--I didn't find a database entry for "Holder:2013hqu"
 Warning--I didn't find a database entry for "planck2013XVIII"
 Warning--I didn't find a database entry for "Bethermin:2013nza"
-You've used 14 entries,
+You've used 15 entries,
             2118 wiz_defined-function locations,
-            587 strings with 14586 characters,
-and the built_in function-call counts, 17251 in all, are:
-= -- 1236
-> -- 2325
+            588 strings with 14661 characters,
+and the built_in function-call counts, 17496 in all, are:
+= -- 1260
+> -- 2332
 < -- 0
-+ -- 928
-- -- 914
-* -- 2008
-:= -- 3263
-add.period$ -- 40
-call.type$ -- 14
-change.case$ -- 499
++ -- 931
+- -- 916
+* -- 2024
+:= -- 3307
+add.period$ -- 43
+call.type$ -- 15
+change.case$ -- 503
 chr.to.int$ -- 0
-cite$ -- 14
-duplicate$ -- 147
-empty$ -- 315
-format.name$ -- 914
-if$ -- 2951
+cite$ -- 15
+duplicate$ -- 158
+empty$ -- 337
+format.name$ -- 916
+if$ -- 3001
 int.to.chr$ -- 0
-int.to.str$ -- 14
-missing$ -- 13
-newline$ -- 71
-num.names$ -- 26
-pop$ -- 487
+int.to.str$ -- 15
+missing$ -- 14
+newline$ -- 76
+num.names$ -- 28
+pop$ -- 489
 preamble$ -- 1
-purify$ -- 486
+purify$ -- 489
 quote$ -- 0
-skip$ -- 100
+skip$ -- 107
 stack$ -- 0
-substring$ -- 215
-swap$ -- 14
+substring$ -- 229
+swap$ -- 15
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 56
+type$ -- 60
 warning$ -- 0
-while$ -- 37
-width$ -- 16
-write$ -- 147
-(There were 8 warnings)
+while$ -- 40
+width$ -- 17
+write$ -- 158
+(There were 5 warnings)

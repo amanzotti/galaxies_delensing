@@ -84,6 +84,12 @@ A.~{Lewis} and A.~{Challinor}.
 \newblock {Weak gravitational lensing of the CMB}.
 \newblock {\em \physrep}, 429:1--65, June 2006.
 
+\bibitem{limber53}
+D.~N. {Limber}.
+\newblock {The Analysis of Counts of the Extragalactic Nebulae in Terms of a
+  Fluctuating Density Field.}
+\newblock {\em \apj}, 117:134, January 1953.
+
 \bibitem{Note1}
 In our analysis, since the fiducial value of $r$ is zero, the derivative of
   $C_\ell ^{\protect \rm BB,res}$ is non-zero if $\theta _i=r$.
