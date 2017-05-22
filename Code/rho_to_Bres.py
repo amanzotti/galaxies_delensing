@@ -25,7 +25,7 @@ def nl(noise_uK_arcmin, fwhm_arcmin, lmax):
     return (noise_uK_arcmin * np.pi / 180. / 60.)**2 / bl(fwhm_arcmin, lmax)**2
 
 
-def compute_res_parallel(rho_filename):
+def compute_res_parallel(rho_filename, output_dir, clee_fun, clpp_fun, nle_fun):
 
     print('start integration')
 
@@ -46,23 +46,12 @@ def compute_res_parallel(rho_filename):
             return (ell / (2. * np.pi)**2 * (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee * (np.sin(2. * theta))**2) * (1. - (clee / (clee + nle_fun(ell))) * rho_fun(ell) ** 2)
 
     clbb_res_ell = [integrate.dblquad(
-        integrand, 8, 3000, lambda x: 0, lambda x: 2. * np.pi, args=(L,), epsabs=1.49e-08, epsrel=1.49e-07)[0] for L in np.arange(4, 2500, 10)]
+        integrand, 8, 1500, lambda x: 0, lambda x: 2. * np.pi, args=(L,), epsabs=1.49e-08, epsrel=1.49e-07)[0] for L in np.arange(4, 2500, 10)]
 
     np.savetxt(rho_filename.split('.txt')[0] + 'Cbb_res.txt', clbb_res_ell)
-    np.savetxt(datadir + 'limber_spectra/cbb_res_ls.txt', np.arange(4, 2500, 10))
+    np.savetxt(output_dir + 'limber_spectra/cbb_res_ls.txt', np.arange(4, 2500, 10))
 
     return clbb_res_ell
-
-
-
-
-
-
-
-
-
-
-
 
 
 def compute_res(rho_filename, noise_pol=2., fwhm_beam=30.):
@@ -131,8 +120,8 @@ def load_res(labels):
         res_list.append(np.loadtxt(datadir + 'limber_spectra/cbb_res_' + label + 'test3.txt'))
     return res_list
 
-if __name__ == "__main__":
 
+def main(rho_names, nle):
     cosmosis_dir = '/home/manzotti/cosmosis/'
     inifile = '/home/manzotti/cosmosis/modules/limber/galaxies_delens.ini'
 
@@ -174,69 +163,10 @@ if __name__ == "__main__":
     nle_fun = InterpolatedUnivariateSpline(
         ells_cmb[:5000], nle[:5000], ext=2)
 
-    # rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_cmb_current.txt', 'rho_gals_current.txt', 'rho_comb_current.txt', 'rho_cib.txt',
-    #              'rho_cmb_S3.txt', 'rho_gals_S3.txt', 'rho_comb_S3.txt', 'rho_cmb_S4.txt', 'rho_gals_S4.txt', 'rho_comb_S4.txt']
+    return Parallel(n_jobs=len(rho_names), verbose=0)(delayed(compute_res_parallel)(i,output_dir, clee_fun, clpp_fun, nle_fun) for i in rho_names)
 
-    # for label in surveys:
-    #     B_res2 = compute_res_2(label, clee_fun, clpp_fun, nle_fun)
 
-    # for label in surveys:
-    #     compute_res_3(label, clee_fun, clpp_fun, nle_fun)
-    # compute_res_parallel('rho_cmbS4')
 
-    B_res3 = Parallel(n_jobs=6, verbose=500)(delayed(compute_res_parallel)(i) for i in rho_names)
 
-    # def compute_res(label_survey):
-    #     lbins = np.logspace(1, 3.5, 190)
-
-    #     if label_survey == 'test':
-    #         clbb_res = lensing.utils.calc_lensed_clbb_first_order(
-    #             lbins, clee, clpp, lmax=ells_cmb[-1], nx=2048, dx=4. / 60. / 180. * np.pi)
-    #     else:
-    #         rho = np.loadtxt(
-    #             '/home/manzotti/cosmosis/modules/limber/galaxies_delens/limber_spectra/rho_' + label_survey + '.txt')
-    #         rho_fun = interp1d(rho[:, 0], rho[:, 1], bounds_error=False, fill_value=0.)
-    #         clbb_res = lensing.utils.calc_lensed_clbb_first_order(
-    #             lbins, clee, clpp * (1. - (clee / (clee + nle)) * rho_fun(ells_cmb) ** 2), lmax=ells_cmb[-1], nx=2048, dx=4. / 60. / 180. * np.pi)
-    #     np.savetxt(datadir + 'limber_spectra/cbb_res_' + label_survey + '.txt',
-    #                np.array(clbb_res.specs['cl'], dtype=float))
-    #     return np.array(clbb_res.specs['cl'], dtype=float)
-
-    # def compute_res_2(label_survey, clee, clpp, nle):
-
-    #     if label_survey == 'test':
-    #         def integrand(ell):
-    #             return ell**5 / 4. / np.pi * clpp(ell) * clee(ell)
-    #     else:
-    #         rho = np.loadtxt(
-    #             '/home/manzotti/cosmosis/modules/limber/galaxies_delens/limber_spectra/rho_' + label_survey + '.txt')
-    #         rho_fun = interp1d(rho[:, 0], rho[:, 1], bounds_error=False, fill_value=0.)
-
-    #         def integrand(ell):
-    # return ell**5 / 4. / np.pi * clpp(ell) * clee(ell) * (1. - (clee(ell) /
-    # (clee(ell) + nle(ell))) * rho_fun(ell) ** 2)
-
-    #     clbb_res = integrate.quad(integrand, 4, 2500, limit=100, epsrel=1.49e-09)
-    #     np.savetxt(datadir + 'limber_spectra/cbb_res_' + label_survey +
-    #                'test2.txt', clbb_res[0] * np.ones(2000))
-    #     return clbb_res[0] * np.ones(2000)
-
-    # def compute_res_3(label_survey, clee_fun, clpp_fun, nle_fun):
-    #     rho = np.loadtxt(
-    #         '/home/manzotti/cosmosis/modules/limber/galaxies_delens/limber_spectra/rho_' + label_survey + '.txt')
-    #     rho_fun = interp1d(rho[:1000, 0], rho[:1000, 1], bounds_error=False, fill_value=0.)
-    #     print('start integration')
-
-    #     @jit
-    #     def integrand(theta, ell, L):
-    #         #     print(ell,theta)
-    #         clee = clee_fun(ell)
-    # return (ell / (2. * np.pi)**2 * (L * ell * np.cos(theta) - ell**2)**2 *
-    # clpp_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee *
-    # (np.sin(2. * theta))**2) * (1. - (clee / (clee + nle_fun(ell))) *
-    # rho_fun(ell) ** 2)
-
-    #     clbb_res_ell = [integrate.dblquad(
-    #         integrand, 4, 3000, lambda x: 0, lambda x: 2. * np.pi, args=(L,))[0] for L in np.arange(4, 500, 10)]
-    #     np.savetxt(datadir + 'limber_spectra/cbb_res_' + label_survey + 'test3.txt', clbb_res_ell)
-    #     return clbb_res_ell
+if __name__ == "__main__":
+    main(rho_names, nle)

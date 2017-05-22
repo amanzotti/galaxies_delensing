@@ -76,6 +76,16 @@ norm = dndzfun.integral(dndz[0, 0], dndz[-2, 0])
 dndzfun_desi = InterpolatedUnivariateSpline(dndz[:, 0], dndz[:, 1] / norm)
 
 
+wise_dn_dz = np.loadtxt('/home/manzotti/galaxies_delensing/wise_dn_dz.txt')
+dndzwise = InterpolatedUnivariateSpline(wise_dn_dz[:, 0], wise_dn_dz[:, 1], k=3, ext='zeros')
+norm = dndzwise.integral(0, 2)
+dndzwise = InterpolatedUnivariateSpline(
+    wise_dn_dz[:, 0], wise_dn_dz[:, 1] / norm, ext='zeros')
+# Biased was measured equal to 1 in Feerraro et al. WISE ISW measureament
+# by cross correlating with planck lensing
+wise = gals_kernel.kern(wise_dn_dz[:, 0], dndzwise, hspline, omega_m, h0, b=1.)
+
+
 nu = 353e9
 zs = 2.
 b = 1.
@@ -88,7 +98,7 @@ desi = gals_kernel.kern(dndz[:, 0], dndzfun_desi, hspline, omega_m, h0)
 
 des_weak = kappa_gals_kernel.kern(dndz_des[:, 0], dndzfun_des, chispline, hspline, omega_m, h0)
 
-l = 100
+l = 50
 z_kappa = np.linspace(0, 13, 500)
 w_kappa = np.zeros_like(z_kappa)
 for i, z in enumerate(z_kappa):
@@ -138,11 +148,13 @@ for i, z in enumerate(z_ska):
 
 z_kappa_gal = np.linspace(0, des_weak.zmax, 500)
 w_kappa_gal = np.zeros_like(z_kappa_gal)
+w_structure = np.zeros_like(z_kappa_gal)
+
 for i, z in enumerate(z_kappa_gal):
 
     x = chispline(z)
-    # w_kappa_gal[i] = 1. / x * des_weak.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
-    w_kappa_gal[i] = des_weak.w_lxz(l, x, z)
+    w_kappa_gal[i] = 1. / x * des_weak.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
+    w_structure[i] = np.sqrt(rbs.ev((l + 0.5) / x, z))  # des_weak.w_lxz(l, x, z)
 
 z_cib = np.linspace(0, 13., 500)
 w_cib = np.zeros_like(z_cib)
@@ -160,6 +172,15 @@ for i, z in enumerate(z_des):
     x = chispline(z)
     # w_des[i] = 1. / x * des.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
     w_des[i] = des.w_lxz(l, x, z)
+
+
+z_wise = np.linspace(0, 1.5, 500)
+w_wise = np.zeros_like(z_wise)
+for i, z in enumerate(z_wise):
+
+    x = chispline(z)
+    # w_des[i] = 1. / x * des.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
+    w_wise[i] = wise.w_lxz(l, x, z)
 
 
 z_desi = np.linspace(0.4, 1.8, 500)
