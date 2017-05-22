@@ -26,10 +26,11 @@ def nl(noise_uK_arcmin, fwhm_arcmin, lmax):
 
 
 def compute_res_parallel(rho_filename, output_dir, clee_fun, clpp_fun, nle_fun):
-
-    print('start integration')
-
+    print(output_dir)
+    # print('start integration')
     if rho_filename == 'test':
+        lmax = 3000
+
         def integrand(theta, ell, L):
             clee = clee_fun(ell)
             return (ell / (2. * np.pi)**2 * (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee * (np.sin(2. * theta))**2)
@@ -40,16 +41,19 @@ def compute_res_parallel(rho_filename, output_dir, clee_fun, clpp_fun, nle_fun):
         lbins = np.loadtxt(rho_filename)[:, 0]
         rho_fun = InterpolatedUnivariateSpline(
             lbins, np.nan_to_num(rho), ext='raise')
+        lmax = np.max(lbins)
 
         def integrand(theta, ell, L):
             clee = clee_fun(ell)
             return (ell / (2. * np.pi)**2 * (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee * (np.sin(2. * theta))**2) * (1. - (clee / (clee + nle_fun(ell))) * rho_fun(ell) ** 2)
 
+    lbins_int = np.linspace(10,2500,80)
+
     clbb_res_ell = [integrate.dblquad(
-        integrand, 8, 1500, lambda x: 0, lambda x: 2. * np.pi, args=(L,), epsabs=1.49e-08, epsrel=1.49e-07)[0] for L in np.arange(4, 2500, 10)]
+        integrand, 8, lmax, lambda x: 0, lambda x: 2. * np.pi, args=(L,), epsabs=0., epsrel=1.49e-02)[0] for L in lbins_int]
 
     np.savetxt(rho_filename.split('.txt')[0] + 'Cbb_res.txt', clbb_res_ell)
-    np.savetxt(output_dir + 'limber_spectra/cbb_res_ls.txt', np.arange(4, 2500, 10))
+    np.savetxt(output_dir + 'limber_spectra/cbb_res_ls.txt', lbins_int)
 
     return clbb_res_ell
 
@@ -91,12 +95,13 @@ def compute_res(rho_filename, noise_pol=2., fwhm_beam=30.):
     print('start integration')
 
     if rho_filename == 'test':
+        lmax = 4000
         def integrand(theta, ell, L):
             clee = clee_fun(ell)
             return (ell / (2. * np.pi)**2 * (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee * (np.sin(2. * theta))**2)
     else:
-        rho = np.loadtxt(rho_filename)[:, 1]
-        lbins = np.loadtxt(rho_filename)[:, 0]
+        rho = np.loadtxt(datadir + '/limber_spectra/' + rho_filename)[:, 1]
+        lbins = np.loadtxt(datadir + '/limber_spectra/' + rho_filename)[:, 0]
         rho_fun = InterpolatedUnivariateSpline(lbins, np.nan_to_num(rho), ext='raise')
 
         def integrand(theta, ell, L):
@@ -122,13 +127,10 @@ def load_res(labels):
 
 
 def main(rho_names, nle):
-    cosmosis_dir = '/home/manzotti/cosmosis/'
     inifile = '/home/manzotti/cosmosis/modules/limber/galaxies_delens.ini'
 
     Config_ini = ConfigParser.ConfigParser()
-    values = ConfigParser.ConfigParser()
     Config_ini.read(inifile)
-    values_file = Config_ini.get('pipeline', 'values')
     output_dir = Config_ini.get('test', 'save_dir')
 
     datadir = output_dir
@@ -163,9 +165,7 @@ def main(rho_names, nle):
     nle_fun = InterpolatedUnivariateSpline(
         ells_cmb[:5000], nle[:5000], ext=2)
 
-    return Parallel(n_jobs=len(rho_names), verbose=0)(delayed(compute_res_parallel)(i,output_dir, clee_fun, clpp_fun, nle_fun) for i in rho_names)
-
-
+    return Parallel(n_jobs=len(rho_names)+3, verbose=0)(delayed(compute_res_parallel)(i, output_dir, clee_fun, clpp_fun, nle_fun) for i in rho_names)
 
 
 if __name__ == "__main__":

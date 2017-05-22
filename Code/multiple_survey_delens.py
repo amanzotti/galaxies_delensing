@@ -175,7 +175,7 @@ def main(labels,cmb):
                np.vstack((lbins, rho_gals)).T)
     np.savetxt(output_dir + '/limber_spectra/rho_{}.txt'.format('cmb_' + cmb),
                np.vstack((lbins, rho_cmb)).T)
-    print('done')
+    print('done computing rhos')
 
 
 
