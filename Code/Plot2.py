@@ -185,8 +185,8 @@ plt.plot(lbins, rho['des'], label='DES')
 plt.plot(lbins, rho_cmb, label='SPT Pol')
 plt.plot(lbins, rho_gals, label='DES +CIB')
 plt.plot(lbins, rho_comb, label='DES + CIB + SPTPol')
-plt.plot(BB_contr[:, 0], BB_contr[:, 1], '--', alpha=0.6)
-
+plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]),
+         '--', alpha=0.6, linewidth=font_size / 14., color='k')
 plt.legend(loc=0, ncol=2)
 plt.ylim(0, 1.2)
 plt.title('2016 Scenario')
