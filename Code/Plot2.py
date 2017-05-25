@@ -266,7 +266,7 @@ np.savetxt('rho_comb_S4.txt', rho_comb)
 fg = plt.figure(figsize=fig_dims)
 
 plt.plot(lbins, rho_cmb, label='CMB S4')
-plt.plot(lbins, rho_gals, label='Galaxies')
+# plt.plot(lbins, rho_gals, label='Galaxies')
 plt.plot(lbins, rho_comb, label='Galaxies + CMB S4')
 plt.plot(lbins, rho['euclid'], label='Euclid')
 plt.plot(lbins, rho['lsst'], label='LSST')
