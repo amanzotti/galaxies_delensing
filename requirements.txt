@@ -1,0 +1,7 @@
+numpy
+scipy
+matplotlib
+configparser
+joblib
+colorama
+pickle
