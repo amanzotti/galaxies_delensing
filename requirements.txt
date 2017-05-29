@@ -1,7 +1,6 @@
-numpy
+numpy>=1.10
 scipy
 matplotlib
-configparser
 joblib
 colorama
 pickle
