@@ -278,10 +278,7 @@ def main(ini_par):
     kernels = [lkern, wise, euclid, des_weak, lsst, ska10, ska01, ska5, ska1, cib, desi, des]
     names = ['k', 'wise', 'euclid', 'des_weak', 'lsst', 'ska10',
              'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
-    # profiler.start()
-    # run your program.
-    # names = names[:2]
-    # kernels = kernels[:2]
+
     labels = []
     kernel_list = []
 
@@ -343,12 +340,6 @@ def main(ini_par):
     section = "limber_spectra"
     np.save(section + obj, cls)
     np.save('ells', ini_pars['lbins'])
-    # for i in np.arange(0, len(kernels)):
-    #     for j in np.arange(i, len(kernels)):
-    #         print(names[i], names[j])
-    #         block[section, "cl_" + names[i] + names[j] + obj] = cls[names[i] + names[j]]
-
-    # block[section, "ells_" + obj] = lbins
     # profiler.stop()
     # profiler.run_viewer()
     return ini_pars['lbins'], cls
