@@ -1,4 +1,5 @@
 '''
+This script compute all the spectra needed for the delensing part.
 '''
 import pyximport
 import numpy as np
@@ -9,14 +10,14 @@ import hall_CIB_kernel as cib_hall
 import scipy.integrate
 from scipy.interpolate import RectBivariateSpline, interp1d, InterpolatedUnivariateSpline
 import limber_integrals
-import pickle as pk
+# import pickle as pk
 import camb
-from camb import model, initialpower
+from camb import model
 import configparser
 pyximport.install(reload_support=True)
-from joblib import Parallel, delayed
-from profiling.sampling import SamplingProfiler
-profiler = SamplingProfiler()
+# from joblib import Parallel, delayed
+# from profiling.sampling import SamplingProfiler
+# profiler = SamplingProfiler()
 
 
 def cl_limber_z_local(chi_z, hspline, rbs, l, kernel_1, kernel_2=None, zmin=0.0, zmax=1100.):
@@ -41,7 +42,7 @@ def cl_limber_z_local(chi_z, hspline, rbs, l, kernel_1, kernel_2=None, zmin=0.0,
     """
 
     #  TODO check the H factor.
-    if kernel_2 == None:
+    if kernel_2 is None:
         kernel_2 = kernel_1
 
         def integrand(z):
@@ -85,18 +86,7 @@ def setup(ini_file='./gal_delens_values.ini'):
     llmin = config.getfloat('spectra', 'llmin', fallback=0.)
     llmax = config.getfloat('spectra', 'llmax', fallback=3.)
     dlnl = config.getfloat('spectra', "dlnl", fallback=.1)
-    # # What matter power spectrum to use, linear Halofit etc
-    # dndz_filename = options.get_string(
-    # option_section, "dndz_filename",
-    # default="/home/manzotti/cosmosis/modules/limber/data_input/DES/N_z_wavg_spread_model_0.2_1.2_tpz.txt")
-
-    # nu = options[option_section, "nu"]
-    # # nu = np.fromstring(nu, dtype=float, sep=',')
-    # zc = options.get_double(option_section, "zc", default=2.)
-    # zs = options.get_double(option_section, "zs", default=2.)
-    # b = options.get_double(option_section, "b", default=1.)
-
-    # noisy = options.get_bool(option_section, "noisy_spectra", default=True)
+    noisy = options.get_bool('spectra', "noisy", fallback=True)
 
     lbins = np.arange(llmin, llmax, dlnl)
     lbins = 10. ** lbins
@@ -118,53 +108,30 @@ def main(ini_par):
     cl_limber_z = limber_integrals.cl_limber_z
     noisy = True
     pars = camb.CAMBparams()
-# This function sets up CosmoMC-like settings, with one massive neutrino
-# and helium set using BBN consistency
+    # This function sets up CosmoMC-like settings, with one massive neutrino
+    # and helium set using BBN consistency
     pars.set_cosmology(H0=67.5, ombh2=0.022, omch2=0.122, mnu=0.06, omk=0, tau=0.06)
     pars.InitPower.set_params(ns=0.965, r=0)
     pars.set_for_lmax(3500, lens_potential_accuracy=0)
     pars.NonLinear = model.NonLinear_both
     pars.set_matter_power(redshifts=np.linspace(0., 13, 50), kmax=5.0)
     results = camb.get_results(pars)
-    # powers = results.get_cmb_power_spectra(pars)
     # P(z,k)
     kh_nonlin, z_nonlin, pk_nonlin = results.get_matter_power_spectrum(
         minkh=1e-6, maxkh=5, have_power_spectra=False, npoints=250)
-    # be careful the one below you have to pass log(k) and it returns log(P)
-    PK = camb.get_matter_power_interpolator(pars, nonlinear=True, zmin=0, zmax=10, nz_step=40,
-                                            hubble_units=True, k_hunit=True, kmax=6.)
-    # lensedCL = powers['lensed_scalar']
-
-    # zpower = block[blockname, "z"]
-    # kpower = block[blockname, "k_h"]
-    # print blockname
-    # powerarrayP = block[blockname, "p_k"].reshape([np.size(zpower), np.size(kpower)]).T
-    rbs = RectBivariateSpline( kh_nonlin, z_nonlin, pk_nonlin.T)
+    rbs = RectBivariateSpline(kh_nonlin, z_nonlin, pk_nonlin.T)
     h = pars.H0 / 100.
     # Distances
     # =======================
-    # zs=results.redshift_at_comoving_radial_distance(chis)
-    # zstar = results.get_derived_params()['zstar']
-    # results.comoving_radial_distance(1100)*pars.H0
-    # xlss = block[distances, "chistar"]
+    # distance to last scattering surface
     xlss = (results.conformal_time(0) - model.tau_maxvis.value) * h
-
-    # zdist = block[distances, "z"]
-    # tmp = zdist[::-1]
-    # zdist = tmp
+    # spline the redshift and the comoving distance
     z = np.linspace(0, 15, 100)[::-1]
     chispline = InterpolatedUnivariateSpline(
         np.linspace(0, 15, 100), results.comoving_radial_distance(np.linspace(0, 15, 100)) * h, ext=0)
-    # z_chi_spline = interp1d(d_m, zdist)
     hspline = InterpolatedUnivariateSpline(
         np.linspace(0, 15, 100), [results.hubble_parameter(z_vector) / pars.H0 / 3000. for z_vector in np.linspace(0, 15, 100)], ext=0)
-    # =======================
-    # d_m = block[distances, "d_m"]
-    # tmp = d_m[::-1]
-    # d_m = tmp
-    # =======================
-    print('test', hspline(0.1), chispline(0.1), pars.omegac, h, xlss, z, rbs(4,0.1))
-    # sys.exit()
+
     # LOAD DNDZ
     # =======================
     # alternative dndz from Sam email
@@ -179,19 +146,20 @@ def main(ini_par):
     # normalize
     dndzfun = InterpolatedUnivariateSpline(dndz[:, 0], dndz[:, 1] / norm, ext='zeros')
     des = gals_kernel.kern(dndz[:, 0], dndzfun, chispline, pars.omegac, h, b=1.)
-    # These have dimensions of Mpc; change to h^{-1} Mpc
-    # d_m *= h0
-    # xlss *= h0
-    # now in units of h^{-1} Mpc or the inverse
 
     # DEFINE KERNELs
+    # ======
     # CIB
+    # =======
     # j2k = 1.e-6 / np.sqrt(83135.)  # for 353
     lkern = kappa_kernel.kern(z, hspline,
                               chispline, pars.omegac, h, xlss)
     cib = cib_hall.ssed_kern(
         h, z, chispline, hspline, 600e9, b=0.5, jbar_kwargs={'zc': 2.0, 'sigmaz': 2.})
 
+    # ======
+    # DESI
+    # =======
     desi_dndz = np.loadtxt("/home/manzotti/cosmosis/modules/limber/data_input/DESI/DESI_dndz.txt")
     desi_dndz[:, 1] = np.sum(desi_dndz[:, 1:], axis=1)
 
@@ -206,7 +174,9 @@ def main(ini_par):
     # DES bias taken from Giannantonio et
     # DES
 
+    # ======
     # WISE
+    # =======
     wise_dn_dz = np.loadtxt('/home/manzotti/galaxies_delensing/wise_dn_dz.txt')
     dndzwise = InterpolatedUnivariateSpline(wise_dn_dz[:, 0], wise_dn_dz[:, 1], k=3, ext='zeros')
     norm = dndzwise.integral(0, 2)
@@ -218,7 +188,9 @@ def main(ini_par):
 
     # Weak lensing
 
+    # ======
     # SKA
+    # =======
     z_ska = np.linspace(0.01, 6, 600)
     dndzska10 = gals_kernel.dNdZ_parametric_SKA_10mujk(z_ska)
     dndzska1 = gals_kernel.dNdZ_parametric_SKA_1mujk(z_ska)
@@ -247,9 +219,7 @@ def main(ini_par):
     # ===
     dndzfun = interp1d(z_ska, dndzska5)
     norm = scipy.integrate.quad(dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
-    # print(norm)
 
-    # normalize
     dndzska5 = InterpolatedUnivariateSpline(
         z_ska, dndzska5 / norm * gals_kernel.dNdZ_SKA_bias(z_ska, mujk=5), ext='zeros')
     ska5 = gals_kernel.kern(z_ska, dndzska5, hspline, pars.omegac, h, b=1.)
@@ -257,14 +227,14 @@ def main(ini_par):
     # ===
     dndzfun = interp1d(z_ska, dndzska10)
     norm = scipy.integrate.quad(dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
-    # print(norm)
 
-    # normalize
     dndzska10 = InterpolatedUnivariateSpline(
         z_ska, dndzska10 / norm * gals_kernel.dNdZ_SKA_bias(z_ska, mujk=10), ext='zeros')
     ska10 = gals_kernel.kern(z_ska, dndzska10, hspline, pars.omegac, h, b=1.)
 
+    # ======
     # LSST
+    # =======
     z_lsst = np.linspace(0.01, 10, 200)
     dndzlsst = gals_kernel.dNdZ_parametric_LSST(z_lsst)
     dndzfun = interp1d(z_lsst, dndzlsst)
@@ -277,7 +247,9 @@ def main(ini_par):
 
     des_weak = kappa_gals_kernel.kern(z_lsst, dndzlsst, chispline, hspline, pars.omegac, h)
 
+    # ======
     # Euclid
+    # =======
     z_euclid = np.linspace(0.01, 5, 200)
     z_mean = 0.9
     dndzeuclid = gals_kernel.dNdZ_parametric_Euclid(z_euclid, z_mean)
@@ -289,7 +261,6 @@ def main(ini_par):
     # dndzeuclid_deriv_fun = interp1d(
     #     z_euclid, dndzeuclid_param.__call__(z_mean, z_euclid, dx=1, dy=0))
 
-    # sys.exit()
     norm = scipy.integrate.quad(dndzfun, 0.01, 4, limit=100, epsrel=1.49e-03)[0]
     # norm_deriv = scipy.integrate.quad(dndzeuclid_deriv_fun, 0.01, 4, limit=100, epsrel=1.49e-03)[0]
     # dndzeuclid_deriv_fun = InterpolatedUnivariateSpline(
@@ -320,21 +291,12 @@ def main(ini_par):
 
     cls = {}
     for i in np.arange(0, len(kernels)):
-        # cls[names[i] + names[i]] = limber_integrals.cl_limber_z_ell_parallel(chispline, hspline, rbs, ini_pars['lbins'], kernel_1=kernels[
-        #     i], zmin=kernels[i].zmin,
-        #     zmax=kernels[i].zmax)
-
         cls[names[i] + names[i]] = [
-            limber_integrals.cl_limber_z(chispline, hspline, rbs, l, kernel_1=kernels[i], zmin=kernels[i].zmin, zmax=kernels[i].zmax) for l in ini_pars['lbins']]
+            limber_integrals.cl_limber_z_ell_parallel(chispline, hspline, rbs, l, kernel_1=kernels[i], zmin=kernels[i].zmin, zmax=kernels[i].zmax) for l in ini_pars['lbins']]
 
         for j in np.arange(i + 1, len(kernels)):
             print(names[i], names[j])
             print(max(kernels[i].zmin, kernels[j].zmin), min(kernels[i].zmax, kernels[j].zmax))
-            # cls[names[i] + names[j]] = [
-            # limber_integrals.cl_limber_z(chispline, hspline, rbs, l,
-            # kernel_1=kernels[i], kernel_2=kernels[j], zmin=max(kernels[i].zmin,
-            # kernels[j].zmin), zmax=min(kernels[i].zmax, kernels[j].zmax)) for l in
-            # ini_pars['lbins']]
 
             cls[names[i] + names[j]] = limber_integrals.cl_limber_z_ell_parallel(chispline, hspline, rbs, ini_pars['lbins'], kernel_1=kernels[
                 i], kernel_2=kernels[j], zmin=max(kernels[i].zmin, kernels[j].zmin),
@@ -345,7 +307,7 @@ def main(ini_par):
 
     # cls['cib_fitcib_fit'] = [3500. * (1. * l / 3000.)**(-1.25) for l in lbins]
     # cls['kcib_fit'] = cls['kcib']
-    noisy = False
+
     if noisy:
         print('Adding noise')
         # From Planck model, chenged a little bit to match Blake levels

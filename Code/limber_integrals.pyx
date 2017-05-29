@@ -139,26 +139,16 @@ def integratio_cross(ell,rbs,chi_z,hspline,kernel_1,kernel_2,integrand, zmin, zm
 
 def  cl_limber_z_ell_parallel(chi_z, hspline, rbs, lbins, kernel_1, kernel_2=None,  zmin=0.0,  zmax=1100.):
 
-    # print('lbins', lbins)
-    #  TODO check the H factor.
+
+  '''
+  As the one before but now different ells are computed in parallel
+  '''
+
+
     if kernel_2 == None:
         kernel_2 = kernel_1
-        return Parallel(n_jobs=6, verbose=0)(delayed(integratio_auto)(i,rbs,chi_z,hspline,kernel_1,integrand_auto, zmin, zmax)  for i in lbins)
+        return Parallel(n_jobs=-2, verbose=0)(delayed(integratio_auto)(i,rbs,chi_z,hspline,kernel_1,integrand_auto, zmin, zmax)  for i in lbins)
 
     else:
-        return Parallel(n_jobs=6, verbose=0)(delayed(integratio_cross)(i,rbs,chi_z,hspline,kernel_1,kernel_2,integrand_cross, zmin, zmax)  for i in lbins)
-
-
-
-    # print 'here' ,integrand(0.5)
-
-    # sys.exit()
-    # func = InterpolatedUnivariateSpline(np.linspace(zmin,zmax,100), np.vectorize(integrand)(np.linspace(zmin,zmax,100)), ext='zeros')
-    # print('')
-    # print(func(zmax-(zmax-zmin)/2.))
-    # print(scipy.integrate.quad(integrand, zmin, zmax, limit=300, epsrel=1.49e-06)[0])
-
-
-    # return scipy.integrate.quad(integrand, zmin, zmax, args=(ell,) limit=300, epsrel=1.49e-06)[0]
-
+        return Parallel(n_jobs=-2, verbose=0)(delayed(integratio_cross)(i,rbs,chi_z,hspline,kernel_1,kernel_2,integrand_cross, zmin, zmax)  for i in lbins)
 
