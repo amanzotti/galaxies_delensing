@@ -5,7 +5,6 @@ import io
 import os
 import sys
 import Code
-
 here = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -34,19 +33,19 @@ class PyTest(TestCommand):
 
 setup(
     name='glaxies_delensing',
-    version=glaxies_delensing.__version__,
+    # version=glaxies_delensing.__version__,
     url='https://github.com/amanzotti/galaxies_delensing',
     license='Apache Software License',
     author='AM',
-    install_requires=['Flask>=0.10.1',
-                      'Flask-SQLAlchemy>=1.0',
-                      'SQLAlchemy==0.8.2',
-                      ],
+    # install_requires=['Flask>=0.10.1',
+    #                   'Flask-SQLAlchemy>=1.0',
+    #                   'SQLAlchemy==0.8.2',
+    #                   ],
     # cmdclass={'test': PyTest},
     # author_email='jeff@jeffknupp.com',
     description='Test CMB delensing with galaxies',
     # long_description=long_description,
-    packages=['sandman'],
+    packages=['galaxies_delensing'],
     include_package_data=True,
     platforms='any',
     # test_suite='sandman.test.test_sandman',

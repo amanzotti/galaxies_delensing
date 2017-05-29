@@ -1,0 +1,6 @@
+numpy>=1.10
+scipy
+matplotlib
+joblib
+colorama
+pickle
