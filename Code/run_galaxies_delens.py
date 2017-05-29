@@ -10,7 +10,7 @@ import hall_CIB_kernel as cib_hall
 import scipy.integrate
 from scipy.interpolate import RectBivariateSpline, interp1d, InterpolatedUnivariateSpline
 import limber_integrals
-# import pickle as pk
+import pickle as pk
 import camb
 from camb import model
 import configparser
@@ -18,63 +18,6 @@ pyximport.install(reload_support=True)
 from joblib import Parallel, delayed
 # from profiling.sampling import SamplingProfiler
 # profiler = SamplingProfiler()
-
-
-def cl_limber_z_local(chi_z, hspline, rbs, l, kernel_1, kernel_2=None, zmin=0.0, zmax=1100.):
-    """ calculate the cross-spectrum at multipole l between kernels k1 and k2 in the limber approximation. redshift  version. See  cl_limber_x for the comoving distance version
-   Notes: Here everything is assumed in h units. Maybe not the best choice but that is it.
-
-    Args:
-      z_chi: z(chi) redshift as a function of comoving distance.
-      hspline: H(z). not used here kept to uniform to cl_limber_z
-      rbs: Power spectrum spline P(k,z) k and P in h units
-      l: angular multipole
-      k1: First kernel
-      k2: Optional Second kernel otherwise k2=k1
-      zmin: Min range of integration, redshift
-      zmax: Max range of integration, redshift
-
-
-    Returns:
-
-      cl_limber : C_l = \int_0^z_s dz {d\chi\over dz} {1/\chi^2} K_A(\chi(z)) K_B(\chi(z)\times P_\delta(k=l/\chi(z);z)
-
-    """
-
-    #  TODO check the H factor.
-    if kernel_2 is None:
-        kernel_2 = kernel_1
-
-        def integrand(z):
-            x = chi_z(z)
-            h = hspline(z)
-            k1 = kernel_1.w_lxz(l, x, z)**2
-            pk = rbs.ev((l + 0.5) / x, z)
-            return 1. / x / x * h * k1 * pk
-
-    else:
-
-        def integrand(z):
-            x = chi_z(z)
-            h = hspline(z)
-            k1 = kernel_1.w_lxz(l, x, z)
-            k2 = kernel_2.w_lxz(l, x, z)
-
-            pk = rbs.ev((l + 0.5) / x, z)
-            return 1. / x / x * h * k1 * k2 * pk
-
-    # sys.exit()
-    # func = InterpolatedUnivariateSpline(np.linspace(zmin,zmax,100), np.vectorize(integrand)(np.linspace(zmin,zmax,100)), ext='zeros')
-    # print('')
-    # print(func(zmax-(zmax-zmin)/2.))
-    # print(scipy.integrate.quad(integrand, zmin, zmax, limit=300, epsrel=1.49e-06)[0])
-    return scipy.integrate.quad(integrand, zmin, zmax, limit=300, epsrel=1.49e-06)[0]
-
-
-def compute_spectra_parallel(label1, label2, kernels, chispline, hspline, rbs):
-    limber_integrals.cl_limber_z_local(chispline, hspline, rbs, ini_pars['lbins'], kernel_1=kernels[
-        i], kernel_2=kernels[j], zmin=max(kernels[i].zmin, kernels[j].zmin),
-        zmax=min(kernels[i].zmax, kernels[j].zmax))
 
 
 def setup(ini_file='./gal_delens_values.ini'):
@@ -338,8 +281,8 @@ def main(ini_par):
     # SAVE
     obj = '_delens'
     section = "limber_spectra"
-    np.save(section + obj, cls)
-    np.save('ells', ini_pars['lbins'])
+    pk.dump(cls, open('../Data/' + section + obj + '.pkl', 'wb'))
+    np.save('../Data/' + 'ells', ini_pars['lbins'])
     # profiler.stop()
     # profiler.run_viewer()
     return ini_pars['lbins'], cls
