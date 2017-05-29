@@ -129,26 +129,35 @@ def integrand_cross(double z,double l,rbs,chi_z,hspline,kernel_1,kernel_2):
 
 
 def integratio_auto(ell,rbs,chi_z,hspline,kernel_1,integrand, zmin, zmax):
-  return scipy.integrate.quad(integrand_auto, zmin, zmax, args=(ell,rbs,chi_z,hspline,kernel_1), limit=300, epsrel=1.49e-06)[0]
+  return scipy.integrate.quad(integrand_auto, zmin, zmax, args=(ell,rbs,chi_z,hspline,kernel_1), limit=1700, epsabs=0, epsrel=1.49e-03)[0]
 
 def integratio_cross(ell,rbs,chi_z,hspline,kernel_1,kernel_2,integrand, zmin, zmax):
-  return scipy.integrate.quad(integrand_cross, zmin, zmax, args=(ell,rbs,chi_z,hspline,kernel_1,kernel_2), limit=300, epsrel=1.49e-06)[0]
+  return scipy.integrate.quad(integrand_cross, zmin, zmax, args=(ell,rbs,chi_z,hspline,kernel_1,kernel_2), limit=1700, epsabs=0, epsrel=1.49e-03)[0]
 
+
+def  cl_limber_z_ell(chi_z, hspline, rbs, lbins, kernel_1, kernel_2=None,  zmin=0.0,  zmax=1100.):
+
+    """
+    As the one before but now different ells are computed in parallel
+    """
+    if kernel_2 is  None or kernel_2 == kernel_1:
+        kernel_2 = kernel_1
+        return [integratio_auto(i,rbs,chi_z,hspline,kernel_1,integrand_auto, zmin, zmax)  for i in lbins]
+
+    else:
+        return [integratio_cross(i,rbs,chi_z,hspline,kernel_1,kernel_2,integrand_cross, zmin, zmax)  for i in lbins]
 
 
 
 def  cl_limber_z_ell_parallel(chi_z, hspline, rbs, lbins, kernel_1, kernel_2=None,  zmin=0.0,  zmax=1100.):
 
-
-  '''
-  As the one before but now different ells are computed in parallel
-  '''
-
-
-    if kernel_2 == None:
+    """
+    As the one before but now different ells are computed in parallel
+    """
+    if kernel_2 is  None:
         kernel_2 = kernel_1
-        return Parallel(n_jobs=-2, verbose=0)(delayed(integratio_auto)(i,rbs,chi_z,hspline,kernel_1,integrand_auto, zmin, zmax)  for i in lbins)
+        return Parallel(n_jobs=1, verbose=0)(delayed(integratio_auto)(i,rbs,chi_z,hspline,kernel_1,integrand_auto, zmin, zmax)  for i in lbins)
 
     else:
-        return Parallel(n_jobs=-2, verbose=0)(delayed(integratio_cross)(i,rbs,chi_z,hspline,kernel_1,kernel_2,integrand_cross, zmin, zmax)  for i in lbins)
+        return Parallel(n_jobs=1, verbose=0)(delayed(integratio_cross)(i,rbs,chi_z,hspline,kernel_1,kernel_2,integrand_cross, zmin, zmax)  for i in lbins)
 

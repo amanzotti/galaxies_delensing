@@ -15,7 +15,7 @@ import camb
 from camb import model
 import configparser
 pyximport.install(reload_support=True)
-# from joblib import Parallel, delayed
+from joblib import Parallel, delayed
 # from profiling.sampling import SamplingProfiler
 # profiler = SamplingProfiler()
 
@@ -86,7 +86,7 @@ def setup(ini_file='./gal_delens_values.ini'):
     llmin = config.getfloat('spectra', 'llmin', fallback=0.)
     llmax = config.getfloat('spectra', 'llmax', fallback=3.)
     dlnl = config.getfloat('spectra', "dlnl", fallback=.1)
-    noisy = options.get_bool('spectra', "noisy", fallback=True)
+    noisy = config.getboolean('spectra', "noisy", fallback=True)
 
     lbins = np.arange(llmin, llmax, dlnl)
     lbins = 10. ** lbins
@@ -235,7 +235,7 @@ def main(ini_par):
     # ======
     # LSST
     # =======
-    z_lsst = np.linspace(0.01, 10, 200)
+    z_lsst = np.linspace(0.01, 7., 200)
     dndzlsst = gals_kernel.dNdZ_parametric_LSST(z_lsst)
     dndzfun = interp1d(z_lsst, dndzlsst)
 
@@ -280,27 +280,21 @@ def main(ini_par):
              'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
     # profiler.start()
     # run your program.
-    names = names[:2]
-    kernels = kernels[:2]
-    # labels = []
-    # for i in np.arange(0, len(kernels)):
-    #     for j in np.arange(i, len(kernels)):
-    #         labels.append([names[i], names[j]])
+    # names = names[:2]
+    # kernels = kernels[:2]
+    labels = []
+    kernel_list = []
 
-    # out = Parallel(n_jobs=2, verbose=100)(delayed(parallel_limber)(i) for i in labels)
-
-    cls = {}
     for i in np.arange(0, len(kernels)):
-        cls[names[i] + names[i]] = [
-            limber_integrals.cl_limber_z_ell_parallel(chispline, hspline, rbs, l, kernel_1=kernels[i], zmin=kernels[i].zmin, zmax=kernels[i].zmax) for l in ini_pars['lbins']]
+        labels.append(names[i] + names[i])
+        kernel_list.append([kernels[i], kernels[i]])
+        for j in np.arange(i, len(kernels)):
+            labels.append(names[i] + names[j])
+            kernel_list.append([kernels[i], kernels[j]])
 
-        for j in np.arange(i + 1, len(kernels)):
-            print(names[i], names[j])
-            print(max(kernels[i].zmin, kernels[j].zmin), min(kernels[i].zmax, kernels[j].zmax))
-
-            cls[names[i] + names[j]] = limber_integrals.cl_limber_z_ell_parallel(chispline, hspline, rbs, ini_pars['lbins'], kernel_1=kernels[
-                i], kernel_2=kernels[j], zmin=max(kernels[i].zmin, kernels[j].zmin),
-                zmax=min(kernels[i].zmax, kernels[j].zmax))
+    cls_out = Parallel(n_jobs=-2, verbose=10)(delayed(limber_integrals.cl_limber_z_ell)(chispline, hspline, rbs, ini_pars[
+        'lbins'], kernel_1=ker[0], kernel_2=ker[1], zmin=max(ker[0].zmin, ker[1].zmin), zmax=min(ker[0].zmax, ker[1].zmax)) for ker in kernel_list)
+    cls = {k: v for k, v in zip(labels, cls_out)}
 
     # profiler.stop()
     # profiler.run_viewer()
