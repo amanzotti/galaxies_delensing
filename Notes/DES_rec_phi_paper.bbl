@@ -1,5 +1,27 @@
 \begin{thebibliography}{10}
 
+\bibitem{abazajian:2016}
+K.~N. {Abazajian}, P.~{Adshead}, Z.~{Ahmed}, S.~W. {Allen}, D.~{Alonso}, K.~S.
+  {Arnold}, C.~{Baccigalupi}, J.~G. {Bartlett}, N.~{Battaglia}, B.~A. {Benson},
+  C.~A. {Bischoff}, J.~{Borrill}, V.~{Buza}, E.~{Calabrese}, R.~{Caldwell},
+  J.~E. {Carlstrom}, C.~L. {Chang}, T.~M. {Crawford}, F.-Y. {Cyr-Racine},
+  F.~{De Bernardis}, T.~{de Haan}, S.~{di Serego Alighieri}, J.~{Dunkley},
+  C.~{Dvorkin}, J.~{Errard}, G.~{Fabbian}, S.~{Feeney}, S.~{Ferraro}, J.~P.
+  {Filippini}, R.~{Flauger}, G.~M. {Fuller}, V.~{Gluscevic}, D.~{Green},
+  D.~{Grin}, E.~{Grohs}, J.~W. {Henning}, J.~C. {Hill}, R.~{Hlozek},
+  G.~{Holder}, W.~{Holzapfel}, W.~{Hu}, K.~M. {Huffenberger}, R.~{Keskitalo},
+  L.~{Knox}, A.~{Kosowsky}, J.~{Kovac}, E.~D. {Kovetz}, C.-L. {Kuo},
+  A.~{Kusaka}, M.~{Le Jeune}, A.~T. {Lee}, M.~{Lilley}, M.~{Loverde}, M.~S.
+  {Madhavacheril}, A.~{Mantz}, D.~J.~E. {Marsh}, J.~{McMahon}, P.~D.
+  {Meerburg}, J.~{Meyers}, A.~D. {Miller}, J.~B. {Munoz}, H.~N. {Nguyen}, M.~D.
+  {Niemack}, M.~{Peloso}, J.~{Peloton}, L.~{Pogosian}, C.~{Pryke}, M.~{Raveri},
+  C.~L. {Reichardt}, G.~{Rocha}, A.~{Rotti}, E.~{Schaan}, M.~M. {Schmittfull},
+  D.~{Scott}, N.~{Sehgal}, S.~{Shandera}, B.~D. {Sherwin}, T.~L. {Smith},
+  L.~{Sorbo}, G.~D. {Starkman}, K.~T. {Story}, A.~{van Engelen}, J.~D.
+  {Vieira}, S.~{Watson}, N.~{Whitehorn}, and W.~L. {Kimmy Wu}.
+\newblock {CMB-S4 Science Book, First Edition}.
+\newblock {\em ArXiv e-prints}, October 2016.
+
 \bibitem{Addison:2011se}
 Graeme~E. Addison, Joanna Dunkley, Amir Hajian, Marco Viero, J.~Richard Bond,
   et~al.
@@ -224,6 +246,12 @@ P.~{Motloch}, W.~{Hu}, and A.~{Benoit-L{\'e}vy}.
 \newblock {CMB lens sample covariance and consistency relations}.
 \newblock {\em \prd}, 95(4):043518, February 2017.
 
+\bibitem{namikawa:2017}
+T.~{Namikawa}.
+\newblock {CMB internal delensing with general optimal estimator for
+  higher-order correlations}.
+\newblock {\em ArXiv e-prints}, March 2017.
+
 \bibitem{namikawa:2016a}
 T.~{Namikawa}, D.~{Yamauchi}, B.~{Sherwin}, and R.~{Nagata}.
 \newblock {Delensing cosmic microwave background B modes with the Square
@@ -328,6 +356,11 @@ E.~{Schaan}, E.~{Krause}, T.~{Eifler}, O.~{Dor{\'e}}, H.~{Miyatake},
 \newblock {Looking through the same lens: shear calibration for LSST, Euclid \&
   WFIRST with stage 4 CMB lensing}.
 \newblock {\em ArXiv e-prints}, July 2016.
+
+\bibitem{sehgal:2016}
+N.~{Sehgal}, M.~S. {Madhavacheril}, B.~{Sherwin}, and A.~{van Engelen}.
+\newblock {Internal Delensing of Cosmic Microwave Background Acoustic Peaks}.
+\newblock {\em ArXiv e-prints}, December 2016.
 
 \bibitem{seljak2003}
 U.~{Seljak} and C.~M. {Hirata}.
