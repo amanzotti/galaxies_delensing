@@ -77,7 +77,7 @@ J.~{Carron}, A.~{Lewis}, and A.~{Challinor}.
 \bibitem{carron:2017}
 J.~{Carron}, A.~{Lewis}, and A.~{Challinor}.
 \newblock {Internal delensing of Planck CMB temperature and polarization}.
-\newblock {\em ArXiv e-prints}, January 2017.
+\newblock {\em \jcap}, 5:035, May 2017.
 
 \bibitem{ferraro:2015}
 S.~{Ferraro}, B.~D. {Sherwin}, and D.~N. {Spergel}.
@@ -98,21 +98,6 @@ N.~R. {Hall}, R.~{Keisler}, L.~{Knox}, C.~L. {Reichardt}, P.~A.~R. {Ade}, K.~A.
 \newblock {Angular Power Spectra of the Millimeter-wavelength Background Light
   from Dusty Star-forming Galaxies with the South Pole Telescope}.
 \newblock {\em \apj}, 718:632--646, August 2010.
-
-\bibitem{hall10}
-N.~R. {Hall}, L.~{Knox}, C.~L. {Reichardt}, P.~A.~R. {Ade}, K.~A. {Aird}, B.~A.
-  {Benson}, L.~E. {Bleem}, J.~E. {Carlstrom}, C.~L. {Chang}, {H.~-.} {Cho},
-  T.~M. {Crawford}, A.~T. {Crites}, T.~{de Haan}, M.~A. {Dobbs}, E.~M.
-  {George}, N.~W. {Halverson}, G.~P. {Holder}, W.~L. {Holzapfel}, J.~D.
-  {Hrubes}, M.~{Joy}, R.~{Keisler}, A.~T. {Lee}, E.~M. {Leitch}, M.~{Lueker},
-  J.~J. {McMahon}, J.~{Mehl}, S.~S. {Meyer}, J.~J. {Mohr}, T.~E. {Montroy},
-  S.~{Padin}, T.~{Plagge}, C.~{Pryke}, J.~E. {Ruhl}, K.~K. {Schaffer},
-  L.~{Shaw}, E.~{Shirokoff}, H.~G. {Spieler}, Z.~{Staniszewski}, A.~A. {Stark},
-  E.~R. {Switzer}, K.~{Vanderlinde}, J.~D. {Vieira}, R.~{Williamson}, and
-  O.~{Zahn}.
-\newblock {Angular Power Spectra of the Millimeter Wavelength Background Light
-  from Dusty Star-forming Galaxies with the South Pole Telescope}.
-\newblock {\em \apj}, 718:632--646, July 2010.
 
 \bibitem{hanson13}
 D.~Hanson et~al.
@@ -393,22 +378,6 @@ K.~M. {Smith}, D.~{Hanson}, M.~{LoVerde}, C.~M. {Hirata}, and O.~{Zahn}.
 I.~{Szapudi}, S.~{Prunet}, and S.~{Colombi}.
 \newblock {Fast Clustering Analysis of Inhomogeneous Megapixel CMB maps}.
 \newblock {\em ArXiv Astrophysics e-prints}, July 2001.
-
-\bibitem{vanengelen14b}
-A.~{van Engelen}, B.~D. {Sherwin}, N.~{Sehgal}, G.~E. {Addison}, R.~{Allison},
-  N.~{Battaglia}, F.~{de Bernardis}, E.~{Calabrese}, K.~{Coughlin},
-  D.~{Crichton}, J.~R. {Bond}, R.~{Datta}, R.~{Dunner}, J.~{Dunkley},
-  E.~{Grace}, M.~{Gralla}, A.~{Hajian}, M.~{Hasselfield}, S.~{Henderson}, J.~C.
-  {Hill}, M.~{Hilton}, A.~D. {Hincks}, R.~{Hlozek}, K.~M. {Huffenberger}, J.~P.
-  {Hughes}, B.~{Koopman}, A.~{Kosowsky}, T.~{Louis}, M.~{Lungu},
-  M.~{Madhavacheril}, L.~{Maurin}, J.~{McMahon}, K.~{Moodley}, C.~{Munson},
-  S.~{Naess}, F.~{Nati}, L.~{Newburgh}, M.~D. {Niemack}, M.~{Nolta}, L.~A.
-  {Page}, B.~{Partridge}, C.~{Pappas}, B.~L. {Schmitt}, J.~L. {Sievers},
-  S.~{Simon}, D.~N. {Spergel}, S.~T. {Staggs}, E.~R. {Switzer}, J.~T. {Ward},
-  and E.~J. {Wollack}.
-\newblock {The Atacama Cosmology Telescope: Lensing of CMB Temperature and
-  Polarization Derived from Cosmic Infrared Background Cross-Correlation}.
-\newblock {\em ArXiv e-prints}, December 2014.
 
 \bibitem{yan:2013}
 L.~{Yan}, E.~{Donoso}, C.-W. {Tsai}, D.~{Stern}, R.~J. {Assef},
