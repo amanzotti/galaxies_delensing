@@ -55,6 +55,20 @@ def dNdZ_parametric_LSST(z, z0=0.5, alpha=1.27, beta=1.02):
     temp = (z / z0) ** alpha * np.exp(-(z / z0) ** beta)
     return temp
 
+def dNdZ_parametric_LSST_bins(z, z0=0.5, alpha=1.27, beta=1.02 , nbins = 10):
+    '''
+    usual paramteric form of galaxies distribution
+    '''
+    chunks = [z[i:i+nbins] for i in range(0, len(z), nbins)]
+    z_bins = []
+    for i in np.arange(0,nbins):
+        temp = np.zeros(len(z))
+        for j , z_val in enumerate(z):
+            temp[j] = (z_val / z0) ** alpha * np.exp(-(z_val / z0) ** beta) if z_val in chunks[i] else 0.
+        z_bins.append(temp)
+    return z_bins
+
+
 
 def dNdZ_parametric_LSST_2d_alpha(z, alpha, z0=0.5, beta=1.02):
     '''

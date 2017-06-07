@@ -188,6 +188,21 @@ def main(ini_par):
         z_lsst, dndzlsst / norm * 1. * np.sqrt(1. + z_lsst), ext='zeros')
     lsst = gals_kernel.kern(z_lsst, dndzlsst, hspline, pars.omegac, h, b=1.)
 
+    nbins = 5
+    lsst_bins = []
+    z_bins = [z_lsst[i:i + int(200 / nbins)] for i in range(0, len(z_lsst), int(200 / nbins))]
+    for z in z_bins:
+        dndzlsst = gals_kernel.dNdZ_parametric_LSST(z)
+        dndzfun = interp1d(z, dndzlsst)
+        # print(z,dndzlsst / norm * 1. * np.sqrt(1. + z))
+        dndzlsst = InterpolatedUnivariateSpline(
+            z, dndzlsst / norm * 1. * np.sqrt(1. + z), ext='zeros')
+        lsst_bins.append(gals_kernel.kern(z, dndzlsst, hspline, pars.omegac, h, b=1.))
+
+    # ======
+    # WEAK
+    # =======
+
     des_weak = kappa_gals_kernel.kern(z_lsst, dndzlsst, chispline, hspline, pars.omegac, h)
 
     # ======
@@ -218,9 +233,13 @@ def main(ini_par):
     # Compute Cl implicit loops on ell
     # =======================
 
-    kernels = [lkern, wise, euclid, des_weak, lsst, ska10, ska01, ska5, ska1, cib, desi, des]
-    names = ['k', 'wise', 'euclid', 'des_weak', 'lsst', 'ska10',
-             'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
+    # kernels = [lkern, wise, euclid, des_weak, lsst, ska10, ska01, ska5, ska1, cib, desi, des]
+    # names = ['k', 'wise', 'euclid', 'des_weak', 'lsst', 'ska10',
+    #          'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
+
+    kernels = [lkern, lsst_bins[0], lsst_bins[1], lsst_bins[2], lsst_bins[3], lsst_bins[4]]
+    names = ['k', 'lsst0', 'lsst1', 'lsst2', 'lsst3', 'lsst4']
+
 
     labels = []
     kernel_list = []
@@ -238,7 +257,7 @@ def main(ini_par):
 
     # profiler.stop()
     # profiler.run_viewer()
-
+    noisy = False
     # cls['cib_fitcib_fit'] = [3500. * (1. * l / 3000.)**(-1.25) for l in lbins]
     # cls['kcib_fit'] = cls['kcib']
 
