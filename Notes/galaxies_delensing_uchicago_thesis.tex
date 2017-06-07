@@ -1,42 +1,31 @@
-\documentclass[reprint,superscriptaddress,amsmath,amssymb,floatfix,aps,prd,nofootinbib]{revtex4-1}
+% ---- ETD Document Class and Useful Packages ---- %
+\documentclass{ucetd}
+\usepackage{subfigure,epsfig,amsfonts}
+\usepackage{natbib}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{natbib}
+\usepackage{enumitem}
+%\usepackage{hyperref}
+\input{./aas_abbr.tex}
 \usepackage{bm}
 \usepackage{epsfig}
 \usepackage{natbib}
 \usepackage{graphicx,epsfig}
-\usepackage{hyperref}
-\usepackage{ifthen}
 \usepackage{xstring}
 % \usepackage{graphicx}\usepackage[top=2.5 cm, bottom=2.5 cm, left=1.05in, right=1.05in]{geometry}
-\usepackage[applemac]{inputenc}
-\usepackage{amsmath,amssymb}
+%\usepackage[applemac]{inputenc}
+%\usepackage{amsmath,amssymb}
 \usepackage{color}
-\usepackage{epstopdf}
-%\usepackage[caption=false]{subcaption}
-%\epstopdfDeclareGraphicsRule{.gif}{png}{.png}{convert gif:#1 png:\OutputFile}
-% \AppendGraphicsExtensions{.gif}
-% notes to make comment is non-zero if
+%\usepackage{epstopdf}
+
 \newcommand{\al}[1]{\begin{align} #1 \end{align}}
 
 \newcommand{\note}[1]{\textsc{#1}}
 	\newcommand{\bR}[1]{{\bm {\mR{#1}}} }
 
 \def\l{\ell}
-% For various journals
-%\newcommand{\apj}{ApJ}
-\newcommand{\physrep}{Physics Reports}
-\newcommand{\jcap}{JCAP}
-\newcommand{\apjl}{ApJL}
-\def\araa{\ref@jnl{ARA\&A}}
-\newcommand{\apjs}{ApJS}
-\newcommand{\aap}{A\&A}
-\newcommand{\mnras}{MNRAS}
-\newcommand{\physrev}{Phys. Rev.}
-\newcommand{\physrevlett}{Phys. Rev. Lett.}
-\newcommand*\aj{AJ}
-%\newcommand*\prd{Phys.~Rev.~D}
-
-
-
 
 \newcommand{\nver}{\hat{\mathbf{n}}}
 \newcommand{\cov}{\text{Cov}}
@@ -79,13 +68,6 @@
 \definecolor{purple}{cmyk}{0.5,1.0,0,0}
 
 
-
-
-
-
-\usepackage{hyperref}
-\usepackage{amsmath}
-\usepackage{natbib}
 \newcommand{\bx}{{\bf x}}
 \newcommand{\bk}{{\bf k}}
 \newcommand{\bq}{{\bf q}}
@@ -159,26 +141,30 @@
 \def\fsky{f_{\mathrm{sky}}}
 \newcommand{\E}[1]{\times 10^{#1}}
 \newcommand{\bmm}[1]{{\mathbf{#1}}}
-\newcommand{\bsection}[1]{\section{\uppercase{#1}}}
+\newcommand{\bsection}[1]{\chapter{\uppercase{#1}}}
+
+%% Use these commands to set biographic information for the title page:
+\title{Future Cosmic Microwave Background delensing with galaxies surveys}
+\author{Alessandro Manzotti}
+\department{Astronomy and Astrophysics}
+\division{Physical Sciences}
+\degree{Doctor of Phylosophy}
+\date{August 2017}
+\dedication{Dedication Text}
+\epigraph{No epigraph}
 
 
 \begin{document}
 
-\title{Future Cosmic Microwave Background delensing with galaxies surveys.}         % Enter your title between curly braces
-\author{A. Manzotti}        % Enter your name between curly braces
-\email{manzotti.alessandro@gmail.com}
-\affiliation{Kavli Institute for Cosmological Physics, University of Chicago}
-\affiliation{Department of Astronomy and Astrophysics, University of Chicago, 5640 South Ellis Avenue, Chicago, IL 60637, USA}
-\date{\today}
-
-        % Enter your date or \today between curly braces
-\begin{abstract}
-%\begin{itemize}
-%\item Worry : they might ask for internal bias\
-%item Possible TODO : temperature $N_{eff}$
-%
-%\end{itemize}
-%
+\maketitle
+\makecopyright
+%\makededication
+%\makeepigraph
+\tableofcontents
+\listoffigures
+\listoftables
+        
+\abstract
 
 The measurement of the cosmic microwave background (CMB) polarization is a promising experimental dataset to test the inflationary paradigm and to probe the physics of the early universe. 
 A particular component, the so-called B-modes is indeed a direct signature of the presence of gravitational waves in the early universe. However improving the level of noise is not enough. 
@@ -187,13 +173,10 @@ Removing the lensing component from the measurement of CMB B-modes will be impor
 Here we discuss the role of current and future large scale structure surveys in improving the reconstruction of the lensing potential that lenses the CMB photons and how this reflects into an improved delensing efficiency.
 We quantify this by the improvement due to delensing on the constraints on the inflationary tensor perturbations amplitude and shape ($r$ and $n_{t}$)
 We find that current generation experiments...
-\end{abstract}
 
-\vspace{1cm}
+\mainmatter
 
-\maketitle
-
-\section{Introduction}
+\chapter{Introduction}
 \label{sec:intro}
 In the standard cosmological paradigm, the universe underwent a period of near-exponential expansion in its early phase;
 this period is called ``cosmic inflation.''
@@ -225,7 +208,7 @@ In this paper, we study the possible role of future galaxies surveys as tracers 
 
 We organize this article as follow: in \refsec{th} we describe the lensing B-mode components and the residual power after delensing with tracers of the lensing potential. We describe the LSS tracers used in this analysis in \refsec{model}. \refsec{for} is the main results of this work: the improvement of inflationary parameters constraints due to delensing with CMB and LSS. We conclude in \refsec{concl}.
 
-\section{Gravitational lensing B-mode and delensing}
+\chapter{Gravitational lensing B-mode and delensing}
 \label{sec:th}
 
 As for the CMB photons temperature, the intensity map of photons on the sky, also the Q and U mode decomposition of their polarization is remapped by lensing as:
@@ -300,7 +283,7 @@ with
 The bigger $\rho_l$ is for an LSS field, the more it is correlated with the lensing potential acting on the CMB photons. A higher correlation allows for a better reconstruction of the $\phi^{CMB}$ and, as a consequence, of $B^{lens}$.
 
 
-\subsection{Multiple tracers of the lensing potential}\label{sec:galcontrib}
+\section{Multiple tracers of the lensing potential}\label{sec:galcontrib}
 
 Let's now assume that we have n different tracers of the gravitational potentials $I_{i}$ with $i\in \{1,..,n\}$. We can optimally combine them to estimate $\phi$ or, in other word, maximizing the correlation factor $\rho$ with:
 \beqn
@@ -339,7 +322,7 @@ On the other end, CIB and 21 cm surveys are probing to high redshift structures 
 
 
 
-\section{Lensing potential tracers}
+\chapter{Lensing potential tracers}
 \label{sec:model}
 In this section, we describe how the power spectra defined in \refsec{th} are computed and how we characterize different tracers considered in this work.
 
@@ -362,7 +345,7 @@ Furthermore $W^{i}(z)$ is the kernel function of the field $i$ defined in \refeq
 We compute these quantities using CAMB and HALOFIT.
 
 
-\subsection{CMB lensing potential}
+\section{CMB lensing potential}
 \label{sec:kappaCMB}
 The first field we compute is the CMB lensing potential.
 The lensing kernel $W^{\kappa}$ is:
@@ -394,7 +377,7 @@ CMB measurements will rapidly improve providing the most efficient even if biase
 
 
 
-\subsection{Galaxies}
+\section{Galaxies}
 
 We can also write the galaxy overdensity field $g(\nver)$ in a given direction on the sky as a line of sight integral of the matter overdensity:
 \begin{equation}
@@ -422,7 +405,7 @@ LSST is modeled following \cite{schaan:2016} as $\frac{dN}{dz}\propto z^{\alpha}
 Finally, we model both the SKA redshift distribution and bias survey following \cite{namikawa:2016a}. 
 
 
-\subsection{Cosmic infrared Background (CIB)}
+\section{Cosmic infrared Background (CIB)}
 \label{sec:cib}
 Following \cite{Addison:2011se}, we model the CIB power directly as $C_{\ell}^{{\rm CIB}\mbox{-}{\rm CIB}} = 3500 (l/3000)^{-1.25} {\rm Jy^2 / sr}$.
 This model provides an accurate fit to several experimental results.
@@ -450,13 +433,13 @@ We place the peak of the CIB emissivity at redshift $z_c = 2$ with a broad redsh
 % FORECAST
 %=================
 
-\section{Parameter constraints improvement after delensing}
+\chapter{Parameter constraints improvement after delensing}
 \label{sec:for}
 In this section, we forecast the expected delensing efficiency and the relative importance of galaxies tracers for delensing in current and future experiments. We will use the Fisher information matrix to quantify the delensign efficiency as the improvement in the constraint of two inflationary parameters: the tensor to scalar ratio $r$ and the tensor tilt $n_{T}$.
 We assume a CMB experimental scenario composed of a high-resolution CMB experiment which defines the internal reconstruction efficiency, together with a low-noise, low-resolution experiment which B-modes will be delensed and used to constrain the inflationary parameters.
 We focus on three different scenarios: the current stage, a third generation stage (3G)  and finally the futuristic CMB Stage 4.
 
-\subsection{Fisher method}
+\section{Fisher method}
 In this framework, the error on a cosmological parameter constrained by a B-mode spectrum measurement is given as usual by:
 \begin{equation}
 \label{eqn:fisher}
@@ -479,7 +462,7 @@ The reason why removing the lensing contribution will improve parameters constra
 Note that we are fixing the other cosmological parameters in \refeq{fisher}. Uncertainties in those will however propagate to uncertainties in $\{r,n_{t}\}$. While the constraints will be slightly optimistic, this has no real impact on the estimate of the improvement due to delensing which is the main focus of this work.
 We define that improvement as the ration of the constraints before and after delensing: $\alpha_{r} = \sigma^{\rm{del}}(r)/\sigma(r)$ and $\alpha_{n_{t}} = \sigma^{\rm{del}}(n_{t})/\sigma(n_{t})$
 %===================
-\subsection{Delensing with current CMB and LSS}
+\section{Delensing with current CMB and LSS}
 
 % \the\textwidth
 
@@ -490,7 +473,7 @@ Here we discuss the improvement due to combining these and other available surve
 On the CMB side, we will combine a Bicep-Keck like \textit{deep} CMB experiment with instrumental noise equal to \textcolor{red}{$3\mu$K-arcmin} and a beam of \textcolor{red}{30 arcmin}.
 The CMB lensing reconstruction will be performed by a higher resolution CMB experiment. We explore two possibilities.
 First, we test the efficiency with an internal reconstruction performed by Planck \cite{2016A&A...594A..15P} using the CMB lensing noise curves publicly available
-\footnote{\url{https://wiki.cosmos.esa.int/planckpla2015/index.php/Specially\_processed\_maps}}.
+\footnote{\textit{https://wiki.cosmos.esa.int/planckpla2015/index.php/Specially\_processed\_maps}}.
 Then we will assume a ground-based experiment with the final noise level of SPT-Pol which corresponds to \textcolor{red}{$9.4\mu$K-arcmin} in polarization with a beam equal to \textcolor{red}{1.2 arcmin}. 
 
 Furthermore, we test how much not only CIB maps but also current low redshift galaxies surveys like DES and WISE can improve the delensing efficiency.
@@ -533,6 +516,7 @@ The results are summarized in \reftab{current}
 
 
 \begin{table}
+\centering
 \caption{$\alpha(r)$: Current generation improvements on r due to delensing. Values correspond to ration of the error before and after delensing.}
   \vspace{0.2cm}
   \begin{tabular}{ | c | c | c|}
@@ -560,7 +544,8 @@ In particular optical surveys will rapidly lose the role of filling in large-sca
  
  
  
- \begin{table}
+\begin{table}
+\centering
 \caption{$\alpha(r)$: Current generation improvements on r due to delensing. Values correspond to the ratio of the error before and after delensing.}
   \vspace{0.2cm}
   \begin{tabular}{ | c | c | c|}
@@ -585,7 +570,7 @@ LSS+CMB & 2.35 &   \\ \hline
 
 
 
-\subsection{CMB-S3 Era}
+\section{CMB-S3 Era}
 CMB measurements are rapidly improving. Indeed the next generation of ground-based telescopes has been already deployed, and data are currently being taken.
 To model the CMB at the beginning of the next decade, we will assume a deep experiment with a level of noise of \textcolor{red}{$3\mu$K-arcmin} with a \textcolor{red}{1 arcmin} beam. This is a reasonable level for a combination of the next generation of BK and SPT3G. We will assume this level of noise for the internal noise reconstruction.
 
@@ -611,6 +596,7 @@ The improvement in cosmological parameters are summarized in \reftab{S3}
 
 
 \begin{table}
+\centering
 \caption{$\alpha$: S3 improvements. Note that the absolute error value of $\sigma(r)$ after delensing for $f_{sky} = $ is  $\sigma(r) =$  }
   \begin{tabular}{ | c | c  |  c |}
 \hline
@@ -624,7 +610,7 @@ CMB & 1.71  &\\ \hline
 
 
 
-\subsection{CMB-S4 Era}
+\section{CMB-S4 Era}
 
 An ambitious program for a generation 4 ground CMB experiment is currently under planning \cite{abazajian:2016}. Moreover, satellite experiments have been proposed.
 The correlation attainable using current experiments is shown in \reffig{corrs4},
@@ -641,18 +627,19 @@ In this futuristic but reasonable scenario, we add to the available large scale 
 \end{center}
 \end{figure}
 
-\begin{figure}[htbp]
-\begin{center}
-\includegraphics[scale=1.]{../images/S4_scenario_no_ska.pdf}
-\caption{Correlation factor. Same as \reffig{corrnow} but for stage 4 experiments without SKA. }
-\label{fig:corrs4}
-
-\end{center}
-\end{figure}
+%\begin{figure}[htbp]
+%\begin{center}
+%\includegraphics[scale=1.]{../images/S4_scenario_no_ska.pdf}
+%\caption{Correlation factor. Same as \reffig{corrnow} but for stage 4 experiments without SKA. }
+%\label{fig:corrs4}
+%
+%\end{center}
+%\end{figure}
 
 %=======================================
 
 \begin{table}
+\centering
 \caption{$\alpha$: Gen 4 experiments}
   \begin{tabular}{ | c | c  |  c |}
 \hline
@@ -668,7 +655,7 @@ LSS+CMB & 6.3  &\\ \hline
 \end{table}
 
 
-\subsection{Bias uncertainties degradation}
+\section{Bias uncertainties degradation}
 The uncertainties in the theoretical assumptions used to model the galaxies can cause a degradation of the improvement of the inflationary constraint of delensed spectra.
 In this section, we quantify this effect.
 We will now marginalize over unknown galaxies parameters, but we will use a full dataset of CMB and galaxies data. The idea is that as shown in the low level of noise in galaxies surveys might allow us to calibrate them internally.
@@ -708,7 +695,7 @@ We compute the derivatives of the power spectra as described
 %  \end{tabular}
 %\end{table}
 
-\section{Conclusions}
+\chapter{Conclusions}
 \label{sec:concl}
 
 Delensing or the ability to separate the lensing component of the CMB B-mode from a possible primordial inflationary signal is important to exploit the capabilities of future experiments thoroughly.
@@ -720,14 +707,7 @@ This approach has already been applied to data \cite{carron:2017}. However it re
 
 Another possible application of LSS delensing, which we will explore in future works, is the possibility of removing just the low-z lensing of the CMB which will otherwise possibly adds the complexity of modeling nonlinearities in the study of CMB lensing.
 
-%=================================================================
-\section{Acknowledgments}
-We thank S. Dodelson K. Wu and K. Story for useful discussion.
-This work was partially supported by the Kavli Institute for Cosmological Physics at the University of Chicago through grants NSF PHY-1125897 and an endowment from the Kavli Foundation and its founder Fred Kavli.
-%%%=================================================================
 
-\bibliographystyle{plain}
-\bibliography{DES_rec_phi_paper,/Users/alessandromanzotti/Work/Astrophysics/latex_bib/cosmobib,/Users/alessandromanzotti/Work/Astrophysics/delensing/sptpol_papers/2016/delens100d/delens100d,/Users/alessandromanzotti/Work/Astrophysics/delensing/sptpol_papers/BIBTEX/spt}
+\makebibliography
 
-%\bibliography{DES_rec_phi_paper}
 \end{document}
