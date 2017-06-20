@@ -182,7 +182,7 @@ plt.plot(desikernel_l30[:, 0], desikernel_l100[:, 1] /
 # print(desikernel_l30[:, 1] /
 #       np.max(desikernel_l30[:, 1]))
 plt.xlabel(r'z')
-plt.ylabel(r' $W(\ell,z)$ ')
+plt.ylabel(r' $W(z)$ ')
 plt.legend(loc='best', ncol =3 ,mode='expand' )
 plt.xlim(0, 4)
 plt.ylim(0, 1.3)

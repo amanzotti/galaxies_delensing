@@ -7,6 +7,7 @@ import scipy.integrate
 from scipy.interpolate import RectBivariateSpline, interp1d, InterpolatedUnivariateSpline
 import pickle
 
+
 def bl(fwhm_arcmin, lmax):
     """ returns the map-level transfer function for a symmetric Gaussian beam.
          * fwhm_arcmin      - beam full-width-at-half-maximum (fwhm) in arcmin.
@@ -41,9 +42,9 @@ def main(labels, cmb):
     ckk = cls['kk']
     # initialize
     rho_comb = np.zeros((np.size(lbins)))
-
-    surveys = ['wise', 'k', 'euclid', 'des_weak', 'lsst', 'ska10', 'ska01',
-               'ska5', 'ska1', 'cib', 'desi', 'des']
+    surveys = labels
+    # surveys = ['wise', 'k', 'euclid', 'des_weak', 'lsst', 'ska10', 'ska01',
+    #            'ska5', 'ska1', 'cib', 'desi', 'des']
     cl_cross_k = {}
     cl_auto = {}
     rho = {}

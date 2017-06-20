@@ -34,6 +34,38 @@ def dndz_tophat(z, z_min, z_max):
     else:
         return 0.
 
+def dNdZ_DES_y1(bin = 'all'):
+    '''
+    This values are taken from the WIKI page. https://cdcvs.fnal.gov/redmine/projects/des-lss/wiki/Gold_103:
+    From tommaso:
+    From this catalogue I select four redshift samples based on BPZ_z_mean (NB: we might want to test using mode_z_bpz instead).
+    These are chosen to match the SV selection, although we drop the highest-z bin given the current data is shallower.
+    I estimate the dn/dz by stacking the random z_mc_bpz realisation for each object.
+
+    I obtain the following samples (numbers are final, after masking is applied):
+
+    z   N   n [10^6 sr^{-2}]    n [arcmin^{-2}] f_{sky} [deg^2]
+    0.2 - 0.4   6,092,815   15.5    1.32    3.13e-2 1291
+    0.4 - 0.6   5,573,034   14.2    1.20    3.13e-2 1291
+    0.6 - 0.8   3,444,516   8.75    0.74    3.13e-2 1291
+    0.8 - 1.0   1,242,429   3.16    0.27    3.13e-2 1291
+    0.2 - 1.0   16,352,794  41.5    3.51    3.13e-2 1291
+
+
+    '''
+    if bin == 'all':
+        return np.genfromtxt('DES_dndz/all_dndz.csv', delimiter=',')
+    elif bin == 1:
+        return np.genfromtxt('DES_dndz/bin1.csv', delimiter=',')
+    elif bin == 1:
+        return np.genfromtxt('DES_dndz/bin2.csv', delimiter=',')
+    elif bin == 1:
+        return np.genfromtxt('DES_dndz/bin3.csv', delimiter=',')
+    elif bin == 1:
+        return np.genfromtxt('DES_dndz/bin4.csv', delimiter=',')
+    else:
+        raise ValueError('type of bin not found.')
+
 
 def dndz_gaussian(z, z0, z_width):
     return np.exp(-(z - z0)**2 / (2 * z_width**2))

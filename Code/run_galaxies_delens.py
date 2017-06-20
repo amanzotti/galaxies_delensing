@@ -44,12 +44,97 @@ def parallel_limber(kernels):
     return cl_limber_z_local(chispline, hspline, rbs, l, kernel_1=kernel1, kernel_2=kernel2, zmin=max(kernels[i].zmin, kernels[j].zmin), zmax=min(kernels[i].zmax, kernels[j].zmax))
 
 
+def find_bins(z, dndz, nbins):
+    '''
+    Function that, given a redshift distribution returns binning with equal number of bins.
+
+    It returns a list of the redshift of the bins.
+    '''
+    cum = np.cumsum(dndz)
+    args = np.hstack((np.array(0.), np.searchsorted(cum, [cum[-1]/nbins*n for n in np.arange(1,nbins+1)])))
+    return [z[args[i]:args[i + 1]] for i in np.arange(0, len(args) - 1.)], args
+
+
+def make_tomo_bins(z, dndz, sigmaz, width, nbins, hspline, omegac, h, b=1.):
+    '''
+    this function takes a full dndz distribution and given the number of bins and their width.sigma z returns a list of different tomographic bins
+    '''
+    lsst_tomo_bins = []
+    for n in np.arange(1, nbins + 1):
+        dndz_win = dndz * (scipy.special.erfc((width * (n - 1) - z) / (sigmaz * np.sqrt(2))
+                                              ) - scipy.special.erfc((width * n - z) / (sigmaz * np.sqrt(2))))
+        dndzlsst_temp = InterpolatedUnivariateSpline(
+            z, dndz_win, ext='zeros')
+        norm = dndzlsst_temp.integral(z[0], z[-1])
+        # print(norm, dndz_win, z)
+        dndzlsst_temp_fun = InterpolatedUnivariateSpline(
+            z, dndz_win / norm * np.sqrt(1. + z), ext='zeros')
+        lsst_tomo_bins.append(gals_kernel.kern(
+            z, dndzlsst_temp_fun, hspline, omegac, h, b=1.))
+    return lsst_tomo_bins
+
+
+def make_tomo_bins2(z, dndz, sigmaz, nbins, hspline, omegac, h, b=1.):
+    '''
+    this function takes a full dndz distribution and given the number of bins and their width.sigma z returns a list of different tomographic bins
+    '''
+
+    z_bins = find_bins(z, dndz, nbins)
+
+    def p_z_ph_z(z_ph, z, sigma_z):
+        return np.exp(-(z_ph - z)**2 / (2. * sigma_z**2)) / np.sqrt(2 * np.pi * sigma_z**2)
+
+    # print('print', z, dndz, sigmaz, z_bins)
+    lsst_tomo_bins = []
+    for n in range(0, len(z_bins[0])):
+        photoz_confusion = [scipy.integrate.quad(p_z_ph_z, z[int(z_bins[1][n])], z[int(z_bins[1][
+                                                 n + 1])], args=(z_val, sigmaz[i]), limit=100, epsabs=0, epsrel=1.49e-03)[0] for i, z_val in enumerate(z)]
+        # print(z_bins[0][n][0], z_bins[0][n][-1])
+        # print([scipy.integrate.quad(p_z_ph_z, 0.001, 10., args=(z_val, sigmaz[i]), limit=100, epsabs=0,epsrel=1.49e-03)[0] for i, z_val in enumerate(z)])
+        # print('conf',photoz_confusion)
+        dndz_win = dndz * photoz_confusion
+        # dndzlsst_temp = InterpolatedUnivariateSpline(
+        #     z, dndz_win, ext='zeros')
+        # norm = dndzlsst_temp.integral(z[0], z[-1])
+        # # print(norm, dndz_win, z)
+        # dndzlsst_temp_fun = InterpolatedUnivariateSpline(
+        #     z, dndz_win / norm * np.sqrt(1. + z), ext='zeros')
+        lsst_tomo_bins.append(dndz_win)
+    return lsst_tomo_bins
+
+
+def make_spec_bins(z, dndz_fun, nbins, hspline, omegac, h, b=1.):
+    '''
+    this takes a dndz distribution and splits it in nbins of equal lenght in z. this is quite rudimentary
+    '''
+    lsst_bins = []
+    z_bins = [z[i:i + int(len(z) / nbins)] for i in range(0, len(z), int(len(z) / nbins))]
+    for z in z_bins:
+
+        dndzlsst = dndz_fun(z)
+        # print('bins', len(z_bins), z, dndzlsst)
+
+        # print(z, dndzlsst)
+        dndzlsst_temp = InterpolatedUnivariateSpline(
+            z, dndzlsst, ext='zeros')
+        norm = dndzlsst_temp.integral(z[0], z[-1])
+        # print('norm', norm)
+        dndzlsst_temp = InterpolatedUnivariateSpline(
+            z, dndzlsst / norm * 1. * np.sqrt(1. + z), ext='zeros')
+        lsst_bins.append(gals_kernel.kern(z, dndzlsst_temp, hspline, omegac, h, b=1.))
+    # sys.exit()
+    return lsst_bins
+
+
 def main(ini_par):
     # LOAD POWER in h units
     # =======================
     # noisy = ini_par['noisy']
+    # what integral routine to use
     cl_limber_z = limber_integrals.cl_limber_z
     noisy = True
+
+    # SET UP CAMB
     pars = camb.CAMBparams()
     # This function sets up CosmoMC-like settings, with one massive neutrino
     # and helium set using BBN consistency
@@ -59,11 +144,13 @@ def main(ini_par):
     pars.NonLinear = model.NonLinear_both
     pars.set_matter_power(redshifts=np.linspace(0., 13, 50), kmax=5.0)
     results = camb.get_results(pars)
+
     # P(z,k)
     kh_nonlin, z_nonlin, pk_nonlin = results.get_matter_power_spectrum(
         minkh=1e-6, maxkh=5, have_power_spectra=False, npoints=250)
     rbs = RectBivariateSpline(kh_nonlin, z_nonlin, pk_nonlin.T)
     h = pars.H0 / 100.
+
     # Distances
     # =======================
     # distance to last scattering surface
@@ -91,6 +178,7 @@ def main(ini_par):
     des = gals_kernel.kern(dndz[:, 0], dndzfun, chispline, pars.omegac, h, b=1.)
 
     # DEFINE KERNELs
+
     # ======
     # CIB
     # =======
@@ -178,32 +266,36 @@ def main(ini_par):
     # ======
     # LSST
     # =======
-    z_lsst = np.linspace(0.01, 7., 200)
+    z_lsst = np.linspace(0.01, 4.5, 200)
     dndzlsst = gals_kernel.dNdZ_parametric_LSST(z_lsst)
     dndzfun = interp1d(z_lsst, dndzlsst)
 
-    norm = scipy.integrate.quad(dndzfun, 0.01, z_ska[-1], limit=100, epsrel=1.49e-03)[0]
+    norm = scipy.integrate.quad(dndzfun, 0.01, z_lsst[-1], limit=100, epsrel=1.49e-03)[0]
     # used the same bias model of euclid. Find something better
     dndzlsst = InterpolatedUnivariateSpline(
         z_lsst, dndzlsst / norm * 1. * np.sqrt(1. + z_lsst), ext='zeros')
     lsst = gals_kernel.kern(z_lsst, dndzlsst, hspline, pars.omegac, h, b=1.)
-
     nbins = 5
-    lsst_bins = []
-    z_bins = [z_lsst[i:i + int(200 / nbins)] for i in range(0, len(z_lsst), int(200 / nbins))]
-    for z in z_bins:
-        dndzlsst = gals_kernel.dNdZ_parametric_LSST(z)
-        dndzfun = interp1d(z, dndzlsst)
-        # print(z,dndzlsst / norm * 1. * np.sqrt(1. + z))
-        dndzlsst = InterpolatedUnivariateSpline(
-            z, dndzlsst / norm * 1. * np.sqrt(1. + z), ext='zeros')
-        lsst_bins.append(gals_kernel.kern(z, dndzlsst, hspline, pars.omegac, h, b=1.))
 
+    lsst_spec_bins = make_spec_bins(z_lsst, gals_kernel.dNdZ_parametric_LSST,
+                                    nbins, hspline, pars.omegac, h, b=1.)
+
+    dndzlsst = gals_kernel.dNdZ_parametric_LSST(z_lsst)
+    z_bins = find_bins(z_lsst, dndzlsst, nbins)
+    print('find equal galaxies bins', z_bins)
+    sigmaz = 0.05 * (z_lsst + 1.)
+    make_tomo_bins2(z_lsst, dndzlsst, sigmaz, z_bins, hspline, pars.omegac, h, b=1.)
+
+    width = z_lsst[-1] / nbins
+    lsst_tomo_bins = make_tomo_bins(z_lsst, dndzlsst, sigmaz, width,
+                                    nbins, hspline, pars.omegac, h, b=1.)
+
+    sys.exit()
     # ======
     # WEAK
     # =======
 
-    des_weak = kappa_gals_kernel.kern(z_lsst, dndzlsst, chispline, hspline, pars.omegac, h)
+    # des_weak = kappa_gals_kernel.kern(z_lsst, dndzlsst, chispline, hspline, pars.omegac, h)
 
     # ======
     # Euclid
@@ -229,6 +321,8 @@ def main(ini_par):
 
     euclid = gals_kernel.kern(z_euclid, dndzeuclid, hspline, pars.omegac, h, b=1.)
 
+    # KERNELS ARE ALL SET: Now compute integrals
+
     # =======
     # Compute Cl implicit loops on ell
     # =======================
@@ -237,9 +331,9 @@ def main(ini_par):
     # names = ['k', 'wise', 'euclid', 'des_weak', 'lsst', 'ska10',
     #          'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
 
-    kernels = [lkern, lsst_bins[0], lsst_bins[1], lsst_bins[2], lsst_bins[3], lsst_bins[4]]
-    names = ['k', 'lsst0', 'lsst1', 'lsst2', 'lsst3', 'lsst4']
-
+    kernels = [lkern, lsst, lsst_tomo_bins[0], lsst_tomo_bins[1],
+               lsst_tomo_bins[2], lsst_tomo_bins[3], lsst_tomo_bins[4]]
+    names = ['k', 'lsst', 'lsst0', 'lsst1', 'lsst2', 'lsst3', 'lsst4']
 
     labels = []
     kernel_list = []
