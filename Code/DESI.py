@@ -3,7 +3,7 @@ import numpy as np
 
 BRGArray = np.array([[0.00, 0],
                      [0.05, 1165],
-                     [DESISpline0.15, 3074],
+                     [0.15, 3074],
                      [0.25, 1909],
                      [0.35, 732],
                      [0.45, 120],
@@ -32,6 +32,14 @@ OtherArraySquash[:, 1] = OtherArray[:, 1] + OtherArray[:, 2] + OtherArray[:, 3]
 totalArray = np.vstack([BRGArray, OtherArraySquash])
 #totalArray = OtherArraySquash
 spline = UnivariateSpline(totalArray[:, 0], totalArray[:, 1], s=0, ext=1)
+
+spline = UnivariateSpline(totalArray[:, 0], totalArray[:, 1], s=0, ext=1)
+norm = spline.integral(0, 2)
+spline_norm = UnivariateSpline(totalArray[:, 0], totalArray[:, 1] / norm, s=0, ext=1)
+
+
+def DESISpline_normalized(z):
+    return spline_norm(z)
 
 
 def DESISpline(z):

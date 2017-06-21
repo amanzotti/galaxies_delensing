@@ -20,44 +20,50 @@ sys.path.append('/home/manzotti/cosmosis/modules/limber/')
 import gals_kernel
 import kappa_gals_kernel
 import kappa_cmb_kernel as kappa_kernel
-
+import camb
+from camb import model
 
 cib_hall = imp.load_source('cib_hall', '/home/manzotti/cosmosis/modules/limber/hall_CIB_kernel.py')
 
 spectra_dir = '/home/manzotti/galaxies_delensing/Data/'
 
-zpower = np.loadtxt(spectra_dir + 'matter_power_nl/z.txt')
-kpower = np.loadtxt(spectra_dir + 'matter_power_nl/k_h.txt')
-powerarray = np.loadtxt(spectra_dir + 'matter_power_nl/p_k.txt')
-powerarray = np.loadtxt(
-    spectra_dir + 'matter_power_nl/p_k.txt').reshape([np.size(zpower), np.size(kpower)]).T
-rbs = RectBivariateSpline(kpower, zpower, powerarray)
 
-omega_m = 0.3
+# SET UP CAMB
+pars = camb.CAMBparams()
+# This function sets up CosmoMC-like settings, with one massive neutrino
+# and helium set using BBN consistency
+pars.set_cosmology(H0=67.5, ombh2=0.022, omch2=0.122, mnu=0.06, omk=0, tau=0.06)
+pars.InitPower.set_params(ns=0.965, r=0)
+pars.set_for_lmax(3500, lens_potential_accuracy=0)
+pars.NonLinear = model.NonLinear_both
+pars.set_matter_power(redshifts=np.linspace(0., 13, 50), kmax=5.0)
+results = camb.get_results(pars)
 
-h0 = 0.7
+# P(z,k)
+kh_nonlin, z_nonlin, pk_nonlin = results.get_matter_power_spectrum(
+    minkh=1e-6, maxkh=5, have_power_spectra=False, npoints=250)
+rbs = RectBivariateSpline(kh_nonlin, z_nonlin, pk_nonlin.T)
+h = pars.H0 / 100.
 
+# Distances
+# =======================
+# distance to last scattering surface
+xlss = (results.conformal_time(0) - model.tau_maxvis.value) * h
+# spline the redshift and the comoving distance
+z = np.linspace(0, 15, 100)[::-1]
+chispline = InterpolatedUnivariateSpline(
+    np.linspace(0, 15, 100), results.comoving_radial_distance(np.linspace(0, 15, 100)) * h, ext=0)
+hspline = InterpolatedUnivariateSpline(
+    np.linspace(0, 15, 100), [results.hubble_parameter(z_vector) / pars.H0 / 3000. for z_vector in np.linspace(0, 15, 100)], ext=0)
 
-h = np.loadtxt(spectra_dir + '/distances/h.txt')
-tmp = h[::-1]
-h = tmp
+# GROWTH
 
-xlss = 13615.317054155654
-zdist = np.loadtxt(spectra_dir + '/distances/z.txt')
-tmp = zdist[::-1]
-zdist = tmp
+growth = InterpolatedUnivariateSpline(np.linspace(0, 15, 100), np.sqrt(
+    (rbs(0.01, np.linspace(0, 15, 100)) / rbs(0.01, 0)))[0])
 
-d_m = np.loadtxt(spectra_dir + '/distances/d_m.txt')
-tmp = d_m[::-1]
-d_m = tmp
+omega_m = pars.omegac
+h0 = pars.H0 / 100.
 
-d_m *= h0
-h /= h0
-xlss *= h0
-
-chispline = InterpolatedUnivariateSpline(zdist[::-1], d_m[::-1])
-z_chi_spline = InterpolatedUnivariateSpline(d_m[::-1], zdist[::-1])
-hspline = InterpolatedUnivariateSpline(zdist[::-1], h[::-1])
 
 dndz_filename = '/home/manzotti/cosmosis/modules/limber/' + \
     'data_input/DES/N_z_wavg_spread_model_0.2_1.2_tpz.txt'
@@ -84,7 +90,7 @@ dndzwise = InterpolatedUnivariateSpline(
 # Biased was measured equal to 1 in Feerraro et al. WISE ISW measureament
 # by cross correlating with planck lensing
 wise = gals_kernel.kern(wise_dn_dz[:, 0], dndzwise, hspline, omega_m, h0, b=1.)
-
+zdist = np.linspace(0, 15, 100)[::-1]
 
 nu = 353e9
 zs = 2.
@@ -98,7 +104,7 @@ desi = gals_kernel.kern(dndz[:, 0], dndzfun_desi, hspline, omega_m, h0)
 
 des_weak = kappa_gals_kernel.kern(dndz_des[:, 0], dndzfun_des, chispline, hspline, omega_m, h0)
 
-l = 50
+l = 500
 z_kappa = np.linspace(0, 13, 500)
 w_kappa = np.zeros_like(z_kappa)
 for i, z in enumerate(z_kappa):

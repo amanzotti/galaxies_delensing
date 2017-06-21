@@ -20,6 +20,7 @@ from joblib import Parallel, delayed
 # profiler = SamplingProfiler()
 import DESI
 
+
 def setup(ini_file='./gal_delens_values.ini'):
     config = configparser.ConfigParser()
 
@@ -198,6 +199,8 @@ def main(ini_par):
     desi_dndz[:, 1] = np.sum(desi_dndz[:, 1:], axis=1)
 
     dndzfun_desi = interp1d(desi_dndz[:, 0], desi_dndz[:, 1])
+# Use sam desi
+    dndzfun_desi = DESI.DESISpline
 
     make_spec_bins(desi_dndz[:, 0], dndzfun_desi, nbins=2,
                    hspline=hspline, omegac=pars.omegac, h=h, b=1.17)
@@ -207,8 +210,13 @@ def main(ini_par):
     # normalize
     dndzfun_desi = InterpolatedUnivariateSpline(
         desi_dndz[:, 0], desi_dndz[:, 1] / norm, ext='zeros')
-    desi = gals_kernel.kern(desi_dndz[:, 0], dndzfun_desi, hspline, pars.omegac, h, b=1.17)
+    desi1 = gals_kernel.kern(desi_dndz[:, 0], dndzfun_desi, hspline, pars.omegac, h, b=1.17)
 
+    # DESI SAM
+    # print('norm' ,scipy.integrate.quad(DESI.DESISpline_normalized, 0, 3, limit=600, epsabs=0. , epsrel=1.49e-03)[0])
+
+    desi2 = gals_kernel.kern(np.linspace(0, 2, 100),
+                             DESI.DESISpline_normalized, hspline, pars.omegac, h, b=1.17)
     # desi_spec_bins = make_spec_bins(z_lsst, gals_kernel.dNdZ_parametric_LSST,
     #                                 nbins, hspline, pars.omegac, h, b=1.)
 
@@ -331,12 +339,12 @@ def main(ini_par):
     # Compute Cl implicit loops on ell
     # =======================
 
-    kernels = [lkern, wise, euclid, lsst, ska10, ska01, ska5, ska1, cib, desi, des, ]
-    names = ['k', 'wise', 'euclid', 'lsst', 'ska10',
-             'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
+    # kernels = [lkern, wise, euclid, lsst, ska10, ska01, ska5, ska1, cib, desi, des, ]
+    # names = ['k', 'wise', 'euclid', 'lsst', 'ska10',
+    #          'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
 
-    kernels = [lkern, wise]
-    names = ['k', 'wise']
+    kernels = [lkern, desi1, desi2]
+    names = ['k', 'desi1', 'desi2']
 
     labels = []
     kernel_list = []
@@ -391,9 +399,19 @@ def main(ini_par):
 
         cls['desdes'] = np.array(cls['desdes']) + nlgg
         # ===============================================
+        # desi has 0.63 gals per arcmin2
+        cls['desidesi'] = np.array(cls['desidesi']) + (0.63 / (0.000290888)**2)**(-1)
         cls['euclideuclid'] = np.array(cls['euclideuclid']) + (30 / (0.000290888)**2)**(-1)
         cls['lsstlsst'] = np.array(cls['lsstlsst']) + (26 / (0.000290888)**2)**(-1)
 
+        #  from Simone Our conservative masking leaves f sky = 0.47 and about
+        # 50 million galaxies.
+
+        steradians_on_sphere = 4 * np.pi
+        fsky = 0.447
+        n_gal = 50e6
+        gal_per_ster = n_gal / (steradians_on_sphere * fsky)
+        cls['wisewise'] = np.array(cls['wisewise']) + 1 / gal_per_ster
     # SAVE
     obj = '_delens'
     section = "limber_spectra"
