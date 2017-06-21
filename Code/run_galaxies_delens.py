@@ -18,7 +18,7 @@ pyximport.install(reload_support=True)
 from joblib import Parallel, delayed
 # from profiling.sampling import SamplingProfiler
 # profiler = SamplingProfiler()
-
+import DESI
 
 def setup(ini_file='./gal_delens_values.ini'):
     config = configparser.ConfigParser()
@@ -51,7 +51,8 @@ def find_bins(z, dndz, nbins):
     It returns a list of the redshift of the bins.
     '''
     cum = np.cumsum(dndz)
-    args = np.hstack((np.array(0.), np.searchsorted(cum, [cum[-1]/nbins*n for n in np.arange(1,nbins+1)])))
+    args = np.hstack((np.array(0.), np.searchsorted(
+        cum, [cum[-1] / nbins * n for n in np.arange(1, nbins + 1)]))).astype(np.int)
     return [z[args[i]:args[i + 1]] for i in np.arange(0, len(args) - 1.)], args
 
 
@@ -74,7 +75,7 @@ def make_tomo_bins(z, dndz, sigmaz, width, nbins, hspline, omegac, h, b=1.):
     return lsst_tomo_bins
 
 
-def make_tomo_bins2(z, dndz, sigmaz, nbins, hspline, omegac, h, b=1.):
+def make_tomo_bins_equal_gals(z, dndz, sigmaz, nbins, hspline, omegac, h, b=1.):
     '''
     this function takes a full dndz distribution and given the number of bins and their width.sigma z returns a list of different tomographic bins
     '''
@@ -89,17 +90,16 @@ def make_tomo_bins2(z, dndz, sigmaz, nbins, hspline, omegac, h, b=1.):
     for n in range(0, len(z_bins[0])):
         photoz_confusion = [scipy.integrate.quad(p_z_ph_z, z[int(z_bins[1][n])], z[int(z_bins[1][
                                                  n + 1])], args=(z_val, sigmaz[i]), limit=100, epsabs=0, epsrel=1.49e-03)[0] for i, z_val in enumerate(z)]
-        # print(z_bins[0][n][0], z_bins[0][n][-1])
-        # print([scipy.integrate.quad(p_z_ph_z, 0.001, 10., args=(z_val, sigmaz[i]), limit=100, epsabs=0,epsrel=1.49e-03)[0] for i, z_val in enumerate(z)])
-        # print('conf',photoz_confusion)
+
         dndz_win = dndz * photoz_confusion
-        # dndzlsst_temp = InterpolatedUnivariateSpline(
-        #     z, dndz_win, ext='zeros')
-        # norm = dndzlsst_temp.integral(z[0], z[-1])
-        # # print(norm, dndz_win, z)
-        # dndzlsst_temp_fun = InterpolatedUnivariateSpline(
-        #     z, dndz_win / norm * np.sqrt(1. + z), ext='zeros')
-        lsst_tomo_bins.append(dndz_win)
+        dndzlsst_temp = InterpolatedUnivariateSpline(
+            z, dndz_win, ext='zeros')
+        norm = dndzlsst_temp.integral(z[0], z[-1])
+        # print(norm, dndz_win, z)
+        dndzlsst_temp_fun = InterpolatedUnivariateSpline(
+            z, dndz_win / norm * np.sqrt(1. + z), ext='zeros')
+        lsst_tomo_bins.append(gals_kernel.kern(
+            z, dndzlsst_temp_fun, hspline, omegac, h, b=1.))
     return lsst_tomo_bins
 
 
@@ -107,23 +107,21 @@ def make_spec_bins(z, dndz_fun, nbins, hspline, omegac, h, b=1.):
     '''
     this takes a dndz distribution and splits it in nbins of equal lenght in z. this is quite rudimentary
     '''
-    lsst_bins = []
+    spec_bins = []
     z_bins = [z[i:i + int(len(z) / nbins)] for i in range(0, len(z), int(len(z) / nbins))]
-    for z in z_bins:
 
-        dndzlsst = dndz_fun(z)
-        # print('bins', len(z_bins), z, dndzlsst)
-
+    for z in z_bins[:-1]:
+        dndz = dndz_fun(z)
         # print(z, dndzlsst)
-        dndzlsst_temp = InterpolatedUnivariateSpline(
-            z, dndzlsst, ext='zeros')
-        norm = dndzlsst_temp.integral(z[0], z[-1])
+        dndz_temp = InterpolatedUnivariateSpline(
+            z, dndz, ext='zeros')
+        norm = dndz_temp.integral(z[0], z[-1])
         # print('norm', norm)
-        dndzlsst_temp = InterpolatedUnivariateSpline(
-            z, dndzlsst / norm * 1. * np.sqrt(1. + z), ext='zeros')
-        lsst_bins.append(gals_kernel.kern(z, dndzlsst_temp, hspline, omegac, h, b=1.))
+        dndz_bin = InterpolatedUnivariateSpline(
+            z, dndz / norm, ext='zeros')
+        spec_bins.append(gals_kernel.kern(z, dndz_bin, hspline, omegac, h, b=1.))
     # sys.exit()
-    return lsst_bins
+    return spec_bins
 
 
 def main(ini_par):
@@ -162,6 +160,11 @@ def main(ini_par):
     hspline = InterpolatedUnivariateSpline(
         np.linspace(0, 15, 100), [results.hubble_parameter(z_vector) / pars.H0 / 3000. for z_vector in np.linspace(0, 15, 100)], ext=0)
 
+    # GROWTH
+
+    growth = InterpolatedUnivariateSpline(np.linspace(0, 15, 100), np.sqrt(
+        (rbs(0.01, np.linspace(0, 15, 100)) / rbs(0.01, 0)))[0])
+
     # LOAD DNDZ
     # =======================
     # alternative dndz from Sam email
@@ -195,6 +198,10 @@ def main(ini_par):
     desi_dndz[:, 1] = np.sum(desi_dndz[:, 1:], axis=1)
 
     dndzfun_desi = interp1d(desi_dndz[:, 0], desi_dndz[:, 1])
+
+    make_spec_bins(desi_dndz[:, 0], dndzfun_desi, nbins=2,
+                   hspline=hspline, omegac=pars.omegac, h=h, b=1.17)
+
     norm = scipy.integrate.quad(
         dndzfun_desi, desi_dndz[0, 0], desi_dndz[-2, 0], limit=100, epsrel=1.49e-03)[0]
     # normalize
@@ -202,8 +209,8 @@ def main(ini_par):
         desi_dndz[:, 0], desi_dndz[:, 1] / norm, ext='zeros')
     desi = gals_kernel.kern(desi_dndz[:, 0], dndzfun_desi, hspline, pars.omegac, h, b=1.17)
 
-    # DES bias taken from Giannantonio et
-    # DES
+    # desi_spec_bins = make_spec_bins(z_lsst, gals_kernel.dNdZ_parametric_LSST,
+    #                                 nbins, hspline, pars.omegac, h, b=1.)
 
     # ======
     # WISE
@@ -213,9 +220,9 @@ def main(ini_par):
     norm = dndzwise.integral(0, 2)
     dndzwise = InterpolatedUnivariateSpline(
         wise_dn_dz[:, 0], wise_dn_dz[:, 1] / norm, ext='zeros')
-    # Biased was measured equal to 1 in Feerraro et al. WISE ISW measureament
+    # Biased was measured equal to 1.41 in Feerraro et al. WISE ISW measureament
     # by cross correlating with planck lensing
-    wise = gals_kernel.kern(wise_dn_dz[:, 0], dndzwise, hspline, pars.omegac, h, b=1.)
+    wise = gals_kernel.kern(wise_dn_dz[:, 0], dndzwise, hspline, pars.omegac, h, b=1.41)
 
     # Weak lensing
 
@@ -277,20 +284,12 @@ def main(ini_par):
     lsst = gals_kernel.kern(z_lsst, dndzlsst, hspline, pars.omegac, h, b=1.)
     nbins = 5
 
-    lsst_spec_bins = make_spec_bins(z_lsst, gals_kernel.dNdZ_parametric_LSST,
-                                    nbins, hspline, pars.omegac, h, b=1.)
-
     dndzlsst = gals_kernel.dNdZ_parametric_LSST(z_lsst)
-    z_bins = find_bins(z_lsst, dndzlsst, nbins)
-    print('find equal galaxies bins', z_bins)
     sigmaz = 0.05 * (z_lsst + 1.)
-    make_tomo_bins2(z_lsst, dndzlsst, sigmaz, z_bins, hspline, pars.omegac, h, b=1.)
 
-    width = z_lsst[-1] / nbins
-    lsst_tomo_bins = make_tomo_bins(z_lsst, dndzlsst, sigmaz, width,
-                                    nbins, hspline, pars.omegac, h, b=1.)
-
-    sys.exit()
+    # width = z_lsst[-1] / nbins
+    lsst_tomo_bins = make_tomo_bins_equal_gals(
+        z_lsst, dndzlsst, sigmaz=sigmaz, nbins=10, hspline=hspline, omegac=pars.omegac, h=h, b=1.)
     # ======
     # WEAK
     # =======
@@ -320,6 +319,11 @@ def main(ini_par):
     # bias montanari et all for Euclid https://arxiv.org/pdf/1506.01369.pdf
 
     euclid = gals_kernel.kern(z_euclid, dndzeuclid, hspline, pars.omegac, h, b=1.)
+    nbins = 10
+    dndzeuclid = gals_kernel.dNdZ_parametric_LSST(z_euclid)
+    sigmaz = 0.05 * (z_euclid + 1.)
+    euclid_tomo_bins = make_tomo_bins_equal_gals(
+        z_euclid, dndzeuclid, sigmaz=sigmaz, nbins=nbins, hspline=hspline, omegac=pars.omegac, h=h, b=1.)
 
     # KERNELS ARE ALL SET: Now compute integrals
 
@@ -327,13 +331,12 @@ def main(ini_par):
     # Compute Cl implicit loops on ell
     # =======================
 
-    # kernels = [lkern, wise, euclid, des_weak, lsst, ska10, ska01, ska5, ska1, cib, desi, des]
-    # names = ['k', 'wise', 'euclid', 'des_weak', 'lsst', 'ska10',
-    #          'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
+    kernels = [lkern, wise, euclid, lsst, ska10, ska01, ska5, ska1, cib, desi, des, ]
+    names = ['k', 'wise', 'euclid', 'lsst', 'ska10',
+             'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
 
-    kernels = [lkern, lsst, lsst_tomo_bins[0], lsst_tomo_bins[1],
-               lsst_tomo_bins[2], lsst_tomo_bins[3], lsst_tomo_bins[4]]
-    names = ['k', 'lsst', 'lsst0', 'lsst1', 'lsst2', 'lsst3', 'lsst4']
+    kernels = [lkern, wise]
+    names = ['k', 'wise']
 
     labels = []
     kernel_list = []
@@ -394,7 +397,19 @@ def main(ini_par):
     # SAVE
     obj = '_delens'
     section = "limber_spectra"
-    pk.dump(cls, open('../Data/' + section + obj + '.pkl', 'wb'))
+    import os.path
+    if os.path.isfile('../Data/' + section + obj + '.pkl'):
+        saved = pk.load(open('../Data/' + section + obj + '.pkl', 'rb'))
+        for key in cls.keys():
+            if key in saved.keys():
+                print("key", key, "already exist delete to overwrite")
+            else:
+                saved[key] = cls[key]
+        pk.dump(saved, open('../Data/' + section + obj + '.pkl', 'wb'))
+
+    else:
+        pk.dump(cls, open('../Data/' + section + obj + '.pkl', 'wb'))
+
     np.save('../Data/' + 'ells', ini_pars['lbins'])
     # profiler.stop()
     # profiler.run_viewer()
