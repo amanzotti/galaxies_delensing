@@ -1,0 +1,770 @@
+\documentclass[reprint,superscriptaddress,amsmath,amssymb,floatfix,aps,prd,nofootinbib]{revtex4-1}
+\usepackage{bm}
+\usepackage{epsfig}
+\usepackage{natbib}
+\usepackage{graphicx,epsfig}
+\usepackage{hyperref}
+\usepackage{ifthen}
+\usepackage{xstring}
+% \usepackage{graphicx}\usepackage[top=2.5 cm, bottom=2.5 cm, left=1.05in, right=1.05in]{geometry}
+\usepackage[applemac]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{color}
+\usepackage{epstopdf}
+%\usepackage[caption=false]{subcaption}
+%\epstopdfDeclareGraphicsRule{.gif}{png}{.png}{convert gif:#1 png:\OutputFile}
+% \AppendGraphicsExtensions{.gif}
+% notes to make comment is non-zero if
+\newcommand{\al}[1]{\begin{align} #1 \end{align}}
+
+\newcommand{\note}[1]{\textsc{#1}}
+	\newcommand{\bR}[1]{{\bm {\mR{#1}}} }
+
+\def\l{\ell}
+% For various journals
+%\newcommand{\apj}{ApJ}
+\newcommand{\physrep}{Physics Reports}
+\newcommand{\jcap}{JCAP}
+\newcommand{\apjl}{ApJL}
+\def\araa{\ref@jnl{ARA\&A}}
+\newcommand{\apjs}{ApJS}
+\newcommand{\aap}{A\&A}
+\newcommand{\mnras}{MNRAS}
+\newcommand{\physrev}{Phys. Rev.}
+\newcommand{\physrevlett}{Phys. Rev. Lett.}
+\newcommand*\aj{AJ}
+%\newcommand*\prd{Phys.~Rev.~D}
+
+
+
+
+\newcommand{\nver}{\hat{\mathbf{n}}}
+\newcommand{\cov}{\text{Cov}}
+\newcommand{\Nsim}{N_{\text{sim}}}
+\newcommand{\new}[1]{{\textcolor{blue}{\bf #1}}}
+%--------- NEW COMMAND STUFF
+	\newcommand{\PD}[2]{\dfrac{\partial #1}{\partial #2}}
+
+\def\simlt{\lesssim}
+\def\simgt{\gtrsim}
+\newcommand{\Omegamzero}{\Omega_{{\rm m,0}}}
+\newcommand{\alm}{a_{lm}}
+	% * subscript
+	\def\rom#1{%
+		_{\mathrm{#1}}%
+	}%
+%\newcommand{\l}{\ell}}
+
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\ben{\begin{equation*}}
+\def\een{\end{equation*}}
+
+\def\ba{\begin{eqnarray}}
+\def\ea{\end{eqnarray}}
+\def\ban{\begin{eqnarray*}}
+\def\ean{\end{eqnarray*}}
+
+\newcommand{\refsec}[1]{section~\ref{sec:#1}}
+\newcommand{\reftab}[1]{Tab.~\ref{tab:#1}}
+\newcommand{\refeq}[1]{Eq.~(\ref{eqn:#1})}
+\newcommand{\refssec}[1]{section~\ref{subsec:#1}}
+\newcommand{\reffig}[1]{Fig.~\ref{fig:#1}}
+\newcommand{\refFig}[1]{Fig.~\ref{fig:#1}}
+	\newcommand{\mR}[1]{\mathrm{#1}}   % mathrm
+
+
+
+\definecolor{darkgreen}{cmyk}{0.85,0.2,1.00,0.2}
+\definecolor{purple}{cmyk}{0.5,1.0,0,0}
+
+
+
+
+
+
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{natbib}
+\newcommand{\bx}{{\bf x}}
+\newcommand{\bk}{{\bf k}}
+\newcommand{\bq}{{\bf q}}
+\newcommand{\bP}{{\bf\Psi}}
+\newcommand{\bs}{{\bf s}}
+\newcommand{\cs}{{\cal S}}
+\newcommand{\by}{{\bf y}}
+\newcommand{\deltar}{\delta_{\rm recon}}%\def\lcdm{$\Lambda$CDM}
+\def\arcsec{$^{\prime\prime}$}
+\def\nl{N_\ell}
+\def\sl{S_\ell}
+\def\ublu{\bl'}
+\newcommand{\conv}[2]{\left(\frac{#1}{#2}\right)}
+\def\arctanh{\mathop{\rm arctanh}\nolimits}
+%\renewcommand{\eqref}[1] {equation $($\ref{#1}$)$}
+\newcommand{\comment}[1]{{}}
+\def\beq{\begin{equation}}
+\def\eeq{\end{equation}}
+\def\beqn{\begin{eqnarray}}
+\def\eeqn{\end{eqnarray}}
+\def\a{\alpha}
+\def\cl{C_{l}}
+\def\h{\mathrm{h}}
+\def\d{\rmn{d}}
+\def\pa{\partial}
+\def\deldel#1#2{\frac{\pa{#1}}{\pa{#2}}}
+\def\ba{\bm{\alpha}}
+\def\fracj#1#2{{\textstyle{#1\over#2}}}
+\def\bxi{\bm{\xi}}
+\def\half{\frac{1}{2}}
+\def\ti{\widetilde}
+\def\O{\Omega}
+\def\OL{\Omega_\Lambda}
+\def\Om{\ensuremath{\Omega_{\mathrm{m}}}}
+\def\Ob{\ensuremath{\Omega_{\mathrm{b}}}}
+\def\Oc{\ensuremath{\Omega_{\mathrm{CDM}}}}
+\def\msol{\ensuremath{M_\odot}}
+\def\l{\left}
+\def\r{\right}
+\def\o{\omega}
+\def\gcm{\textrm{g cm$^{-3}$}}
+\def\2gcm{\textrm{g cm$^{-2}$}}
+\def\Scr{\Sigma_{\mathrm{crit}}}
+\def\rcr{\rho_{\mathrm{crit}}}
+\def\phidot{\ensuremath{\dot\phi_{\bl,\bl'}}}
+\def\ddelta{\ensuremath{\dot\delta}}
+\def\modu#1{\l |{#1}\r |}
+\def\av#1{\l \langle{#1}\r \rangle}
+\def\hmpc{\:{h}^{-1}\mathrm{Mpc}}
+\def\th{\Theta}
+\def\tth{\tilde\Theta}
+\def\sg{\sigma}
+\def\Sig{\Sigma}
+\def\cf{{\cal F}}
+\def\k{\kappa}
+\def\P{{P}}
+\def\pnl{{P}_{{\!\textrm{\tiny NL}}}}
+\def\dnl{\Delta_{\text{\scriptsize NL}}}
+\def\kmin{\k_{\mathrm{min}}}
+\def\kmax{\k_{\mathrm{max}}}
+\def\hires{the \emph{highRes} experiment}
+\def\lores{the \emph{lowRes} experiment}
+\def\ktot{\k_{\mathrm{tot}}}
+\def\hunit{\ensuremath{\mathrm{km}{\mathrm{s}^{-1}} \mathrm{Mpc}^{-1}}}
+\def\H0{\ensuremath{\mathrm{H}_0}}
+\def\nn{\nonumber}
+\def\lin{\mathrm{lin}}
+\def\ISW{\mathrm{ISW}}
+\def\bl{\bmm{l}}
+\def\bL{\bmm{L}}
+\def\fsky{f_{\mathrm{sky}}}
+\newcommand{\E}[1]{\times 10^{#1}}
+\newcommand{\bmm}[1]{{\mathbf{#1}}}
+\newcommand{\bsection}[1]{\section{\uppercase{#1}}}
+
+
+\begin{document}
+
+\title{Future Cosmic Microwave Background delensing with galaxies surveys.}         % Enter your title between curly braces
+\author{A. Manzotti}        % Enter your name between curly braces
+\email{manzotti.alessandro@gmail.com}
+\affiliation{Kavli Institute for Cosmological Physics, University of Chicago}
+\affiliation{Department of Astronomy and Astrophysics, University of Chicago, 5640 South Ellis Avenue, Chicago, IL 60637, USA}
+\date{\today}
+
+        % Enter your date or \today between curly braces
+\begin{abstract}
+%\begin{itemize}
+%\item Worry : they might ask for internal bias\
+%item Possible TODO : temperature $N_{eff}$
+%
+%\end{itemize}
+%
+
+The measurement of the cosmic microwave background (CMB) polarization is a promising experimental dataset to test the inflationary paradigm and to probe the physics of the early universe. 
+A particular component, the so-called B-modes is indeed a direct signature of a prediction of inflation: the presence of gravitational waves in the early universe. However improving the level of noise in future experiments will not be enough. 
+%This is even truer if the aim is to not only detect the amplitude of gravitational waves but also the shape of their spectrum to test for example inflation consistency relations.
+Secondary effects in the low redshift universe will also produce non-primordial B-modes. In particular the gravitational interactions of CMB photons with large scale structures will distort the primordial E-modes adding a lensing B-mode component to the primordial signal.
+Removing the lensing component from the measurement of CMB B-modes will be important to constrain the amplitude of the primordial gravitational wave contribution to the signal.
+Here we discuss the role of current and future large scale structure surveys in improving the reconstruction of the lensing potential that lenses the CMB photons and how this reflects into an improved delensing efficiency.
+We quantify this by the improvement due to delensing on the constraints on the inflationary tensor perturbations amplitude and shape ($r$ and $n_{t}$).
+We find that current generation experiments... we also point out that a tomographic approach..
+\end{abstract}
+
+\vspace{1cm}
+
+\maketitle
+
+\section{Introduction}
+\label{sec:intro}
+In the standard cosmological paradigm, in its early phase, the universe underwent a period of near-exponential expansion called "cosmic inflation." 
+So far all the cosmological observations agree with this picture, making it a compelling and elegant description of the Universe initial conditions. Despite the experimental effort, other possible explanations are still valid, and a conclusive evidence of inflation is still to be found. 
+Inflation generically predicts a stochastic background of gravitational waves \cite[see e.g.][for a review]{kamionkowski15}. This prediction set inflation apart from other theories and a detection of primordial gravitational waves could be the compelling evidence cosmologist are looking for. 
+These primordial gravitational waves in the early universe would imprint a unique signature on the polarized anisotropies of the CMB. For this reason, CMB polarization is a promising dataset to understand the physics of the early universe and ultimately test inflation.
+In particular, if we can decompose the CMB polarization fields in Fourier space into even-parity (divergence) and odd-parity (curl) components, referred to as ``E'' and ``B'' modes.
+ In the standard scenario, the B-mode polarization is a clean probe of primordial gravitational waves, because these are the only source of B-modes at the epoch of recombination.
+
+Because the CMB B-modes provide the cleanest known observational window into the primordial gravitational waves background, improving their measurement is a major objective of current and future CMB experiments.
+Even if inflationary B-modes have not been detected yet, a natural value $r \gtrsim 10^{-3}$, should be reachable shortly given the level of noise expected in future CMB experiments \citep{kamionkowski15}.
+However, reducing the level of noise will not be enough to attain this goal.
+Indeed the observed B modes are not solely sourced by early universe physics, but they are also produced by secondary effects taking place in the late-time low-redshift universe. 
+In this work, we will focus on the effects of gravitational interactions with large scale structures (LSS).
+Lensing shears the CMB polarization pattern, producing ``lensing B modes'' from CMB E modes \citep{zaldarriaga98}.
+This expected component has now been measured both in cross-correlation with LSS \citep{hanson13,polarbear2014c,vanengelen14b,planck2015XV} and from CMB data alone \citep{polarbear2014b,bicep2a,keisler15}.
+
+This component acts as a source of confusion for searches of the primordial gravitational waves background.
+Indeed, the contamination from lensing B modes is already at the level of the instrumental noise of current experiments \citep{bk14}. Thus together with the experimental effort to reduce the amount of noise is important to study the effect of the spurious lensing component.
+
+The optimal way to reduce the lensing contributions is to reconstruct the expected realization of lensing B modes on the observed part of the sky and then use it to clean the data in a process called ``delensing''. 
+We can delens the observed B-modes combining CMB polarization data (what is \textit{lensed}) with tracers of the large scale structure (what is \textit{lensing}) to reconstruct a template of the expected lensing B-modes.
+Delensing has been studied for many years \cite{knox2002, kesden2002, seljak2003, simard:2015,sherwin15,smith:2012}.
+Furthermore, recently it has been performed on CMB temperature data using as LSS tracer the cosmic infrared background in \cite{larsen:2016} and on CMB temperature and polarization data using internal CMB lensing reconstruction \cite{ carron17}. Finally, the highest B-mode delensing efficiency has been achieved with SPT and Herschel data in where $~28\%$ of the lensing power has been removed.
+
+For future experiments, we need to increase the delensing efficiency by almost a factor of 3 to fully exploit the instrumental capabilities \cite{abazajian:2016}.
+In this paper, we propose and study a possible way: using future galaxies surveys as tracers of the lensing potential in addition to other probes like 21 cm, cosmic infrared background and internal CMB reconstruction. 
+Furthermore, we point out how using redshift information trough a clever tomographic binning can improve the delensing efficiency of galaxies survey.
+These will translate into a better reconstruction of the B-modes in the measured patch, and as a consequence, it will improve the constraints on inflation trough delensing. We model several actual and future surveys, and after computing the residual B-modes, we forecast the statistical uncertainties the amplitude and the shape of the inflationary tensor perturbations for current CMB experiments as well as the next generation (S3) and the planned fourth generation (S4). 
+
+We organize this article as follow: we describe the LSS tracers used in this analysis in \refsec{model}. In \refsec{th} we define the lensing B-mode component and the residual power after delensing with tracers of the lensing potential.  \refsec{for} is the main results of this work: the improvement of inflationary parameters constraints due to delensing with CMB and LSS. We conclude in \refsec{concl}.
+
+
+
+\section{Lensing potential tracers}
+\label{sec:model}
+In this section, we introduce the different large scale structure tracers considered in this work to reconstruct the lensing potential that distorts primordial E-modes generating a non-primordial B-mode component.
+Also, we define the power spectra that we will use later in \refsec{th}. 
+ 
+
+Large scale structure surveys usually probe the 3D dark matter overdensities as a 2D field projected along the line of sight:
+
+\begin{equation}
+\delta^{i}(\nver) = \int_0^{\infty} dz\, W^{i}(z)\delta(\chi(z)\nver,z).
+\label{eqn:wkernel}
+\end{equation}
+
+where $\delta(\chi(z)\nver,z)$ corresponds to the dark matter overdensity field at a comoving distance $\chi(z)$ and at a redshift $z$ in the angular direction $\nver$.
+Using the Limber approximation \cite{limber53} we can compute the power spectra of two large-scale structure fields $i,j$ as:
+\begin{equation}
+C_{\ell}^{ij}= \int_0^{\infty} \frac{dz}{c} \frac{H(z)}{\chi(z)^2}\, W^{i}(z)W^{j}(z)P(k,z).
+\label{eqn:wkappa}{}
+\end{equation}
+
+In this equation, $H(z)$ is the Hubble factor at redshift $z$, $c$ is the speed of light and $P(k,z)$ is the matter power spectrum evaluated at wavenumber $k = \ell/\chi(z)$ and redshift $z$. 
+Furthermore $W^{i}(z)$ is the kernel function of the field $i$ introduced in \refeq{wkernel}.
+We will now describe the kernels for each of the tracers used in this work.
+
+
+\subsection{CMB lensing potential}
+\label{sec:kappaCMB}
+We start from the CMB lensing potential.
+The lensing kernel $W^{\kappa}$ is:
+\begin{equation}
+W^{\kappa}(z) = \frac{3\Omega_{\rm m}}{2c}\frac{H_0^2}{H(z)}(1+z)\chi(z)\frac{\chi_*-\chi(z)}{\chi_*},
+\end{equation}
+%
+where $\chi_*$ is the comoving distance to the last-scattering surface at $z_*\simeq 1090$, $\Omega_{\rm m}$ and $H_0$ are the present day values of the Hubble and matter density parameters, respectively.
+
+The CMB lensing potential is \textit{the} field that we need to reconstruct to reverse the effect of large scale structure and delens the CMB.
+However, the lensing potential can also be reconstructed using the CMB itself. In that case, we can treat it as a noisy tracer of the true field. Both the CMB lensing field and its noisy reconstructed counterpart have the same kernel $W^{\kappa}(z)$.
+However, when computing the power spectrum of the latter, we need to add a noise component. Given the instrumental noise level and the beam, we can calculate the reconstruction noise $N_l^{\kappa \kappa}$, and so
+\beq
+\cl^{\kappa_\mathrm{rec} \kappa_\mathrm{rec}} = \cl^{\kappa \kappa } +N^{\kappa \kappa}_l
+\eeq
+In this work, the level of noise is computed assuming an iterative quadratic estimator is used in the reconstruction \cite{}.
+
+
+
+
+\subsection{Galaxies}
+
+The galaxies clustering kernel is:
+\begin{equation}
+\label{eqn:wg}
+\begin{split}
+W^{g}(z) &= \frac{b(z)\frac{dN}{dz}}{\Bigl(\int dz'\,\frac{dN}{dz'}\Bigr)}.
+\end{split}
+\end{equation}
+Here $\frac{dN}{dz}$ is the number of galaxies observed by the survey as a function of redshift while $b(z)$ is the galaxy bias that connects the amplitude of galaxy overdensities to the ones of the dark matter underneath.
+When computing the auto-spectrum of the galaxies density, a shot noise term needs to be taken into account. 
+To do so, we add a constant term to the power spectrum equal to the inverse of the number of galaxies per steradians.
+ Different galaxy surveys in this work are then fully characterized by their b(z), $\frac{dN}{dz}$ and the observed galaxies density.
+We test the delensing efficiency taking into account both current survey like WISE or DES as well as future galaxy probes like DESI and LSST together with 21 cm measurement like SKA.
+
+We defined the WISE redshift distribution following \cite{yan:2013} (see Fig. 4 therein). 
+To compute the noise term, we assume that the available sky after masking is around $f_{sky}=0.44$ with 50 million galaxies \cite{ferraro:2015} and that the galaxies density is approximately uniform.
+DES is modeled after the DES Science Verification data public release.
+For DESI we used the $\frac{dN}{dz}$ in Tab. 2.3 of the DESI Technical Design Report.
+For LSST we follow \cite{schaan:2016}: $\frac{dN}{dz}\propto z^{\alpha}\exp^{-(z/z_{0})^{\beta}}$ with $\alpha = 1.27$, $\beta = 1.02$, and $z_{0}= 0.5$. Furthermore we assume a density of 26 galaxies per arcmin squared.
+Finally, we model both the SKA redshift distribution and bias survey following \cite{namikawa:2016a}. 
+
+
+\subsection{Cosmic infrared Background (CIB)}
+\label{sec:cib}
+Following \cite{Addison:2011se}, we model the CIB power directly as $C_{\ell}^{{\rm CIB}\mbox{-}{\rm CIB}} = 3500 (l/3000)^{-1.25} {\rm Jy^2 / sr}$.
+This model provides an accurate fit to several experimental results.
+For the cross-spectra with the CMB lensing or other galaxies tracers, $C_{\ell}^{{\rm CIB}\mbox{-}j}$, we use the single-SED model of~\cite{hall10}.
+It corresponds to the kernel:
+\begin{align}\label{eq:12}
+W^{\text{CIB}}(z) = b_c\ \frac{\chi^2(z)}{H(z)(1+z)^2}\ e^{-\frac{(z-z_c)^2}{2\sigma^2_z} } f_{\nu(1+z)},
+\end {align}
+for
+\begin{equation}
+f_{\nu} = 
+\begin{cases}
+\Big( e^{\frac{h\nu}{kT}} - 1 \Big)^{-1} \nu^{\beta+3} & (\nu \leq v^{\prime}) \\ \Big( e^{\frac{h\nu^{\prime}}{kT}} - 1 \Big)^{-1} \nu^{\prime \beta+3} \Big( \frac{\nu}{\nu^{\prime}} \Big)^{-\alpha} & (\nu > v^{\prime})
+\end{cases}
+\end{equation}
+
+We place the peak of the CIB emissivity at redshift $z_c = 2$ with a broad redshift kernel of width $\sigma_z = 2$. Also $T$ = 34K and $\nu^{\prime} \approx$ 4955 GHz.
+
+
+\section{Gravitational lensing B-mode and delensing}
+\label{sec:th}
+The large scale structures described in \refsec{model} have an important impact on the search of primordial CMB B-modes: they lens the primordial E-modes generating non inflationary B-modes that constitues an important source of noise.
+
+Indeed the Q and U mode decompositions of the CMB photons polarization are remapped by lensing as:
+\be
+Q(\hat{\mathbf{n}}) = Q_{\mathrm{unlensed}}(\hat{\mathbf{n}}+\nabla\phi);~~
+U(\hat{\mathbf{n}}) = U_{\mathrm{unlensed}}(\hat{\mathbf{n}}+\nabla\phi)
+\ee
+where the deflection angle is the gradient of the lensing potential integrated along the line of sight $\nabla\phi$.
+The CMB polarization is usually decomposed into odd-parity Fourier modes E and B. 
+As shown in \cite{}, because of the symmetry of the problem, tensor perturbations are the principal source of the B-modes configuration. For this reason, B-modes are a promising signature of early universe tensor perturbations.
+
+However, this promising sign of primordial gravitational waves is partially obscured by gravitational interactions with large scale structures that generate CMB B-modes by distorting primordial E-modes.
+At first order, given the convergence field $\kappa= -\frac{1}{2}\nabla^2\phi$ introduced in \refsec{kappaCMB} the B-modes resulting from the lensing of primordial E-modes are:
+\be
+B^{\mathrm{lens}}(\bl) =  \int \frac{d^2 \bl'}{(2 \pi)^2} W(\bl,\bl') E(\ublu) \kappa(\bl - \bl')
+\label{eqn:blens}
+\ee
+where different modes contributes with a different weight:
+\be
+W(\bl,\bl') = \frac{2 \bl' \cdot (\bl-\bl')}{|\bl-\bl'|^2} \sin(2\varphi_{\bl,\bl'}).
+\ee
+%As usual we define the power spectrum as:
+%\be
+%\langle B^{\mathrm{lens}}(\bl) ~ B^{\mathrm{lens}^*}(\tilde{\bl}) \rangle \equiv (2\pi)^2 \delta^D(\bl - \tilde{\bl}) C^{BB,\mathrm{lens}}_l .
+%\ee
+
+From this we get the power spectrum of the lensing component of the B-modes:
+\be
+C_l^{BB,\mathrm{lens}}  = \int \frac{d^2 \bl'}{(2 \pi)^2} W^2 (\bl,\bl')C^{EE}_{l'} C^{\kappa \kappa}_{|\bl-\bl'|}.
+\ee
+
+The B-mode power spectrum measured on the sky is composed of a possible primordial component $C_l^{BB,r}$ together with the lensing $C_l^{BB,\mathrm{lens}}$ contribution and the instrumental noise $N_l^{BB}$ (defined in \refeq{noise}):
+\be
+C_l^{BB,\mathrm{full}} = C_l^{BB,r} + C_l^{BB,\mathrm{lens}} + N_l^{BB}.
+\ee
+The lensing component is a significant source of B-modes that, at large scales, correspond to a white noise source of roughly $5 \mu K$-arcmin. This means that it is not only bigger than the allowed inflationary component at scales smaller than several degrees, but it is also comparable with current levels of instrumental noise. 
+For this reason, it is critical to characterize and eventually remove it from the data.
+To do so, we build a template \refeq{blens} of the lensing B-modes in the observed patch given a measurement of the E-mode field and the lensing potential $\phi$.
+While E is measured directly, we can estimate $\phi$ using "tracers" of the dark matter distribution that sources the potential. 
+
+We will now show how the delensing efficiency is related to the fidelity of the lensing tracers and the instrumental noise in the CMB E-modes.
+If we have a large scale structure field I($\nver$) that traces the lensing potential we can build a template of the lensing B-modes on the sky by a weighted convolution:
+\be
+\hat{B}^{\mathrm{lens}}(\bl) = \int \frac{d^2 \bl'}{(2 \pi)^2} W(\bl,\bl') f(\bl,\bl') E^N(\ublu) I(\bl - \bl'),
+\ee
+where $f(\bl,\bl')$ can be determined by minimizing the difference with the true $B^{\mathrm{lens}}(\bl)$ defined in \refeq{blens}. We introduce the instrumental noise in the CMB E-modes ($E^N$) that will also limits the ability to fully reconstruct the lensing B-modes. 
+
+The residual lensing B-modes due to an imperfect knowledge of the true E-mode and $\phi$ will be
+\beqn
+B^\mathrm{res}(\bl) &=&  B^\mathrm{lens}(\bl) - \hat{B}^\mathrm{lens}(\bl) =  \int \frac{d^2 \bl'}{(2 \pi)^2} W(\bl,\bl') \times \nonumber \\ &&\left( E(\ublu) \kappa(\bl - \bl' ) -  f(\bl,\bl') E^N(\ublu) I(\bl - \bl' ) \right).
+\eeqn
+
+The weights $f(\bl,\bl')$ so that the residual lensing B mode power is minimized are:
+\be
+\label{eqn:fweight}
+f(\bl,\bl') = \left(\frac{C^{EE}_{{l'}}}{C^{EE}_{{l'}}+N^{EE}_{{l'}}}\right)  \frac{C^{\kappa I}_{|\bl-\bl'|}}{C^{II}_{|\bl-\bl'|} }.
+\ee
+Here $C^{\kappa I}$ and $C^{II}$ are the cross correlation spectrum of the tracer $I$ with the lensing convergence $\kappa$ and its autospectrum and are described for each LSS field in \refsec{model}. The power spectrum of the E-modes noise $N^{EE}$ is the same as the B-modes one in \refeq{noise}.
+
+Notice that the first term consists of an inverse variance filter applied to the measured E-mode and the second minimize the difference between the reconstructed $\phi$ and the CMB lensing potential.
+
+With this choice of $f(\bl,\bl')$ we finally have that the residual power is:
+\beqn
+\label{eqn:Bres}
+C_{{l}}^{BB,\mathrm{res}} &=&   \int \frac{d^2 \bl'}{(2 \pi)^2}  W^2 (\bl,\bl')
+ C^{EE}_{l'} C^{\kappa \kappa}_{|\bl-\bl'|}  \\
+&\times&  \left[1 - \left(\frac{C^{EE}_{{l'}} }{C^{EE}_{{l'}}+N^{EE}_{{l'}}}\right) \rho^2_{|\bl-\bl'|} \right] \nonumber
+\eeqn
+with
+\be
+\rho_l= \frac{\cl^{\kappa I}}{\sqrt{\cl^{\kappa \kappa} \cl^{I I}}}.
+\ee
+The bigger the $\rho_l$ is for an LSS field, the more it is correlated with the lensing potential acting on the CMB photons. An higher correlation allows for a better reconstruction of $\phi$ and, as a consequence, of $B^{\rm{lens}}$.
+
+
+\subsection{Multiple tracers of the lensing potential}\label{sec:galcontrib}
+
+In this section we extend the formalism to the case where multiple tracers are used to reconstruct the lensing potential. 
+%Furthermore we show that splitting galaxy surveys into multiple tomographic bins can significantly improve their efficiency.
+
+Let's start by assuming that we have n different tracers of the gravitational potentials $I_{i}$ with $i\in \{1,..,n\}$. We can optimally combine them to estimate $\phi$ or, in other word, maximizing the correlation factor $\rho$ with:
+\beqn
+I         &=&    \sum_{i}c^{i}I^{i} \nonumber \\
+c_{i}     &=& (C_{II}^{-1})_{ij}C^{\kappa I^{j}}
+\label{eqn:combined}
+\eeqn
+where $C_{II}$ is the covariance matrix of the LSS tracers.
+The residual B-mode power can be derived from \refeq{Bres} using an ``effective'' correlation $\rho^{2}$ of these combined tracers with gravitational lensing:
+\be
+\rho^{2} = \sum_{i,j}\frac{C^{\kappa i}~(C^{-1})_{ij}~C^{\kappa j}}{C^{\kappa\kappa}}.
+\label{eqn:rho-combined}
+\ee
+
+Note that the gain in adding a new tracer is not only proportional to its correlation with the CMB lensing, but it also depends on how much it is correlated with the already used set of tracers.
+\reffig{kernel} show the different kernels as a function of redshift computed using the models and parameters described in \refsec{model}.
+CIB and 21 cm surveys probes the high redshift structures and, independently from the model assumed, they show a relatively good overlap with the CMB lensing kernel. 
+On the other end, galaxies clustering surveys can only reconstruct the low-z portion of the lensing kernel as can be seen from the LSST, DES and DESI curves.
+However, given the low noise of this measurement and their small overlap with other probes they still improve the delensing efficiency even if they overlap with the CMB lensing potential is not optimal.
+ 
+
+
+\subsection{Improving efficiency with tomographic binning}\label{sec:tomo-bin}
+Furthermore the delensing efficiency of galaxy surveys can be improved by taking into account redshift information.
+When we weight a tracer with $\frac{C^{\kappa I}}{C^{II}}$ in \refeq{fweight} to maximize its ability to reconstruct the lensing potential we are only using redshift averaged information about the survey. However, as can be seen in \reffig{kernel}, the overlap varies as a function of redshifts. For this reason, the optimal approach is to weight galaxies at different redshifts with different weights according to both their cross-correlation with $\kappa$ and their auto-spectrum.
+We can see this with a simple example. Let's split a single survey I into two non-overlapping redshift bins $I_{1}$ and ${I_{2}}$ with $I=I_{1}+I_{2}$.
+For the full survey the effective cross correlation is equal to 
+\be
+\rho_{\rm{full}}^{2}= \frac{(\cl^{\kappa I})^2}{\cl^{\kappa \kappa} \cl^{I I}}=\frac{(\cl^{\kappa I_{1}}+\cl^{\kappa I_{2}})^2}{\cl^{\kappa \kappa} (\cl^{I_{1} I_{1}}+\cl^{I_{2} I_{2}})}
+\ee
+while for the split survey it will be 
+\be
+\rho_{\rm{split}}^{2}= \frac{(\cl^{\kappa I_{1}})^2}{\cl^{\kappa \kappa} \cl^{I_{1} I_{1}}}+\frac{(\cl^{\kappa I_{2}})^2}{\cl^{\kappa \kappa} \cl^{I_{2} I_{2}}}.
+\ee
+Now it can be show that $\rho_{\rm{split}}\ge \rho_{\rm{full}}$ being:
+\be
+\rho_{\rm{split}}^{2} - \rho_{\rm{full}}^{2}\propto  (\cl^{I_{1} I_{1}}\cl^{\kappa I_{2}}-\cl^{I_{2} I_{2}}\cl^{\kappa I_{1}})^2
+\ee
+Then $\rho^2$ is always bigger in the tomographic case and the two are equal only when $\frac{C^{\kappa I_{i}}}{C^{I_{i}I_{i}}}$ is the some for all the redshift bins in which case a single optimal weight is sufficient for the entire survey.
+Of course, this is an idealized situation: increasing the number of bins will reduce the number of galaxies in the bin thus increasing the shot noise. 
+An optimal balance needs to be found given the survey specifics, but the general idea is that the optimal approach consists in binning the galaxies in the survey at different redshift. 
+Of course, this is possible for galaxies surveys, but it is harder for a tracer with poor redshift information like the CIB. 
+
+In this work, we then bin galaxy surveys by splitting the window function \refeq{wg} into different slices so that all the bins contain the same number of galaxies. 
+For photometric surveys like DES and LSST, we assume a photometric redshift estimation gaussianly distributed around the true value with an rms fluctuation $\sigma(z)$.
+
+In that case the i$^{th}$ slice has a galaxy distribution \cite{hu:2004}:
+\begin{eqnarray}
+\label{eqn:zbin}
+W_{i}(z) \propto b(z) {dN(z) \over dz} 
+\Bigl[{\,\rm erfc}\left({\Delta(i-1) -z \over \sigma(z)\sqrt{2}}\right) 
+\\ \nonumber - {\,\rm erfc}
+\left({\Delta i  - z \over \sigma(z)\sqrt{2}}\right)\Bigr].
+\end{eqnarray}
+
+\textbf{ .. add binning used ...}
+
+% ===================
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=1.]{../images/compare_kernel.pdf}
+\caption{\textbf{Kernels Comparison}: Comparison of the different kernels as a function of redshift for some of the tracers used in this analysis. The bigger the overlap wit the CMB lensing kernel the better the reconstruction of the lensing potential will be. This will lead to a better delensing. }
+\label{fig:kernel}
+
+\end{center}
+\end{figure}
+% ===================
+
+
+
+%=================
+% FORECAST
+%=================
+
+\section{Parameter constraints improvement after delensing}
+\label{sec:for}
+In this section, we forecast the expected delensing efficiency and the relative importance of galaxies tracers for delensing in current and future experiments. We will use the Fisher information matrix to quantify the delensing efficiency as the improvement in the constraint of two inflationary parameters: the tensor to scalar ratio $r$ and the tensor tilt $n_{T}$.
+We assume a CMB experimental scenario composed of a high-resolution CMB experiment which defines the internal reconstruction efficiency, together with a low-noise, low-resolution experiment which B-modes will be delensed and used to constrain the inflationary parameters.
+We focus on three different scenarios: the current stage, a third generation stage (3G)  and finally the futuristic CMB Stage 4.
+
+
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=1.]{../images/cmb_internal.pdf}
+\caption{\textbf{CMB internal delensing:} Correlation factor between CMB internal reconstructed potential and the actual lensing potential for different CMB experiments and corresponding noise reconstructions. 
+CMB measurements will rapidly improve providing the most efficient even if biased way to reconstruct the structures lensing the CMB.}
+\end{center}
+\label{fig:corr-internal}
+\end{figure}
+
+
+
+\subsection{Fisher method}
+In this framework, the error on a cosmological parameter constrained by a B-mode spectrum measurement is given as usual by:
+\begin{equation}
+\label{eqn:fisher}
+\sigma(p)= \left[\sum_l^{\ell_{\rm{max}}} \left(\frac{\partial {C}_{\ell}^{BB,r,n_{t}}}{\partial p}\right)^2/\sigma( C_{l}^{BB} )^2 \right]^{-\frac{1}{2}}
+\end{equation}
+where we consider the parameters $p =\{r,n_{t}\}$. 
+We will assume a gaussian covariance:
+\beq
+\sigma( C_{l}^{BB} )= \sqrt{ \frac{2}{(2 {l}+1) \fsky }} \left( C_l^{BB,r} + C_{{l}}^{BB,\mathrm{lens}}+N_{{l}}^{BB} \right).
+\eeq
+Here the B-modes noise spectrum is given by:
+\beq \label{eqn:noise}
+N_l^{BB} = \left({\Delta_P}/{T_{\mathrm{CMB}}}\right)^2  e^{ {l^2 \theta_\mathrm{FWHM}^2}/({8 \ln 2})}
+\eeq
+where $\theta_\mathrm{FWHM}$ is the full half width of the telescope beam and $\Delta_P$ is the instrumental noise of the experiment.
+Even if the covariance structure has non-Gaussian contributions \cite{motloch:2017,benoit-levy:2012} this approximation is good enough to show the improvement due to delensing.
+
+The reason why removing the lensing contribution will improve parameters constraints can be seen from \refeq{fisher}.The parameter uncertainties are inversely proportional to the covariance of the measurement. Since lensing B-mode $C_{{l}}^{BB,\mathrm{lens}}$ is a substantial component of the covariance, removing part of them trough delensing will improve parameter constraints.  
+
+Note that we are fixing the other cosmological parameters in \refeq{fisher}. Uncertainties in those will however propagate to uncertainties in $\{r,n_{t}\}$. While the constraints will be slightly optimistic, this has no real impact on the estimate of the improvement due to delensing which is the main focus of this work.
+We define that improvement as the ration of the constraints before and after delensing: $\alpha_{r} = \sigma^{\rm{del}}(r)/\sigma(r)$ and $\alpha_{n_{t}} = \sigma^{\rm{del}}(n_{t})/\sigma(n_{t})$
+%===================
+\subsection{Delensing with current CMB and LSS}
+
+% \the\textwidth
+
+
+Very recently delensing has been proven possible on real data using as tracers both the internal CMB lensing potential reconstruction \cite{carron:2017} as well as CIB data \cite{larsen:2016a,manzotti:2017}.
+Here we discuss the improvement due to combining these and other available surveys (see \cite{yu:2017} for publicly accessible multi-tracers data-products).
+
+On the CMB side, we will combine a Bicep-Keck like \textit{deep} CMB experiment with instrumental noise equal to \textcolor{red}{$3\mu$K-arcmin} and a beam of \textcolor{red}{30 arcmin}.
+The CMB lensing reconstruction will be performed by a higher resolution CMB experiment. We explore two possibilities.
+First, we test the efficiency with an internal reconstruction performed by Planck \cite{2016A&A...594A..15P} using the CMB lensing noise curves publicly available
+\footnote{\url{https://wiki.cosmos.esa.int/planckpla2015/index.php/Specially\_processed\_maps}}.
+Then we will assume a ground-based experiment with the final noise level of SPT-Pol which corresponds to \textcolor{red}{$9.4\mu$K-arcmin} in polarization with a beam equal to \textcolor{red}{1.2 arcmin}. 
+
+Furthermore, we test how much not only CIB maps but also current low redshift galaxies surveys like DES and WISE can improve the delensing efficiency.
+
+The correlation attainable using current experiments is shown in \reffig{corrnow-planck} for Planck and in \reffig{corrnow} for SPT-Pol.
+We include a dashed curve that corresponds to (with arbitrary scale) $C^{\kappa \kappa} \times \frac{\partial C^{BB}}{\partial{C^{\kappa \kappa}}}$, showing which scales contribute to the $\ell<100$ B-mode power.
+In general, we observe that CMB lensing reconstruction correlate very well at low $\ell$  and it then falls rapidly because of the raise of the reconstruction noise.
+For the noise levels of Planck, the internal reconstruction is at most $70\%$ correlated at very large scales and falls rapidly to $40\%$ at $\ell=200$. Its correlation is comparable to the on of LSS at almost all scales.
+On the other end, the CMB lensing reconstruction \cite{} from SPT-Pol will be more than 80\% correlated with the true field at large scales $\ell<300$, where the correlation become comparable with the current LSS surveys.
+
+Following \cite{yu:2017} we cut both the CIB and WISE at $\ell<100$ where they are contaminated by large Galactic dust residuals.
+Optical surveys galaxies like DES are less affected by that systematics and can be used at larger scales.
+Furthermore, in \reffig{corrnow} DES contribution to delensing is higher than WISE because the redshift distributions peaks at slightly higher redshift thus overlapping better with lensing.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=1.]{../images/actual_scenario_planck.pdf}
+\caption{Correlation factor between current galaxies survey and internally reconstructed  $\phi$ CMB lensing potential as a function of the angular scale $\ell$. 
+The dashed curve corresponds to (with arbitrary scale) $C^{\kappa \kappa} \times \frac{\partial C^{BB}}{\partial{C^{\kappa \kappa}}}$, showing which scales contribute to the $\ell<100$ B-mode power.}
+\label{fig:corrnow-planck}
+\end{center}
+\end{figure}
+
+
+%At large angular scale, the CMB internal reconstruction is clearly the best tracers for delensing. Because of the large level of noise in current experiments, its efficiency became comparable to the CIB one at few degrees ($\ell \simeq 400$).
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=1.]{../images/actual_scenario.pdf}
+\caption{Correlation factor between current galaxies survey and internally reconstructed  $\phi$ CMB lensing potential as a function of the multipole $\ell$. }
+\label{fig:corrnow}
+\end{center}
+\end{figure}
+
+
+
+Using this correlation level we can, using \refeq{Bres} compute the residual B-mode power after delensing and test the consequent improvement on parameter constraints with \refeq{fisher}. 
+For current surveys we only consider $r$ since the broad beam of the deep BK-like survey does not provide enough leverage to constrain the shape of the B-mode spectra.
+We first compute the improvement with a fiducial value of $r_{\rm{fid}}=0$.
+The results are summarized in \reftab{current}
+
+
+\begin{table}
+\caption{$\alpha(r)$: Current generation improvements on r due to delensing. Values correspond to ration of the error before and after delensing.}
+  \vspace{0.2cm}
+  \begin{tabular}{ | c | c | c|}
+\hline
+Surveys & $\alpha(r=0)$ & $\alpha(r=0.12)$ \\ \hline \hline
+WISE & 1.10 & 1.04 \\ \hline
+DES & 1.19  & 1.07 \\ \hline
+CIB & 1.46  & 1.18\\ \hline
+LSS & 1.64  & 1.24\\ \hline
+CMB & 1.14  & 1.04 \\ \hline
+LSS+CMB & 1.71& 1.26  \\ \hline
+
+  \end{tabular}
+  \label{tab:current}
+\end{table}
+
+
+
+When the same tracers are used, the results are in agreement with \cite{yu:2017,larsen:2016a}, with the CIB being the predominant source of delensing with an improvement of almost 50\%. Planck and DES are essential to reconstruct the largest scales of the lensing potential and as such the play a major role in delensing. The improvement due to WISE is quite marginal, but given the big sky coverage, it might be useful to delens large CMB polarization experiments.
+For reference we also test a scenario where GW are present at their highest possible value of $r_{\rm{fid}}=0.12$ \cite{bicep2/keck-collaboration:2015}. As expected the importance of delensing itself is now reduced given that the lensing component constitutes a smaller portion of the total B-modes variance.
+
+As expected the improvement of the internal CMB reconstruction reduces the relative importance of LSS. 
+This can be seen in \reftab{current-spt}. 
+In particular optical surveys will rapidly lose the role of filling in large-scale modes and they start, as the CIB, to supplement information about lensing at higher multipoles.
+ 
+ 
+ 
+ \begin{table}
+\caption{$\alpha(r)$: Current generation improvements on r due to delensing. Values correspond to the ratio of the error before and after delensing.}
+  \vspace{0.2cm}
+  \begin{tabular}{ | c | c | c|}
+\hline
+Surveys & $\alpha(r=0)$ & $\alpha(r=0.12)$ \\ \hline \hline
+WISE & 1.10 &  \\ \hline
+DES & 1.21  & \\ \hline
+CIB & 1.52  & \\ \hline
+LSS & 1.78  & \\ \hline
+CMB & 1.62  &  \\ \hline
+LSS+CMB & 2.35 &   \\ \hline
+
+  \end{tabular}
+  \label{tab:current-spt}
+\end{table}
+ 
+ 
+
+
+
+
+
+
+
+\subsection{CMB-S3 Era}
+CMB measurements are rapidly improving. Indeed the next generation of ground-based telescopes has been already deployed, and data are currently being taken.
+To model the CMB at the beginning of the next decade, we will assume a deep experiment with a level of noise of \textcolor{red}{$3\mu$K-arcmin} with a \textcolor{red}{1 arcmin} beam. This is a reasonable level for a combination of the next generation of BK and SPT3G. We will assume this level of noise for the internal noise reconstruction.
+
+The correlation attainable using generation 3 experiments is shown in \reffig{corrS3}.
+Not only will CMB experiments improved shortly: eventually  DESI will start taking data. For this reason, we add DESI to the previously mentioned LSS tracers. 
+DESI will be slightly more efficient than DES-like survey because of the slightly higher redshift that it can probe.
+However, the CIB will still play the major role among LSS.
+
+This generation of experiments will start exploring the small scales B-modes thus constraining, even if loosely, the value of $n_{t}$. 
+The improvement in cosmological parameters are summarized in \reftab{S3}
+
+  
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=1.]{../images/S3_scenario.pdf}
+\caption{Correlation factor. Same as \reffig{corrnow} but for stage 3 experiments. }
+\label{fig:corrS3}
+\end{center}
+\end{figure}
+
+
+
+
+
+\begin{table}
+\caption{$\alpha$: S3 improvements. Note that the absolute error value of $\sigma(r)$ after delensing for $f_{sky} = $ is  $\sigma(r) =$  }
+  \begin{tabular}{ | c | c  |  c |}
+\hline
+Surveys & $\alpha(r)$ & $\alpha(n_{t})$\\ \hline \hline
+DESI & 1.34 & \\ \hline
+LSS & 1.71  &\\ \hline
+CMB & 1.71  &\\ \hline
+\end{tabular}
+\label{tab:S3}
+\end{table}
+
+
+
+\subsection{CMB-S4 Era}
+
+An ambitious program for a generation 4 ground CMB experiment is currently under planning \cite{abazajian:2016}. Moreover, satellite experiments have been proposed.
+The correlation attainable using current experiments is shown in \reffig{corrs4},
+In this futuristic but reasonable scenario, we add to the available large scale structures tracers  both 21 cm surveys like SKA and large scale structures like LSST and Euclid.
+
+
+
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=1.]{../images/S4_scenario.pdf}
+\caption{Correlation factor. Same as \reffig{corrnow} but for stage 4 experiments. }
+\label{fig:corrs4}
+\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=1.]{../images/S4_scenario_no_ska.pdf}
+\caption{Correlation factor. Same as \reffig{corrnow} but for stage 4 experiments without SKA. }
+\label{fig:corrs4}
+
+\end{center}
+\end{figure}
+
+%=======================================
+
+\begin{table}
+\caption{$\alpha$: Gen 4 experiments}
+  \begin{tabular}{ | c | c  |  c |}
+\hline
+Surveys & $\alpha(r)$ & $\alpha(n_{t})$\\ \hline \hline
+Euclid & 1.53 & \\ \hline
+LSST & 1.65  &\\ \hline
+SKA & 4.35  &\\ \hline
+CMB S4 & 3.7  &\\ \hline
+LSS+CMB & 6.3  &\\ \hline
+
+  \end{tabular}
+  \label{tab:S4}
+\end{table}
+
+
+\subsection{Bias uncertainties degradation}
+The uncertainties in the theoretical assumptions used to model the galaxies can cause a degradation of the improvement of the inflationary constraint of delensed spectra.
+In this section, we quantify this effect.
+We will now marginalize over unknown galaxies parameters, but we will use a full dataset of CMB and galaxies data. The idea is that as shown in the low level of noise in galaxies surveys might allow us to calibrate them internally.
+We will use a Fisher approach the Fisher matrix is:
+\beqn
+F_{pq} &=& \sum_{l_{a} =l^{BB}_{\mathrm{min}}}^{l^{BB}_{\mathrm{max}}}  \sum_{l_{b} =l^{BB}_{\mathrm{min}}}^{l^{BB}_{\mathrm{max}}}   \frac{\partial {C}_{l_a}^{BB,\mathrm{del}}}{\partial \theta_p } \left[ \mathrm{Cov}^{BB,BB}\right]_{l_a, l_b} ^{-1} \frac{\partial {C}_{l_b}^{BB,\mathrm{del}}}{\partial \theta_q }\nonumber \\&+&  \sum_j \frac{\frac{\partial {C}_j^{\kappa I}}{\partial \theta_p } \frac{\partial {C}_j^{\kappa I}}{\partial \theta_q }}{(\Delta C_j^{\kappa I})^2}
++\sum_j \frac{\frac{\partial {C}_j^{I I}}{\partial \theta_p } \frac{\partial {C}_j^{I I}}{\partial \theta_q }}{(\Delta C_j^{I  I})^2}
+\eeqn
+
+\beq
+\alpha_{\mathrm{marginalized}} = \sigma_0(r) / \sigma_{\mathrm{marginalized/delensed}}(r)
+\eeq
+
+
+where the parameter array contains both the tensor to scalar rate $\theta=r$, and the galaxies surveys parameters like the bias $b_i$ or $p_i$ \footnote{In our analysis, since the fiducial value of $r$ is zero,
+the derivative of $C_\ell^{\rm BB,res}$ is non-zero if $\theta_i=r$.}.
+
+We compute the derivatives of the power spectra as described
+
+
+%\begin{table}
+%\caption{$\alpha$: improvement on r constraint}
+%  \begin{tabular}{ | c | c  | }
+%\hline
+%Surveys & $\alpha$\\ \hline \hline
+%des & 1.34  \\ \hline
+%cib & 1.71  \\ \hline
+%cmb current & 1.79  \\ \hline
+%gals current & 2.03  \\ \hline
+%cmb S3 & 2.15  \\ \hline
+%gals S3 & 2.16  \\ \hline
+%gals S4 & 2.16  \\ \hline
+%comb current & 2.66  \\ \hline
+%comb S3 & 3.14  \\ \hline
+%cmb S4 & 4.36  \\ \hline
+%comb S4 & 5.27  \\ \hline
+%  \end{tabular}
+%\end{table}
+
+\section{Conclusions}
+\label{sec:concl}
+
+Delensing or the ability to separate the lensing component of the CMB B-mode from a possible primordial inflationary signal is important to exploit the capabilities of future experiments thoroughly.
+In this paper, we studied the potential impact of large-scale structure surveys in this important endeavor.
+For current experiment, CIB data had already proven to be very efficient in delensing \cite{larsen:2016,manzotti:2017}. 
+If no CMB experiment is available with higher resolution then Planck is used to reconstruct the lensing potential $\phi$, a low-z optical survey like D.E.S will improve the delensing efficiency by $~10\%$ when combined with Planck lensing and a CIB tracers.
+As expected the lower the noise in the CMB experiment the more the delensign efficiency will be predominately come from the internal CMB reconstruction of the lensing potential. Indeed using the CMB itself, we reconstruct only the lenses that lens the CMB obtaining, as a result, an almost perfect cleaning in the absence of noise. 
+This approach has already been applied to data \cite{carron:2017}. However it requires a careful study of possible biases and systematics effects due to the use of the same source (the CMB) we are delensing to reconstruct the lensing effect itself \cite{carron:2017,sehgal:2016,namikawa:2017}. For this reason, the relatively good efficiency of galaxies tracers might be useful to cross-check these internal biases. This will probably be needed to confirm a possible detection of gravitation waves if this relies heavily on delensing.
+
+Another possible application of LSS delensing, which we will explore in future works, is the possibility of removing just the low-z lensing of the CMB which will otherwise possibly adds the complexity of modeling nonlinearities in the study of CMB lensing.
+
+%=================================================================
+\section{Acknowledgments}
+We thank S. Dodelson K. Wu and K. Story for useful discussion.
+This work was partially supported by the Kavli Institute for Cosmological Physics at the University of Chicago through grants NSF PHY-1125897 and an endowment from the Kavli Foundation and its founder Fred Kavli.
+%%%=================================================================
+
+\bibliographystyle{plain}
+\bibliography{/Users/alessandromanzotti/Work/Astrophysics/latex_bib/cosmobib,/Users/alessandromanzotti/Work/Astrophysics/delensing/sptpol_papers/2016/delens100d/delens100d,/Users/alessandromanzotti/Work/Astrophysics/delensing/sptpol_papers/BIBTEX/spt}
+
+%\bibliography{DES_rec_phi_paper}
+\end{document}

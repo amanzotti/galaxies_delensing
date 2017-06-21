@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ipython[all]>=3.2.0
 numpy>=1.9.2
 scipy>=0.15.1
@@ -7,3 +8,11 @@ configparser
 colorama
 pickle
 joblib
+=======
+numpy>=1.10
+scipy
+matplotlib
+joblib
+colorama
+pickle
+>>>>>>> 4a2fd26a3bee37504a856f48e7a4af07137bce27

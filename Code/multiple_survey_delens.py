@@ -5,7 +5,7 @@ This take the power spectra cross with CMB lensign and auto of different surveys
 import numpy as np
 import scipy.integrate
 from scipy.interpolate import RectBivariateSpline, interp1d, InterpolatedUnivariateSpline
-import configparser as ConfigParser
+import pickle
 
 
 def bl(fwhm_arcmin, lmax):
@@ -26,30 +26,31 @@ def nl(noise_uK_arcmin, fwhm_arcmin, lmax):
     return (noise_uK_arcmin * np.pi / 180. / 60.)**2 / bl(fwhm_arcmin, lmax)**2
 
 
-def main(labels,cmb):
+def main(labels, cmb):
 
-    cosmosis_dir = '/home/manzotti/cosmosis/'
-    inifile = '/home/manzotti/cosmosis/modules/limber/galaxies_delens.ini'
-    Config_ini = ConfigParser.ConfigParser()
-    values = ConfigParser.ConfigParser()
-    Config_ini.read(inifile)
-    values_file = Config_ini.get('pipeline', 'values')
-    output_dir = Config_ini.get('test', 'save_dir')
-    values.read(cosmosis_dir + values_file)
-    lbins = np.loadtxt(output_dir + '/limber_spectra/ells__delens.txt')
-    ckk = np.loadtxt(output_dir + '/limber_spectra/cl_kk_delens.txt')
+    # cosmosis_dir = '/home/manzotti/cosmosis/'
+    # inifile = '/home/manzotti/cosmosis/modules/limber/galaxies_delens.ini'
+    # Config_ini = ConfigParser.ConfigParser()
+    # values = ConfigParser.ConfigParser()
+    # Config_ini.read(inifile)
+    # values_file = Config_ini.get('pipeline', 'values')
+    output_dir = '../Data/'
+    # values.read(cosmosis_dir + values_file)
+    cls = pickle.load(open('../Data/limber_spectra_delens.pkl', 'rb'))
+    lbins = np.load('../Data/ells.npy')
+
+    ckk = cls['kk']
     # initialize
     rho_comb = np.zeros((np.size(lbins)))
-
-    surveys = ['wise', 'k', 'euclid', 'des_weak', 'lsst', 'ska10', 'ska01',
-               'ska5', 'ska1', 'cib', 'desi', 'des']
+    surveys = labels
+    # surveys = ['wise', 'k', 'euclid', 'des_weak', 'lsst', 'ska10', 'ska01',
+    #            'ska5', 'ska1', 'cib', 'desi', 'des']
     cl_cross_k = {}
     cl_auto = {}
     rho = {}
     for label in surveys:
-        cl_cross_k[label] = np.loadtxt(output_dir + '/limber_spectra/cl_k' + label + '_delens.txt')
-        cl_auto[label] = np.loadtxt(output_dir +
-                                    '/limber_spectra/cl_' + label + label + '_delens.txt')
+        cl_cross_k[label] = np.array(cls['k' + label])
+        cl_auto[label] = np.array(cls[label + label])
         if label == 'wise':
             cl_cross_k[label][np.where(lbins < 100)] = 0.
             #  from Simone Our conservative masking leaves f sky = 0.47 and about
@@ -79,12 +80,10 @@ def main(labels,cmb):
     cgg = np.zeros((len(labels) + 1, len(labels) + 1, np.size(lbins)))
 
     for i in np.arange(0, len(labels)):
-        cgk[i, :] = np.loadtxt(output_dir +
-                               '/limber_spectra/cl_k' + labels[i] + '_delens.txt')
+        cgk[i, :] = np.array(cls['k' + labels[i]])
 
         for j in np.arange(i, len(labels)):
-            cgg[i, j, :] = np.loadtxt(output_dir +
-                                      '/limber_spectra/cl_' + labels[i] + labels[j] + '_delens.txt')
+            cgg[i, j, :] = np.array(cls[labels[i] + labels[j]])
 
             if (labels[i] == 'cib' and labels[j] == 'cib'):
                 cgg[i, j, :] = np.array([3500. * (1. * l / 3000.)**(-1.25) for l in lbins])
@@ -177,8 +176,7 @@ def main(labels,cmb):
                np.vstack((lbins, rho_cmb)).T)
 
     print('done computing rhos')
-    return lbins,rho, rho_comb,rho_gals,rho_cmb
-
+    return lbins, rho, rho_comb, rho_gals, rho_cmb
 
 
 if __name__ == "__main__":
