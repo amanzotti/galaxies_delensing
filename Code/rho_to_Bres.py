@@ -102,10 +102,10 @@ def compute_deriv(ells, clee_fun, clpp, l_phi, l_bb):
 
     clpp_mask = np.where(np.logical_and(
         ells >= l_phi[0], ells <= l_phi[1]), clpp, np.zeros_like(clpp))
-    dx = 2.75
+    # dx = 2.75
     clpp_fun_test = InterpolatedUnivariateSpline(
-        ells[:5000], clpp_mask * dx, ext=1)
-    clbb_der = np.array(compute_BB(clee_fun, clpp_fun_test, l_bb, l_phi)) / dx
+        ells[:5000], clpp_mask, ext='zeros')
+    clbb_der = np.array(compute_BB(clee_fun, clpp_fun_test, l_bb, l_phi))  # / dx
     return clbb_der
 
 
@@ -131,7 +131,7 @@ def compute_deriv_CEE2(ells, clee, clpp_fun, l_phi, l_bb):
     # clbb_4 = compute_BB(clee_fun_minus2, clpp_fun, l_bb, l_phi)
 
     # print(l_phi,l_bb,(clbb_2 - clbb_3), compute_BB(clee_fun_test, clpp_fun, l_bb, l_phi))
-    clbb_der = (np.array(clbb_2) - clbb_3) / (dx* 2.)
+    clbb_der = (np.array(clbb_2) - clbb_3) / (dx * 2.)
     return clbb_der
 
 

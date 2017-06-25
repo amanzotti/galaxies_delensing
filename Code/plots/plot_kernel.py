@@ -166,8 +166,8 @@ plt.plot(skakernel_l100[:, 0], skakernel_l100[:, 1] /
          np.max(skakernel_l100[:, 1]), label=r'$SKA$', alpha=0.8)
 
 
-plt.plot(lsstkernel_l100[:, 0], lsstkernel_l100[:, 1] /
-         np.max(lsstkernel_l100[:, 1]), label=r'$LSST$', alpha=0.8)
+# plt.plot(lsstkernel_l100[:, 0], lsstkernel_l100[:, 1] /
+#          np.max(lsstkernel_l100[:, 1]), label=r'$LSST$', alpha=0.8)
 
 plt.plot(desikernel_l30[:, 0], desikernel_l100[:, 1] /
          np.max(desikernel_l100[:, 1]), label=r'$DESI$', alpha=0.8)
