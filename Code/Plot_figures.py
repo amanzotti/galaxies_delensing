@@ -4,9 +4,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 import multiple_survey_delens
 
-
-# In[14]:
-
+import rho_to_Bres
+import configparser as ConfigParser
+import camb
+from camb import model, initialpower
+try:
+    import functools32
+except ImportError:
+    import functools as functools32
 # ============================================
 # SIZE OF THE PICTURE
 # ============================================
@@ -46,7 +51,7 @@ plt.rcParams['ytick.major.width'] = font_size / 10.
 # plt.rcParams['xtick.labelsize'] = font_size / 1.2
 # plt.rcParams['ytick.labelsize'] = font_size / 1.2
 
-plt.rcParams['axes.color_cycle'] = '#e41a1c,#377eb8,#4daf4a,#984ea3,#ff7f00,#ffff33,#a65628'
+# plt.rcParams['axes.prop_cycles'] = '#e41a1c,#377eb8,#4daf4a,#984ea3,#ff7f00,#ffff33,#a65628'
 plt.rcParams['lines.linewidth'] = font_size / 8.
 # ============================================
 
@@ -111,6 +116,7 @@ plt.xlim(10, 2000)
 
 
 # In[21]:
+plt.close()
 
 fg = plt.figure(figsize=[10, 8])
 ax1 = fg.add_subplot(111)
@@ -135,6 +141,7 @@ fg.tight_layout()
 
 
 # In[22]:
+plt.close()
 
 fg = plt.figure(figsize=fig_dims)
 ax1 = fg.add_subplot(111)
@@ -177,6 +184,7 @@ np.savetxt('lbins.txt', lbins)
 
 
 # In[24]:
+plt.close()
 
 fg = plt.figure(figsize=fig_dims)
 
@@ -221,6 +229,7 @@ np.savetxt('rho_comb_S3.txt', rho_comb)
 
 
 # In[28]:
+plt.close()
 
 fg = plt.figure(figsize=fig_dims)
 
@@ -250,7 +259,7 @@ plt.savefig('../images/S3_scenario.png')
 # In[29]:
 
 # labels = ['cib', 'desi', 'des']
-labels = ['wise', 'euclid', 'lsst', 'ska10', 'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
+labels = ['wise', 'lsst', 'ska10', 'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
 np.savetxt('rho_cmb_S4.txt', rho_cmb)
@@ -263,12 +272,14 @@ np.savetxt('rho_comb_S4.txt', rho_comb)
 # plt.plot(lbins,rho['desi'],label = 'DESI')
 # plt.plot(lbins,rho['cib'],label = 'CIB')
 # plt.plot(lbins,rho['des'],label = 'DES')
+plt.close()
+
 fg = plt.figure(figsize=fig_dims)
 
 plt.plot(lbins, rho_cmb, label='CMB S4')
 # plt.plot(lbins, rho_gals, label='Galaxies')
 plt.plot(lbins, rho_comb, label='Galaxies + CMB S4')
-plt.plot(lbins, rho['euclid'], label='Euclid')
+# plt.plot(lbins, rho['euclid'], label='Euclid')
 plt.plot(lbins, rho['lsst'], label='LSST')
 plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]),
          '--', alpha=0.6, linewidth=font_size / 14., color='k')
@@ -279,7 +290,7 @@ lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cm
 plt.plot(lbins, rho_gals, label='SKA')
 
 
-labels = ['wise', 'euclid', 'lsst', 'cib', 'desi', 'des']
+labels = ['wise', 'lsst', 'cib', 'desi', 'des']
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
 plt.plot(lbins, rho_gals, label='Gals no SKA')
@@ -302,9 +313,56 @@ plt.savefig('../images/S4_scenario.pdf', dpi=600, papertype='Letter')
 plt.savefig('../images/S4_scenario.png')
 
 
+labels = ['lsst_bin0', 'lsst_bin1', 'lsst_bin2', 'lsst_bin3', 'lsst_bin4',
+          'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9']
+cmb = 'S4'
+lbins, rho, rho_comb, rho_gals_lsst, rho_cmb = multiple_survey_delens.main(labels, cmb)
+
+labels = ['lsst']
+cmb = 'S4'
+lbins, rho_lsst, rho_comb_lsst, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
+
+labels = ['des_bin0', 'des_bin1', 'des_bin2']
+cmb = 'Planck'
+lbins, rho, rho_comb, rho_gals_des, rho_cmb = multiple_survey_delens.main(labels, cmb)
+
+labels = ['des']
+cmb = 'Planck'
+lbins, rho_des, rho_comb_des, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
+
+labels = ['desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
+cmb = 'Planck'
+lbins, rho, _, rho_gals_desi, _ = multiple_survey_delens.main(labels, cmb)
+
+labels = ['desi']
+cmb = 'Planck'
+lbins, rho_desi, _, _, _ = multiple_survey_delens.main(labels, cmb)
+
+
+plt.close()
+fg = plt.figure(figsize=fig_dims)
+plt.plot(lbins, rho_lsst['lsst'], label='LSST', color='#1f77b4')
+plt.plot(lbins, rho_gals_lsst, linestyle='-.', color='#1f77b4')
+plt.plot(lbins, rho_des['des'], label='DES', color='#ff7f0e')
+plt.plot(lbins, rho_gals_des, linestyle='-.', color='#ff7f0e')
+plt.plot(lbins, rho_desi['desi'], label='DESI', color='#2ca02c')
+plt.plot(lbins, rho_gals_desi, linestyle='-.', color='#2ca02c')
+plt.xlabel(r'$\ell$')
+plt.ylabel(r'$\rho$')
+plt.legend(loc=0, ncol=2)
+plt.ylim(0.3, 1.)
+plt.xlim(10, 1400)
+fg.tight_layout()
+
+plt.savefig('../images/B_res_bin.pdf', dpi=600, papertype='Letter')
+plt.savefig('../images/B_res_bin.png')
+
+
 # ## CMB Internal
 
+
 # In[32]:
+plt.close()
 
 fg = plt.figure(figsize=fig_dims)
 labels = ['cib']
@@ -340,7 +398,7 @@ fg.tight_layout()
 plt.savefig('../images/cmb_internal.pdf', dpi=600, papertype='Letter')
 plt.savefig('../images/cmb_internal.png')
 
-sys.exit('stopping before B_res plots')
+# sys.exit('stopping before B_res plots')
 
 # ## Galaxies Alone
 
@@ -351,68 +409,155 @@ sys.exit('stopping before B_res plots')
 
 # Make plots of B_Res for actual cmb cib des and combined and future galaxies and CMB
 
-# In[20]:
+def bl(fwhm_arcmin, lmax):
+    """ returns the map-level transfer function for a symmetric Gaussian beam.
+         * fwhm_arcmin      - beam full-width-at-half-maximum (fwhm) in arcmin.
+         * lmax             - maximum multipole.
+    """
+    import numpy as np
+    ls = np.arange(0, lmax + 1)
+    return np.exp(-(fwhm_arcmin * np.pi / 180. / 60.)**2 /
+                  (16. * np.log(2.)) * ls * (ls + 1.))
 
-get_ipython().magic('run -i rho_to_Bres.py')
 
+def nl(noise_uK_arcmin, fwhm_arcmin, lmax):
+    """ returns the beam-deconvolved noise power spectrum in units of uK^2 for
+          * noise_uK_arcmin - map noise level in uK.arcmin
+          * fwhm_arcmin     - beam full-width-at-half-maximum (fwhm) in arcmin.
+          * lmax            - maximum multipole.
+    """
+    import numpy as np
+
+    return (noise_uK_arcmin * np.pi / 180. / 60.)**2 / bl(fwhm_arcmin, lmax)**2
 
 # In[21]:
 
-ell = np.loadtxt(datadir + 'limber_spectra/cbb_res_ls.txt')
+
+pars = camb.CAMBparams()
+# This function sets up CosmoMC-like settings, with one massive neutrino
+# and helium set using BBN consistency
+pars.set_cosmology(H0=70, ombh2=0.0226, omch2=0.112,
+                   mnu=0.029, omk=0, tau=0.079)
+pars.InitPower.set_params(ns=0.96, r=0., nt=0)
+pars.set_for_lmax(5000, lens_potential_accuracy=3)
+# pars.set_for_lmax?
+
+pars.AccurateBB = True
+pars.OutputNormalization = False
+pars.WantTensors = True
+pars.DoLensing = True
+pars.max_l_tensor = 3000
+pars.max_eta_k_tensor = 3000.
+
+# print(pars) # if you want to test parasm
+results = camb.get_results(pars)
+tens_cl = results.get_tensor_cls(3000)
+
+
+# ### Remember there is a 7.4e12 missing and CAMB always give you $ \ell (\ell +1)/2\pi  $
+
+@functools32.lru_cache(maxsize=64)
+def clbb(r=0.1, nt=None, lmax=3000):
+    inflation_params = initialpower.InitialPowerParams()
+    if nt is None:
+        nt = -r / 8.
+    inflation_params.set_params(As=2.1e-9, r=r, nt=nt)
+    results.power_spectra_from_transfer(inflation_params)
+    return results.get_total_cls(lmax)[:, 2] * 7.42835025e12
+
+
+@functools32.lru_cache(maxsize=64)
+def clbb_tens(r=0.1, nt=None, lmax=3000):
+    inflation_params = initialpower.InitialPowerParams()
+    if nt is None:
+        nt = -r / 8.
+    inflation_params.set_params(As=2.1e-9, r=r, nt=nt)
+    results.power_spectra_from_transfer(inflation_params)
+    return results.get_tensor_cls(lmax)[:, 2] * 7.42835025e12
+
+
+clbb_tens.cache_clear()
+clbb.cache_clear()
+
+
+inifile = '/home/manzotti/cosmosis/modules/limber/galaxies_delens.ini'
+Config_ini = ConfigParser.ConfigParser()
+Config_ini.read(inifile)
+output_dir = Config_ini.get('test', 'save_dir')
+
+datadir = output_dir
+
+clpp = np.loadtxt(datadir + 'cmb_cl/pp.txt')
+clee = np.loadtxt(datadir + 'cmb_cl/ee.txt')
+ells_cmb = np.loadtxt(datadir + 'cmb_cl/ell.txt')
+ells_cmb = np.loadtxt(output_dir + 'cmb_cl/ell.txt')
 
 
 # In[22]:
 
+rho_names = ['test', 'rho_cib.txt', 'rho_des.txt', 'rho_gals.txt',
+             'rho_wise.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
+# deep survey to delens or what is giving you E-mode
+nle = nl(9, 1, lmax=ells_cmb[-1])[2:]
+B_res3 = rho_to_Bres.main(rho_names, nle)
+ell = np.loadtxt(datadir + 'limber_spectra/cbb_res_ls.txt')
+# In[23]:
 rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_cmb_current.txt', 'rho_gals_current.txt', 'rho_comb_current.txt', 'rho_cib.txt',
              'rho_cmb_S3.txt', 'rho_gals_S3.txt', 'rho_comb_S3.txt', 'rho_cmb_S4.txt', 'rho_gals_S4.txt', 'rho_comb_S4.txt']
 
+plt.clf()
+plt.close()
+fg = plt.figure(figsize=fig_dims)
+plt_func = plt.semilogx
+# compare with noise at 5 muk arcm
+# ell * (ell + 1.) / 2. / np.pi
+# plt_func(ell, ell * np.array(B_res3[0]), label=r'$C^{BB}_{\ell}^{\rm{lens}}$')
+plt_func(ell, ell * np.array(B_res3[1]) * 1e3, label=r'$C^{BB^{\rm{res}}}_{\ell}}$')
+plt_func(ell, ell * np.array(B_res3[-1]) * 1e3, label=r'$C^{BB^{\rm{res}}}_{\ell}}$')
 
-# In[23]:
-
-[plt.plot(ell, np.array(B_res3[i]) * 1e6, label=r'$' + rho_names[i].split('.txt')
-          [0].split('rho_')[1] + '$') for i in np.arange(0, len(B_res3))]
-plt.legend()
+plt_func(clbb_tens(r=0.01, lmax=3000) / (np.arange(0, 3001) + 1) *
+         np.pi * 2. * 1e3, label=r'$C^{BB^{\rm{tens}}}_{\ell}, ~ r=0.01$')
+plt_func(clbb(r=0.01, lmax=3000) / (np.arange(0, 3001) + 1) *
+         np.pi * 2. * 1e3, label=r'$C^{BB^{\rm{tot}}}_{\ell}$')
+fact = np.arange(0, 4001)
+plt.fill_between(np.arange(0, 4001), fact * nl(1, 1, 4000) * 1e3,
+                 fact * nl(9, 1, 4000) * 1e3, alpha=0.2, label='noise')
+plt.ylim(0., 0.001 * 1e3)
+plt.xlim(10, 2000)
 plt.xlabel(r'$\ell$')
-plt.ylabel(r'$C_{res}~\times~10^6$')
+plt.ylabel(r'$\ell C^{BB}_{\ell}  [ 10^{-3} \mu K^{2} ]$')
+plt.legend(loc=0)
+fg.tight_layout()
+plt.text(30, 0.25, 'SPTPol', rotation=50, va='bottom', ha='left', fontsize=font_size / 2.)
+plt.text(800, 0.03, 'CMB S4', rotation=15, va='bottom', ha='left', fontsize=font_size / 2.)
+
+plt.savefig('../images/BB_res.pdf', dpi=600, papertype='Letter')
+plt.savefig('../images/BB_res.png')
 
 
-# In[24]:
-
-[plt.loglog(ell, B_res3[i], label=r'$' + rho_names[i].split('.txt')[0].split('rho_')[1] + '$')
- for i in np.arange(0, len(B_res3))]
-plt.loglog(cl_len.ls, cl_len.clbb)
-plt.legend()
+plt.clf()
+plt.close()
+fg = plt.figure(figsize=fig_dims)
+plt_func = plt.loglog
+# compare with noise at 5 muk arcm
+# ell * (ell + 1.) / 2. / np.pi
+plt_func(ell, ell * (ell + 1) * np.array(B_res3[0]) /
+         2. / np.pi, label=r'$C^{BB}_{\ell}^{\rm{lens}}$')
+plt_func(ell, ell * (ell + 1) * np.array(B_res3[1]) /
+         2. / np.pi, label=r'$C^{BB^{\rm{res}}}_{\ell}}$')
+plt_func(clbb_tens(r=0.01, lmax=3000), label=r'$C^{BB^{\rm{tens}}}_{\ell}, ~ r=0.01$')
+# plt_func(clbb(r=0.01, lmax=3000), label=r'$C^{BB^{\rm{tot}}}_{\ell}$')
+fact = np.arange(0, 4001) * (np.arange(0, 4001) + 1.) / 2. / np.pi
+plt.fill_between(np.arange(0, 4001), fact * nl(1, 1, 4000),
+                 fact * nl(9, 1, 4000), alpha=0.2, label='noise')
+plt.ylim(1e-5, 4e-1)
+plt.xlim(10, 2000)
 plt.xlabel(r'$\ell$')
-plt.ylabel(r'$C_{res}$')
+plt.ylabel(r'$\ell(\ell+1)C^{BB}_{\ell}/ 2 \pi [ 10^{-3} \mu K^{2} ]$')
+plt.legend(loc=0, ncol=2)
+fg.tight_layout()
+# plt.text('SPTPol', rotation=45)
+# plt.text('CMB S4', rotation=45)
 
-
-# In[25]:
-
-[plt.plot(ell, (np.interp(ell, cl_len.ls, cl_len.clbb) - B_res3[i]) / np.interp(ell, cl_len.ls, cl_len.clbb),
-          label=r'$' + rho_names[i].split('.txt')[0].split('rho_')[1] + '$') for i in np.arange(0, len(B_res3))]
-plt.legend()
-plt.xlabel(r'$\ell$')
-plt.ylabel(r'$C_{res}$')
-plt.title('Percentage of Residual power after delensing')
-
-
-# ## Quantify R constrain
-
-# In[26]:
-
-nl = sl.spec.nl(4.5, 4, 2000)
-
-
-# In[27]:
-
-plt.loglog(cl_len.ls, cl_len.clbb)
-plt.loglog(nl)
-plt.ylim(1e-8, 1e-4)
-
-
-# In[28]:
-
-alpha = {}
-for i in np.arange(0, len(B_res3)):
-    alpha[rho_names[i]] = np.mean(cl_len.clbb[:150] + nl[:150]) / \
-        np.mean(np.interp(np.arange(0, 150), ell, B_res3[i]) + nl[:150])
+plt.savefig('../images/BB_res_ell2.pdf', dpi=600, papertype='Letter')
+plt.savefig('../images/BB_res_ell2.png')

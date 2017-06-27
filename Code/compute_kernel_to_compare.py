@@ -1,11 +1,6 @@
 
 '''
-
-
-
 '''
-
-
 import numpy as np
 # import kappa_cmb_kernel as kappa_kernel
 # import gals_kernel
@@ -22,6 +17,7 @@ import kappa_gals_kernel
 import kappa_cmb_kernel as kappa_kernel
 import camb
 from camb import model
+import DESI
 
 cib_hall = imp.load_source('cib_hall', '/home/manzotti/cosmosis/modules/limber/hall_CIB_kernel.py')
 
@@ -189,8 +185,12 @@ for i, z in enumerate(z_wise):
     w_wise[i] = wise.w_lxz(l, x, z)
 
 
-z_desi = np.linspace(0.4, 1.8, 500)
+z_desi = np.linspace(0.0, 2, 500)
 w_desi = np.zeros_like(z_desi)
+
+desi = gals_kernel.kern(np.linspace(0, 2, 100), DESI.DESISpline_normalized,
+                        hspline, pars.omegac, h, b=1.17)
+
 for i, z in enumerate(z_desi):
 
     x = chispline(z)

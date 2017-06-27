@@ -2,6 +2,8 @@
 This script compute all the spectra needed for the delensing part.
 '''
 import pyximport
+pyximport.install(reload_support=True)
+
 import numpy as np
 import kappa_cmb_kernel as kappa_kernel
 import gals_kernel
@@ -18,7 +20,6 @@ from joblib import Parallel, delayed
 # from profiling.sampling import SamplingProfiler
 # profiler = SamplingProfiler()
 import DESI
-pyximport.install(reload_support=True)
 
 
 def setup(ini_file='./gal_delens_values.ini'):
@@ -233,6 +234,7 @@ def main(ini_par):
 
     desi = gals_kernel.kern(np.linspace(0, 2, 100),
                             DESI.DESISpline_normalized, hspline, pars.omegac, h, b=1.17)
+
     desi_spec_bins, galaxies_fraction_desi = make_spec_bins(np.linspace(0, 2, 100), DESI.DESISpline_normalized,
                                                             4, hspline, pars.omegac, h, b=1.)
     # print('DESI',galaxies_fraction_desi, np.sum(galaxies_fraction_desi))
@@ -361,11 +363,13 @@ def main(ini_par):
     # Compute Cl implicit loops on ell
     # =======
 
-    kernels = [lkern, wise, euclid, lsst, ska10, ska01, ska5, ska1, cib, desi, des, desi, ]
-    names = ['k', 'wise', 'euclid', 'lsst', 'ska10',
-             'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
+    kernels = [lkern, wise, euclid, lsst, ska10, ska01, ska5, ska1, cib, desi, des]
+    names = ['k', 'wise', 'euclid', 'lsst', 'ska10', 'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
 
 
+    # kernels = [lkern,]
+    # names = ['k']
+    assert(len(kernels) == len(names))
     # add binned surveys.
     for n, bin_gal in enumerate(des_tomo_bins):
         names.extend(['des_bin{}'.format(int(n))])
@@ -376,27 +380,28 @@ def main(ini_par):
         kernels.extend([bin_gal])
 
     for n, bin_gal in enumerate(desi_spec_bins):
+        # print(n,len(desi_spec_bins),len(galaxies_fraction_desi))
         names.extend(['desi_bin{}'.format(int(n))])
         kernels.extend([bin_gal])
 
-
+    print(kernels)
 # kernels = [lkern, desi1, desi2]
 # names = ['k', 'desi1', 'desi2']
     labels = []
     kernel_list = []
 
-    for i in np.arange(0, len(kernels)-1):
+    for i in np.arange(0, len(kernels)):
         labels.append(names[i] + names[i])
         kernel_list.append([kernels[i], kernels[i]])
-        for j in np.arange(i, len(kernels)-1):
+        for j in np.arange(i, len(kernels)):
             # print(i,j,names[i], names[j])
             labels.append(names[i] + names[j])
             kernel_list.append([kernels[i], kernels[j]])
-
+    # print(kernel_list)
     cls_out = Parallel(n_jobs=-2, verbose=10)(delayed(limber_integrals.cl_limber_z_ell)(chispline, hspline, rbs, ini_pars[
         'lbins'], kernel_1=ker[0], kernel_2=ker[1], zmin=max(ker[0].zmin, ker[1].zmin), zmax=min(ker[0].zmax, ker[1].zmax)) for ker in kernel_list)
     cls = {k: v for k, v in zip(labels, cls_out)}
-
+    # print(cls.keys())
     # profiler.stop()
     # profiler.run_viewer()
     noisy = True
@@ -441,38 +446,46 @@ def main(ini_par):
         # they mention N=2.1 10^-8 in Fosalba Giann
 
         if 'desdes' in cls.keys():
+            print('Adding noise to DES')
             nlgg = 1 / gal_rad_sq * np.ones_like(cls['desdes'])
             cls['desdes'] = np.array(cls['desdes']) + nlgg
 
         for n, fract in enumerate(galaxies_fraction_des):
+            print('Adding noise to DES bins')
             name = 'des_bin{}'.format(int(n))
             nlgg = 1 / gal_rad_sq * np.ones_like(cls[name + name])
             cls[name + name] = cls[name + name] + nlgg / fract
         # ===============================================
         # desi has 0.63 gals per arcmin2
         if 'desidesi' in cls.keys():
+            print('Adding noise to DESI')
             cls['desidesi'] = np.array(cls['desidesi']) + (0.63 / (0.000290888)**2)**(-1)
 
         for n, fract in enumerate(galaxies_fraction_desi):
+            print('Adding noise to DESI bins')
             name = 'desi_bin{}'.format(int(n))
             cls[name + name] = cls[name + name] + (0.63 / (0.000290888)**2)**(-1) / fract
 
         if 'euclideuclid' in cls.keys():
+            print('Adding noise to EUCLID')
             cls['euclideuclid'] = np.array(cls['euclideuclid']) + (30 / (0.000290888)**2)**(-1)
         # for n, fract in enumerate(galaxies_fraction_des):
         #     name = 'des_bin{}'.format(int(n))
         #     cls[name+name] = cls[name+name]+   (30 / (0.000290888)**2)**(-1)/fract
         if 'lsstlsst' in cls.keys():
+            print('Adding noise to LSST')
             cls['lsstlsst'] = np.array(cls['lsstlsst']) + (26 / (0.000290888)**2)**(-1)
 
         for n, fract in enumerate(galaxies_fraction_lsst):
+            print('Adding noise to LSST Bins')
+
             name = 'lsst_bin{}'.format(int(n))
             cls[name + name] = cls[name + name] + (26 / (0.000290888)**2)**(-1) / fract
 
         #  from Simone Our conservative masking leaves f sky = 0.47 and about
         # 50 million galaxies.
         if 'wisewise' in cls.keys():
-
+            print('Adding noise to WISE')
             steradians_on_sphere = 4 * np.pi
             fsky = 0.447
             n_gal = 50e6
