@@ -57,16 +57,50 @@ J.~{Carron}, A.~{Lewis}, and A.~{Challinor}.
 \newblock {Internal delensing of Planck CMB temperature and polarization}.
 \newblock {\em \jcap}, 5:035, May 2017.
 
+\bibitem{dole:2006}
+H.~{Dole}, G.~{Lagache}, J.-L. {Puget}, K.~I. {Caputi},
+  N.~{Fern{\'a}ndez-Conde}, E.~{Le Floc'h}, C.~{Papovich}, P.~G.
+  {P{\'e}rez-Gonz{\'a}lez}, G.~H. {Rieke}, and M.~{Blaylock}.
+\newblock {The cosmic infrared background resolved by Spitzer. Contributions of
+  mid-infrared galaxies to the far-infrared background}.
+\newblock {\em \aap}, 451:417--429, May 2006.
+
 \bibitem{ferraro:2015}
 S.~{Ferraro}, B.~D. {Sherwin}, and D.~N. {Spergel}.
 \newblock {WISE measurement of the integrated Sachs-Wolfe effect}.
 \newblock {\em \prd}, 91(8):083533, April 2015.
+
+\bibitem{10.2307/2342435}
+R.~A. Fisher.
+\newblock The logic of inductive inference.
+\newblock {\em Journal of the Royal Statistical Society}, 98(1):39--82, 1935.
+
+\bibitem{hall10}
+N.~R. {Hall}, L.~{Knox}, C.~L. {Reichardt}, P.~A.~R. {Ade}, K.~A. {Aird}, B.~A.
+  {Benson}, L.~E. {Bleem}, J.~E. {Carlstrom}, C.~L. {Chang}, {H.~-.} {Cho},
+  T.~M. {Crawford}, A.~T. {Crites}, T.~{de Haan}, M.~A. {Dobbs}, E.~M.
+  {George}, N.~W. {Halverson}, G.~P. {Holder}, W.~L. {Holzapfel}, J.~D.
+  {Hrubes}, M.~{Joy}, R.~{Keisler}, A.~T. {Lee}, E.~M. {Leitch}, M.~{Lueker},
+  J.~J. {McMahon}, J.~{Mehl}, S.~S. {Meyer}, J.~J. {Mohr}, T.~E. {Montroy},
+  S.~{Padin}, T.~{Plagge}, C.~{Pryke}, J.~E. {Ruhl}, K.~K. {Schaffer},
+  L.~{Shaw}, E.~{Shirokoff}, H.~G. {Spieler}, Z.~{Staniszewski}, A.~A. {Stark},
+  E.~R. {Switzer}, K.~{Vanderlinde}, J.~D. {Vieira}, R.~{Williamson}, and
+  O.~{Zahn}.
+\newblock {Angular Power Spectra of the Millimeter Wavelength Background Light
+  from Dusty Star-forming Galaxies with the South Pole Telescope}.
+\newblock {\em \apj}, 718:632--646, July 2010.
 
 \bibitem{hanson13}
 D.~Hanson et~al.
 \newblock {Detection of B-mode Polarization in the Cosmic Microwave Background
   with Data from the South Pole Telescope}.
 \newblock {\em Phys.Rev.Lett.}, 111(14):141301, 2013.
+
+\bibitem{hirata:2003}
+C.~M. {Hirata} and U.~{Seljak}.
+\newblock {Reconstruction of lensing from the cosmic microwave background
+  polarization}.
+\newblock {\em \prd}, 68(8):083002, October 2003.
 
 \bibitem{hu:2004}
 W.~{Hu} and R.~{Scranton}.
@@ -121,6 +155,12 @@ M.~{Kesden}, A.~{Cooray}, and M.~{Kamionkowski}.
 \newblock {Separation of Gravitational-Wave and Cosmic-Shear Contributions to
   Cosmic Microwave Background Polarization}.
 \newblock {\em Physical Review Letters}, 89(1):011304, July 2002.
+
+\bibitem{knox:1995}
+L.~{Knox}.
+\newblock {Determination of inflationary observables by cosmic microwave
+  background anisotropy experiments}.
+\newblock {\em \prd}, 52:4307--4318, October 1995.
 
 \bibitem{knox2002}
 Lloyd Knox and Yong-Seon Song.
@@ -222,6 +262,11 @@ B.~D. {Sherwin} and M.~{Schmittfull}.
 \newblock {Delensing the CMB with the cosmic infrared background}.
 \newblock {\em \prd}, 92(4):043005, August 2015.
 
+\bibitem{sherwin:2015}
+B.~D. {Sherwin} and M.~{Schmittfull}.
+\newblock {Delensing the CMB with the cosmic infrared background}.
+\newblock {\em \prd}, 92(4):043005, August 2015.
+
 \bibitem{simard:2015}
 G.~{Simard}, D.~{Hanson}, and G.~{Holder}.
 \newblock {Prospects for Delensing the Cosmic Microwave Background for Studying
@@ -232,6 +277,22 @@ G.~{Simard}, D.~{Hanson}, and G.~{Holder}.
 K.~M. {Smith}, D.~{Hanson}, M.~{LoVerde}, C.~M. {Hirata}, and O.~{Zahn}.
 \newblock {Delensing CMB polarization with external datasets}.
 \newblock {\em \jcap}, 6:14, June 2012.
+
+\bibitem{vanengelen14b}
+A.~{van Engelen}, B.~D. {Sherwin}, N.~{Sehgal}, G.~E. {Addison}, R.~{Allison},
+  N.~{Battaglia}, F.~{de Bernardis}, E.~{Calabrese}, K.~{Coughlin},
+  D.~{Crichton}, J.~R. {Bond}, R.~{Datta}, R.~{Dunner}, J.~{Dunkley},
+  E.~{Grace}, M.~{Gralla}, A.~{Hajian}, M.~{Hasselfield}, S.~{Henderson}, J.~C.
+  {Hill}, M.~{Hilton}, A.~D. {Hincks}, R.~{Hlozek}, K.~M. {Huffenberger}, J.~P.
+  {Hughes}, B.~{Koopman}, A.~{Kosowsky}, T.~{Louis}, M.~{Lungu},
+  M.~{Madhavacheril}, L.~{Maurin}, J.~{McMahon}, K.~{Moodley}, C.~{Munson},
+  S.~{Naess}, F.~{Nati}, L.~{Newburgh}, M.~D. {Niemack}, M.~{Nolta}, L.~A.
+  {Page}, B.~{Partridge}, C.~{Pappas}, B.~L. {Schmitt}, J.~L. {Sievers},
+  S.~{Simon}, D.~N. {Spergel}, S.~T. {Staggs}, E.~R. {Switzer}, J.~T. {Ward},
+  and E.~J. {Wollack}.
+\newblock {The Atacama Cosmology Telescope: Lensing of CMB Temperature and
+  Polarization Derived from Cosmic Infrared Background Cross-Correlation}.
+\newblock {\em ArXiv e-prints}, December 2014.
 
 \bibitem{wright:2010}
 E.~L. {Wright}, P.~R.~M. {Eisenhardt}, A.~K. {Mainzer}, M.~E. {Ressler}, R.~M.
