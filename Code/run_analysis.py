@@ -218,9 +218,25 @@ multiple_survey_delens.main(labels, cmb)
 ells_cmb = np.loadtxt(output_dir + 'cmb_cl/ell.txt')
 rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_gals.txt',
              'rho_wise.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
+
+
 # deep survey to delens or what is giving you E-mode
 # BICEP level 3 muK and 30 arcmin beam
-nle = nl(3., 30., lmax=ells_cmb[-1])[2:]
+
+noise_uK_arcmin = 3.
+fwhm_arcmin = 30.
+# not used right now
+ell_range_deep = [20, 400]
+ell_range_high = [200, ells_cmb[-1]]
+nle_deep = nl(noise_uK_arcmin, fwhm_arcmin, lmax=ells_cmb[-1])[2:]
+nle_high = nl(9., 1., lmax=ells_cmb[-1])[2:]
+nle_high[:ell_range_high[0]] = np.inf
+nle_deep[:ell_range_deep[0]] = np.inf
+nle_deep[ell_range_deep[1]:] = np.inf
+nle = 1/(1/nle_high +1/nle_deep)
+
+nle = nle_deep
+
 B_test = rho_to_Bres.main(['test'], nle)
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_lensed = InterpolatedUnivariateSpline(
@@ -256,10 +272,8 @@ print('')
 print('')
 
 # sys.exit()
-lmax = 500
+lmax = ell_range_deep[1]
 # This needs to be Bicep like, the value of the deep exp
-noise_uK_arcmin = 3.
-fwhm_arcmin = 30.
 r_fid = 0.
 fsky = 0.06
 
@@ -301,11 +315,6 @@ print('')
 
 clbb.cache_clear()
 clbb_tens.cache_clear()
-
-lmax = 500
-# This needs to be Bicep like, the value of the deep exp
-noise_uK_arcmin = 3.
-fwhm_arcmin = 30.
 r_fid = 0.07
 fsky = 0.06
 

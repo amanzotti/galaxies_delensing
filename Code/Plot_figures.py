@@ -131,7 +131,7 @@ plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]),
          '--', alpha=0.6, linewidth=font_size / 14., color='k')
 plt.plot(lbins, np.loadtxt('/home/manzotti/galaxies_delensing/Data/limber_spectra/rho_comb.txt')**2)
 plt.legend(loc=0, ncol=2)
-plt.title('2016 Scenario with Planck')
+plt.title('2017 Scenario with Planck')
 plt.xlabel(r'$\ell$')
 plt.ylabel(r'$\rho^{2}$')
 plt.xlim(10, 1400)
@@ -157,7 +157,7 @@ plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]),
 
 plt.plot()
 plt.legend(loc=0, ncol=2)
-plt.title('2016 Scenario with Planck')
+plt.title('2017 Scenario with Planck')
 plt.xlabel(r'$\ell$')
 plt.ylabel(r'$\rho$')
 plt.xlim(10, 1400)
@@ -193,10 +193,10 @@ plt.plot(lbins, rho['des'], label='DES')
 plt.plot(lbins, rho_cmb, label='SPT Pol')
 plt.plot(lbins, rho_gals, label='DES +CIB')
 plt.plot(lbins, rho_comb, label='DES + CIB + SPTPol')
-plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]), '--', alpha=0.6, color='k')
+# plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]), '--', alpha=0.6, color='k')
 plt.legend(loc=0, ncol=2)
 plt.ylim(0, 1.2)
-plt.title('2016 Scenario')
+plt.title('2017 Scenario')
 plt.xlabel(r'$\ell$')
 plt.ylabel(r'$\rho$')
 plt.xlim(10, 1400)
@@ -239,7 +239,7 @@ plt.plot(lbins, rho['desi'], label='DESI')
 plt.plot(lbins, rho_cmb, label='SPT 3G')
 plt.plot(lbins, rho_gals, label='DES + CIB + DES')
 plt.plot(lbins, rho_comb, label='DES + CIB + DESI + 3G')
-plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]), '--', alpha=0.6, color='k')
+# plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]), '--', alpha=0.6, color='k')
 
 plt.legend(loc=0, ncol=2)
 plt.ylim(0, 1.3)
@@ -281,8 +281,8 @@ plt.plot(lbins, rho_cmb, label='CMB S4')
 plt.plot(lbins, rho_comb, label='Galaxies + CMB S4')
 # plt.plot(lbins, rho['euclid'], label='Euclid')
 plt.plot(lbins, rho['lsst'], label='LSST')
-plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]),
-         '--', alpha=0.6, linewidth=font_size / 14., color='k')
+# plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]),
+#          '--', alpha=0.6, linewidth=font_size / 14., color='k')
 
 labels = ['ska10', 'ska01', 'ska5', 'ska1']
 cmb = 'S4'
@@ -349,8 +349,8 @@ plt.plot(lbins, rho_desi['desi'], label='DESI', color='#2ca02c')
 plt.plot(lbins, rho_gals_desi, linestyle='-.', color='#2ca02c')
 plt.xlabel(r'$\ell$')
 plt.ylabel(r'$\rho$')
-plt.legend(loc=0, ncol=2)
-plt.ylim(0.3, 1.)
+plt.legend(loc=0, ncol=1)
+plt.ylim(0.0, 1.)
 plt.xlim(10, 1400)
 fg.tight_layout()
 
@@ -369,8 +369,8 @@ labels = ['cib']
 cmb = 'Planck'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
 plt.plot(lbins, rho_cmb, label='Planck')
-plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]),
-         '--', alpha=0.6, linewidth=font_size / 14., color='k')
+# plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]),
+#          '--', alpha=0.6, linewidth=font_size / 14., color='k')
 
 cmb = 'now'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
