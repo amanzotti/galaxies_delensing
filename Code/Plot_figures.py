@@ -367,7 +367,7 @@ labels = ['lsst']
 cmb = 'S4'
 lbins, rho_lsst, rho_comb_lsst, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
 
-labels = ['des_bin0', 'des_bin1', 'des_bin2']
+labels = ['des_bin0', 'des_bin1', 'des_bin2','des_bin3']
 cmb = 'Planck'
 lbins, rho, rho_comb, rho_gals_des, rho_cmb = multiple_survey_delens.main(labels, cmb)
 
