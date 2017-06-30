@@ -245,9 +245,9 @@ def main(rho_names, nle):
 
     lbins = np.logspace(1, 3.5, 190)
 
-    clbb_th = np.loadtxt(
-        output_dir + 'cmb_cl/bb.txt')
-    clbb_th *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
+    # clbb_th = np.loadtxt(
+    #     output_dir + 'cmb_cl/bb.txt')
+    # clbb_th *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
 
     # surveys = ['test', 'cib', 'des', 'comb_des_cib', 'comb_des_cib_cmb',
     #            'ska10', 'ska5', 'ska1', 'ska01', 'lsst', 'euclid', 'rho_comb', 'rho_cmbS4', 'rho_cmbS3']

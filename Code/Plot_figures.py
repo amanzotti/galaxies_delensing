@@ -78,6 +78,51 @@ plt.rcParams['legend.handlelength'] = font_size / 9.
 # ============================================
 
 
+# # labels = ['desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3', 'desi_bin4',
+# #           'desi_bin5', 'desi_bin6', 'desi_bin7', 'desi_bin8', 'desi_bin9']
+# # cmb = 'Planck'
+# # lbins, rho, _, rho_gals_desi, _ = multiple_survey_delens.main(labels, cmb)
+
+# labels = ['desi2_bin0', 'desi2_bin1']
+# cmb = 'Planck'
+# lbins, rho, _, rho_gals_desi2, _ = multiple_survey_delens.main(labels, cmb)
+
+# labels = ['desi4_bin0', 'desi4_bin1','desi4_bin2','desi4_bin3']
+# cmb = 'Planck'
+# lbins, rho, _, rho_gals_desi4, _ = multiple_survey_delens.main(labels, cmb)
+
+# labels = ['desi6_bin0', 'desi6_bin1','desi6_bin2','desi6_bin3']
+# cmb = 'Planck'
+# lbins, rho, _, rho_gals_desi6, _ = multiple_survey_delens.main(labels, cmb)
+
+
+# labels = ['desi']
+# cmb = 'Planck'
+# lbins, rho_desi, _, _, _ = multiple_survey_delens.main(labels, cmb)
+
+
+# plt.close()
+# fg = plt.figure(figsize=fig_dims)
+# plt.plot(lbins, rho_desi['desi'], label='DESI', color='#2ca02c')
+# plt.plot(lbins, rho_gals_desi2, linestyle='-.', color='#2ca02c')
+# plt.plot(lbins, rho_gals_desi4, linestyle='-.')
+# plt.plot(lbins, rho_gals_desi6, linestyle='-.')
+
+# plt.xlabel(r'$\ell$')
+# plt.ylabel(r'$\rho$')
+# plt.legend(loc=0, ncol=1)
+# plt.ylim(0.0, 1.)
+# plt.xlim(10, 1400)
+# fg.tight_layout()
+
+# plt.savefig('../images/B_test.pdf', dpi=600, papertype='Letter')
+# plt.savefig('../images/B_test.png')
+
+# sys.exit()
+
+
+# =============================================
+
 BB_contr = np.genfromtxt('../Data/BB_contribution.csv', delimiter=',')
 
 
@@ -512,17 +557,19 @@ plt_func = plt.semilogx
 # compare with noise at 5 muk arcm
 # ell * (ell + 1.) / 2. / np.pi
 # plt_func(ell, ell * np.array(B_res3[0]), label=r'$C^{BB}_{\ell}^{\rm{lens}}$')
-plt_func(ell, ell * np.array(B_res3[1]) * 1e3, label=r'$C^{BB^{\rm{res}}}_{\ell}}$')
-plt_func(ell, ell * np.array(B_res3[-1]) * 1e3, label=r'$C^{BB^{\rm{res}}}_{\ell}}$')
+plt_func(ell, ell * np.array(B_res3[1]) * 1e3,
+         label=r'$C^{BB^{\rm{res}}}_{\ell}}$', linewidth=font_size / 12.5, alpha=0.8)
+plt_func(ell, ell * np.array(B_res3[-1]) * 1e3,
+         label=r'$C^{BB^{\rm{res}}}_{\ell}}$', linewidth=font_size / 12.5, alpha=0.8)
 
 plt_func(clbb_tens(r=0.01, lmax=3000) / (np.arange(0, 3001) + 1) *
-         np.pi * 2. * 1e3, label=r'$C^{BB^{\rm{tens}}}_{\ell}, ~ r=0.01$')
+         np.pi * 2. * 1e3, label=r'$C^{BB^{\rm{tens}}}_{\ell}, ~ r=0.01$', linestyle='--', linewidth=font_size / 7.5, alpha=0.8)
 plt_func(clbb(r=0.01, lmax=3000) / (np.arange(0, 3001) + 1) *
-         np.pi * 2. * 1e3, label=r'$C^{BB^{\rm{tot}}}_{\ell}$')
+         np.pi * 2. * 1e3, label=r'$C^{BB^{\rm{tot}}}_{\ell}$', linewidth=font_size / 12.5)
 fact = np.arange(0, 4001)
 plt.fill_between(np.arange(0, 4001), fact * nl(1, 1, 4000) * 1e3,
                  fact * nl(9, 1, 4000) * 1e3, alpha=0.2, label='noise')
-plt.ylim(0., 0.001 * 1e3)
+plt.ylim(0., 0.00075 * 1e3)
 plt.xlim(10, 2000)
 plt.xlabel(r'$\ell$')
 plt.ylabel(r'$\ell C^{BB}_{\ell}  [ 10^{-3} \mu K^{2} ]$')
@@ -541,11 +588,13 @@ fg = plt.figure(figsize=fig_dims)
 plt_func = plt.loglog
 # compare with noise at 5 muk arcm
 # ell * (ell + 1.) / 2. / np.pi
-plt_func(ell, ell * (ell + 1) * np.array(B_res3[0]) /
-         2. / np.pi, label=r'$C^{BB}_{\ell}^{\rm{lens}}$')
 plt_func(ell, ell * (ell + 1) * np.array(B_res3[1]) /
+         2. / np.pi, label=r'$C^{BB}_{\ell}^{\rm{lens}}$')
+plt_func(ell, ell * (ell + 1) * np.array(B_res3[-1]) /
          2. / np.pi, label=r'$C^{BB^{\rm{res}}}_{\ell}}$')
 plt_func(clbb_tens(r=0.01, lmax=3000), label=r'$C^{BB^{\rm{tens}}}_{\ell}, ~ r=0.01$')
+
+plt_func(clbb(r=0.01, lmax=3000), label=r'$C^{BB^{\rm{tot}}}_{\ell}$')
 # plt_func(clbb(r=0.01, lmax=3000), label=r'$C^{BB^{\rm{tot}}}_{\ell}$')
 fact = np.arange(0, 4001) * (np.arange(0, 4001) + 1.) / 2. / np.pi
 plt.fill_between(np.arange(0, 4001), fact * nl(1, 1, 4000),
@@ -554,10 +603,43 @@ plt.ylim(1e-5, 4e-1)
 plt.xlim(10, 2000)
 plt.xlabel(r'$\ell$')
 plt.ylabel(r'$\ell(\ell+1)C^{BB}_{\ell}/ 2 \pi [ 10^{-3} \mu K^{2} ]$')
-plt.legend(loc=0, ncol=2)
+plt.legend(loc=0)
 fg.tight_layout()
 # plt.text('SPTPol', rotation=45)
 # plt.text('CMB S4', rotation=45)
 
 plt.savefig('../images/BB_res_ell2.pdf', dpi=600, papertype='Letter')
 plt.savefig('../images/BB_res_ell2.png')
+
+
+plt.clf()
+plt.close()
+fg = plt.figure(figsize=fig_dims)
+plt_func = plt.loglog
+# compare with noise at 5 muk arcm
+# ell * (ell + 1.) / 2. / np.pi
+plt_func(ell, np.array(B_res3[1]), label=r'$C^{BB}_{\ell}^{\rm{lens}}$')
+plt_func(ell, np.array(B_res3[-1]), label=r'$C^{BB^{\rm{res}}}_{\ell}}$')
+plt_func(clbb_tens(r=0.01, lmax=3000) / (np.arange(0, 3001) + 1)**2 *
+         np.pi * 2., label=r'$C^{BB^{\rm{tens}}}_{\ell}, ~ r=0.01$')
+
+plt_func(clbb(r=0.01, lmax=3000) / (np.arange(0, 3001) + 1) **
+         2 * np.pi * 2., label=r'$C^{BB^{\rm{tot}}}_{\ell}$')
+
+
+# plt_func(clbb(r=0.01, lmax=3000), label=r'$C^{BB^{\rm{tot}}}_{\ell}$')
+fact = 1.
+plt.fill_between(np.arange(0, 4001), fact * nl(1, 1, 4000),
+                 fact * nl(9, 1, 4000), alpha=0.2, label='noise')
+# plt.ylim(1e-5, 4e-1)
+plt.xlim(10, 2000)
+plt.xlabel(r'$\ell$')
+# plt.ylabel(r'$C^{BB}_{\ell} [ 10^{-3} \mu K^{2} ]$')
+plt.legend(loc=0, ncol=2)
+plt.ylim(1e-8, 1e-5)
+fg.tight_layout()
+# plt.text('SPTPol', rotation=45)
+# plt.text('CMB S4', rotation=45)
+
+plt.savefig('../images/BB_res_ell0.pdf', dpi=600, papertype='Letter')
+plt.savefig('../images/BB_res_ell0.png')

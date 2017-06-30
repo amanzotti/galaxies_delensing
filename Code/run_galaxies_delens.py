@@ -106,9 +106,43 @@ def make_tomo_bins_equal_gals(z, dndz, sigmaz, nbins, hspline, omegac, h, b=1.):
         # print(norm, dndz_win, z)
         galaxies_fraction.append(norm)
         dndzlsst_temp_fun = InterpolatedUnivariateSpline(
+            z, dndz_win / norm, ext='zeros')
+        lsst_tomo_bins.append(gals_kernel.kern(
+            z, dndzlsst_temp_fun, hspline, omegac, h, b=b))
+    return lsst_tomo_bins, np.array(galaxies_fraction)
+
+
+def make_tomo_bins_equal_gals_lsst(z, dndz, sigmaz, nbins, hspline, omegac, h, b=1.):
+    '''
+    this function takes a full dndz distribution and given the number of bins and their width.sigma z returns a list of different tomographic bins
+    '''
+
+    z_bins = find_bins(z, dndz, nbins)
+    # print('z_bins', z_bins)
+    def p_z_ph_z(z_ph, z, sigma_z):
+        return np.exp(-(z_ph - z)**2 / (2. * sigma_z**2)) / np.sqrt(2 * np.pi * sigma_z**2)
+
+    # print('print', z, dndz, sigmaz, z_bins)
+    lsst_tomo_bins = []
+    galaxies_fraction = []
+    for n in range(0, len(z_bins[0])):
+        # print('n',n,len(z_bins[0]),z[int(z_bins[1][n])], z[int(z_bins[1][n + 1])])
+        # print([z_val for i, z_val in enumerate(z)])
+        # print(int(z_bins[1][n]),int(z_bins[1][
+        #                                          n + 1]))
+        photoz_confusion = [scipy.integrate.quad(p_z_ph_z, z[int(z_bins[1][n])], z[int(z_bins[1][
+                                                 n + 1])], args=(z_val, sigmaz[i]), limit=600, epsabs=0, epsrel=1.49e-03)[0] for i, z_val in enumerate(z)]
+
+        dndz_win = dndz * photoz_confusion
+        dndzlsst_temp = InterpolatedUnivariateSpline(
+            z, dndz_win, ext='zeros')
+        norm = dndzlsst_temp.integral(z[0], z[-1])
+        # print(norm, dndz_win, z)
+        galaxies_fraction.append(norm)
+        dndzlsst_temp_fun = InterpolatedUnivariateSpline(
             z, dndz_win / norm * np.sqrt(1. + z), ext='zeros')
         lsst_tomo_bins.append(gals_kernel.kern(
-            z, dndzlsst_temp_fun, hspline, omegac, h, b=1.))
+            z, dndzlsst_temp_fun, hspline, omegac, h, b=b))
     return lsst_tomo_bins, np.array(galaxies_fraction)
 
 
@@ -120,9 +154,10 @@ def make_spec_bins(z, dndz_fun, nbins, hspline, omegac, h, b=1.):
     galaxies_fraction = []
     z_bins = [z[i:i + int(len(z) / nbins) + 1] for i in range(0, len(z), int(len(z) / nbins))]
     # +1 is inserted not to have gaps
+    print(z_bins)
     for z in z_bins:
         dndz = dndz_fun(z)
-        # print(z, dndzlsst)
+        # print('z',z)
         dndz_temp = InterpolatedUnivariateSpline(
             z, dndz, ext='zeros')
         norm = dndz_temp.integral(z[0], z[-1])
@@ -130,7 +165,8 @@ def make_spec_bins(z, dndz_fun, nbins, hspline, omegac, h, b=1.):
         # print('norm', norm)
         dndz_bin = InterpolatedUnivariateSpline(
             z, dndz / norm, ext='zeros')
-        spec_bins.append(gals_kernel.kern(z, dndz_bin, hspline, omegac, h, b=1.))
+        # print('here', dndz_bin.integral(z[0], z[-1]))
+        spec_bins.append(gals_kernel.kern(z, dndz_bin, hspline, omegac, h, b=b))
     # sys.exit()
     return spec_bins, np.array(galaxies_fraction)
 
@@ -195,7 +231,7 @@ def main(ini_par):
     # width = z_lsst[-1] / nbins
     # print(dndz[:, 0].shape, dndz[:, 1].shape)
     des_tomo_bins, galaxies_fraction_des = make_tomo_bins_equal_gals(
-        dndz[:, 0], dndz[:, 1], sigmaz=sigmaz, nbins=3, hspline=hspline, omegac=pars.omegac, h=h, b=1.)
+        dndz[:, 0], dndz[:, 1], sigmaz=sigmaz, nbins=4, hspline=hspline, omegac=pars.omegac, h=h, b=1.)
     # print('frac',galaxies_fraction_des/norm)
 
     # DEFINE KERNELs
@@ -204,10 +240,9 @@ def main(ini_par):
     # CIB
     # =======
     # j2k = 1.e-6 / np.sqrt(83135.)  # for 353
-    lkern = kappa_kernel.kern(z, hspline,
-                              chispline, pars.omegac, h, xlss)
-    cib = cib_hall.ssed_kern(
-        h, z, chispline, hspline, 545e9, b=0.5, jbar_kwargs={'zc': 2.0, 'sigmaz': 2.})
+    lkern = kappa_kernel.kern(z, hspline, chispline, pars.omegac, h, xlss)
+    cib = cib_hall.ssed_kern(h, z, chispline, hspline, 600e9, b=0.5,
+                             jbar_kwargs={'zc': 2.0, 'sigmaz': 2.})
 
     # ======
     # DESI
@@ -235,9 +270,9 @@ def main(ini_par):
     desi = gals_kernel.kern(np.linspace(0, 2, 100),
                             DESI.DESISpline_normalized, hspline, pars.omegac, h, b=1.17)
 
-    desi_spec_bins, galaxies_fraction_desi = make_spec_bins(np.linspace(0, 2, 100), DESI.DESISpline_normalized,
-                                                            4, hspline, pars.omegac, h, b=1.)
-    # print('DESI',galaxies_fraction_desi, np.sum(galaxies_fraction_desi))
+    desi_spec_bins, galaxies_fraction_desi = make_spec_bins(np.linspace(
+        0, 2, 100), DESI.DESISpline_normalized, 4, hspline, pars.omegac, h, b=1.17)
+    print('DESI', galaxies_fraction_desi, np.sum(galaxies_fraction_desi))
 
     # ======
     # WISE
@@ -316,7 +351,7 @@ def main(ini_par):
     sigmaz = 0.05 * (z_lsst + 1.)
     # print('lsst', z_lsst.shape, dndzlsst.shape)
     # width = z_lsst[-1] / nbins
-    lsst_tomo_bins, galaxies_fraction_lsst = make_tomo_bins_equal_gals(
+    lsst_tomo_bins, galaxies_fraction_lsst = make_tomo_bins_equal_gals_lsst(
         z_lsst, dndzlsst, sigmaz=sigmaz, nbins=10, hspline=hspline, omegac=pars.omegac, h=h, b=1.)
     # print('frac',galaxies_fraction_lsst/norm)
 
@@ -353,7 +388,7 @@ def main(ini_par):
     euclid = gals_kernel.kern(z_euclid, dndzeuclid, hspline, pars.omegac, h, b=1.)
     nbins = 10
     dndzeuclid = gals_kernel.dNdZ_parametric_LSST(z_euclid)
-    sigmaz = 0.05 * (z_euclid + 1.)
+    sigmaz = 0.002 * (z_euclid + 1.)
     euclid_tomo_bins = make_tomo_bins_equal_gals(
         z_euclid, dndzeuclid, sigmaz=sigmaz, nbins=nbins, hspline=hspline, omegac=pars.omegac, h=h, b=1.)
 
@@ -366,9 +401,8 @@ def main(ini_par):
     kernels = [lkern, wise, euclid, lsst, ska10, ska01, ska5, ska1, cib, desi, des]
     names = ['k', 'wise', 'euclid', 'lsst', 'ska10', 'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
 
-
-    # kernels = [lkern,]
-    # names = ['k']
+    # kernels = [lkern, desi]
+    # names = ['k', 'desi']
     assert(len(kernels) == len(names))
     # add binned surveys.
     for n, bin_gal in enumerate(des_tomo_bins):
@@ -453,6 +487,7 @@ def main(ini_par):
         for n, fract in enumerate(galaxies_fraction_des):
             print('Adding noise to DES bins')
             name = 'des_bin{}'.format(int(n))
+            # equivalent to 3.5 gals per arcmin if you want to compare.
             nlgg = 1 / gal_rad_sq * np.ones_like(cls[name + name])
             cls[name + name] = cls[name + name] + nlgg / fract
         # ===============================================
@@ -519,4 +554,9 @@ def main(ini_par):
 
 if __name__ == "__main__":
     ini_pars = setup(ini_file='./gal_delens_values.ini')
-    ells, cls = main(ini_pars)
+    ells, cls, = main(ini_pars)
+    # plt.loglog(ells, cls['desidesi'])
+    # cl_sum = np.zeros_like(np.array(cls['desidesi']))
+    # for n, fraction in enumerate(frac[:-3]):
+    #     cl_sum = cl_sum + \
+    #         cls['desi3_bin{}'.format(int(n)) + 'desi3_bin{}'.format(int(n))] * fraction**2

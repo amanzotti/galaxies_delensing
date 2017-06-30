@@ -223,20 +223,19 @@ rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_gals.txt',
 # deep survey to delens or what is giving you E-mode
 # BICEP level 3 muK and 30 arcmin beam
 
-noise_uK_arcmin = 3.
+noise_uK_arcmin = 0.001
 fwhm_arcmin = 30.
 # not used right now
 ell_range_deep = [20, 400]
 ell_range_high = [200, ells_cmb[-1]]
-nle_deep = nl(noise_uK_arcmin, fwhm_arcmin, lmax=ells_cmb[-1])[2:]
-nle_high = nl(9., 1., lmax=ells_cmb[-1])[2:]
-nle_high[:ell_range_high[0]] = np.inf
-nle_deep[:ell_range_deep[0]] = np.inf
-nle_deep[ell_range_deep[1]:] = np.inf
-nle = 1/(1/nle_high +1/nle_deep)
+# nle_deep = nl(noise_uK_arcmin, fwhm_arcmin, lmax=ells_cmb[-1])[2:]
+# nle_high = nl(9., 1., lmax=ells_cmb[-1])[2:]
+# nle_high[:ell_range_high[0]] = np.inf
+# nle_deep[:ell_range_deep[0]] = np.inf
+# nle_deep[ell_range_deep[1]:] = np.inf
+# nle = 1/(1/nle_high +1/nle_deep)
 
-nle = nle_deep
-
+nle = nl(noise_uK_arcmin, fwhm_arcmin, lmax=ells_cmb[-1])[2:]
 B_test = rho_to_Bres.main(['test'], nle)
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_lensed = InterpolatedUnivariateSpline(
@@ -257,7 +256,7 @@ for i, probe in enumerate(rho_names):
 
 print('')
 print(Fore.YELLOW + 'Fraction of removed Bmode power')
-for probe in rho_names[1:]:
+for probe in rho_names[0:]:
     probe = probe.split('.txt')[0].split('rho_')[1]
     print(probe)
     print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
@@ -342,6 +341,7 @@ for i, label in enumerate(rho_names):
     print('After delensing % errors', sigma_r_1, sigma_nt)
     print(probe, 'gain = ', sigma_r_1 / sigma_r)
 
+sys.exit()
 
 print(Fore.RED + 'Actual scenario High res SPT-pol')
 # In[274]:
