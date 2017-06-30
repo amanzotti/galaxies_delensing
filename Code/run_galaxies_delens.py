@@ -546,7 +546,7 @@ def main(ini_par):
     np.save('../Data/' + 'ells', ini_pars['lbins'])
     # profiler.stop()
     # profiler.run_viewer()
-    return ini_pars['lbins'], cls
+    return ini_pars['lbins'], cls  # , galaxies_fraction_lsst
 
     # =======================
     # SAVE IN DATABLOCK
@@ -554,9 +554,9 @@ def main(ini_par):
 
 if __name__ == "__main__":
     ini_pars = setup(ini_file='./gal_delens_values.ini')
-    ells, cls, = main(ini_pars)
-    # plt.loglog(ells, cls['desidesi'])
+    ells, cls = main(ini_pars)
+    # plt.loglog(ells, cls['lsstlsst'])
     # cl_sum = np.zeros_like(np.array(cls['desidesi']))
-    # for n, fraction in enumerate(frac[:-3]):
+    # for n, fraction in enumerate(frac):
     #     cl_sum = cl_sum + \
-    #         cls['desi3_bin{}'.format(int(n)) + 'desi3_bin{}'.format(int(n))] * fraction**2
+    #         cls['lsst_bin{}'.format(int(n)) + 'lsst_bin{}'.format(int(n))] * fraction**2
