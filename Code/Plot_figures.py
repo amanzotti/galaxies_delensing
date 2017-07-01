@@ -589,25 +589,27 @@ plt_func = plt.loglog
 # compare with noise at 5 muk arcm
 # ell * (ell + 1.) / 2. / np.pi
 plt_func(ell, ell * (ell + 1) * np.array(B_res3[1]) /
-         2. / np.pi, label=r'$C^{BB}_{\ell}^{\rm{lens}}$', linewidth=font_size / 12.5, alpha=0.8)
+         2. / np.pi, label=r'$C^{BB^{\rm{res}}}_{\ell} (\rm{CIB})$', linewidth=font_size / 12.5, alpha=0.8)
 plt_func(ell, ell * (ell + 1) * np.array(B_res3[-1]) /
-         2. / np.pi, label=r'$C^{BB^{\rm{res}}}_{\ell}}$', linewidth=font_size / 12.5, alpha=0.8)
+         2. / np.pi, label=r'$C^{BB^{\rm{res}}}_{\ell} (\rm{S4})$', linewidth=font_size / 12.5, alpha=0.8)
 plt_func(clbb_tens(r=0.01, lmax=3000),
-         label=r'$C^{BB^{\rm{tens}}}_{\ell}, ~ r=0.01$', linestyle='--')
+         label=r'$C^{BB^{\rm{tens}}}_{\ell} ~ _{r=0.01}$', linestyle='--')
 
-plt_func(clbb(r=0.01, lmax=3000),
-         label=r'$C^{BB^{\rm{tot}}}_{\ell}$', linewidth=font_size / 12.5, alpha=0.8)
+plt_func(clbb(r=0.0, lmax=3000),
+         label=r'$C^{BB}_{\ell}^{\rm{lens}}$', linewidth=font_size / 12.5, alpha=0.8)
 # plt_func(clbb(r=0.01, lmax=3000), label=r'$C^{BB^{\rm{tot}}}_{\ell}$')
 fact = np.arange(0, 4001) * (np.arange(0, 4001) + 1.) / 2. / np.pi
-plt.fill_between(np.arange(0, 4001), fact * nl(1, 1, 4000),
-                 fact * nl(9, 1, 4000), alpha=0.2, label='noise')
+plt.plot(np.arange(0, 4001), fact * nl(9, 1, 4000), linestyle='--',
+         linewidth=font_size / 14.5, alpha=0.7)
+plt.plot(np.arange(0, 4001), fact * nl(1, 1, 4000), linestyle='--',
+         linewidth=font_size / 14.5, alpha=0.7)
 plt.ylim(1e-5, 1.5e-1)
 plt.xlim(10, 1700)
 plt.xlabel(r'$\ell$')
 plt.ylabel(r'$\ell(\ell+1)C^{BB}_{\ell}/ 2 \pi [ \mu K^{2} ]$')
 plt.legend(loc=0)
-plt.text(30, 0.25, 'SPTPol', rotation=0, va='bottom', ha='left', fontsize=font_size / 2.)
-plt.text(800, 0.03, 'CMB S4', rotation=0, va='bottom', ha='left', fontsize=font_size / 2.)
+plt.text(100, 2e-2, 'SPTPol Noise', rotation=40, va='bottom', ha='left', fontsize=font_size / 2.)
+plt.text(600, 2.8e-3, 'CMB S4 Noise', rotation=40, va='bottom', ha='left', fontsize=font_size / 2.)
 
 fg.tight_layout()
 

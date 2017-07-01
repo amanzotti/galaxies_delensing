@@ -12,65 +12,23 @@ except ImportError:
 
 import sys
 import os
-from matplotlib import pyplot as plt
 import numpy as np
 import camb
 from camb import model, initialpower
 import multiple_survey_delens
 import configparser as ConfigParser
 import rho_to_Bres
-from scipy.interpolate import RectBivariateSpline, interp1d, InterpolatedUnivariateSpline
-
+from scipy.interpolate import InterpolatedUnivariateSpline
 from colorama import init
 from colorama import Fore, Back, Style
 
 init(autoreset=True)
-plt.rcParams["figure.figsize"] = [16, 10]
-
 np.seterr(divide='ignore', invalid='ignore')
 # ============================================
 # SET LATEX
 plt.rc('text', usetex=True)
 plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern Roman']})
 # ============================================
-
-
-font_size = 24.
-plt.rcParams['font.size'] = font_size
-
-plt.rcParams['axes.labelsize'] = font_size
-plt.rcParams['axes.linewidth'] = font_size / 22.
-plt.rcParams['axes.titlesize'] = font_size * 1.3
-plt.rcParams['legend.fontsize'] = font_size
-plt.rcParams['xtick.labelsize'] = font_size / 1.2
-plt.rcParams['ytick.labelsize'] = font_size / 1.2
-plt.rcParams['axes.color_cycle'] = '#e41a1c,#377eb8,#4daf4a,#984ea3,#ff7f00,#ffff33,#a65628'
-
-
-# ============================================
-
-# Simplify paths by removing "invisible" points, useful for reducing
-# file size when plotting a large number of points
-plt.rcParams['path.simplify'] = False
-# ============================================
-
-# ============================================
-
-# Have the legend only plot one point instead of two, turn off the
-# frame, and reduce the space between the point and the label
-
-plt.rcParams['axes.linewidth'] = 1.0
-
-
-# ============================================
-# LEGEND
-# ============================================
-# OPTION
-plt.rcParams['legend.frameon'] = False
-plt.rcParams['legend.numpoints'] = 1
-plt.rcParams['legend.handletextpad'] = 0.3
-# ============================================
-
 
 # COSMOSIS VALUES!!!!!!
 
@@ -223,7 +181,7 @@ rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_gals.txt',
 # deep survey to delens or what is giving you E-mode
 # BICEP level 3 muK and 30 arcmin beam
 
-noise_uK_arcmin = 0.001
+noise_uK_arcmin = 3.
 fwhm_arcmin = 30.
 # not used right now
 ell_range_deep = [20, 400]
@@ -277,6 +235,36 @@ r_fid = 0.
 fsky = 0.06
 
 print('')
+print(Fore.YELLOW + 'r=0, no noise')
+print('')
+for i, label in enumerate(rho_names):
+    probe = label.split('.txt')[0].split('rho_')[1]
+    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
+        r_fid=r_fid,
+        lmin=50,
+        lmax=lmax,
+        fsky=fsky,
+        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))
+                                 ) + clbb_tens(r_fid, lmax=lmax),
+        noise_uK_arcmin=0.,
+        fwhm_arcmin=fwhm_arcmin)
+    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
+        r_fid=r_fid,
+        lmin=50,
+        lmax=lmax,
+        fsky=fsky,
+        clbb_cov=clbb(r_fid, lmax=lmax),
+        noise_uK_arcmin=0.,
+        fwhm_arcmin=fwhm_arcmin)
+    print('After delensing % errors', sigma_r_1 * 1e2)
+    print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
+                   sigma_nt_1 / sigma_nt, sigr_1 / sigr, sigmant_1 / sigmant))
+
+print('')
+print('')
+
+
+print('')
 print(Fore.YELLOW + 'r=0')
 print('')
 for i, label in enumerate(rho_names):
@@ -304,6 +292,7 @@ for i, label in enumerate(rho_names):
 
 print('')
 print('')
+
 
 # ### r=0.07
 print(Fore.YELLOW + 'r=0.12')
@@ -395,6 +384,45 @@ print('')
 print('')
 
 # ### r=0.07
+
+print('')
+print(Fore.YELLOW + 'r=0, no noise')
+print('')
+print('')
+print('')
+
+
+for i, label in enumerate(rho_names):
+    probe = label.split('.txt')[0].split('rho_')[1]
+    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
+        r_fid=r_fid,
+        lmin=50,
+        lmax=lmax,
+        fsky=fsky,
+        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))
+                                 ) + clbb_tens(r_fid, lmax=lmax),
+        noise_uK_arcmin=0.,
+        fwhm_arcmin=fwhm_arcmin)
+    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
+        r_fid=r_fid,
+        lmin=50,
+        lmax=lmax,
+        fsky=fsky,
+        clbb_cov=clbb(r_fid, lmax=lmax),
+        noise_uK_arcmin=0.,
+        fwhm_arcmin=fwhm_arcmin)
+    print('After delensing % errors', sigma_r_1 * 1e2)
+    print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
+                   sigma_nt_1 / sigma_nt, sigr_1 / sigr, sigmant_1 / sigmant))
+
+
+# ### r=0.12
+
+# In[277]:
+
+clbb.cache_clear()
+clbb_tens.cache_clear()
+
 
 print('')
 print(Fore.YELLOW + 'r=0')
@@ -523,6 +551,35 @@ noise_uK_arcmin = 3
 fwhm_arcmin = 1.
 r_fid = 0.0001
 fsky = 0.06
+
+print('')
+print(Fore.YELLOW + 'r=0, no noise')
+print('')
+for i, label in enumerate(rho_names):
+    probe = label.split('.txt')[0].split('rho_')[1]
+    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
+        r_fid=r_fid,
+        lmin=4,
+        fsky=fsky,
+        lmax=lmax,
+        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(r_fid, lmax=lmax)))
+                                 ) + clbb_tens(r_fid, lmax=lmax),
+        noise_uK_arcmin=0.,
+        fwhm_arcmin=fwhm_arcmin)
+    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
+        r_fid=r_fid,
+        lmin=4,
+        lmax=lmax,
+        fsky=fsky,
+        clbb_cov=clbb(r_fid, lmax=lmax),
+        noise_uK_arcmin=0.,
+        fwhm_arcmin=fwhm_arcmin)
+
+    print('After delensing % errors', sigma_r, sigma_nt)
+    print(probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt)
+
+clbb.cache_clear()
+clbb_tens.cache_clear()
 
 print('')
 print(Fore.YELLOW + 'r=0')
