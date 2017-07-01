@@ -330,7 +330,6 @@ for i, label in enumerate(rho_names):
     print('After delensing % errors', sigma_r_1, sigma_nt)
     print(probe, 'gain = ', sigma_r_1 / sigma_r)
 
-sys.exit()
 
 print(Fore.RED + 'Actual scenario High res SPT-pol')
 # In[274]:
@@ -495,7 +494,7 @@ for i, label in enumerate(rho_names):
     print('After delensing % errors', sigma_r_1, sigma_nt)
     print(probe, 'gain = ', sigma_r_1 / sigma_r)
 
-
+sys.exit()
 # ## CMB S3
 
 # In[278]:
