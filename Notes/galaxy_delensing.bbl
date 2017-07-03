@@ -178,11 +178,24 @@ P.~{Larsen}, A.~{Challinor}, B.~D. {Sherwin}, and D.~{Mak}.
   Cosmic Infrared Background}.
 \newblock {\em Physical Review Letters}, 117(15):151102, October 2016.
 
+\bibitem{laureijs:2011}
+R.~{Laureijs}, J.~{Amiaux}, S.~{Arduini}, J.~. {Augu{\`e}res}, J.~{Brinchmann},
+  R.~{Cole}, M.~{Cropper}, C.~{Dabin}, L.~{Duvet}, A.~{Ealet}, and et~al.
+\newblock {Euclid Definition Study Report}.
+\newblock {\em ArXiv e-prints}, October 2011.
+
 \bibitem{limber53}
 D.~N. {Limber}.
 \newblock {The Analysis of Counts of the Extragalactic Nebulae in Terms of a
   Fluctuating Density Field.}
 \newblock {\em \apj}, 117:134, January 1953.
+
+\bibitem{lsst-science-collaboration:2009}
+{LSST Science Collaboration}, P.~A. {Abell}, J.~{Allison}, S.~F. {Anderson},
+  J.~R. {Andrew}, J.~R.~P. {Angel}, L.~{Armus}, D.~{Arnett}, S.~J. {Asztalos},
+  T.~S. {Axelrod}, and et~al.
+\newblock {LSST Science Book, Version 2.0}.
+\newblock {\em ArXiv e-prints}, December 2009.
 
 \bibitem{manzotti:2017}
 A.~{Manzotti}, K.~T. {Story}, W.~L.~K. {Wu}, J.~E. {Austermann}, J.~A. {Beall},
@@ -292,6 +305,19 @@ G.~{Simard}, D.~{Hanson}, and G.~{Holder}.
 K.~M. {Smith}, D.~{Hanson}, M.~{LoVerde}, C.~M. {Hirata}, and O.~{Zahn}.
 \newblock {Delensing CMB polarization with external datasets}.
 \newblock {\em \jcap}, 6:14, June 2012.
+
+\bibitem{spergel:2013}
+D.~{Spergel}, N.~{Gehrels}, J.~{Breckinridge}, M.~{Donahue}, A.~{Dressler},
+  B.~S. {Gaudi}, T.~{Greene}, O.~{Guyon}, C.~{Hirata}, J.~{Kalirai}, N.~J.
+  {Kasdin}, W.~{Moos}, S.~{Perlmutter}, M.~{Postman}, B.~{Rauscher},
+  J.~{Rhodes}, Y.~{Wang}, D.~{Weinberg}, J.~{Centrella}, W.~{Traub},
+  C.~{Baltay}, J.~{Colbert}, D.~{Bennett}, A.~{Kiessling}, B.~{Macintosh},
+  J.~{Merten}, M.~{Mortonson}, M.~{Penny}, E.~{Rozo}, D.~{Savransky},
+  K.~{Stapelfeldt}, Y.~{Zu}, C.~{Baker}, E.~{Cheng}, D.~{Content}, J.~{Dooley},
+  M.~{Foote}, R.~{Goullioud}, K.~{Grady}, C.~{Jackson}, J.~{Kruk}, M.~{Levine},
+  M.~{Melton}, C.~{Peddie}, J.~{Ruffa}, and S.~{Shaklan}.
+\newblock {WFIRST-2.4: What Every Astronomer Should Know}.
+\newblock {\em ArXiv e-prints}, May 2013.
 
 \bibitem{vanengelen14b}
 A.~{van Engelen}, B.~D. {Sherwin}, N.~{Sehgal}, G.~E. {Addison}, R.~{Allison},
