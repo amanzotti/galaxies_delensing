@@ -170,11 +170,11 @@ print('')
 # =====================================
 
 
-labels = ['wise', 'cib', 'des']
+labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3']
 cmb = 'Planck'
 multiple_survey_delens.main(labels, cmb)
 ells_cmb = np.loadtxt(output_dir + 'cmb_cl/ell.txt')
-rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_gals.txt',
+rho_names = ['rho_cib.txt', 'rho_gals.txt',
              'rho_wise.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 
 
@@ -330,11 +330,12 @@ for i, label in enumerate(rho_names):
     print('After delensing % errors', sigma_r_1, sigma_nt)
     print(probe, 'gain = ', sigma_r_1 / sigma_r)
 
+sys.exit()
 
 print(Fore.RED + 'Actual scenario High res SPT-pol')
 # In[274]:
 
-labels = ['wise', 'cib', 'des']
+labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3']
 cmb = 'now'
 multiple_survey_delens.main(labels, cmb)
 rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_gals.txt',
@@ -494,14 +495,15 @@ for i, label in enumerate(rho_names):
     print('After delensing % errors', sigma_r_1, sigma_nt)
     print(probe, 'gain = ', sigma_r_1 / sigma_r)
 
-sys.exit()
 # ## CMB S3
 
 # In[278]:
-
+print('')
+print(Fore.RED + 'CMB S3')
+print('')
 # possible names orders matters = ['k', 'euclid', 'des_weak', 'lsst',
 # 'ska10',            'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
-labels = ['wise', 'cib', 'desi', 'des']
+labels = ['wise', 'cib', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3']
 cmb = 'S3'
 multiple_survey_delens.main(labels, cmb)
 rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_desi.txt',
@@ -538,13 +540,16 @@ print('')
 print('')
 
 
+# sys.exit()
+
+
 # ### r=0
 
 # In[288]:
 
 # noise_uK_arcmin=4.5,
 # fwhm_arcmin=4.,
-lmax = 2000
+lmax = 3000
 # This needs to be Bicep like, the value of the deep exp
 noise_uK_arcmin = 3
 fwhm_arcmin = 1.
@@ -558,7 +563,7 @@ for i, label in enumerate(rho_names):
     probe = label.split('.txt')[0].split('rho_')[1]
     sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
         r_fid=r_fid,
-        lmin=4,
+        lmin=50,
         fsky=fsky,
         lmax=lmax,
         clbb_cov=clbb_res[probe](np.arange(0, len(clbb(r_fid, lmax=lmax)))
@@ -567,7 +572,7 @@ for i, label in enumerate(rho_names):
         fwhm_arcmin=fwhm_arcmin)
     sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
         r_fid=r_fid,
-        lmin=4,
+        lmin=50,
         lmax=lmax,
         fsky=fsky,
         clbb_cov=clbb(r_fid, lmax=lmax),
@@ -587,7 +592,7 @@ for i, label in enumerate(rho_names):
     probe = label.split('.txt')[0].split('rho_')[1]
     sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
         r_fid=r_fid,
-        lmin=4,
+        lmin=50,
         fsky=fsky,
         lmax=lmax,
         clbb_cov=clbb_res[probe](np.arange(0, len(clbb(r_fid, lmax=lmax)))
@@ -596,7 +601,7 @@ for i, label in enumerate(rho_names):
         fwhm_arcmin=fwhm_arcmin)
     sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
         r_fid=r_fid,
-        lmin=4,
+        lmin=50,
         lmax=lmax,
         fsky=fsky,
         clbb_cov=clbb(r_fid, lmax=lmax),
@@ -613,7 +618,7 @@ for i, label in enumerate(rho_names):
 
 # noise_uK_arcmin=4.5,
 # fwhm_arcmin=4.,
-lmax = 2000
+lmax = 3000
 noise_uK_arcmin = 3.
 fwhm_arcmin = 1.
 r_fid = 0.12
@@ -630,7 +635,7 @@ for i, label in enumerate(rho_names):
     probe = label.split('.txt')[0].split('rho_')[1]
     sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
         r_fid=r_fid,
-        lmin=4,
+        lmin=50,
         fsky=fsky,
         lmax=lmax,
         clbb_cov=clbb_res[probe](np.arange(0, len(clbb(r_fid, lmax=lmax)))
@@ -639,7 +644,7 @@ for i, label in enumerate(rho_names):
         fwhm_arcmin=fwhm_arcmin)
     sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
         r_fid=r_fid,
-        lmin=4,
+        lmin=50,
         lmax=lmax,
         fsky=fsky,
         clbb_cov=clbb(r_fid, lmax=lmax),
@@ -650,13 +655,18 @@ for i, label in enumerate(rho_names):
     print(probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt)
 
 
+sys.exit()
+
+print('')
+print(Fore.RED + 'CMB S4')
+print('')
 # ## CMB S4
 
 # In[310]:
 
 #  'wise', 'euclid', 'des_weak', 'lsst', 'ska10',
 # #              'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
-labels = ['wise', 'euclid', 'des_weak', 'lsst', 'ska10',
+labels = ['wise', 'euclid', 'lsst', 'ska10',
           'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
 cmb = 'S4'
 multiple_survey_delens.main(labels, cmb)

@@ -78,49 +78,6 @@ plt.rcParams['legend.handlelength'] = font_size / 9.
 # ============================================
 
 
-# # labels = ['desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3', 'desi_bin4',
-# #           'desi_bin5', 'desi_bin6', 'desi_bin7', 'desi_bin8', 'desi_bin9']
-# # cmb = 'Planck'
-# # lbins, rho, _, rho_gals_desi, _ = multiple_survey_delens.main(labels, cmb)
-
-# labels = ['desi2_bin0', 'desi2_bin1']
-# cmb = 'Planck'
-# lbins, rho, _, rho_gals_desi2, _ = multiple_survey_delens.main(labels, cmb)
-
-# labels = ['desi4_bin0', 'desi4_bin1','desi4_bin2','desi4_bin3']
-# cmb = 'Planck'
-# lbins, rho, _, rho_gals_desi4, _ = multiple_survey_delens.main(labels, cmb)
-
-# labels = ['desi6_bin0', 'desi6_bin1','desi6_bin2','desi6_bin3']
-# cmb = 'Planck'
-# lbins, rho, _, rho_gals_desi6, _ = multiple_survey_delens.main(labels, cmb)
-
-
-# labels = ['desi']
-# cmb = 'Planck'
-# lbins, rho_desi, _, _, _ = multiple_survey_delens.main(labels, cmb)
-
-
-# plt.close()
-# fg = plt.figure(figsize=fig_dims)
-# plt.plot(lbins, rho_desi['desi'], label='DESI', color='#2ca02c')
-# plt.plot(lbins, rho_gals_desi2, linestyle='-.', color='#2ca02c')
-# plt.plot(lbins, rho_gals_desi4, linestyle='-.')
-# plt.plot(lbins, rho_gals_desi6, linestyle='-.')
-
-# plt.xlabel(r'$\ell$')
-# plt.ylabel(r'$\rho$')
-# plt.legend(loc=0, ncol=1)
-# plt.ylim(0.0, 1.)
-# plt.xlim(10, 1400)
-# fg.tight_layout()
-
-# plt.savefig('../images/B_test.pdf', dpi=600, papertype='Letter')
-# plt.savefig('../images/B_test.png')
-
-# sys.exit()
-
-
 # =============================================
 
 BB_contr = np.genfromtxt('../Data/BB_contribution.csv', delimiter=',')
@@ -128,72 +85,22 @@ BB_contr = np.genfromtxt('../Data/BB_contribution.csv', delimiter=',')
 
 plt.rcParams["figure.figsize"] = fig_dims
 
-labels = ['wise', 'cib', 'des']
+labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3']
 cmb = 'Planck'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
 
 
-# In[16]:
+labels = ['des_bin0', 'des_bin1', 'des_bin2', 'des_bin3']
+cmb = 'Planck'
+lbins, _, _, rho_gals_des, _ = multiple_survey_delens.main(labels, cmb)
 
-plt.plot(lbins, rho['cib'])
-plt.plot(lbins, rho['des'])
-plt.xlabel(r'$\ell$')
-plt.ylabel(r'$\rho$')
-plt.xlim(10, 1400)
-
-
-# In[20]:
-
-cib = np.loadtxt('/home/manzotti/galaxies_delensing/Data/limber_spectra/cl_cibcib_delens.txt')
-kk = np.loadtxt('/home/manzotti/galaxies_delensing/Data/limber_spectra/cl_kk_delens.txt')
-kcib = np.loadtxt('/home/manzotti/galaxies_delensing/Data/limber_spectra/cl_kcib_delens.txt')
-# plt.plot(lbins, 2.4 * 1e3 * (lbins/2000.)** 0.53)
-# alpha = 0.387
-# lc = 162.9
-# gamma = 0.168
-# A_dust = 16.44 * 1e3
-# D_dust = A_dust * ((100. / lbins)**alpha) / (1 + (lbins / lc)**2)**(gamma / 2.)
-# plt.semilogy(lbins, D_dust, '.-')
-# plt.loglog(lbins,cib)
-plt.loglog(lbins, 100 * cib[100] * (lbins / lbins[100])**-4.6)
-plt.loglog(lbins, np.array([3500. * (1. * l / 3000.)**(-1.25) for l in lbins]))
-plt.xlim(10, 2000)
-
-
-# In[21]:
-plt.close()
-
-fg = plt.figure(figsize=[10, 8])
-ax1 = fg.add_subplot(111)
-
-plt.plot(lbins, rho['cib']**2, label='CIB')
-plt.plot(lbins, rho['wise']**2, label='WISE')
-plt.plot(lbins, rho['des']**2, label='DES')
-plt.plot(lbins, rho_cmb**2, label='Planck')
-plt.plot(lbins, rho_gals**2, label='DES +CIB+WISE')
-plt.plot(lbins, rho_comb**2, label='gals + Planck')
-plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]),
-         '--', alpha=0.6, linewidth=font_size / 14., color='k')
-plt.plot(lbins, np.loadtxt('/home/manzotti/galaxies_delensing/Data/limber_spectra/rho_comb.txt')**2)
-plt.legend(loc=0, ncol=2)
-plt.title('2017 Scenario with Planck')
-plt.xlabel(r'$\ell$')
-plt.ylabel(r'$\rho^{2}$')
-plt.xlim(10, 1400)
-plt.ylim(0, 1.4)
-plt.grid()
-fg.tight_layout()
-
-
-# In[22]:
-plt.close()
 
 fg = plt.figure(figsize=fig_dims)
 ax1 = fg.add_subplot(111)
 
 plt.plot(lbins, rho['cib'], label='CIB')
 plt.plot(lbins, rho['wise'], label='WISE')
-plt.plot(lbins, rho['des'], label='DES')
+plt.plot(lbins, rho_gals_des, label='DES')
 plt.plot(lbins, rho_cmb, label='Planck')
 plt.plot(lbins, rho_gals, label='DES +CIB+WISE')
 plt.plot(lbins, rho_comb, label='gals + Planck')
@@ -217,11 +124,17 @@ plt.savefig('../images/actual_scenario_planck.png')
 
 # In[23]:
 
-labels = ['wise', 'cib', 'des']
+labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3']
 cmb = 'now'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
+
+
+labels = ['des_bin0', 'des_bin1', 'des_bin2', 'des_bin3']
+cmb = 'now'
+lbins, _, _, rho_gals_des, _ = multiple_survey_delens.main(labels, cmb)
+
 np.savetxt('rho_cib.txt', rho['cib'])
-np.savetxt('rho_des.txt', rho['des'])
+np.savetxt('rho_des.txt', rho_gals_des)
 np.savetxt('rho_cmb_current.txt', rho_cmb)
 np.savetxt('rho_gals_current.txt', rho_gals)
 np.savetxt('rho_comb_current.txt', rho_comb)
@@ -234,7 +147,7 @@ plt.close()
 fg = plt.figure(figsize=fig_dims)
 
 plt.plot(lbins, rho['cib'], label='CIB')
-plt.plot(lbins, rho['des'], label='DES')
+plt.plot(lbins, rho_gals_des, label='DES')
 plt.plot(lbins, rho_cmb, label='SPT Pol')
 plt.plot(lbins, rho_gals, label='DES +CIB')
 plt.plot(lbins, rho_comb, label='DES + CIB + SPTPol')
@@ -251,18 +164,18 @@ fg.tight_layout()
 plt.savefig('../images/actual_scenario.pdf', dpi=600, papertype='Letter')
 plt.savefig('../images/actual_scenario.png')
 
-
 # ## CMB S3 scenario
 
 # In[25]:
 
-labels = ['wise', 'cib', 'desi', 'des']
+labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2',
+          'des_bin3', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
 cmb = 'S3'
-
-
-# In[26]:
-
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
+
+labels = ['desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
+cmb = 'S3'
+lbins, _, _, rho_gals_desi, _ = multiple_survey_delens.main(labels, cmb)
 
 
 # In[27]:
@@ -278,12 +191,10 @@ plt.close()
 
 fg = plt.figure(figsize=fig_dims)
 
-plt.plot(lbins, rho['desi'], label='DESI')
-# plt.plot(lbins,rho['cib'],label = 'CIB')
-# plt.plot(lbins,rho['des'],label = 'DES')
+plt.plot(lbins, rho_gals_desi, label='DESI')
 plt.plot(lbins, rho_cmb, label='SPT 3G')
-plt.plot(lbins, rho_gals, label='DES + CIB + DES')
-plt.plot(lbins, rho_comb, label='DES + CIB + DESI + 3G')
+plt.plot(lbins, rho_gals, label='Galaxies + DESI')
+plt.plot(lbins, rho_comb, label='Galaxies + DESI + 3G')
 # plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]), '--', alpha=0.6, color='k')
 
 plt.legend(loc=0, ncol=2)
@@ -298,13 +209,13 @@ fg.tight_layout()
 plt.savefig('../images/S3_scenario.pdf', dpi=600, papertype='Letter')
 plt.savefig('../images/S3_scenario.png')
 
-
+sys.exit()
 # ## CMB S4 scenario
 
 # In[29]:
 
 # labels = ['cib', 'desi', 'des']
-labels = ['wise', 'lsst', 'ska10', 'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
+labels = ['wise', 'lsst', 'ska10', 'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3']
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
 np.savetxt('rho_cmb_S4.txt', rho_cmb)
@@ -335,7 +246,7 @@ lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cm
 plt.plot(lbins, rho_gals, label='SKA')
 
 
-labels = ['wise', 'lsst', 'cib', 'desi', 'des']
+labels = ['wise', 'lsst', 'cib', 'desi', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3']
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
 plt.plot(lbins, rho_gals, label='Gals no SKA')
@@ -612,7 +523,8 @@ plt.xlabel(r'$\ell$')
 plt.ylabel(r'$\ell(\ell+1)C^{BB}_{\ell}/ 2 \pi [ \mu K^{2} ]$')
 plt.legend(loc=0)
 plt.text(100, 2.e-2, 'SPTPol Noise', rotation=40, va='bottom', ha='left', fontsize=font_size / 1.7)
-plt.text(600, 2.8e-3, 'CMB S4 Noise', rotation=40, va='bottom', ha='left', fontsize=font_size / 1.7)
+plt.text(600, 2.8e-3, 'CMB S4 Noise', rotation=40,
+         va='bottom', ha='left', fontsize=font_size / 1.7)
 
 fg.tight_layout()
 
