@@ -12,7 +12,6 @@ except ImportError:
     import functools as functools32
 
 
-
 # ============================================
 # SIZE OF THE PICTURE
 # ============================================
@@ -193,9 +192,9 @@ plt.savefig('../images/S3_scenario.png')
 
 # ## CMB S4 scenario
 
-# In[29]:
+# In[29]: 'ska10', 'ska01', 'ska5', 'ska1'
 
-labels = ['wise', 'ska10', 'ska01', 'ska5', 'ska1', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
+labels = ['wise', 'ska10', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
           'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
@@ -214,7 +213,7 @@ plt.plot(lbins, rho_gals, label='LSST')
 # plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]),
 #          '--', alpha=0.6, linewidth=font_size / 14., color='k')
 
-labels = ['ska10', 'ska01', 'ska5', 'ska1']
+labels = ['ska10']
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
 plt.plot(lbins, rho_gals, label='SKA')
@@ -235,8 +234,42 @@ plt.xlabel(r'$\ell$')
 plt.ylabel(r'$\rho$')
 fg.tight_layout()
 
-plt.savefig('../images/S4_scenario.pdf', dpi=600, papertype='Letter')
-plt.savefig('../images/S4_scenario.png')
+plt.savefig('../images/S4_scenario_ska10.pdf', dpi=600, papertype='Letter')
+plt.savefig('../images/S4_scenario_ska10.png')
+
+
+# In[29]: 'ska10', 'ska01', 'ska5', 'ska1'
+
+labels = ['wise', 'ska01', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
+          'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
+cmb = 'S4'
+lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
+
+plt.close()
+fg = plt.figure(figsize=fig_dims)
+# plt.plot(lbins, rho_gals, label='Galaxies')
+plt.plot(lbins, rho_comb, label='Galaxies + CMB S4')
+
+# plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]),
+#          '--', alpha=0.6, linewidth=font_size / 14., color='k')
+
+labels = ['ska01']
+cmb = 'S4'
+lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
+plt.plot(lbins, rho_gals, label='SKA')
+plt.plot(lbins, rho_cmb, label='CMB S4')
+
+plt.legend(loc=0, ncol=2)
+plt.ylim(0.5, 1.2)
+plt.xlim(10, 1400)
+
+plt.title('2024 Scenario')
+plt.xlabel(r'$\ell$')
+plt.ylabel(r'$\rho$')
+fg.tight_layout()
+
+plt.savefig('../images/S4_scenario_ska01.pdf', dpi=600, papertype='Letter')
+plt.savefig('../images/S4_scenario_ska01.png')
 
 
 sys.exit()

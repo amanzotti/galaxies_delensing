@@ -652,25 +652,25 @@ for i, label in enumerate(rho_names):
 
     print('After delensing % errors', sigma_r_1, sigma_nt, sigma_nt_1)
     print(probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt)
-
-
-sys.exit()
+# ==============================
+# ==============================
+# CMB-S4
+# ==============================
+# ==============================
 
 print('')
-print(Fore.RED + 'CMB S4')
+print(Fore.RED + 'CMB S4 + SKA01')
 print('')
-# ## CMB S4
 
-# In[310]:
-
-#  'wise', 'euclid', 'des_weak', 'lsst', 'ska10',
-# #              'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
-labels = ['wise', 'euclid', 'lsst', 'ska10',
-          'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
+labels = ['wise', 'ska01', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
+          'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
 cmb = 'S4'
+
+print(Fore.RED + 'Tracers:' + '-'.join(labels))
+
 multiple_survey_delens.main(labels, cmb)
-rho_names = ['rho_euclid.txt', 'rho_lsst.txt', 'rho_ska10.txt', 'rho_ska5.txt',
-             'rho_ska1.txt', 'rho_ska01.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
+rho_names = ['rho_ska01.txt', 'rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
+
 # deep survey to delens or what is giving you E-mode
 nle = nl(1, 1, lmax=ells_cmb[-1])[2:]
 B_res3 = rho_to_Bres.main(rho_names, nle)
@@ -770,17 +770,133 @@ for i, label in enumerate(rho_names):
     print((probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
 
 
-# ## SKA ONLY
+print('')
+print(Fore.RED + 'CMB S4 + SKA10')
+print('')
+
+labels = ['wise', 'ska10', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
+          'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
+cmb = 'S4'
+
+print(Fore.RED + 'Tracers:' +  '-'.join(labels))
+
+multiple_survey_delens.main(labels, cmb)
+rho_names = ['rho_ska10.txt', 'rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
+
+# deep survey to delens or what is giving you E-mode
+nle = nl(1, 1, lmax=ells_cmb[-1])[2:]
+B_res3 = rho_to_Bres.main(rho_names, nle)
+lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
+clbb_res = {}
+for i, probe in enumerate(rho_names):
+    print(i, probe.split('.txt')[0].split('rho_')[1])
+    clbb_res[probe.split('.txt')[0].split('rho_')[1]] = InterpolatedUnivariateSpline(
+        lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
+
+
+print('')
+print(Fore.YELLOW + 'Fraction of removed Bmode power')
+for probe in rho_names[0:]:
+    probe = probe.split('.txt')[0].split('rho_')[1]
+    print(probe)
+    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
+          'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) /
+                                   clbb_lensed(np.arange(4, 500, 75))),
+          'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(np.arange(4, 1000, 100))
+                                    ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(np.arange(4, 1500, 100)))
+          )
+    print('')
+
+print('')
+print('')
+# ### r=0
+
+# In[312]:
+
+# noise_uK_arcmin=4.5,
+# fwhm_arcmin=4.,
+lmax = 3000
+# This needs to be Bicep like, the value of the deep exp
+noise_uK_arcmin = 1
+fwhm_arcmin = 1.
+r_fid = 0.
+
+print('')
+print(Fore.YELLOW + 'r=0')
+print('')
+for i, label in enumerate(rho_names):
+    probe = label.split('.txt')[0].split('rho_')[1]
+    sigma_r, sigma_nt, sigr, _ = fisher_r_nt(
+        r_fid=r_fid,
+        lmin=50,
+        lmax=lmax,
+        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))),
+        noise_uK_arcmin=noise_uK_arcmin,
+        fwhm_arcmin=fwhm_arcmin)
+    sigma_r_1, sigma_nt_1, sigr_1, _ = fisher_r_nt(
+        r_fid=r_fid,
+        lmin=50,
+        lmax=lmax,
+        clbb_cov=clbb(0., lmax=lmax),
+        noise_uK_arcmin=noise_uK_arcmin,
+        fwhm_arcmin=fwhm_arcmin)
+    print((probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
+
+
+# ### r=0.07
+
+# In[313]:
+
+# noise_uK_arcmin=4.5,
+# fwhm_arcmin=4.,
+lmax = 3000
+noise_uK_arcmin = 1
+fwhm_arcmin = 1.
+r_fid = 0.12
+
+print('')
+print('')
+
+# ### r=0.07
+print(Fore.YELLOW + 'r=0.12')
+print('')
+print('')
+
+
+for i, label in enumerate(rho_names):
+    probe = label.split('.txt')[0].split('rho_')[1]
+    sigma_r, sigma_nt, sigr, _ = fisher_r_nt(
+        r_fid=r_fid,
+        lmin=50,
+        lmax=lmax,
+        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))),
+        noise_uK_arcmin=noise_uK_arcmin,
+        fwhm_arcmin=fwhm_arcmin)
+    sigma_r_1, sigma_nt_1, sigr_1, _ = fisher_r_nt(
+        r_fid=r_fid,
+        lmin=50,
+        lmax=lmax,
+        clbb_cov=clbb(0., lmax=lmax),
+        noise_uK_arcmin=noise_uK_arcmin,
+        fwhm_arcmin=fwhm_arcmin)
+    print((probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
+
+
+# ## LSS minus SKA
 
 # In[ ]:
+print(Fore.RED + 'CMB S4 no SKA at all')
 
 #  'wise', 'euclid', 'des_weak', 'lsst', 'ska10',
 # #              'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
-labels = ['ska10', 'ska01', 'ska5', 'ska1']
+labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
+          'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
+
+print(Fore.RED + 'Tracers:' + '-'.join(labels))
+
 cmb = 'S4'
 multiple_survey_delens.main(labels, cmb)
-rho_names = ['rho_ska10.txt', 'rho_ska5.txt', 'rho_ska1.txt', 'rho_ska01.txt',
-             'rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
+rho_names = ['rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 # deep survey to delens or what is giving you E-mode
 nle = nl(1, 1, lmax=ells_cmb[-1])[2:]
 B_res3 = rho_to_Bres.main(rho_names, nle)
@@ -807,9 +923,6 @@ for probe in rho_names[1:]:
 
 print('')
 print('')
-
-
-# In[ ]:
 
 # noise_uK_arcmin=4.5,
 # fwhm_arcmin=4.,
@@ -840,17 +953,16 @@ for i, label in enumerate(rho_names):
     print((probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
 
 
-# ## LSS minus SKA
-
-# In[ ]:
+print(Fore.RED + 'CMB S4 + LSST')
 
 #  'wise', 'euclid', 'des_weak', 'lsst', 'ska10',
 # #              'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
-labels = ['wise', 'euclid', 'lsst', 'cib', 'desi', 'des']
+labels = ['lsst_bin3', 'lsst_bin4', 'lsst_bin5',
+          'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9']
 cmb = 'S4'
+print(Fore.RED + 'Tracers:' + '-'.join(labels))
 multiple_survey_delens.main(labels, cmb)
-rho_names = ['rho_euclid.txt', 'rho_lsst.txt',
-             'rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
+rho_names = ['rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 # deep survey to delens or what is giving you E-mode
 nle = nl(1, 1, lmax=ells_cmb[-1])[2:]
 B_res3 = rho_to_Bres.main(rho_names, nle)
