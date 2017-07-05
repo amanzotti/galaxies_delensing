@@ -524,7 +524,7 @@ for i, probe in enumerate(rho_names):
 
 print('')
 print(Fore.YELLOW + 'Fraction of removed Bmode power')
-for probe in rho_names[1:]:
+for probe in rho_names[0:]:
     probe = probe.split('.txt')[0].split('rho_')[1]
     print(probe)
     print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
@@ -684,7 +684,7 @@ for i, probe in enumerate(rho_names):
 
 print('')
 print(Fore.YELLOW + 'Fraction of removed Bmode power')
-for probe in rho_names[1:]:
+for probe in rho_names[0:]:
     probe = probe.split('.txt')[0].split('rho_')[1]
     print(probe)
     print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
@@ -910,7 +910,7 @@ for i, probe in enumerate(rho_names):
 
 print('')
 print(Fore.YELLOW + 'Fraction of removed Bmode power')
-for probe in rho_names[1:]:
+for probe in rho_names[0:]:
     probe = probe.split('.txt')[0].split('rho_')[1]
     print(probe)
     print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
@@ -976,7 +976,7 @@ for i, probe in enumerate(rho_names):
 
 print('')
 print(Fore.YELLOW + 'Fraction of removed Bmode power')
-for probe in rho_names[1:]:
+for probe in rho_names[0:]:
     probe = probe.split('.txt')[0].split('rho_')[1]
     print(probe)
     print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),

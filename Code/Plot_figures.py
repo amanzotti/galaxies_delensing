@@ -216,7 +216,7 @@ plt.plot(lbins, rho_gals, label='LSST')
 labels = ['ska10']
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
-plt.plot(lbins, rho_gals, label='SKA')
+plt.plot(lbins, rho_gals, label=r'SKA $0.1\mu$Jy')
 
 
 labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
@@ -256,7 +256,7 @@ plt.plot(lbins, rho_comb, label='Galaxies + CMB S4')
 labels = ['ska01']
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
-plt.plot(lbins, rho_gals, label='SKA')
+plt.plot(lbins, rho_gals, label=r'SKA $0.1\mu$Jy')
 plt.plot(lbins, rho_cmb, label='CMB S4')
 
 plt.legend(loc=0, ncol=2)
