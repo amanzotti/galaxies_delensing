@@ -1,17 +1,18 @@
-
-
 import numpy as np
 import matplotlib.pyplot as plt
 import multiple_survey_delens
-
+import sys
 import rho_to_Bres
 import configparser as ConfigParser
 import camb
-from camb import model, initialpower
+from camb import initialpower
 try:
     import functools32
 except ImportError:
     import functools as functools32
+
+
+
 # ============================================
 # SIZE OF THE PICTURE
 # ============================================
@@ -51,7 +52,6 @@ plt.rcParams['ytick.major.width'] = font_size / 10.
 # plt.rcParams['xtick.labelsize'] = font_size / 1.2
 # plt.rcParams['ytick.labelsize'] = font_size / 1.2
 
-# plt.rcParams['axes.prop_cycles'] = '#e41a1c,#377eb8,#4daf4a,#984ea3,#ff7f00,#ffff33,#a65628'
 plt.rcParams['lines.linewidth'] = font_size / 8.
 # ============================================
 
@@ -159,8 +159,6 @@ plt.savefig('../images/actual_scenario.png')
 
 # ## CMB S3 scenario
 
-# In[25]:
-
 labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2',
           'des_bin3', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
 cmb = 'S3'
@@ -170,11 +168,6 @@ labels = ['desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
 cmb = 'S3'
 lbins, _, _, rho_gals_desi, _ = multiple_survey_delens.main(labels, cmb)
 
-
-# In[27]:
-
-
-# In[28]:
 plt.close()
 
 fg = plt.figure(figsize=fig_dims)
@@ -202,28 +195,17 @@ plt.savefig('../images/S3_scenario.png')
 
 # In[29]:
 
-# labels = ['cib', 'desi', 'des']
-labels = ['wise', 'ska10', 'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
+labels = ['wise', 'ska10', 'ska01', 'ska5', 'ska1', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
           'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
 
-
-# In[31]:
-
-# plt.plot(lbins,rho['desi'],label = 'DESI')
-# plt.plot(lbins,rho['cib'],label = 'CIB')
-# plt.plot(lbins,rho['des'],label = 'DES')
 plt.close()
-
 fg = plt.figure(figsize=fig_dims)
-
 plt.plot(lbins, rho_cmb, label='CMB S4')
 # plt.plot(lbins, rho_gals, label='Galaxies')
 plt.plot(lbins, rho_comb, label='Galaxies + CMB S4')
 # plt.plot(lbins, rho['euclid'], label='Euclid')
-
-
 labels = ['lsst_bin0', 'lsst_bin1', 'lsst_bin2',
           'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9']
 cmb = 'S4'
@@ -238,17 +220,12 @@ lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cm
 plt.plot(lbins, rho_gals, label='SKA')
 
 
-labels = ['wise', 'cib', 'desi', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
+labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
           'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
 plt.plot(lbins, rho_gals, label='Gals no SKA')
 
-
-# labels = ['ska10']
-# cmb = 'S4'
-# %run -i multiple_survey_delens.py
-# plt.plot(lbins,rho_gals,label = 'SKA')
 plt.legend(loc=0, ncol=2)
 plt.ylim(0.45, 1.25)
 plt.xlim(10, 1400)
