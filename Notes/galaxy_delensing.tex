@@ -543,7 +543,7 @@ We focus on three distinct scenarios: the current stage, a third generation stag
 
 
 
-\subsection{Fisher Information Matrix}
+\subsection{Fisher Information Matrix}\label{sec:fisher}
 In the Fisher Information Matrix formalism \cite{10.2307/2342435}, the statistical uncertainty on a cosmological parameter $p$ can be obtained from the inverse of the Fisher matrix $F_{ij}$ as $\sigma(p) =\sqrt{(\mathbf{F})_{pp}^{-1}}$.
 We constrain the inflationary parameters $p =\{r,n_{t}\}$ with a CMB B-mode spectrum measurement so the Fisher matrix is:
 \beq\label{eqn:fisher}
@@ -590,9 +590,9 @@ Here we discuss the improvement that can be obtained by combining these and othe
 
 On the CMB side, we will combine a Bicep-Keck like \textit{deep} CMB experiment with an overlapping \textit{higher resolution} experiment. For the deep experiment we assume an instrumental noise equal to \textcolor{red}{$3\mu$K-arcmin}, a beam of \textcolor{red}{30 arcmin} and an angular scale range of $50<\ell<500$.
 We assume the CMB lensing reconstruction is  performed by the higher resolution CMB experiment. We explore two possibilities.
-First, we test the efficiency with an internal reconstruction of CMB lensing performed by Planck collaboration \cite{planck-collaboration:2016a}. We compute the noise in the CMB lensing map in \refeq{noisekappa} using the noise curves publicly available
+First, we test the efficiency with an internal reconstruction of CMB lensing performed by the Planck collaboration \cite{planck-collaboration:2016a}. We compute the noise in the CMB lensing map in \refeq{noisekappa} using the noise curves publicly available
 \footnote{\url{https://wiki.cosmos.esa.int/planckpla2015/index.php/Specially\_processed\_maps}}.
-Then we assume a ground-based experiment with noise levels consistent with SPT-Pol: \textcolor{red}{$9.4\mu$K-arcmin} in polarization with a beam equal to \textcolor{red}{1.2 arcmin}. In this case we set the largest achievable scale at $\ell_{min}=300$. However, the results are robust against this choice since the neglected scales contribute only moderately to the reconstruction of the CMB lensing potential.
+Furthermore, we test a second scenario with a ground-based experiment with noise levels consistent with SPT-Pol: \textcolor{red}{$9.4\mu$K-arcmin} in polarization with a beam equal to \textcolor{red}{1.2 arcmin}. In this case we set the largest achievable scale at $\ell_{min}=300$. However, the results are robust against this choice since the neglected scales contribute only moderately to the reconstruction of the CMB lensing potential.
 
 We combined these CMB experiments with the CIB and current low redshift galaxy surveys like DES and WISE and we compute the improvement in the delensing efficiency.
 Following \cite{yu:2017} we cut both the CIB and WISE at $\ell<100$ where they are contaminated by large Galactic dust residuals.
@@ -630,6 +630,12 @@ Using these correlation levels we can  compute the residual B-mode power after d
 For current surveys we only consider $p=r$ since the broad beam of the deep BK-like survey does not provide enough leverage to constrain the shape of the B-mode spectra. Note that we still let $n_{t}$ to vary in our fisher calculation even if it is not very degenerate with $r$.
 We first compute the improvement with a fiducial value of $r_{\rm{fid}}=0$.
 The results are summarized in \reftab{current} and \reftab{current-spt} for the Planck and SPTPol case respectively.
+ 
+The lensing reconstruction noise in Planck is such that internal delensing can only remove $8\%$ of the power, improving the constraints on $r$ by only a factor of 1.06 even in the ideal scenario of no instrumental noise in the B-modes. A similar performance is achieved with WISE. DES can do better, removing a level of 14\% of power. However, it covers a smaller fraction of the sky than the two previous probes. As shown in previous works \cite{sherwin:2015}, the best tracer is the CIB with a 27\% reduction in power.
+Nonetheless, it is still worth to consider all the tracers. A multi tracer-approach can bring the removed power on the overlapping area from 27\% of the CIB alone to 36\% using all the LSS and 41\% when Planck lensing reconstruction is added to the set.
+However, if we consider a realistic level of noise in the measured B-modes, this level of residual power $C_{{l}}^{BB,\mathrm{res}}$ only leads to a 30\% improvement in $\sigma(r)$ for the null hypothesis case of $r=0$. Furthermore, as explained in \refsec{fisher}, this is only an upper limit and will be even smaller when, for example, a non-perfect foreground cleaning is considered. Indeed current experiments are still significantly limited by foregrounds and instrumental noise together and not only by lensing.  
+ 
+ 
  
 \begin{table}
 \caption{$\alpha(r)$: Improvements on $\sigma(r)$ due to delensing for current generation and Planck lensing reconstruction.
