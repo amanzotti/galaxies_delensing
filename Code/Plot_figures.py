@@ -133,13 +133,6 @@ labels = ['des_bin0', 'des_bin1', 'des_bin2', 'des_bin3']
 cmb = 'now'
 lbins, _, _, rho_gals_des, _ = multiple_survey_delens.main(labels, cmb)
 
-np.savetxt('rho_cib.txt', rho['cib'])
-np.savetxt('rho_des.txt', rho_gals_des)
-np.savetxt('rho_cmb_current.txt', rho_cmb)
-np.savetxt('rho_gals_current.txt', rho_gals)
-np.savetxt('rho_comb_current.txt', rho_comb)
-np.savetxt('lbins.txt', lbins)
-
 
 # In[24]:
 plt.close()
@@ -181,11 +174,6 @@ lbins, _, _, rho_gals_desi, _ = multiple_survey_delens.main(labels, cmb)
 # In[27]:
 
 
-np.savetxt('rho_cmb_S3.txt', rho_cmb)
-np.savetxt('rho_gals_S3.txt', rho_gals)
-np.savetxt('rho_comb_S3.txt', rho_comb)
-
-
 # In[28]:
 plt.close()
 
@@ -209,18 +197,16 @@ fg.tight_layout()
 plt.savefig('../images/S3_scenario.pdf', dpi=600, papertype='Letter')
 plt.savefig('../images/S3_scenario.png')
 
-sys.exit()
+
 # ## CMB S4 scenario
 
 # In[29]:
 
 # labels = ['cib', 'desi', 'des']
-labels = ['wise', 'lsst', 'ska10', 'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3']
+labels = ['wise', 'ska10', 'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
+          'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
-np.savetxt('rho_cmb_S4.txt', rho_cmb)
-np.savetxt('rho_gals_S4.txt', rho_gals)
-np.savetxt('rho_comb_S4.txt', rho_comb)
 
 
 # In[31]:
@@ -236,7 +222,13 @@ plt.plot(lbins, rho_cmb, label='CMB S4')
 # plt.plot(lbins, rho_gals, label='Galaxies')
 plt.plot(lbins, rho_comb, label='Galaxies + CMB S4')
 # plt.plot(lbins, rho['euclid'], label='Euclid')
-plt.plot(lbins, rho['lsst'], label='LSST')
+
+
+labels = ['lsst_bin0', 'lsst_bin1', 'lsst_bin2',
+          'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9']
+cmb = 'S4'
+lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
+plt.plot(lbins, rho_gals, label='LSST')
 # plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]),
 #          '--', alpha=0.6, linewidth=font_size / 14., color='k')
 
@@ -246,7 +238,8 @@ lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cm
 plt.plot(lbins, rho_gals, label='SKA')
 
 
-labels = ['wise', 'lsst', 'cib', 'desi', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3']
+labels = ['wise', 'cib', 'desi', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
+          'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
 plt.plot(lbins, rho_gals, label='Gals no SKA')
@@ -257,7 +250,7 @@ plt.plot(lbins, rho_gals, label='Gals no SKA')
 # %run -i multiple_survey_delens.py
 # plt.plot(lbins,rho_gals,label = 'SKA')
 plt.legend(loc=0, ncol=2)
-plt.ylim(0, 1.2)
+plt.ylim(0.45, 1.25)
 plt.xlim(10, 1400)
 
 plt.title('2024 Scenario')
@@ -267,6 +260,9 @@ fg.tight_layout()
 
 plt.savefig('../images/S4_scenario.pdf', dpi=600, papertype='Letter')
 plt.savefig('../images/S4_scenario.png')
+
+
+sys.exit()
 
 
 labels = ['lsst_bin0', 'lsst_bin1', 'lsst_bin2', 'lsst_bin3', 'lsst_bin4',
@@ -354,16 +350,14 @@ fg.tight_layout()
 plt.savefig('../images/cmb_internal.pdf', dpi=600, papertype='Letter')
 plt.savefig('../images/cmb_internal.png')
 
-# sys.exit('stopping before B_res plots')
-
-# ## Galaxies Alone
-
-# In[ ]:
-
-
-# # From Correlation coeff to B$_{res}$
+############################################
+############################################
+#  THIS WILL PLOT RESIDUALS FIGURES!!!!!
+############################################
+############################################
 
 # Make plots of B_Res for actual cmb cib des and combined and future galaxies and CMB
+
 
 def bl(fwhm_arcmin, lmax):
     """ returns the map-level transfer function for a symmetric Gaussian beam.
@@ -461,36 +455,36 @@ ell = np.loadtxt(datadir + 'limber_spectra/cbb_res_ls.txt')
 rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_cmb_current.txt', 'rho_gals_current.txt', 'rho_comb_current.txt', 'rho_cib.txt',
              'rho_cmb_S3.txt', 'rho_gals_S3.txt', 'rho_comb_S3.txt', 'rho_cmb_S4.txt', 'rho_gals_S4.txt', 'rho_comb_S4.txt']
 
-plt.clf()
-plt.close()
-fg = plt.figure(figsize=fig_dims)
-plt_func = plt.semilogx
-# compare with noise at 5 muk arcm
-# ell * (ell + 1.) / 2. / np.pi
-# plt_func(ell, ell * np.array(B_res3[0]), label=r'$C^{BB}_{\ell}^{\rm{lens}}$')
-plt_func(ell, ell * np.array(B_res3[1]) * 1e3,
-         label=r'$C^{BB^{\rm{res}}}_{\ell}}$', linewidth=font_size / 12.5, alpha=0.8)
-plt_func(ell, ell * np.array(B_res3[-1]) * 1e3,
-         label=r'$C^{BB^{\rm{res}}}_{\ell}}$', linewidth=font_size / 12.5, alpha=0.8)
+# plt.clf()
+# plt.close()
+# fg = plt.figure(figsize=fig_dims)
+# plt_func = plt.semilogx
+# # compare with noise at 5 muk arcm
+# # ell * (ell + 1.) / 2. / np.pi
+# # plt_func(ell, ell * np.array(B_res3[0]), label=r'$C^{BB}_{\ell}^{\rm{lens}}$')
+# plt_func(ell, ell * np.array(B_res3[1]) * 1e3,
+#          label=r'$C^{BB^{\rm{res}}}_{\ell}}$', linewidth=font_size / 12.5, alpha=0.8)
+# plt_func(ell, ell * np.array(B_res3[-1]) * 1e3,
+#          label=r'$C^{BB^{\rm{res}}}_{\ell}}$', linewidth=font_size / 12.5, alpha=0.8)
 
-plt_func(clbb_tens(r=0.01, lmax=3000) / (np.arange(0, 3001) + 1) *
-         np.pi * 2. * 1e3, label=r'$C^{BB^{\rm{tens}}}_{\ell}, ~ r=0.01$', linestyle='--', linewidth=font_size / 7.5, alpha=0.8)
-plt_func(clbb(r=0.01, lmax=3000) / (np.arange(0, 3001) + 1) *
-         np.pi * 2. * 1e3, label=r'$C^{BB^{\rm{tot}}}_{\ell}$', linewidth=font_size / 12.5)
-fact = np.arange(0, 4001)
-plt.fill_between(np.arange(0, 4001), fact * nl(1, 1, 4000) * 1e3,
-                 fact * nl(9, 1, 4000) * 1e3, alpha=0.2, label='noise')
-plt.ylim(0., 0.00075 * 1e3)
-plt.xlim(10, 2000)
-plt.xlabel(r'$\ell$')
-plt.ylabel(r'$\ell C^{BB}_{\ell}  [ 10^{-3} \mu K^{2} ]$')
-plt.legend(loc=0)
-fg.tight_layout()
-plt.text(30, 0.25, 'SPTPol', rotation=50, va='bottom', ha='left', fontsize=font_size / 2.)
-plt.text(800, 0.03, 'CMB S4', rotation=15, va='bottom', ha='left', fontsize=font_size / 2.)
+# plt_func(clbb_tens(r=0.01, lmax=3000) / (np.arange(0, 3001) + 1) *
+#          np.pi * 2. * 1e3, label=r'$C^{BB^{\rm{tens}}}_{\ell}, ~ r=0.01$', linestyle='--', linewidth=font_size / 7.5, alpha=0.8)
+# plt_func(clbb(r=0.01, lmax=3000) / (np.arange(0, 3001) + 1) *
+#          np.pi * 2. * 1e3, label=r'$C^{BB^{\rm{tot}}}_{\ell}$', linewidth=font_size / 12.5)
+# fact = np.arange(0, 4001)
+# plt.fill_between(np.arange(0, 4001), fact * nl(1, 1, 4000) * 1e3,
+#                  fact * nl(9, 1, 4000) * 1e3, alpha=0.2, label='noise')
+# plt.ylim(0., 0.00075 * 1e3)
+# plt.xlim(10, 2000)
+# plt.xlabel(r'$\ell$')
+# plt.ylabel(r'$\ell C^{BB}_{\ell}  [ 10^{-3} \mu K^{2} ]$')
+# plt.legend(loc=0)
+# fg.tight_layout()
+# plt.text(30, 0.25, 'SPTPol', rotation=50, va='bottom', ha='left', fontsize=font_size / 2.)
+# plt.text(800, 0.03, 'CMB S4', rotation=15, va='bottom', ha='left', fontsize=font_size / 2.)
 
-plt.savefig('../images/BB_res.pdf', dpi=600, papertype='Letter')
-plt.savefig('../images/BB_res.png')
+# plt.savefig('../images/BB_res.pdf', dpi=600, papertype='Letter')
+# plt.savefig('../images/BB_res.png')
 
 
 plt.clf()
@@ -513,9 +507,9 @@ plt_func(ell, ell * (ell + 1) * np.array(B_res3[-1]) /
 
 # plt_func(clbb(r=0.01, lmax=3000), label=r'$C^{BB^{\rm{tot}}}_{\ell}$')
 fact = np.arange(0, 4001) * (np.arange(0, 4001) + 1.) / 2. / np.pi
-plt.plot(np.arange(0, 4001), fact * nl(9, 1, 4000), linestyle='--',
+plt.plot(np.arange(0, 4001), fact * nl(9, 1, 4000), 'b', linestyle='--',
          linewidth=font_size / 14.5, alpha=0.7)
-plt.plot(np.arange(0, 4001), fact * nl(1, 1, 4000), linestyle='--',
+plt.plot(np.arange(0, 4001), fact * nl(1, 1, 4000), 'b', linestyle='--',
          linewidth=font_size / 14.5, alpha=0.7)
 plt.ylim(1e-5, 1.5e-1)
 plt.xlim(10, 1700)
@@ -532,39 +526,40 @@ plt.savefig('../images/BB_res_ell2.pdf', dpi=600, papertype='Letter')
 plt.savefig('../images/BB_res_ell2.png')
 
 
-plt.clf()
-plt.close()
-fg = plt.figure(figsize=fig_dims)
-plt_func = plt.loglog
-# compare with noise at 5 muk arcm
-# ell * (ell + 1.) / 2. / np.pi
-plt_func(ell, np.array(
-    B_res3[1]), label=r'$C^{BB}_{\ell}^{\rm{lens}}$', linewidth=font_size / 12.5, alpha=0.8)
-plt_func(ell, np.array(
-    B_res3[-1]), label=r'$C^{BB^{\rm{res}}}_{\ell}}$', linewidth=font_size / 12.5, alpha=0.8)
-plt_func(clbb_tens(r=0.01, lmax=3000) / (np.arange(0, 3001) + 1)**2 *
-         np.pi * 2., label=r'$C^{BB^{\rm{tens}}}_{\ell}, ~ r=0.01$', linestyle='--',)
+# plt.clf()
+# plt.close()
+# fg = plt.figure(figsize=fig_dims)
+# plt_func = plt.loglog
+# # compare with noise at 5 muk arcm
+# # ell * (ell + 1.) / 2. / np.pi
+# plt_func(ell, np.array(
+#     B_res3[1]), label=r'$C^{BB}_{\ell}^{\rm{lens}}$', linewidth=font_size / 12.5, alpha=0.8)
+# plt_func(ell, np.array(
+#     B_res3[-1]), label=r'$C^{BB^{\rm{res}}}_{\ell}}$', linewidth=font_size / 12.5, alpha=0.8)
+# plt_func(clbb_tens(r=0.01, lmax=3000) / (np.arange(0, 3001) + 1)**2 *
+#          np.pi * 2., label=r'$C^{BB^{\rm{tens}}}_{\ell}, ~ r=0.01$', linestyle='--',)
 
-plt_func(clbb(r=0.01, lmax=3000) / (np.arange(0, 3001) + 1) **
-         2 * np.pi * 2., label=r'$C^{BB^{\rm{tot}}}_{\ell}$', linewidth=font_size / 12.5, alpha=0.8)
+# plt_func(clbb(r=0.01, lmax=3000) / (np.arange(0, 3001) + 1) **
+# 2 * np.pi * 2., label=r'$C^{BB^{\rm{tot}}}_{\ell}$', linewidth=font_size
+# / 12.5, alpha=0.8)
 
-plt.ylabel(r'$C^{BB}_{\ell} [ \mu K^{2} ]$')
+# plt.ylabel(r'$C^{BB}_{\ell} [ \mu K^{2} ]$')
 
-# plt_func(clbb(r=0.01, lmax=3000), label=r'$C^{BB^{\rm{tot}}}_{\ell}$')
-fact = 1.
-plt.fill_between(np.arange(0, 4001), fact * nl(1, 1, 4000),
-                 fact * nl(9, 1, 4000), alpha=0.2, label='noise')
-# plt.ylim(1e-5, 4e-1)
-plt.xlim(10, 2000)
-plt.xlabel(r'$\ell$')
-# plt.ylabel(r'$C^{BB}_{\ell} [ 10^{-3} \mu K^{2} ]$')
-plt.legend(loc=0)
-plt.ylim(3e-8, 1e-5)
+# # plt_func(clbb(r=0.01, lmax=3000), label=r'$C^{BB^{\rm{tot}}}_{\ell}$')
+# fact = 1.
+# plt.fill_between(np.arange(0, 4001), fact * nl(1, 1, 4000),
+#                  fact * nl(9, 1, 4000), alpha=0.2, label='noise')
+# # plt.ylim(1e-5, 4e-1)
+# plt.xlim(10, 2000)
+# plt.xlabel(r'$\ell$')
+# # plt.ylabel(r'$C^{BB}_{\ell} [ 10^{-3} \mu K^{2} ]$')
+# plt.legend(loc=0)
+# plt.ylim(3e-8, 1e-5)
 
-# plt.text(30, 0.25, 'SPTPol', rotation=0, va='bottom', ha='left', fontsize=font_size / 2.)
-# plt.text(800, 0.03, 'CMB S4', rotation=0, va='bottom', ha='left', fontsize=font_size / 2.)
-fg.tight_layout()
+# # plt.text(30, 0.25, 'SPTPol', rotation=0, va='bottom', ha='left', fontsize=font_size / 2.)
+# # plt.text(800, 0.03, 'CMB S4', rotation=0, va='bottom', ha='left', fontsize=font_size / 2.)
+# fg.tight_layout()
 
 
-plt.savefig('../images/BB_res_ell0.pdf', dpi=600, papertype='Letter')
-plt.savefig('../images/BB_res_ell0.png')
+# plt.savefig('../images/BB_res_ell0.pdf', dpi=600, papertype='Letter')
+# plt.savefig('../images/BB_res_ell0.png')

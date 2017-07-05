@@ -232,8 +232,8 @@ def main(rho_names, nle):
 
     Config_ini = ConfigParser.ConfigParser()
     Config_ini.read(inifile)
-    output_dir = Config_ini.get('test', 'save_dir')
-
+    # output_dir = Config_ini.get('test', 'save_dir')
+    output_dir =  '/home/manzotti/galaxies_delensing/Data/'
     datadir = output_dir
 
     clpp = np.loadtxt(datadir + 'cmb_cl/pp.txt')
@@ -242,8 +242,6 @@ def main(rho_names, nle):
 
     clee *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
     clpp = clpp * 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
-
-    lbins = np.logspace(1, 3.5, 190)
 
     # clbb_th = np.loadtxt(
     #     output_dir + 'cmb_cl/bb.txt')

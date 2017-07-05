@@ -28,14 +28,8 @@ def nl(noise_uK_arcmin, fwhm_arcmin, lmax):
 
 def main(labels, cmb):
 
-    # cosmosis_dir = '/home/manzotti/cosmosis/'
-    # inifile = '/home/manzotti/cosmosis/modules/limber/galaxies_delens.ini'
-    # Config_ini = ConfigParser.ConfigParser()
-    # values = ConfigParser.ConfigParser()
-    # Config_ini.read(inifile)
-    # values_file = Config_ini.get('pipeline', 'values')
-    output_dir = '../Data/'
-    # values.read(cosmosis_dir + values_file)
+
+    output_dir =  '/home/manzotti/galaxies_delensing/Data/'
     cls = pickle.load(open('../Data/limber_spectra_delens.pkl', 'rb'))
     lbins = np.load('../Data/ells.npy')
 
@@ -63,7 +57,7 @@ def main(labels, cmb):
 
         if label == 'cib':
             cl_auto[label] = np.array([3500. * (1. * l / 3000.)**(-1.25) + 725 for l in lbins])
-            cl_auto[label] += 1000*cl_auto[label][100] * (lbins / lbins[100])**-4.6
+            cl_auto[label] += 1000 * cl_auto[label][100] * (lbins / lbins[100])**-4.6
 
         rho[label] = cl_cross_k[label] / np.sqrt(ckk[:] * cl_auto[label])
         if label == 'wise':
@@ -87,7 +81,7 @@ def main(labels, cmb):
 
             if (labels[i] == 'cib' and labels[j] == 'cib'):
                 cgg[i, j, :] = np.array([3500. * (1. * l / 3000.)**(-1.25) + 725 for l in lbins])
-                cgg[i, j, :] += 1000*cgg[i, j, 100] * (lbins / lbins[100])**-4.6
+                cgg[i, j, :] += 1000 * cgg[i, j, 100] * (lbins / lbins[100])**-4.6
 
             cgg[j, i, :] = cgg[i, j, :]
 
@@ -122,7 +116,7 @@ def main(labels, cmb):
         ckk_noise = noise_fun(lbins)
 
     elif cmb == 'S4':
-        noise = 1.0
+        noise = 1.
         beam = 1
         noise_phi = np.loadtxt(
             './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
