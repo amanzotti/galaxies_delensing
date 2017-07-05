@@ -606,7 +606,8 @@ On the other end, the CMB lensing reconstruction from SPT-Pol will be more than 
 
 
 \reffig{corrnow} and \reffig{corrnow-planck} show that the DES galaxies are effective tracers of the LSS and can, at least in the near future, be used to improve delensing for CMB experiments that overlap with it. 
-For example, DES delensing efficiency is higher than WISE firstly because of the lower level of noise and furthermore because DES galaxies are located at slightly higher redshift thus they better overlap with CMB lensing.
+For example, DES delensing efficiency is higher than WISE firstly because of the lower level of noise and furthermore because DES galaxies are located at slightly higher redshift thus they better overlap with CMB lensing. As expected the improvement of the internal CMB reconstruction reduces the relative importance of LSS. 
+In particular it can be seen in \reffig{corrnow} that optical surveys will rapidly lose the role of filling in large-scale modes and they will start to supplement information at higher multipoles.
 
 
 \begin{figure}[htbp]
@@ -634,8 +635,10 @@ The results are summarized in \reftab{current} and \reftab{current-spt} for the 
 The lensing reconstruction noise in Planck is such that internal delensing can only remove $8\%$ of the power, improving the constraints on $r$ by a factor of 1.06 even in the ideal scenario of no instrumental noise in the B-modes. A similar performance is achieved with WISE. DES can do better, removing a level of 14\% of power. However, it covers a smaller fraction of the sky than the two previous probes. As shown in previous works \cite{sherwin:2015}, the best tracer is the CIB with a 27\% reduction in power.
 Nonetheless, it is still worth to consider all the tracers. Indeed a multi tracer-approach can bring the removed power on the overlapping area from 27\% of the CIB alone to 36\% using all the LSS and 41\% when Planck lensing reconstruction is added to the set.
 However, if we consider a realistic level of noise in the measured B-modes, this level of residual power $C_{{l}}^{BB,\mathrm{res}}$ only leads to a 30\% improvement in $\sigma(r)$ for the null hypothesis case of $r=0$. Furthermore, as explained in \refsec{fisher}, this is only an upper limit and will be even smaller when, for example, a non-perfect foreground cleaning is considered. Indeed current experiments are still significantly limited by foregrounds and instrumental noise together and not only by lensing. 
-If on the other side we consider an high-resolution ground base experiment the internal lensing reconstruction improves significantly. With an instrumental noise at the expected level for SPTPol the CMB will soon be able to remove an amount of power (35\%) at the level of the CIB. Once combined with LSS tracer this will lead to removing 56\% of the power. 
-The improvement of 1.57 in $\sigma(r)$ that will follow even when realistic noise is considered is such that \relook{here}
+
+If, on the other side, we consider an high-resolution ground base experiment the internal lensing reconstruction improves significantly. 
+\reftab{current-spt} shows that, with an instrumental noise at the expected level for SPTPol, the CMB will soon be able to remove an amount of power (35\%) at the level of the CIB. Once combined with LSS tracer this will lead to removing 56\% of the power. 
+The improvement of 1.57 in $\sigma(r)$ that will follow, even when realistic noise is considered, is such that it will make delensing a  needed step for CMB polarization data analysis.
  
  
  
@@ -657,12 +660,7 @@ LSS+CMB (41\%)& 1.77& 1.31& 1.10  \\ \hline
 \label{tab:current}
 \end{table}
 
-We also test a scenario where primordial gravitational waves are present at their highest possible value of $r_{\rm{fid}}=0.12$ \cite{bicep2/keck-collaboration:2015}. As expected the importance of delensing itself is now reduced given that the lensing component constitutes a smaller portion of the total B-modes variance.
-
-\reftab{current-spt} that uses SPTPol instead of Planck for the internal reconstruction shows consistent results.
-As expected the improvement of the internal CMB reconstruction reduces the relative importance of LSS. 
-This can be seen in \reftab{current-spt}. 
-In particular optical surveys will rapidly lose the role of filling in large-scale modes and they will start to supplement information at higher multipoles.
+We also test a scenario where primordial gravitational waves are present at their highest possible value of $r_{\rm{fid}}=0.12$ \cite{bicep2/keck-collaboration:2015}. As expected the importance of delensing itself is now reduced given that the lensing component constitutes a smaller portion of the total B-modes variance
  
  
  
@@ -690,15 +688,15 @@ LSS+CMB (56\%) & 2.18 & 1.57 & 1.16  \\ \hline
 
 \subsection{CMB-S3 Era}
 CMB polarization measurements are rapidly improving. Indeed the next generation of ground-based telescopes has been already deployed, and data are currently being taken.
-We model the CMB S3 stage with a deep experiment with a level of noise of \textcolor{red}{$3\mu$K-arcmin} with a \textcolor{red}{1 arcmin} beam. 
-We assume here that a deep CMB experiment and an overlapping high resolution one will be able to combine their measured modes.
-For this reason, we will also assume this level of noise for the internal noise reconstruction. With this experimental setup we can push the angular scale range used to calculate the Fisher matrix to $50<\ell<3000$ even if most of the high $\ell$ scale do not contribute to the constraints.
-Not only will CMB experiments improve shortly: eventually DESI will start taking data. For this reason, we add DESI to the previously mentioned LSS tracers. 
+We model the CMB S3 stage with a deep experiment with a level of noise of \textcolor{red}{$3\mu$K-arcmin} and a \textcolor{red}{1 arcmin} beam. 
+We assume here that a deep CMB experiment and an overlapping high-resolution one will be able to combine their measured modes.
+For this reason, we will also assume this level of noise for the internal noise reconstruction. With this experimental setup, we can push the angular scale range used to calculate the Fisher matrix to $50<\ell<3000$ even if most of the high $\ell$ scale do not contribute to the constraints.
+Not only will CMB experiments improve shortly: eventually DESI will start taking data. For this reason, we add DESI to the LSS tracers used in \refsec{del_res}. 
 
 The correlation factor attainable using generation 3 experiments is shown in \reffig{corrS3}.
-An interesting finding is that DESI will be less efficient (removing 10\% of the power) than a DES-like survey (14\%) despite the fact that it can probe slightly higher redshift. The reason is that, for the broad CMB kernel, spectroscopic redshift accuracy is not needed and the lower shot noise in DES play a significant role in the delensing efficiency. Unfortunately, adding DESI will only bring the power removed using LSS fro 36 to 41\%.
+An interesting finding is that DESI will be less efficient (removing 10\% of the power) than a DES-like survey (14\%) despite the fact that it can probe slightly higher redshift. The reason is that, because of the broad CMB kernel, spectroscopic redshift accuracy is not needed and the lower shot noise in DES the delensing efficiency significantly. Unfortunately, adding DESI will only bring the power removed using LSS from 36 to 41\%.
 Indeed, even in the near future, CIB will still play the dominant role among LSS.
-Contrary to current experiments, th CMB internal reconstruction will dominate the correlation with the lensing potential up to $\ell\simeq 550$.
+Contrary to current experiments, the CMB internal reconstruction will dominate the correlation with the lensing potential up to $\ell\simeq 550$.
 
 %This generation of experiments will start exploring the small scales B-modes thus constraining, even if loosely, the value of $n_{t}$.
 
@@ -711,12 +709,12 @@ Contrary to current experiments, th CMB internal reconstruction will dominate th
 \end{figure}
 
  
-The improvement in the constraint on $r$ is summarized in \reftab{S3}. 
-Given the improvement in the noise of the high resolution experiment, CMB alone will be able to improve constraint on $r$ by a factor of 2 through internal delensing in the ideal case of no instrumental noise.
-Despite this, adding galaxy survey will still lead to a decent improvement with a fairly low effort.
+We summarize the improvement in the constraint on $r$ in \reftab{S3}. 
+Given the improvement in the noise of the high-resolution experiment, CMB alone will be able to improve constraint on $r$ by a factor of 2 through internal delensing in the ideal case of no instrumental noise.
+Despite this, adding galaxy survey will still lead to a decent improvement with a relatively low effort.
 Indeed galaxy surveys will still be able to remove an additional $20\%$ of power from $C_{\ell}^{BB,\mathrm{lens}}$ and to improve our constraint on the null hypothesis ($r=0$) by $15\%$. Note that apart from the addition of DESI, the tracers used here are already available for the current generation. The ongoing effort can then lead to a significant improvement even for the next generation of experiments. 
 Finally, the combination of CMB and galaxy surveys will be able to improve the constrain on the null hypothesis of no primordial waves by a factor 1.8 or to improve the constraint of a possible detection (r=0.12) by 30\%.
-As expected the improvement on $n_{t}$ is similar to the one in $r$ since they are both proportional to the variance of the measured B-modes. We tested this in the scenario $r=0.12$ where we additionally impose the consistency relation $n_{t}^{\rm{fid}}=-r^{\rm{fid}/8}$. 
+As expected the improvement on $n_{t}$ is similar to the one in $r$ since they are both proportional to the variance of the measured B-modes. We tested this in the scenario $r=0.12$ where we additionally impose the consistency relation $n_{t}^{\rm{fid}}=-r^{\rm{fid}}/8$. 
 It is important to note that, independently from the level of delensing, for CMB 3G experiments this statistical error will still be several times bigger than the fiducial value.  
 
 
