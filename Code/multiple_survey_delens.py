@@ -116,7 +116,7 @@ def main(labels, cmb):
         ckk_noise = noise_fun(lbins)
 
     elif cmb == 'S4':
-        noise = 1.
+        noise = 0.5
         beam = 1
         noise_phi = np.loadtxt(
             './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))

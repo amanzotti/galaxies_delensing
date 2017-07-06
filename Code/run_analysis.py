@@ -652,11 +652,22 @@ for i, label in enumerate(rho_names):
 
     print('After delensing % errors', sigma_r_1, sigma_nt, sigma_nt_1)
     print(probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt)
+
+
 # ==============================
 # ==============================
 # CMB-S4
 # ==============================
 # ==============================
+lmax = 3000
+# This needs to be Bicep like, the value of the deep exp
+noise_uK_arcmin = 1
+fwhm_arcmin = 1.
+r_fid = 0.
+nle = nl(1, 1, lmax=ells_cmb[-1])[2:]
+
+
+
 
 print('')
 print(Fore.RED + 'CMB S4 + SKA01')
@@ -672,7 +683,6 @@ multiple_survey_delens.main(labels, cmb)
 rho_names = ['rho_ska01.txt', 'rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 
 # deep survey to delens or what is giving you E-mode
-nle = nl(1, 1, lmax=ells_cmb[-1])[2:]
 B_res3 = rho_to_Bres.main(rho_names, nle)
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_res = {}
@@ -697,17 +707,39 @@ for probe in rho_names[0:]:
 
 print('')
 print('')
-# ### r=0
 
-# In[312]:
 
-# noise_uK_arcmin=4.5,
-# fwhm_arcmin=4.,
-lmax = 3000
-# This needs to be Bicep like, the value of the deep exp
-noise_uK_arcmin = 1
-fwhm_arcmin = 1.
-r_fid = 0.
+print('')
+print(Fore.YELLOW + 'r=0, no noise')
+print('')
+print('')
+print('')
+
+
+for i, label in enumerate(rho_names):
+    probe = label.split('.txt')[0].split('rho_')[1]
+    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
+        r_fid=r_fid,
+        lmin=50,
+        lmax=lmax,
+        fsky=fsky,
+        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))
+                                 ) + clbb_tens(r_fid, lmax=lmax),
+        noise_uK_arcmin=0.,
+        fwhm_arcmin=fwhm_arcmin)
+    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
+        r_fid=r_fid,
+        lmin=50,
+        lmax=lmax,
+        fsky=fsky,
+        clbb_cov=clbb(r_fid, lmax=lmax),
+        noise_uK_arcmin=0.,
+        fwhm_arcmin=fwhm_arcmin)
+    print('After delensing % errors', sigma_r_1 * 1e2)
+    print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
+                   sigma_nt_1 / sigma_nt, sigr_1 / sigr, sigmant_1 / sigmant))
+
+
 
 print('')
 print(Fore.YELLOW + 'r=0')
@@ -730,17 +762,6 @@ for i, label in enumerate(rho_names):
         fwhm_arcmin=fwhm_arcmin)
     print((probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
 
-
-# ### r=0.07
-
-# In[313]:
-
-# noise_uK_arcmin=4.5,
-# fwhm_arcmin=4.,
-lmax = 3000
-noise_uK_arcmin = 1
-fwhm_arcmin = 1.
-r_fid = 0.12
 
 print('')
 print('')
@@ -784,7 +805,6 @@ multiple_survey_delens.main(labels, cmb)
 rho_names = ['rho_ska10.txt', 'rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 
 # deep survey to delens or what is giving you E-mode
-nle = nl(1, 1, lmax=ells_cmb[-1])[2:]
 B_res3 = rho_to_Bres.main(rho_names, nle)
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_res = {}
@@ -809,17 +829,39 @@ for probe in rho_names[0:]:
 
 print('')
 print('')
-# ### r=0
 
-# In[312]:
+print('')
+print(Fore.YELLOW + 'r=0, no noise')
+print('')
+print('')
+print('')
 
-# noise_uK_arcmin=4.5,
-# fwhm_arcmin=4.,
-lmax = 3000
-# This needs to be Bicep like, the value of the deep exp
-noise_uK_arcmin = 1
-fwhm_arcmin = 1.
-r_fid = 0.
+
+for i, label in enumerate(rho_names):
+    probe = label.split('.txt')[0].split('rho_')[1]
+    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
+        r_fid=r_fid,
+        lmin=50,
+        lmax=lmax,
+        fsky=fsky,
+        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))
+                                 ) + clbb_tens(r_fid, lmax=lmax),
+        noise_uK_arcmin=0.,
+        fwhm_arcmin=fwhm_arcmin)
+    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
+        r_fid=r_fid,
+        lmin=50,
+        lmax=lmax,
+        fsky=fsky,
+        clbb_cov=clbb(r_fid, lmax=lmax),
+        noise_uK_arcmin=0.,
+        fwhm_arcmin=fwhm_arcmin)
+    print('After delensing % errors', sigma_r_1 * 1e2)
+    print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
+                   sigma_nt_1 / sigma_nt, sigr_1 / sigr, sigmant_1 / sigmant))
+
+
+
 
 print('')
 print(Fore.YELLOW + 'r=0')
@@ -842,17 +884,6 @@ for i, label in enumerate(rho_names):
         fwhm_arcmin=fwhm_arcmin)
     print((probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
 
-
-# ### r=0.07
-
-# In[313]:
-
-# noise_uK_arcmin=4.5,
-# fwhm_arcmin=4.,
-lmax = 3000
-noise_uK_arcmin = 1
-fwhm_arcmin = 1.
-r_fid = 0.12
 
 print('')
 print('')
@@ -898,7 +929,6 @@ cmb = 'S4'
 multiple_survey_delens.main(labels, cmb)
 rho_names = ['rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 # deep survey to delens or what is giving you E-mode
-nle = nl(1, 1, lmax=ells_cmb[-1])[2:]
 B_res3 = rho_to_Bres.main(rho_names, nle)
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_res = {}
@@ -923,14 +953,38 @@ for probe in rho_names[0:]:
 
 print('')
 print('')
+print('')
+print(Fore.YELLOW + 'r=0, no noise')
+print('')
+print('')
+print('')
 
-# noise_uK_arcmin=4.5,
-# fwhm_arcmin=4.,
-lmax = 3000
-# This needs to be Bicep like, the value of the deep exp
-noise_uK_arcmin = 1
-fwhm_arcmin = 1.
-r_fid = 0.
+
+for i, label in enumerate(rho_names):
+    probe = label.split('.txt')[0].split('rho_')[1]
+    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
+        r_fid=r_fid,
+        lmin=50,
+        lmax=lmax,
+        fsky=fsky,
+        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))
+                                 ) + clbb_tens(r_fid, lmax=lmax),
+        noise_uK_arcmin=0.,
+        fwhm_arcmin=fwhm_arcmin)
+    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
+        r_fid=r_fid,
+        lmin=50,
+        lmax=lmax,
+        fsky=fsky,
+        clbb_cov=clbb(r_fid, lmax=lmax),
+        noise_uK_arcmin=0.,
+        fwhm_arcmin=fwhm_arcmin)
+    print('After delensing % errors', sigma_r_1 * 1e2)
+    print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
+                   sigma_nt_1 / sigma_nt, sigr_1 / sigr, sigmant_1 / sigmant))
+
+
+
 print('')
 print(Fore.YELLOW + 'r=0')
 print('')
@@ -964,7 +1018,6 @@ print(Fore.RED + 'Tracers:' + '-'.join(labels))
 multiple_survey_delens.main(labels, cmb)
 rho_names = ['rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 # deep survey to delens or what is giving you E-mode
-nle = nl(1, 1, lmax=ells_cmb[-1])[2:]
 B_res3 = rho_to_Bres.main(rho_names, nle)
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_res = {}
@@ -989,14 +1042,37 @@ for probe in rho_names[0:]:
 
 print('')
 print('')
+print('')
+print(Fore.YELLOW + 'r=0, no noise')
+print('')
+print('')
+print('')
 
-# noise_uK_arcmin=4.5,
-# fwhm_arcmin=4.,
-lmax = 3000
-# This needs to be Bicep like, the value of the deep exp
-noise_uK_arcmin = 1
-fwhm_arcmin = 1.
-r_fid = 0.
+
+for i, label in enumerate(rho_names):
+    probe = label.split('.txt')[0].split('rho_')[1]
+    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
+        r_fid=r_fid,
+        lmin=50,
+        lmax=lmax,
+        fsky=fsky,
+        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))
+                                 ) + clbb_tens(r_fid, lmax=lmax),
+        noise_uK_arcmin=0.,
+        fwhm_arcmin=fwhm_arcmin)
+    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
+        r_fid=r_fid,
+        lmin=50,
+        lmax=lmax,
+        fsky=fsky,
+        clbb_cov=clbb(r_fid, lmax=lmax),
+        noise_uK_arcmin=0.,
+        fwhm_arcmin=fwhm_arcmin)
+    print('After delensing % errors', sigma_r_1 * 1e2)
+    print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
+                   sigma_nt_1 / sigma_nt, sigr_1 / sigr, sigmant_1 / sigmant))
+
+
 print('')
 print(Fore.YELLOW + 'r=0')
 print('')
