@@ -738,17 +738,17 @@ LSS+CMB (69\%)& 2.8 & 1.8& 1.31  \\ \hline
 An ambitious program for a generation 4 ground CMB experiment is currently under planning \cite{abazajian:2016}. 
 Moreover, satellite and balloon experiments have been proposed and have the potential to extend the accessible B-mode measurement to the largest scales.
 Following \cite{abazajian:2016} we assume a CMB-S4 ground experiment with a level of noise of \textcolor{red}{$1\mu$K-arcmin} and a \textcolor{red}{1 arcmin} beam.
-Furthermore, by the mid 2020s, several next generation of LSS survey will be online. Here, as an example for future optical galaxy surveys, we add LSST \cite{lsst-science-collaboration:2009} to the CMB lensing tracers. We test that other experiments like Euclid \cite{laureijs:2011} and WFIRST \cite{spergel:2013} have similar delensing performance. Even if they will observe similar part of the sky, because of the different strength and weakness of this experiments it will still be important to consider all of them and combine them efficiently.
-We also consider a radio continuum survey modeled following the SKA planned experiment. Radio continuum observation of the 21 cm line is in its early stage, and several experimental and data-analysis challenges need to be overcome. 
+Furthermore, by the mid 2020s, several next-generation LSS surveys will be online. Here, as an example for future optical galaxy surveys, we add LSST \cite{lsst-science-collaboration:2009} to the CMB lensing tracers. We test that other experiments like Euclid \cite{laureijs:2011} and WFIRST \cite{spergel:2013} have similar delensing performance. Even if they will observe similar part of the sky and similar modes, because of the different strengths and weaknesses of these experiments it will still be important to combine them efficiently.
+We also consider a radio continuum survey modeled following the SKA planned experiment. Radio continuum observations of the 21 cm line are in theri early stage, and several experimental and data-analysis challenges need to be overcome. 
 However, this technique has the potential to map LSS with relatively low noise up to redshift $z=6$. Here we considered just two possible  detection thresholds at 1 GHz (flux cut): 10 $\mu$Jy and 0.1 $\mu$Jy, which are representatives of the upper and lower limit levels for a SKA phase 1 (SKA1) and a SKA phase 2 (SKA2) survey.
 
-The correlation factor with CMB lensing of stage 4 experiments is shown in \reffig{corrs4}.
+The correlation factor with CMB lensing of stage 4 experiments is shown in \reffig{corrs4_10}  and in \reffig{corrs4_01} for SKA1 and SKA2 respectively.
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=1.]{../images/S4_scenario_ska10.pdf}
 \caption{Correlation factor. Same as \reffig{corrnow} but for stage 4 experiments. }
-\label{fig:corrs4}
+\label{fig:corrs4_10}
 \end{center}
 \end{figure}
 
@@ -758,31 +758,36 @@ The correlation factor with CMB lensing of stage 4 experiments is shown in \reff
 \begin{center}
 \includegraphics[scale=1.]{../images/S4_scenario_ska01.pdf}
 \caption{Correlation factor. Same as \reffig{corrnow} but for stage 4 experiments. }
-\label{fig:corrs4}
+\label{fig:corrs4_01}
 \end{center}
 \end{figure}
 
 
 
 A tomographically binned LSST-like experiment will be a very efficient CMB lensing tracer. Indeed it will be more than 70\% correlated with CMB lensing for all the scales $\ell<600$, a performance similar to a Stage-3 CMB internal reconstruction.
-SKA very new but potentially amazing
+A very similar level of efficiency will be possible with a SKA1-like experiment.
 With SKA and LSST, for the first we will have LSS tracers with a higher delensing efficiency than the CIB.
-Even if galaxy survey will improve dramatically the CMB internal reconstruction will still be the main source of delensing. This, having a perfect kernel overlap with the true lensing potential we will benefit for the very low level of noise of CMB S4 experiments.
-CMB S4 delensing will probably be limited by small secondary effect like foregrounds contamination, missing modes due to filtering etc.
+Even if galaxy survey will improve dramatically the CMB internal reconstruction will still be the main source of delensing. This, having a perfect kernel overlap with the true lensing potential will benefit from the very low level of noise of CMB S4 experiments.
+\reffig{corrs4_10} shows that a CMB-S4 experiment will be able to internally reconstruct the lensing potential at more than 90\% up to $\ell=400$
+CMB S4 delensing will probably be limited by small secondary effects like foregrounds contamination, missing modes due to filtering etc.
+\reffig{corrs4_01} shows that a futuristic SKA-2 experiment will show a very high correlation with CMB lensing being more than 80\% correlated at all the scales. This performance is comparable with a CMB-S4 internal reconstruction.
+
 
 \reftab{S4} shows the improvement on the inflationary constraint. 
 
-
-%=======================================
 
 \begin{table}
 \caption{$\alpha$: Gen 4 experiments}
   \begin{tabular}{|c | c | c | c|}
 \hline
-Surveys & $\alpha(r=0), N^{B}_{\ell}=0$ & $\alpha(r=0)$ & $\alpha(r=0.12)$ \\ \hline \hline
-LSST (10\%) &1.12 & 1.08  & 1.03 \\ \hline
-SKA (40\%) &1.73& 1.42  & 1.2\\ \hline
-CMB S4 (56\%) &2& 1.57  & 1.21 \\ \hline
+Surveys & $\alpha_{r=0}, N^{B}_{\ell}=0$ & $\alpha_{r=0}$ & $\alpha_{r=0.12}$ \\ \hline \hline
+LSST (48\%) &1.12 & 1.08  & 1.03 \\ \hline
+LSS  (60\%) &1.12 & 1.08  & 1.03 \\ \hline
+SKA (10$\mu$Jy) (53\%) &1.73& 1.42  & 1.2\\ \hline
+SKA (0.1$\mu$Jy) (77\%) &1.73& 1.42  & 1.2\\ \hline
+LSS + SKA (10$\mu$Jy)  (62\%) &1.12 & 1.08  & 1.03 \\ \hline
+LSS + SKA (0.1$\mu$Jy)  (80\%) &1.12 & 1.08  & 1.03 \\ \hline
+CMB S4 (81\%) &2& 1.57  & 1.21 \\ \hline
 LSS+CMB (69\%)& 2.8 & 1.8& 1.31  \\ \hline
 \end{tabular}
 \label{tab:S4}
@@ -793,17 +798,22 @@ LSS+CMB (69\%)& 2.8 & 1.8& 1.31  \\ \hline
 
 \begin{table}
 \caption{$\alpha$: Gen 4 experiments}
-  \begin{tabular}{ | c | c  |  c |}
+  \begin{tabular}{|c | c | c | c|}
 \hline
-Surveys & $\alpha(r)$ & $\alpha(n_{t})$\\ \hline \hline
-Euclid & 1.53 & \\ \hline
-LSST & 1.65  &\\ \hline
-SKA & 4.35  &\\ \hline
-CMB S4 & 3.7  &\\ \hline
-LSS+CMB & 6.3  &\\ \hline
+Surveys & $\alpha(r=0), N^{B}_{\ell}=0$ & $\alpha(r=0)$ & $\alpha(r=0.12)$ \\ \hline \hline
+LSST (10\%) &1.12 & 1.08  & 1.03 \\ \hline
+SKA (0.1$\mu$Jy) (40\%) &1.73& 1.42  & 1.2\\ \hline
+CMB S4 (56\%) &2& 1.57  & 1.21 \\ \hline
+LSS+CMB (69\%)& 2.8 & 1.8& 1.31  \\ \hline
 \end{tabular}
 \label{tab:S4}
 \end{table}
+
+
+%=======================================
+
+
+
 
 
 %\subsection{Bias uncertainties degradation}
@@ -826,25 +836,6 @@ LSS+CMB & 6.3  &\\ \hline
 %
 %We compute the derivatives of the power spectra as described
 
-
-%\begin{table}
-%\caption{$\alpha$: improvement on r constraint}
-%  \begin{tabular}{ | c | c  | }
-%\hline
-%Surveys & $\alpha$\\ \hline \hline
-%des & 1.34  \\ \hline
-%cib & 1.71  \\ \hline
-%cmb current & 1.79  \\ \hline
-%gals current & 2.03  \\ \hline
-%cmb S3 & 2.15  \\ \hline
-%gals S3 & 2.16  \\ \hline
-%gals S4 & 2.16  \\ \hline
-%comb current & 2.66  \\ \hline
-%comb S3 & 3.14  \\ \hline
-%cmb S4 & 4.36  \\ \hline
-%comb S4 & 5.27  \\ \hline
-%  \end{tabular}
-%\end{table}
 
 
 \section{Conclusions}
@@ -886,7 +877,7 @@ For example LSS delensing allow to remove just the low-z lensing component from 
 We thank S. Passaglia, S. Dodelson, K. Story and K. Wu for useful discussion and their review of the draft. 
 Furthermore we thank D. Alonso for his feedback on radio continuum surveys.
 
-This work made use of computing resources and support provided by the Re- search Computing Center at the University of Chicago.
+This work made use of computing resources and support provided by the Research Computing Center at the University of Chicago.
 This work was partially supported by the Kavli Institute for Cosmological Physics at the University of Chicago through grants NSF PHY-1125897 and an endowment from the Kavli Foundation and its founder Fred Kavli.
 %%%=================================================================
 
