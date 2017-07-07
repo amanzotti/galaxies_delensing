@@ -349,11 +349,6 @@ where different modes contributes with a different weight:
 \be
 W(\bl,\bl') = \frac{2 \bl' \cdot (\bl-\bl')}{|\bl-\bl'|^2} \sin(2\varphi_{\bl,\bl'}).
 \ee
-%As usual we define the power spectrum as:
-%\be
-%\langle B^{\mathrm{lens}}(\bl) ~ B^{\mathrm{lens}^*}(\tilde{\bl}) \rangle \equiv (2\pi)^2 \delta^D(\bl - \tilde{\bl}) C^{BB,\mathrm{lens}}_l .
-%\ee
-
 From this we get the power spectrum of the lensing component of the B-modes:
 \be
 C_{\ell}^{BB,\mathrm{lens}}  = \int \frac{d^2 \bl'}{(2 \pi)^2} W^2 (\bl,\bl')C^{EE}_{l'} C^{\kappa \kappa}_{|\bl-\bl'|}.
@@ -767,7 +762,7 @@ The correlation factor with CMB lensing for stage-4 experiments is shown in \ref
 
 
 A tomographically binned LSST-like experiment will be a very efficient CMB lensing tracer. Indeed it will be more than 70\% correlated with CMB lensing for all the scales $\ell<600$, a performance similar to a Stage-3 CMB internal reconstruction.
-A very similar level of efficiency will be possible with a SKA1-like experiment.
+A very similar level of efficiency will be achieved by a SKA1-like experiment.
 With SKA and LSST, for the first time we will have LSS tracers with a higher delensing efficiency than the CIB.
 Despite the improvement in galaxy surveys, the CMB internal reconstruction will still be the main source of delensing. This, having a perfect kernel overlap with the true lensing potential will benefit from the very low level of noise of CMB S4 experiments.
 \reffig{corrs4_10} shows that a CMB-S4 experiment will be able to internally reconstruct the lensing potential at more than 90\% up to $\ell=400$
@@ -775,7 +770,9 @@ At this level, CMB S4 internal delensing will probably be limited by small secon
 Finally, \reffig{corrs4_01} shows that a futuristic SKA-2 experiment will have a very high correlation with CMB lensing, being more than 80\% correlated at all the scales. This performance is comparable with a CMB-S4 internal reconstruction.
 
 
-\reftab{S4} shows the improvement on the inflationary constraint. 
+\reftab{S4} shows the improvement on the inflationary constraint given the cross correlation factors described above. 
+LSST alone will be able to remove almost half of the B-mode lensing power. This will lead to an improvement in $\sigma(r)$ of a factor of 1.8. If we add all the other LSS tracers previously included (i.e. excluding SKA) the improvement factor increase to 2.3. 
+SKA in its phase 1 will remove 53\% of the lensing power increasing 
 
 
 \begin{table}
@@ -783,14 +780,14 @@ Finally, \reffig{corrs4_01} shows that a futuristic SKA-2 experiment will have a
   \begin{tabular}{|c | c | c | c|}
 \hline
 Surveys & $\alpha_{r=0}, N^{B}_{\ell}=0$ & $\alpha_{r=0}$ & $\alpha_{r=0.12}$ \\ \hline \hline
-LSST (48\%) &1.12 & 1.08  & 1.03 \\ \hline
-LSS  (60\%) &1.12 & 1.08  & 1.03 \\ \hline
-SKA (10$\mu$Jy) (53\%) &1.73& 1.42  & 1.2\\ \hline
-SKA (0.1$\mu$Jy) (77\%) &1.73& 1.42  & 1.2\\ \hline
-LSS + SKA (10$\mu$Jy)  (62\%) &1.12 & 1.08  & 1.03 \\ \hline
-LSS + SKA (0.1$\mu$Jy)  (80\%) &1.12 & 1.08  & 1.03 \\ \hline
-CMB S4 (81\%) &2& 1.57  & 1.21 \\ \hline
-LSS+CMB (69\%)& 2.8 & 1.8& 1.31  \\ \hline
+LSST (48\%) &1.88 & 1.81  &  \\ \hline
+LSS  (60\%) &2.47 & 2.31  & \\ \hline
+SKA (10$\mu$Jy) (53\%) &2.18& 2.06  & \\ \hline
+SKA (0.1$\mu$Jy) (77\%) &4.6& 3.96  & \\ \hline
+LSS + SKA (10$\mu$Jy)  (62\%) &2.74 & 2.53  &  \\ \hline
+LSS + SKA (0.1$\mu$Jy)  (80\%) &4.66 & 3.96  &  \\ \hline
+CMB S4 (81\%) & 4.63 & 3.96  &  \\ \hline
+LSS+CMB (69\%)& 2.8 & 1.8&  \\ \hline
 \end{tabular}
 \label{tab:S4}
 \end{table}
