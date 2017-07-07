@@ -245,8 +245,8 @@ C_{\ell}^{ij}= \int_0^{\infty} \frac{dz}{c} \frac{H(z)}{\chi(z)^2}\, W^{i}(z)W^{
 \end{equation}
 
 In this equation, $H(z)$ is the Hubble factor at redshift $z$, $c$ is the speed of light and $P(k,z)$ is the matter power spectrum evaluated at wavenumber $k = \ell/\chi(z)$ and redshift $z$. 
-Furthermore $W^{i}(z)$ is the kernel function of the field $i$ introduced in \refeq{wkernel}.
-We will now describe the kernels for each of the tracers used in this work.
+%Furthermore $W^{i}(z)$ is the kernel function of the field $i$ introduced in \refeq{wkernel}.
+We will now describe the kernels $W^{i}(z)$ for each of the tracers used in this work.
 
 
 \subsection{CMB lensing potential}
@@ -259,7 +259,7 @@ W^{\kappa}(z) = \frac{3\Omega_{\rm m}}{2c}\frac{H_0^2}{H(z)}(1+z)\chi(z)\frac{\c
 %
 where $\chi_*$ is the comoving distance to the last-scattering surface at $z_*\simeq 1090$, $\Omega_{\rm m}$ and $H_0$ are the present day values of the Hubble and matter density parameters, respectively.
 
-The CMB lensing potential is \textit{the} field that we need to reconstruct to reverse the effect of large scale structure and delens the CMB.
+The CMB lensing potential is \textit{the} field that we need in order to reverse the effect of large scale structure and delens the CMB.
 However, the lensing potential can also be reconstructed using the CMB itself. In that case, we can treat it as a noisy tracer of the true field. Both the CMB lensing field and its noisy reconstructed counterpart have the same kernel $W^{\kappa}(z)$.
 However, when computing the power spectrum of the latter, we need to add a noise component. Given the instrumental noise level and the beam, we can calculate the reconstruction noise $N_{\ell}^{\kappa \kappa}$, and so
 \beq\label{eqn:noisekappa}
@@ -324,11 +324,11 @@ f_{\nu} =
 \end{equation}
 
 We place the peak of the CIB emissivity at redshift $z_c = 2$ with a broad redshift kernel of width $\sigma_z = 2$ and we set $T$ = 34K and $\nu^{\prime} \approx$ 4955 GHz.
-Note that there are several available CIB observations that have already been used to delens the CMB. Given its full-sky coverage, a promising one is the CIB map derived in \cite{2016A&A...596A.109P} using multi-frequency Planck data and the Generalized Needlet Internal Linear Combination (GNILC) component separation algorithm. 
+There are several available CIB observations that have already been used to delens the CMB. Given its full-sky coverage, a promising one is the CIB map derived in \cite{2016A&A...596A.109P} using multi-frequency Planck data and the Generalized Needlet Internal Linear Combination (GNILC) component separation algorithm. 
 
 \section{Gravitational lensing B-mode and delensing}
 \label{sec:th}
-The large scale structures described in \refsec{model} have an important impact on the search of primordial CMB B-modes: they lens the primordial E-modes generating non inflationary B-modes that constitues an important source of noise.
+The large scale structures described in \refsec{model} have an important impact on the search of primordial CMB B-modes: they lens the primordial E-modes generating non inflationary B-modes that, then constitute an important source of noise.
 
 Indeed the Q and U mode decompositions of the CMB photons polarization are remapped by lensing as:
 \be
@@ -349,6 +349,7 @@ where different modes contributes with a different weight:
 \be
 W(\bl,\bl') = \frac{2 \bl' \cdot (\bl-\bl')}{|\bl-\bl'|^2} \sin(2\varphi_{\bl,\bl'}).
 \ee
+Here $\varphi_{\bl,\bl'}$ is the angle between the two different modes $\bl$ and $\bl'$.
 From this we get the power spectrum of the lensing component of the B-modes:
 \be
 C_{\ell}^{BB,\mathrm{lens}}  = \int \frac{d^2 \bl'}{(2 \pi)^2} W^2 (\bl,\bl')C^{EE}_{l'} C^{\kappa \kappa}_{|\bl-\bl'|}.
@@ -368,7 +369,7 @@ If we have a large scale structure field I($\nver$) that traces the lensing pote
 \be
 \hat{B}^{\mathrm{lens}}(\bl) = \int \frac{d^2 \bl'}{(2 \pi)^2} W(\bl,\bl') f(\bl,\bl') E^N(\ublu) I(\bl - \bl'),
 \ee
-where $f(\bl,\bl')$ can be determined by minimizing the difference with the true $B^{\mathrm{lens}}(\bl)$ defined in \refeq{blens}. We introduce the instrumental noise in the CMB E-modes ($E^N$) that will also limit the ability to fully reconstruct the lensing B-modes. 
+where $f(\bl,\bl')$ can be determined by minimizing the difference with the true $B^{\mathrm{lens}}(\bl)$ defined in \refeq{blens}. We include the instrumental noise in the CMB E-modes ($E^N$) that will also limit the ability to fully reconstruct the lensing B-modes. 
 
 The residual lensing B-modes due to an imperfect knowledge of the true E-mode and $\phi$ will be
 \beqn
@@ -396,8 +397,8 @@ with
 \rho_{\ell}^{2}= \frac{(\cl^{\kappa I})^{2}}{\cl^{\kappa \kappa}\cl^{I I}}.
 \ee
 
-\refeq{Bres} directly relate the residual power after delensing with the cross correlation coefficients with CMB lensing of the tracers used.
-The bigger the $\rho_{\ell}^{2}$ is for an LSS field, the more it is correlated with the lensing potential acting on the CMB photons. An higher correlation allows for a better reconstruction of $\phi$ and, as a consequence, of $B^{\rm{lens}}$ leading to a smaller residual power $C_{{l}}^{BB,\mathrm{res}}$.
+\refeq{Bres} directly relates the residual power after delensing with the cross correlation coefficients with CMB lensing of the tracers used.
+The bigger the $\rho_{\ell}^{2}$ is for an LSS field, the more it is correlated with the lensing potential acting on the CMB photons. A higher correlation allows for a better reconstruction of $\phi$ and, as a consequence, of $B^{\rm{lens}}$ leading to a smaller residual power $C_{{l}}^{BB,\mathrm{res}}$.
 We conclude this section showing in \reffig{bbplot} the expected residual lensing B-modes power spectrum for some of the tracers used in this work together with the primordial B-modes component and the instrumental noise for current and future experiments.
 
 
@@ -419,24 +420,24 @@ The rapid improvement in the level of instrumental noise (dashed curves for SPTP
 In this section we extend the formalism to the case where multiple tracers are used to reconstruct the lensing potential. 
 %Furthermore we show that splitting galaxy surveys into multiple tomographic bins can significantly improve their efficiency.
 
-We start by assuming that we have n different tracers of the gravitational potentials $I_{i}$ with $i\in \{1,..,n\}$. We can optimally combine them to estimate $\phi$ or, in other word, maximizing the correlation factor $\rho$ with:
+We start by assuming that we have n different tracers of the gravitational potentials $I_{i}$ with $i\in \{1,..,n\}$. We can optimally combine them to estimate $\phi$ or, in other word, to maximize the correlation factor $\rho$ with:
 \beqn
 I         &=&    \sum_{i}c^{i}I^{i} \nonumber \\
-c_{i}     &=& (C_{II}^{-1})_{ij}C^{\kappa I^{j}}
+c_{i}     &=& (C_{II}^{-1})_{ij}C^{{\kappa I}^{j}}
 \label{eqn:combined}
 \eeqn
 where $C_{II}$ is the covariance matrix of the LSS tracers.
 The residual B-mode power can be derived from \refeq{Bres} using an ``effective'' correlation $\rho^{2}$ of these combined tracers with gravitational lensing:
 \be
-\rho^{2}_{\ell} = \sum_{i,j}\frac{C^{\kappa i}_{\ell}~(C^{-1}_{\ell})_{ij}~C^{\kappa j}_{\ell}}{C^{\kappa\kappa}_{\ell}}.
+\rho^{2}_{\ell} = \sum_{i,j}\frac{C^{\kappa ^{i}}_{\ell}~(C^{-1}_{\ell})_{ij}~C^{\kappa ^{j}}_{\ell}}{C^{\kappa\kappa}_{\ell}}.
 \label{eqn:rho-combined}
 \ee
 
 Note that the gain in adding a new tracer is not only proportional to its correlation with the CMB lensing, but it also depends on how much it is correlated with the already used set of tracers.
-\reffig{kernel} show the different kernels as a function of redshift computed using the models and parameters described in \refsec{model}. Note that the cross-correlation of a tracer with the CMB lensing is directly proportional to the overlap of their kernels. 
+\reffig{kernel} show the different kernels as a function of redshift computed using the models and parameters described in \refsec{model}. The cross-correlation of a tracer with the CMB lensing is directly proportional to the overlap of their kernels. 
 CIB and 21 cm surveys probe the high redshift structures and, independently from the model assumed, they show a relatively good overlap with the CMB lensing kernel. 
 On the other end, galaxy clustering surveys can only reconstruct the low-z portion of the lensing kernel as can be seen from the LSST, DES and DESI curves.
-However, given the low noise of this measurement and their small overlap with other probes they can still play a major role in delensing even if their overlap with the CMB lensing potential is not optimal.
+However, given the low noise of these measurements and their small overlap with other probes, they can still play a major role in delensing even if their overlap with the CMB lensing potential is not optimal.
 
 % ===================
 \begin{figure}[htbp]
@@ -450,7 +451,7 @@ However, given the low noise of this measurement and their small overlap with ot
 
 \subsection{Improving efficiency with tomographic binning}\label{sec:tomo-bin}
 The delensing efficiency of galaxy surveys can be improved by taking into account redshift information.
-When we weight a tracer with $\frac{C^{\kappa I}}{C^{II}}$ in \refeq{fweight} in order to maximize its ability to reconstruct the lensing potential we are only using redshift averaged information about the survey. However, as can be seen in \reffig{kernel}, the kernel overlap of a tracer with the CMB lensing varies as a function of redshifts. For this reason, the optimal approach is to weight galaxies at different redshifts with different weights according to both their cross-correlation with $\kappa$ and their auto-spectrum.
+When we weight a tracer with $\frac{C^{\kappa I}}{C^{II}}$ in \refeq{fweight} in order to maximize its ability to reconstruct the lensing potential we are only using redshift averaged information about the survey. However, as can be seen in \reffig{kernel}, the kernel overlap of a tracer with the CMB lensing varies as a function of redshift. For this reason, the optimal approach is to weight galaxies at different redshifts with different weights according to both their cross-correlation with $\kappa$ and their auto-spectrum.
 We can see this with a simple example. Let's split a single survey I into two non-overlapping redshift bins $I_{1}$ and ${I_{2}}$ with $I=I_{1}+I_{2}$.
 For the full survey the effective cross-correlation is equal to 
 \be
@@ -460,12 +461,12 @@ while for the split survey it will be
 \be
 \rho_{\rm{split}}^{2}= \frac{(\cl^{\kappa I_{1}})^2}{\cl^{\kappa \kappa} \cl^{I_{1} I_{1}}}+\frac{(\cl^{\kappa I_{2}})^2}{\cl^{\kappa \kappa} \cl^{I_{2} I_{2}}}.
 \ee
-Now it can be show that $\rho_{\rm{split}}\ge \rho_{\rm{full}}$ being:
+Now it can be show that $\rho_{\rm{split}}\ge \rho_{\rm{full}}$ since:
 \be
 \rho_{\rm{split}}^{2} - \rho_{\rm{full}}^{2}\propto  (\cl^{I_{1} I_{1}}\cl^{\kappa I_{2}}-\cl^{I_{2} I_{2}}\cl^{\kappa I_{1}})^2
 \ee
-Then $\rho^2$ is always bigger in the tomographic case, and the two are equal only when $\frac{C^{\kappa I_{i}}}{C^{I_{i}I_{i}}}$ is the same for all the redshift bins in which case a single optimal weight is sufficient for the entire survey. 
-Of course, binning will improve the efficiency of galaxy surveys, but it is not applicable to tracers with poor redshift information like the CIB or radio continuum surveys. 
+Then $\rho^2$ is always larger in the tomographic case, and the two are equal only when $\frac{C^{\kappa I_{i}}}{C^{I_{i}I_{i}}}$ is the same for all the redshift bins in which case a single optimal weight is sufficient for the entire survey. 
+Binning will improve the efficiency of galaxy surveys, but it is not very effective for tracers with poor redshift information like the CIB or radio continuum surveys. 
 
 In this work, we bin both photometric and spectroscopic galaxy surveys by splitting the window function \refeq{wg} into different slices such as all the bins contain the same number of galaxies. 
 For photometric surveys like DES and LSST, we assume a photometric redshift estimation gaussianly distributed around the true value with an rms fluctuation $\sigma(z)$.
@@ -522,7 +523,7 @@ This number of bins is close to the saturation point where adding more bins does
 \label{sec:for}
 
 In this section, we forecast the expected delensing efficiency and the relative importance of galaxy tracers for delensing in current and future experiments. We will use the Fisher information matrix to quantify the delensing efficiency as the improvement in the constraint of two inflationary parameters: the tensor to scalar ratio $r$ and the tensor tilt $n_{T}$.
-We assume a CMB experimental scenario composed of a high-resolution CMB experiment which defines the internal reconstruction performance, together with a low-noise, low-resolution experiment the B-modes of which \textcolor{red}{(?)} will be delensed and used to constrain the inflationary parameters.
+We assume a CMB experimental scenario composed of a high-resolution CMB experiment which defines the ability to internally reconstruct the potential $\kappa$, together with a low-noise, low-resolution experiment that measured the B-modes that will be delensed and used to constrain the inflationary parameters.
 We focus on three distinct scenarios: the current stage, a third generation stage (3G)  and finally the futuristic CMB Stage 4.
 
 
@@ -554,13 +555,13 @@ N_{\ell}^{BB} = \left({\Delta_P}/{T_{\mathrm{CMB}}}\right)^2  e^{ {l^2 \theta_\m
 \eeq
 where $\theta_\mathrm{FWHM}$ is the full half width of the telescope beam, and $\Delta_P$ is the instrumental noise of the experiment.
 
-It can be seen in \refeq{fisher} that removing the lensing contribution will improve parameters constraints.
-The parameter uncertainties are inversely proportional to the covariance of the measurement. Since the lensing B-modes $C_{{l}}^{BB,\mathrm{lens}}$ are a substantial component of the covariance, removing part of them trough delensing will reduce the parameter statistical error.
-After delensing the error $\sigma^{\rm{del}}(p)$ can still be obtained from \refeq{fisher} with $C_{{l}}^{BB,\mathrm{res}}<C_{{l}}^{BB,\mathrm{lens}}$ in the covariance defined in \refeq{cova}.
+It can be seen in \refeq{fisher} that removing the lensing contribution will improve parameter constraints.
+The parameter uncertainties are inversely proportional to the covariance of the measurement. Since the lensing B-modes $C_{{l}}^{BB,\mathrm{lens}}$ are a substantial component of the covariance, removing part of them through delensing will reduce the parameter statistical error.
+After delensing, the error $\sigma^{\rm{del}}(p)$ can still be obtained from \refeq{fisher} with $C_{{l}}^{BB,\mathrm{res}}<C_{{l}}^{BB,\mathrm{lens}}$ in the covariance defined in \refeq{cova}.
 We define the improvement as the ratio of the constraints before and after delensing: $\alpha_{r} = \sigma^{\rm{del}}(r)/\sigma(r)$ and $\alpha_{n_{t}} = \sigma^{\rm{del}}(n_{t})/\sigma(n_{t})$. The fiducial values used are described in \refsec{del_res}. Given a fiducial value for $r$, the value of $n_{t}$ is fixed imposing the consistency relation $n_t=-r/8$ \cite{LIDDLE1992391}.
 
 In \refeq{fisher} we are making a few important assumptions. 
-Firstly, we are fixing all the cosmological parameters except $\{r,n_{t}\}$. Uncertainties in those will, however, propagate to uncertainties in $\{r,n_{t}\}$. While neglecting this will lead to slightly optimistic constraints, it has no significant impact on the estimate of the improvement due to delensing.
+First, we are fixing all the cosmological parameters except $\{r,n_{t}\}$. Uncertainties in those will propagate to larger uncertainties in $\{r,n_{t}\}$. While neglecting this will lead to slightly optimistic constraints, it has no significant impact on the estimate of the improvement due to delensing.
 
 We are also neglecting an important contribution to the measured CMB B-modes: galactic polarized foregrounds. 
 The amplitude of these has been constrained in \cite{bicep2/keck-collaboration:2015, planck-collaboration:2015} and it strongly varies in different parts of the sky. Future experiments will use multi-band data to exploit the frequency dependence of these contaminants to remove them from the data. The amount of residual foregrounds depends both on uncertain foreground properties and experimental choices (see a review in \cite{abazajian:2016}).
@@ -569,7 +570,7 @@ We decided to focus on an ideal situation assuming no foregrounds or perfect cle
 
 Furthermore, we are not considering the uncertainties on galaxy survey internal parameters such as biases, source distributions and photometric redshift uncertainties. These uncertaintes can significantly degrade inflationary constraints \cite{sherwin:2015,namikawa:2016a}.
 However, as shown in \cite{sherwin:2015,namikawa:2016a}, these can be auto-calibrated i.e. they can be tightly constrained using galaxy survey auto- and cross-correlation spectra. We checked this for a few of the tracer combinations used here and find it particularly true once several tracers are jointly taken into account.
-Finally, we have assumed a Gaussian covariance even if the covariance structure has non-Gaussian contributions \cite{motloch:2017,benoit-levy:2012}. This approximation is good enough to show the improvement due to delensing.
+Finally, we have assumed a Gaussian covariance $\sigma( C_{\ell}^{BB} )$ even if has small non-Gaussian contributions \cite{motloch:2017,benoit-levy:2012}. This approximation is good enough to show the improvement due to delensing.
 
 
 
@@ -580,18 +581,18 @@ Finally, we have assumed a Gaussian covariance even if the covariance structure 
 % \the\textwidth
 
 
-Recently delensing has been performed for the first time on data using both CIB maps \cite{larsen:2016a,manzotti:2017} as well as the internal CMB lensing potential reconstruction \cite{carron:2017} as large scale structure tracers.
+Recently delensing has been performed for the first time on data using both CIB maps \cite{larsen:2016a,manzotti:2017} and internal CMB lensing maps \cite{carron:2017} as large scale structure tracers.
 Here we discuss the improvement that can be obtained by combining these and other currently available tracers (see \cite{yu:2017} for publicly accessible multi-tracers data-products).
 
 On the CMB side, we will combine a Bicep-Keck like \textit{deep} CMB experiment with an overlapping \textit{higher resolution} experiment. For the deep experiment we assume an instrumental noise equal to \textcolor{red}{$3\mu$K-arcmin}, a beam of \textcolor{red}{30 arcmin} and an angular scale range of $50<\ell<500$.
 We assume the CMB lensing reconstruction is  performed by the higher resolution CMB experiment. We explore two possibilities.
 First, we test the efficiency with an internal reconstruction of CMB lensing performed by the Planck collaboration \cite{planck-collaboration:2016a}. We compute the noise in the CMB lensing map in \refeq{noisekappa} using the noise curves publicly available
 \footnote{\url{https://wiki.cosmos.esa.int/planckpla2015/index.php/Specially\_processed\_maps}}.
-Furthermore, we test a second scenario with a ground-based experiment with noise levels consistent with SPT-Pol: \textcolor{red}{$9.4\mu$K-arcmin} in polarization with a beam equal to \textcolor{red}{1.2 arcmin}. In this case we set the largest achievable scale at $\ell_{min}=300$. However, the results are robust against this choice since the neglected scales contribute only moderately to the reconstruction of the CMB lensing potential.
+Then, we test a second scenario with a ground-based experiment with noise levels consistent with SPT-Pol: \textcolor{red}{$9.4\mu$K-arcmin} in polarization with a beam equal to \textcolor{red}{1.2 arcmin}. In this case we set the largest achievable scale at $\ell_{min}=300$. However, the results are robust against this choice since the neglected scales contribute only moderately to the reconstruction of the CMB lensing potential.
 
-We combined these CMB experiments with the CIB and current low redshift galaxy surveys like DES and WISE and we compute the improvement in the delensing efficiency.
+We combine these CMB experiments with the CIB and current low redshift galaxy surveys like DES and WISE and we compute the improvement in the delensing efficiency.
 Following \cite{yu:2017} we cut both the CIB and WISE at $\ell<100$ where they are contaminated by large Galactic dust residuals.
-Optical surveys galaxies like DES are less affected by dust and can be used at larger scales.
+Optical surveys galaxies like DES are less affected by dust and can be used on larger scales.
 The achievable correlation is shown in \reffig{corrnow-planck} for Planck and in \reffig{corrnow} for SPT-Pol.
 In these figures we include a dashed curve that corresponds to (with arbitrary scale) $<C_{\ell}^{\kappa \kappa} \times \frac{\partial C^{BB}_{\ell'}}{\partial{C^{\kappa \kappa}_{\ell}}}>_{\ell ' <100}$, in order to show which scales in $\kappa$ contribute to the $\ell<100$ B-mode power.
 
@@ -601,7 +602,7 @@ On the other end, the CMB lensing reconstruction from SPT-Pol will be more than 
 
 
 \reffig{corrnow} and \reffig{corrnow-planck} show that the DES galaxies are effective tracers of the LSS and can, at least in the near future, be used to improve delensing for CMB experiments that overlap with it. 
-For example, DES delensing efficiency is higher than WISE firstly because of the lower level of noise and furthermore because DES galaxies are located at slightly higher redshift thus they better overlap with CMB lensing. As expected the improvement of the internal CMB reconstruction reduces the relative importance of LSS. 
+For example, DES delensing efficiency is higher than WISE first because of the lower level of noise and also because DES galaxies are located at slightly higher redshift so they better overlap with CMB lensing. As expected the improvement of the internal CMB reconstruction reduces the relative importance of LSS. 
 In particular it can be seen in \reffig{corrnow} that optical surveys will rapidly lose the role of filling in large-scale modes and they will start to supplement information at higher multipoles.
 
 
@@ -623,15 +624,15 @@ The dashed curve corresponds to (with arbitrary scale) $C^{\kappa \kappa} \times
 \end{figure}
 
 Using these correlation levels we can  compute the residual B-mode power after delensing using \refeq{Bres}, and test the consequent improvement on parameter constraints with \refeq{fisher}. 
-For current surveys we only consider $p=r$ since the broad beam of the deep BK-like survey does not provide enough leverage to constrain the shape of the B-mode spectra. Note that we still let $n_{t}$ to vary in our fisher calculation even if it is not very degenerate with $r$.
+For current surveys we only consider $p=r$ since the broad beam of the deep BK-like survey does not provide enough leverage to constrain the shape of the B-mode spectra. We still let $n_{t}$ to vary in our fisher calculation even if it is not very degenerate with $r$.
 We first compute the improvement with a fiducial value of $r_{\rm{fid}}=0$.
 The results are summarized in \reftab{current} and \reftab{current-spt} for the Planck and SPTPol case respectively.
  
 The lensing reconstruction noise in Planck is such that internal delensing can only remove $8\%$ of the power, improving the constraints on $r$ by a factor of 1.06 even in the ideal scenario of no instrumental noise in the B-modes. A similar performance is achieved with WISE. DES can do better, removing a level of 14\% of power. However, it covers a smaller fraction of the sky than the two previous probes. As shown in previous works \cite{sherwin:2015}, the best tracer is the CIB with a 27\% reduction in power.
-Nonetheless, it is still worth to consider all the tracers. Indeed a multi tracer-approach can bring the removed power on the overlapping area from 27\% of the CIB alone to 36\% using all the LSS and 41\% when Planck lensing reconstruction is added to the set.
-However, if we consider a realistic level of noise in the measured B-modes, this level of residual power $C_{{l}}^{BB,\mathrm{res}}$ only leads to a 30\% improvement in $\sigma(r)$ for the null hypothesis case of $r=0$. Furthermore, as explained in \refsec{fisher}, this is only an upper limit and will be even smaller when, for example, a non-perfect foreground cleaning is considered. Indeed current experiments are still significantly limited by foregrounds and instrumental noise together and not only by lensing. 
+Nonetheless, it is still worthwhile considering all the tracers. Indeed a multi tracer-approach can bring the removed power on the overlapping area from 27\% of the CIB alone to 36\% using all the LSS and 41\% when Planck lensing reconstruction is added to the set.
+However, if we consider a realistic level of noise in the measured B-modes, this level of residual power $C_{{l}}^{BB,\mathrm{res}}$ only leads to a 30\% improvement in $\sigma(r)$ for the null hypothesis case of $r=0$. Furthermore, as explained in \refsec{fisher}, this is only an upper limit and will be even smaller when, for example, non-perfect foreground cleaning is considered. Indeed current experiments are still significantly limited by foregrounds and instrumental noise together and not only by lensing. 
 
-If, on the other side, we consider an high-resolution ground base experiment the internal lensing reconstruction improves significantly. 
+If, on the other hand, we consider a high-resolution ground base experiment the internal lensing reconstruction improves significantly. 
 \reftab{current-spt} shows that, with an instrumental noise at the expected level for SPTPol, the CMB will soon be able to remove an amount of power (35\%) at the level of the CIB. Once combined with LSS tracer this will lead to removing 56\% of the power. 
 The improvement of 1.57 in $\sigma(r)$ that will follow, even when realistic noise is considered, is such that it will make delensing a  needed step for CMB polarization data analysis.
  
@@ -715,7 +716,7 @@ It is important to note that, independently from the level of delensing, for CMB
 
 
 \begin{table}
-\caption{$\alpha$: S3 improvements. Note that the absolute error value of $\sigma(r)$ after delensing for $f_{sky} = $ is $\sigma(r) =$  }
+\caption{$\alpha$: S3 improvements. The absolute error value of $\sigma(r)$ after delensing for $f_{sky} = $ is $\sigma(r) =$  }
   \begin{tabular}{|c | c | c | c|}
 \hline
 Surveys & $\alpha(r=0), N^{B}_{\ell}=0$ & $\alpha(r=0)$ & $\alpha(r=0.12)$ \\ \hline \hline
@@ -735,7 +736,7 @@ Moreover, satellite and balloon CMB experiments have been proposed and have the 
 Following \cite{abazajian:2016} we assume a CMB-S4 ground experiment with a level of noise of \textcolor{red}{$1\mu$K-arcmin} and a \textcolor{red}{1 arcmin} beam.
 Furthermore, by the mid-2020s, several next-generation LSS surveys will be online. Here, as an example for future optical galaxy surveys, we add LSST \cite{lsst-science-collaboration:2009} to the CMB lensing tracers. 
 We test that other experiments like Euclid \cite{laureijs:2011} and WFIRST \cite{spergel:2013} have similar delensing performance. 
-Note that even if they will observe an overlapping part of the sky and similar modes, because of their different strengths and weaknesses it will still be important to combine them efficiently.
+Even if they will observe an overlapping part of the sky and similar modes, because of their different strengths and weaknesses it will still be important to combine them efficiently.
 We also consider a radio continuum survey modeled following the SKA specifications. Radio continuum observations of the 21 cm line are in their early stage, and several experimental and data-analysis challenges need to be overcome. 
 However, this technique has the potential to map the LSS with relatively low noise up to redshift $z=6$. Here we considered just two possible  detection thresholds at 1 GHz (flux cut): 10 $\mu$Jy and 0.1 $\mu$Jy, which are representatives of the upper and lower limit levels for a SKA phase 1 (SKA1) and a SKA phase 2 (SKA2) survey.
 
