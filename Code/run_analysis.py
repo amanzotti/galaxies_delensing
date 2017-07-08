@@ -775,14 +775,14 @@ print('')
 for i, label in enumerate(rho_names):
     probe = label.split('.txt')[0].split('rho_')[1]
     sigma_r, sigma_nt, sigr, _ = fisher_r_nt(
-        r_fid=r_fid,
+        r_fid=0.12,
         lmin=50,
         lmax=lmax,
         clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))),
         noise_uK_arcmin=noise_uK_arcmin,
         fwhm_arcmin=fwhm_arcmin)
     sigma_r_1, sigma_nt_1, sigr_1, _ = fisher_r_nt(
-        r_fid=r_fid,
+        r_fid=0.12,
         lmin=50,
         lmax=lmax,
         clbb_cov=clbb(0., lmax=lmax),
@@ -897,14 +897,14 @@ print('')
 for i, label in enumerate(rho_names):
     probe = label.split('.txt')[0].split('rho_')[1]
     sigma_r, sigma_nt, sigr, _ = fisher_r_nt(
-        r_fid=r_fid,
+        r_fid=0.12,
         lmin=50,
         lmax=lmax,
         clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))),
         noise_uK_arcmin=noise_uK_arcmin,
         fwhm_arcmin=fwhm_arcmin)
     sigma_r_1, sigma_nt_1, sigr_1, _ = fisher_r_nt(
-        r_fid=r_fid,
+        r_fid=0.12,
         lmin=50,
         lmax=lmax,
         clbb_cov=clbb(0., lmax=lmax),

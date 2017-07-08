@@ -348,7 +348,7 @@ def main(ini_par):
     nbins = 5
 
     dndzlsst = gals_kernel.dNdZ_parametric_LSST(z_lsst)
-    sigmaz = 0.05 * (z_lsst + 1.)
+    sigmaz = 0.01 * (z_lsst + 1.)
     # print('lsst', z_lsst.shape, dndzlsst.shape)
     # width = z_lsst[-1] / nbins
     lsst_tomo_bins, galaxies_fraction_lsst = make_tomo_bins_equal_gals_lsst(
@@ -388,7 +388,7 @@ def main(ini_par):
     euclid = gals_kernel.kern(z_euclid, dndzeuclid, hspline, pars.omegac, h, b=1.)
     nbins = 10
     dndzeuclid = gals_kernel.dNdZ_parametric_LSST(z_euclid)
-    sigmaz = 0.002 * (z_euclid + 1.)
+    sigmaz = 0.01 * (z_euclid + 1.)
     euclid_tomo_bins = make_tomo_bins_equal_gals(
         z_euclid, dndzeuclid, sigmaz=sigmaz, nbins=nbins, hspline=hspline, omegac=pars.omegac, h=h, b=1.)
 
