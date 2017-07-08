@@ -518,9 +518,9 @@ plt_func(ell, ell * (ell + 1) * np.array(B_res3[-1]) /
 
 # plt_func(clbb(r=0.01, lmax=3000), label=r'$C^{BB^{\rm{tot}}}_{\ell}$')
 fact = np.arange(0, 4001) * (np.arange(0, 4001) + 1.) / 2. / np.pi
-plt.plot(np.arange(0, 4001), fact * nl(9, 1, 4000), 'b', linestyle='--',
+plt.plot(np.arange(0, 4001), fact * nl(9, 1, 4000), color = 'black', linestyle='--',
          linewidth=font_size / 14.5, alpha=0.7)
-plt.plot(np.arange(0, 4001), fact * nl(1, 1, 4000), 'b', linestyle='--',
+plt.plot(np.arange(0, 4001), fact * nl(1, 1, 4000), color = 'black', linestyle='--',
          linewidth=font_size / 14.5, alpha=0.7)
 plt.ylim(1e-5, 1.5e-1)
 plt.xlim(10, 1700)
