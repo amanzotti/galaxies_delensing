@@ -273,7 +273,7 @@ plt.savefig('../images/S4_scenario_ska01.pdf', dpi=600, papertype='Letter')
 plt.savefig('../images/S4_scenario_ska01.png')
 
 
-sys.exit()
+# sys.exit()
 
 
 labels = ['lsst_bin0', 'lsst_bin1', 'lsst_bin2', 'lsst_bin3', 'lsst_bin4',
