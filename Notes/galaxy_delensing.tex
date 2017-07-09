@@ -163,14 +163,12 @@
 
 \begin{document}
 
-\title{Future Cosmic Microwave Background delensing with galaxy surveys.}         % Enter your title between curly braces
-\author{A. Manzotti}        % Enter your name between curly braces
+\title{Future Cosmic Microwave Background delensing with galaxy surveys.}       
+\author{A. Manzotti} 
 \email{manzotti.alessandro@gmail.com}
 \affiliation{Kavli Institute for Cosmological Physics, University of Chicago}
 \affiliation{Department of Astronomy and Astrophysics, University of Chicago, 5640 South Ellis Avenue, Chicago, IL 60637, USA}
 \date{\today}
-
-        % Enter your date or \today between curly braces
 \begin{abstract}
 
 The cosmic microwave background (CMB) polarization is a promising experimental dataset to test the inflationary paradigm and to probe the physics of the early universe. 
@@ -578,8 +576,7 @@ We decided to focus on an ideal situation assuming no foregrounds or perfect cle
 Furthermore, we are not considering the uncertainties on galaxy survey internal parameters such as biases, source distributions and photometric redshift uncertainties. These uncertaintes can significantly degrade inflationary constraints \cite{sherwin:2015,namikawa:2016a}.
 However, as shown in \cite{sherwin:2015,namikawa:2016a}, these can be auto-calibrated i.e. they can be tightly constrained using galaxy survey auto- and cross-correlation spectra. We checked this for a few of the tracer combinations used here and find it particularly true once several tracers are jointly taken into account.
 Finally, although we have assumed a Gaussian covariance $\sigma( C_{\ell}^{BB} )$ it actually has small non-Gaussian contributions \cite{motloch:2017,benoit-levy:2012}. This approximation is good enough to show the improvement due to delensing.
-
-
+The approximations made here go in the direction of a slightly optimistic \textit{absolute} value for the parameters statistical uncertainties both for the standard and the delensed case. The delensing improvement is defined as the \textit{relative} value of these uncertainties $\alpha_{i} = \sigma^{\rm{del}}(i)/\sigma(i)$ and, at first order, it is not affected by this assumptions.
 
 %===================
 \subsection{Delensing with current CMB and LSS}
@@ -867,20 +864,16 @@ In the future, the decreasing level of instrumental noise of CMB experiments wil
 The fraction of removed lensing B-modes will rapidly improve from the current level of Planck ($8\%$) and SPTPol ($35\%$) to 3G (56\%) and CMB S4 (85\%) level. 
 Already in the 3G era, the CMB internal reconstruction will be the main source of delensing. However it will still be less efficient than galaxies at small scales$\ell>500$. For this reason, combining galaxy survey with the CMB will push the fraction of removed power from $57\%$ to $68\%$.
 
+
 Even for CMB S4, galaxy surveys will still play an important role.
 For example, a tomographically binned LSST-survey will remove 56\% of the lensing power. While this performance is comparable to a Stage-3 CMB it will allow to probe the robustness against systematics of an eventual detection.
 Indeed delensing with just CMB data will require a careful study of possible biases and systematics effects due to the use of the same source (the CMB) we are delensing to reconstruct the lensing effect itself \cite{carron:2017,sehgal:2016,namikawa:2017}.
 For this reason, efficient galaxies tracers are not only useful in the short term but will also play a role in cross-checking these internal biases. 
-
-Given the high level of correlation of future galaxy surveys and CMB lensing, it is also worth looking for potential application besides the detection of inflationary B-modes.
-For example, LSS delensing allows to selectively remove from the CMB  the gravitational effect coming from the non-linear structures in the low-redshift universe. 
-Removing this component will reduce the level of non-linearities both in the CMB and in the CMB lensing power spectrum providing an alternative route to exploit all the measurable modes without having to model the non-linear component at small angular scales.
-
 % ===================
-%\onecolumngrid
+\onecolumngrid
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[scale=1.]{../images/errors_summary.pdf}
+\includegraphics[scale=1]{../images/errors_summary.pdf}
 \caption{\relook{to be filled with final results}}
 \label{fig}
 \end{center}
@@ -888,6 +881,12 @@ Removing this component will reduce the level of non-linearities both in the CMB
 \twocolumngrid
 
 % ===================
+
+Given the high level of correlation of future galaxy surveys and CMB lensing, it is also worth looking for potential application besides the detection of inflationary B-modes.
+For example, LSS delensing allows to selectively remove from the CMB  the gravitational effect coming from the non-linear structures in the low-redshift universe. 
+Removing this component will reduce the level of non-linearities both in the CMB and in the CMB lensing power spectrum providing an alternative route to exploit all the measurable modes without having to model the non-linear component at small angular scales.
+
+
 
 %=================================================================
 \section{Acknowledgments}
