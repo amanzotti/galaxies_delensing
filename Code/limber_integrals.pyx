@@ -98,13 +98,6 @@ def  cl_limber_z(chi_z, hspline, rbs, l, kernel_1, kernel_2=None,  zmin=0.0,  zm
             pk=rbs.ev((l + 0.5) / x, z)
             return 1. / x /x * h * k1 * k2 * pk
 
-    # print 'here' ,integrand(0.5)
-
-    # sys.exit()
-    # func = InterpolatedUnivariateSpline(np.linspace(zmin,zmax,100), np.vectorize(integrand)(np.linspace(zmin,zmax,100)), ext='zeros')
-    # print('')
-    # print(func(zmax-(zmax-zmin)/2.))
-    # print(scipy.integrate.quad(integrand, zmin, zmax, limit=300, epsrel=1.49e-06)[0])
     return scipy.integrate.quad(integrand, zmin, zmax, limit=600, epsabs=0., epsrel=5e-04)[0]
 
 

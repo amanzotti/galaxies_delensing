@@ -493,8 +493,18 @@ for i, label in enumerate(rho_names):
 
     print('After delensing % errors', sigma_r_1, sigma_nt)
     print(probe, 'gain = ', sigma_r_1 / sigma_r)
+# ====================================
+# ====================================
 
-# ## CMB S3
+## CMB S3
+
+# ====================================
+# ====================================
+
+
+
+
+
 
 # In[278]:
 print('')
@@ -607,17 +617,15 @@ for i, label in enumerate(rho_names):
         noise_uK_arcmin=noise_uK_arcmin,
         fwhm_arcmin=fwhm_arcmin)
 
-    print('After delensing % errors', sigma_r, sigma_nt)
+    print('After delensing % errors', sigma_r, sigma_r_1, sigma_nt)
     print(probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt)
 
 
 # ### r=0.12
+clbb.cache_clear()
+clbb_tens.cache_clear()
 
-# In[307]:
-
-# noise_uK_arcmin=4.5,
-# fwhm_arcmin=4.,
-lmax = 2000
+lmax = 4000
 noise_uK_arcmin = 3.
 fwhm_arcmin = 1.
 r_fid = 0.12
