@@ -47,11 +47,6 @@ A.~{Benoit-L{\'e}vy}, K.~M. {Smith}, and W.~{Hu}.
 \newblock {Joint Analysis of BICEP2/Keck Array and Planck Data}.
 \newblock {\em Physical Review Letters}, 114(10):101301, March 2015.
 
-\bibitem{carron17}
-J.~{Carron}, A.~{Lewis}, and A.~{Challinor}.
-\newblock {Internal delensing of Planck CMB temperature and polarization}.
-\newblock {\em ArXiv e-prints}, January 2017.
-
 \bibitem{carron:2017}
 J.~{Carron}, A.~{Lewis}, and A.~{Challinor}.
 \newblock {Internal delensing of Planck CMB temperature and polarization}.
@@ -75,20 +70,20 @@ R.~A. Fisher.
 \newblock The logic of inductive inference.
 \newblock {\em Journal of the Royal Statistical Society}, 98(1):39--82, 1935.
 
-\bibitem{hall10}
-N.~R. {Hall}, L.~{Knox}, C.~L. {Reichardt}, P.~A.~R. {Ade}, K.~A. {Aird}, B.~A.
-  {Benson}, L.~E. {Bleem}, J.~E. {Carlstrom}, C.~L. {Chang}, {H.~-.} {Cho},
-  T.~M. {Crawford}, A.~T. {Crites}, T.~{de Haan}, M.~A. {Dobbs}, E.~M.
-  {George}, N.~W. {Halverson}, G.~P. {Holder}, W.~L. {Holzapfel}, J.~D.
-  {Hrubes}, M.~{Joy}, R.~{Keisler}, A.~T. {Lee}, E.~M. {Leitch}, M.~{Lueker},
-  J.~J. {McMahon}, J.~{Mehl}, S.~S. {Meyer}, J.~J. {Mohr}, T.~E. {Montroy},
+\bibitem{hall:2010}
+N.~R. {Hall}, R.~{Keisler}, L.~{Knox}, C.~L. {Reichardt}, P.~A.~R. {Ade}, K.~A.
+  {Aird}, B.~A. {Benson}, L.~E. {Bleem}, J.~E. {Carlstrom}, C.~L. {Chang},
+  H.-M. {Cho}, T.~M. {Crawford}, A.~T. {Crites}, T.~{de Haan}, M.~A. {Dobbs},
+  E.~M. {George}, N.~W. {Halverson}, G.~P. {Holder}, W.~L. {Holzapfel}, J.~D.
+  {Hrubes}, M.~{Joy}, A.~T. {Lee}, E.~M. {Leitch}, M.~{Lueker}, J.~J.
+  {McMahon}, J.~{Mehl}, S.~S. {Meyer}, J.~J. {Mohr}, T.~E. {Montroy},
   S.~{Padin}, T.~{Plagge}, C.~{Pryke}, J.~E. {Ruhl}, K.~K. {Schaffer},
-  L.~{Shaw}, E.~{Shirokoff}, H.~G. {Spieler}, Z.~{Staniszewski}, A.~A. {Stark},
-  E.~R. {Switzer}, K.~{Vanderlinde}, J.~D. {Vieira}, R.~{Williamson}, and
-  O.~{Zahn}.
-\newblock {Angular Power Spectra of the Millimeter Wavelength Background Light
+  L.~{Shaw}, E.~{Shirokoff}, H.~G. {Spieler}, B.~{Stalder}, Z.~{Staniszewski},
+  A.~A. {Stark}, E.~R. {Switzer}, K.~{Vanderlinde}, J.~D. {Vieira},
+  R.~{Williamson}, and O.~{Zahn}.
+\newblock {Angular Power Spectra of the Millimeter-wavelength Background Light
   from Dusty Star-forming Galaxies with the South Pole Telescope}.
-\newblock {\em \apj}, 718:632--646, July 2010.
+\newblock {\em \apj}, 718:632--646, August 2010.
 
 \bibitem{hanson13}
 D.~Hanson et~al.
@@ -167,11 +162,6 @@ Lloyd Knox and Yong-Seon Song.
 \newblock Limit on the detectability of the energy scale of inflation.
 \newblock {\em Phys. Rev. Lett.}, 89:011303, Jun 2002.
 
-\bibitem{larsen:2016}
-P.~{Larsen}, A.~{Challinor}, B.~D. {Sherwin}, and D.~{Mak}.
-\newblock {A first demonstration of CIB delensing}.
-\newblock {\em ArXiv e-prints}, July 2016.
-
 \bibitem{larsen:2016a}
 P.~{Larsen}, A.~{Challinor}, B.~D. {Sherwin}, and D.~{Mak}.
 \newblock {Demonstration of Cosmic Microwave Background Delensing Using the
@@ -229,7 +219,7 @@ P.~{Motloch}, W.~{Hu}, and A.~{Benoit-L{\'e}vy}.
 T.~{Namikawa}.
 \newblock {CMB internal delensing with general optimal estimator for
   higher-order correlations}.
-\newblock {\em ArXiv e-prints}, March 2017.
+\newblock {\em \prd}, 95(10):103514, May 2017.
 
 \bibitem{namikawa:2016a}
 T.~{Namikawa}, D.~{Yamauchi}, B.~{Sherwin}, and R.~{Nagata}.
@@ -320,10 +310,10 @@ E.~{Schaan}, E.~{Krause}, T.~{Eifler}, O.~{Dor{\'e}}, H.~{Miyatake},
   WFIRST with stage 4 CMB lensing}.
 \newblock {\em ArXiv e-prints}, July 2016.
 
-\bibitem{sehgal:2016}
+\bibitem{sehgal:2017}
 N.~{Sehgal}, M.~S. {Madhavacheril}, B.~{Sherwin}, and A.~{van Engelen}.
-\newblock {Internal Delensing of Cosmic Microwave Background Acoustic Peaks}.
-\newblock {\em ArXiv e-prints}, December 2016.
+\newblock {Internal delensing of cosmic microwave background acoustic peaks}.
+\newblock {\em \prd}, 95(10):103512, May 2017.
 
 \bibitem{seljak2003}
 U.~{Seljak} and C.~M. {Hirata}.
@@ -365,21 +355,22 @@ D.~{Spergel}, N.~{Gehrels}, J.~{Breckinridge}, M.~{Donahue}, A.~{Dressler},
 \newblock {WFIRST-2.4: What Every Astronomer Should Know}.
 \newblock {\em ArXiv e-prints}, May 2013.
 
-\bibitem{vanengelen14b}
+\bibitem{van-engelen:2015}
 A.~{van Engelen}, B.~D. {Sherwin}, N.~{Sehgal}, G.~E. {Addison}, R.~{Allison},
-  N.~{Battaglia}, F.~{de Bernardis}, E.~{Calabrese}, K.~{Coughlin},
-  D.~{Crichton}, J.~R. {Bond}, R.~{Datta}, R.~{Dunner}, J.~{Dunkley},
-  E.~{Grace}, M.~{Gralla}, A.~{Hajian}, M.~{Hasselfield}, S.~{Henderson}, J.~C.
-  {Hill}, M.~{Hilton}, A.~D. {Hincks}, R.~{Hlozek}, K.~M. {Huffenberger}, J.~P.
-  {Hughes}, B.~{Koopman}, A.~{Kosowsky}, T.~{Louis}, M.~{Lungu},
-  M.~{Madhavacheril}, L.~{Maurin}, J.~{McMahon}, K.~{Moodley}, C.~{Munson},
-  S.~{Naess}, F.~{Nati}, L.~{Newburgh}, M.~D. {Niemack}, M.~{Nolta}, L.~A.
-  {Page}, B.~{Partridge}, C.~{Pappas}, B.~L. {Schmitt}, J.~L. {Sievers},
-  S.~{Simon}, D.~N. {Spergel}, S.~T. {Staggs}, E.~R. {Switzer}, J.~T. {Ward},
-  and E.~J. {Wollack}.
+  N.~{Battaglia}, F.~{de Bernardis}, J.~R. {Bond}, E.~{Calabrese},
+  K.~{Coughlin}, D.~{Crichton}, R.~{Datta}, M.~J. {Devlin}, J.~{Dunkley},
+  R.~{D{\"u}nner}, P.~{Gallardo}, E.~{Grace}, M.~{Gralla}, A.~{Hajian},
+  M.~{Hasselfield}, S.~{Henderson}, J.~C. {Hill}, M.~{Hilton}, A.~D. {Hincks},
+  R.~{Hlozek}, K.~M. {Huffenberger}, J.~P. {Hughes}, B.~{Koopman},
+  A.~{Kosowsky}, T.~{Louis}, M.~{Lungu}, M.~{Madhavacheril}, L.~{Maurin},
+  J.~{McMahon}, K.~{Moodley}, C.~{Munson}, S.~{Naess}, F.~{Nati},
+  L.~{Newburgh}, M.~D. {Niemack}, M.~R. {Nolta}, L.~A. {Page}, C.~{Pappas},
+  B.~{Partridge}, B.~L. {Schmitt}, J.~L. {Sievers}, S.~{Simon}, D.~N.
+  {Spergel}, S.~T. {Staggs}, E.~R. {Switzer}, J.~T. {Ward}, and E.~J.
+  {Wollack}.
 \newblock {The Atacama Cosmology Telescope: Lensing of CMB Temperature and
-  Polarization Derived from Cosmic Infrared Background Cross-Correlation}.
-\newblock {\em ArXiv e-prints}, December 2014.
+  Polarization Derived from Cosmic Infrared Background Cross-correlation}.
+\newblock {\em \apj}, 808:7, July 2015.
 
 \bibitem{wright:2010}
 E.~L. {Wright}, P.~R.~M. {Eisenhardt}, A.~K. {Mainzer}, M.~E. {Ressler}, R.~M.
