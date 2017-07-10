@@ -303,12 +303,12 @@ T.~{Namikawa}, D.~{Yamauchi}, B.~{Sherwin}, and R.~{Nagata}.
   Background}.
 \newblock {\em Physical Review Letters}, 112(13):131302, April 2014.
 
-\bibitem{schaan:2016}
-E.~{Schaan}, E.~{Krause}, T.~{Eifler}, O.~{Dor{\'e}}, H.~{Miyatake},
-  J.~{Rhodes}, and D.~N. {Spergel}.
-\newblock {Looking through the same lens: shear calibration for LSST, Euclid \&
-  WFIRST with stage 4 CMB lensing}.
-\newblock {\em ArXiv e-prints}, July 2016.
+\bibitem{schaan:2017}
+Emmanuel Schaan, Elisabeth Krause, Tim Eifler, Olivier Dor\'e, Hironao
+  Miyatake, Jason Rhodes, and David~N. Spergel.
+\newblock Looking through the same lens: Shear calibration for lsst, euclid,
+  and wfirst with stage 4 cmb lensing.
+\newblock {\em Phys. Rev. D}, 95:123512, Jun 2017.
 
 \bibitem{sehgal:2017}
 N.~{Sehgal}, M.~S. {Madhavacheril}, B.~{Sherwin}, and A.~{van Engelen}.
