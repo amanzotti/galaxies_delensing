@@ -166,8 +166,18 @@ print(Fore.RED + 'PLANCK + DES + CIB + WISE')
 print('')
 
 
-# =====================================
-# =====================================
+# # =====================================
+# # TEST
+
+# labels = ['wise', 'cib', 'des']
+# cmb = 'S3'
+# multiple_survey_delens.main(labels, cmb)
+# rho_names = ['rho_cmb_' + cmb + '.txt']
+
+# cmb = 'S4'
+# multiple_survey_delens.main(labels, cmb)
+# rho_names.append('rho_cmb_' + cmb + '.txt')
+# # =====================================
 
 
 labels = ['wise', 'cib', 'des']
@@ -496,14 +506,10 @@ for i, label in enumerate(rho_names):
 # ====================================
 # ====================================
 
-## CMB S3
+# CMB S3
 
 # ====================================
 # ====================================
-
-
-
-
 
 
 # In[278]:
@@ -675,8 +681,6 @@ r_fid = 0.
 nle = nl(1, 1, lmax=ells_cmb[-1])[2:]
 
 
-
-
 print('')
 print(Fore.RED + 'CMB S4 + SKA01')
 print('')
@@ -748,7 +752,6 @@ for i, label in enumerate(rho_names):
                    sigma_nt_1 / sigma_nt, sigr_1 / sigr, sigmant_1 / sigmant))
 
 
-
 print('')
 print(Fore.YELLOW + 'r=0')
 print('')
@@ -757,6 +760,7 @@ for i, label in enumerate(rho_names):
     sigma_r, sigma_nt, sigr, _ = fisher_r_nt(
         r_fid=r_fid,
         lmin=50,
+        fsky=fsky,
         lmax=lmax,
         clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))),
         noise_uK_arcmin=noise_uK_arcmin,
@@ -765,6 +769,7 @@ for i, label in enumerate(rho_names):
         r_fid=r_fid,
         lmin=50,
         lmax=lmax,
+        fsky=fsky,
         clbb_cov=clbb(0., lmax=lmax),
         noise_uK_arcmin=noise_uK_arcmin,
         fwhm_arcmin=fwhm_arcmin)
@@ -786,6 +791,7 @@ for i, label in enumerate(rho_names):
         r_fid=0.12,
         lmin=50,
         lmax=lmax,
+        fsky=fsky,
         clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))),
         noise_uK_arcmin=noise_uK_arcmin,
         fwhm_arcmin=fwhm_arcmin)
@@ -793,9 +799,11 @@ for i, label in enumerate(rho_names):
         r_fid=0.12,
         lmin=50,
         lmax=lmax,
+        fsky=fsky,
         clbb_cov=clbb(0., lmax=lmax),
         noise_uK_arcmin=noise_uK_arcmin,
         fwhm_arcmin=fwhm_arcmin)
+    print(probe, 'errors =', sigma_r_1, sigma_r, sigma_nt_1, sigma_nt)
     print((probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
 
 
@@ -807,7 +815,7 @@ labels = ['wise', 'ska10', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3'
           'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
 cmb = 'S4'
 
-print(Fore.RED + 'Tracers:' +  '-'.join(labels))
+print(Fore.RED + 'Tracers:' + '-'.join(labels))
 
 multiple_survey_delens.main(labels, cmb)
 rho_names = ['rho_ska10.txt', 'rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
@@ -867,8 +875,6 @@ for i, label in enumerate(rho_names):
     print('After delensing % errors', sigma_r_1 * 1e2)
     print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
                    sigma_nt_1 / sigma_nt, sigr_1 / sigr, sigmant_1 / sigmant))
-
-
 
 
 print('')
@@ -990,7 +996,6 @@ for i, label in enumerate(rho_names):
     print('After delensing % errors', sigma_r_1 * 1e2)
     print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
                    sigma_nt_1 / sigma_nt, sigr_1 / sigr, sigmant_1 / sigmant))
-
 
 
 print('')

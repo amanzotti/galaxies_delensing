@@ -185,7 +185,7 @@ def main(ini_par):
     # and helium set using BBN consistency
     pars.set_cosmology(H0=67.5, ombh2=0.022, omch2=0.122, mnu=0.06, omk=0, tau=0.06)
     pars.InitPower.set_params(ns=0.965, r=0)
-    pars.set_for_lmax(3500, lens_potential_accuracy=0)
+    pars.set_for_lmax(3500, lens_potential_accuracy=2)
     pars.NonLinear = model.NonLinear_both
     pars.set_matter_power(redshifts=np.linspace(0., 13, 50), kmax=5.0)
     results = camb.get_results(pars)
@@ -248,24 +248,6 @@ def main(ini_par):
     # DESI
     # =======
 
-#     desi_dndz = np.loadtxt("/home/manzotti/cosmosis/modules/limber/data_input/DESI/DESI_dndz.txt")
-#     desi_dndz[:, 1] = np.sum(desi_dndz[:, 1:], axis=1)
-
-#     dndzfun_desi = interp1d(desi_dndz[:, 0], desi_dndz[:, 1])
-# # Use sam desi
-
-    # make_spec_bins(desi_dndz[:, 0], dndzfun_desi, nbins=2,
-    #                hspline=hspline, omegac=pars.omegac, h=h, b=1.17)
-
-    # norm = scipy.integrate.quad(
-    #     dndzfun_desi, desi_dndz[0, 0], desi_dndz[-2, 0], limit=100, epsrel=1.49e-03)[0]
-    # # normalize
-    # dndzfun_desi = InterpolatedUnivariateSpline(
-    #     desi_dndz[:, 0], desi_dndz[:, 1] / norm, ext='zeros')
-    # desi1 = gals_kernel.kern(desi_dndz[:, 0], dndzfun_desi, hspline, pars.omegac, h, b=1.17)
-
-    # DESI SAM
-    # print('norm' ,scipy.integrate.quad(DESI.DESISpline_normalized, 0, 3, limit=600, epsabs=0. , epsrel=1.49e-03)[0])
 
     desi = gals_kernel.kern(np.linspace(0, 2, 100),
                             DESI.DESISpline_normalized, hspline, pars.omegac, h, b=1.17)
@@ -280,7 +262,7 @@ def main(ini_par):
 
     wise_dn_dz = np.loadtxt('/home/manzotti/galaxies_delensing/wise_dn_dz.txt')
     dndzwise = InterpolatedUnivariateSpline(wise_dn_dz[:, 0], wise_dn_dz[:, 1], k=3, ext='zeros')
-    norm = dndzwise.integral(0, 2)
+    norm = dndzwise.integral(wise_dn_dz[:, 0], wise_dn_dz[:, 1])
     dndzwise = InterpolatedUnivariateSpline(
         wise_dn_dz[:, 0], wise_dn_dz[:, 1] / norm, ext='zeros')
     # Biased was measured equal to 1.41 in Feerraro et al. WISE ISW measureament
@@ -301,7 +283,6 @@ def main(ini_par):
     # ===
     dndzfun = interp1d(z_ska, dndzska01)
     norm = scipy.integrate.quad(dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
-    # print(norm)
     # normalize
     dndzska01 = InterpolatedUnivariateSpline(
         z_ska, dndzska01 / norm * gals_kernel.dNdZ_SKA_bias(z_ska, mujk=0.1), ext='zeros')
@@ -310,7 +291,6 @@ def main(ini_par):
     # ===
     dndzfun = interp1d(z_ska, dndzska1)
     norm = scipy.integrate.quad(dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
-    # print(norm)
 
     # normalize
     dndzska1 = InterpolatedUnivariateSpline(
@@ -510,6 +490,12 @@ def main(ini_par):
         if 'lsstlsst' in cls.keys():
             print('Adding noise to LSST')
             cls['lsstlsst'] = np.array(cls['lsstlsst']) + (26 / (0.000290888)**2)**(-1)
+
+        if 'wfirstwfirst' in cls.keys():
+            print('Adding noise to LSST')
+            cls['wfirstwfirst'] = np.array(cls['wfirstwfirst']) + (45 / (0.000290888)**2)**(-1)
+
+
 
         for n, fract in enumerate(galaxies_fraction_lsst):
             print('Adding noise to LSST Bins')

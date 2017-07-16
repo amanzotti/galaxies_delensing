@@ -28,8 +28,7 @@ def nl(noise_uK_arcmin, fwhm_arcmin, lmax):
 
 def main(labels, cmb):
 
-
-    output_dir =  '/home/manzotti/galaxies_delensing/Data/'
+    output_dir = '/home/manzotti/galaxies_delensing/Data/'
     cls = pickle.load(open('../Data/limber_spectra_delens.pkl', 'rb'))
     lbins = np.load('../Data/ells.npy')
 
@@ -49,11 +48,7 @@ def main(labels, cmb):
             cl_cross_k[label][np.where(lbins < 100)] = 0.
             #  from Simone Our conservative masking leaves f sky = 0.47 and about
             # 50 million galaxies.
-            steradians_on_sphere = 4 * np.pi
-            fsky = 0.447
-            n_gal = 50e6
-            gal_per_ster = n_gal / (steradians_on_sphere * fsky)
-            cl_auto[label] += 1 / gal_per_ster * np.ones_like(cl_auto[label])
+            # noise is already where you compute spectra
 
         if label == 'cib':
             cl_auto[label] = np.array([3500. * (1. * l / 3000.)**(-1.25) + 725 for l in lbins])
@@ -105,8 +100,8 @@ def main(labels, cmb):
         ckk_noise = noise_fun(lbins)
 
     if cmb == 'S3':
-        noise = 3.0
-        beam = 1
+        noise = 1.5
+        beam = 2
         noise_phi = np.loadtxt(
             './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
         noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
@@ -116,8 +111,8 @@ def main(labels, cmb):
         ckk_noise = noise_fun(lbins)
 
     elif cmb == 'S4':
-        noise = 0.5
-        beam = 1
+        noise = 0.3
+        beam = 2
         noise_phi = np.loadtxt(
             './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
         noise_phi *= np.arange(0, len(noise_phi))**4. / 4.

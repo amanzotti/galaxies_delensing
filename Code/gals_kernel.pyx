@@ -87,6 +87,15 @@ def dNdZ_parametric_LSST(z, z0=0.5, alpha=1.27, beta=1.02):
     temp = (z / z0) ** alpha * np.exp(-(z / z0) ** beta)
     return temp
 
+def dNdZ_parametric_WFIRST(z, z0=0.6, alpha=1.27, beta=1.02):
+    '''
+    usual paramteric form of galaxies distribution
+    '''
+    temp = (z) ** alpha * np.exp(-(z / z0) ** beta)
+    return temp
+
+
+
 def dNdZ_parametric_LSST_bins(z, z0=0.5, alpha=1.27, beta=1.02 , nbins = 10):
     '''
     usual paramteric form of galaxies distribution
