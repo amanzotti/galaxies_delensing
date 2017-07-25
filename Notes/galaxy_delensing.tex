@@ -1,10 +1,10 @@
 \documentclass[reprint,superscriptaddress,amsmath,amssymb,floatfix,aps,prd,nofootinbib]{revtex4-1}
 \usepackage{bm}
 \usepackage{epsfig}
-\usepackage{natbib}
 \usepackage{graphicx,epsfig}
 \usepackage{hyperref}
 \usepackage{ifthen}
+\usepackage [english]{babel}
 \usepackage{xstring}
 % \usepackage{graphicx}\usepackage[top=2.5 cm, bottom=2.5 cm, left=1.05in, right=1.05in]{geometry}
 \usepackage[applemac]{inputenc}
@@ -34,7 +34,6 @@
 \newcommand{\physrevlett}{Phys. Rev. Lett.}
 \newcommand*\aj{AJ}
 %\newcommand*\prd{Phys.~Rev.~D}
-
 
 
 \newcommand{\nver}{\hat{\mathbf{n}}}
@@ -163,7 +162,7 @@
 
 \begin{document}
 
-\title{Future Cosmic Microwave Background delensing with galaxy surveys.}       
+\title{Future cosmic microwave background delensing with galaxy surveys.}       
 \author{A. Manzotti} 
 \email{manzotti.alessandro@gmail.com}
 \affiliation{Kavli Institute for Cosmological Physics, University of Chicago}
@@ -174,11 +173,11 @@
 The cosmic microwave background (CMB) polarization is a promising experimental dataset to test the inflationary paradigm and to probe the physics of the early universe. 
 A particular component, the so-called B-modes, is indeed a direct signature of a prediction of inflation: the presence of gravitational waves in the early universe. However, reducing the instrumental noise in future experiments will not be enough to detect this signal. 
 Secondary effects in the low redshift universe will also produce non-primordial B-modes adding confusion to the inflationary signal. In particular, the gravitational interactions of CMB photons with large scale structures will distort the primordial E-modes adding a lensing B-mode component to the primordial signal.
-Removing the lensing part ('delensing') from the measurement of CMB B-modes will then be necessary to constrain the amplitude of the primordial gravitational waves.
+Removing the lensing part (``delensing'') from the measurement of CMB B-modes will then be necessary to constrain the amplitude of the primordial gravitational waves.
 Here we discuss the role of current and future large scale structure surveys in a multi-tracers approach to delensing that will improve the reconstruction of the lensing potential that lenses the CMB photons and, as a consequence, the delensing efficiency. 
-We quantify this by the improvement due to delensing on the constraints on the inflationary tensor perturbations amplitude and shape ($r$ and $n_{t}$). We find that, in general, galaxy surveys should be splitted into tomographic bins as this can improve the correlation with CMB lensing by 30\%. 
+We quantify this by the improvement due to delensing on the constraints on the inflationary tensor perturbations amplitude and shape ($r$ and $n_{t}$). We find that, in general, galaxy surveys should be split into tomographic bins as this can improve the correlation with CMB lensing by 30\%. 
 Considering currently available survey, a DES-like galaxy survey can remove about $14\%$ of the lensing signal. The CMB experiments of the current generation will particularly benefit from large scale structure tracers that, once properly combined, will have a better performance than a CMB internal reconstruction.
-With the decrease of the instrumental noise, the CMB internal reconstruction will increase its efficiency and the fraction of removed lensing B-modes with CMB alone will rapidly improve from the current level of Planck ($8\%$) and SPTPol ($35\%$) to 3G (56\%) and CMB S4 (85\%) level.  
+With the decrease of instrumental noise, the CMB internal reconstruction will increase its efficiency and the fraction of removed lensing B-modes with CMB alone will rapidly improve from the current level of Planck ($8\%$) and SPTPol ($35\%$) to 3G (56\%) and CMB S4 (85\%) level.  
 Nevertheless optical galaxy surveys will still play an important role even for CMB S4. In particular an LSST-like survey can a achieve a delensing performance comparable to a 3G CMB experiment but with completely different systematics. This will be important to prove the robustness against systematics of an eventual detection of primordial B-modes.
 % maybe non linear scales?
 \end{abstract}
@@ -189,9 +188,9 @@ Nevertheless optical galaxy surveys will still play an important role even for C
 
 \section{Introduction}
 \label{sec:intro}
-In the standard cosmological paradigm the early universe underwent a period of near-exponential expansion called "cosmic inflation." 
+In the standard cosmological paradigm the early universe underwent a period of near-exponential expansion called ``cosmic inflation''.
 All the cosmological observations agree with this picture, making it a compelling and elegant description of the Universe initial conditions. Despite the experimental effort, other possible explanations are still valid, and a conclusive evidence of inflation is still to be found. 
-Inflation generically predicts a stochastic background of gravitational waves \cite[see e.g.][for a review]{kamionkowski15}. This prediction set inflation apart from other theories and a detection of primordial gravitational waves could be the compelling evidence cosmologists are looking for. 
+Inflation generically predicts a stochastic background of gravitational waves \cite[see e.g.][for a review]{kamionkowski15}. This prediction sets inflation apart from other theories and a detection of primordial gravitational waves could be the compelling evidence cosmologists are looking for. 
 These primordial gravitational waves in the early universe would imprint a unique signature on the polarized anisotropies of the CMB. For this reason, CMB polarization is a promising dataset to understand the physics of the early universe and ultimately test inflation.
 In particular, we can decompose the CMB polarization fields in Fourier space into even-parity (divergence) and odd-parity (curl) components, referred to as ``E'' and ``B'' modes.
  In the standard scenario, the B-mode polarization is a clean probe of primordial gravitational waves, because these are the only source of B-modes at the epoch of recombination.
@@ -202,7 +201,7 @@ However, just reducing the level of noise will not be enough to attain this goal
 Indeed, the observed B modes are not solely sourced by early universe physics; they are also produced by secondary effects taking place in the late-time low-redshift universe. 
 In this work, we will focus on the effect of gravitational interactions with large scale structures (LSS).
 Lensing shears the CMB polarization pattern, producing ``lensing B modes'' from CMB E modes \citep{zaldarriaga98}.
-This expected component has now been measured both in cross-correlation with LSS \citep{hanson13,polarbear2014c,van-engelen:2015,planck2015XV} and from CMB data alone \citep{polarbear2014b,bicep2a,keisler15}.
+This expected component has now been measured both in cross-correlation with LSS \citep{hanson13,bicep2-collaboration:2016,polarbear2014c,van-engelen:2015,planck2015XV} and from CMB data alone \citep{polarbear2014b,bicep2a,keisler15}.
 
 This component acts as a source of confusion for searches of the primordial gravitational wave background.
 Indeed, the contamination from lensing B modes is already at the level of the instrumental noise of current experiments \citep{bk14}. Thus, together with the experimental effort to reduce the amount of noise, the effect of the spurious lensing component must be understood.
@@ -210,7 +209,7 @@ Indeed, the contamination from lensing B modes is already at the level of the in
 The optimal way to reduce the lensing contributions to the B-modes is to reconstruct the expected realization of lensing B modes on the observed part of the sky and then use it to clean the data in a process called ``delensing''. 
 We can delens the observed B-modes by combining CMB polarization data (what is \textit{lensed}) with tracers of the large scale structure (what is \textit{lensing}) to reconstruct a template of the expected lensing B-modes.
 Delensing has been studied for many years \cite{knox2002, kesden2002, seljak2003, simard:2015,sherwin15,smith:2012}.
-Furthermore, it has recently been performed on CMB temperature data using the cosmic infrared background as LSS tracer \cite{larsen:2016a} and on CMB temperature and polarization data using CMB data to internally reconstruct the LSS lensing potential \cite{carron:2017}. Finally, the highest B-mode delensing efficiency has been achieved with SPT and Herschel data in which $~28\%$ of the lensing power was removed.
+Furthermore, it has recently been performed on CMB temperature data using the cosmic infrared background (CIB) as LSS tracer \cite{larsen:2016a} and on CMB temperature and polarization data using CMB data to internally reconstruct the LSS lensing potential \cite{carron:2017}. Finally, the highest B-mode delensing efficiency has been achieved with SPT and Herschel data in which $~28\%$ of the lensing power was removed \cite{manzotti:2017}.
 
 For future experiments, we need to increase the delensing efficiency by almost a factor of 3 to fully exploit the expected instrumental capabilities \cite{abazajian:2016}.
 In this paper, we propose and study a possible way: using future galaxy surveys as tracers of the lensing potential in addition to other probes such as the SKA radio continuum survey, cosmic infrared background and internal CMB reconstruction. 
@@ -273,7 +272,8 @@ The galaxy clustering kernel is:
 W^{g}(z) &= \frac{b(z)\frac{dN}{dz}}{\Bigl(\int dz'\,\frac{dN}{dz'}\Bigr)}.
 \end{split}
 \end{equation}
-Here $\frac{dN}{dz}$ is the number of galaxies observed by the survey as a function of redshift while $b(z)$ is the galaxy bias that connects the amplitude of galaxy overdensities to the underlying dark matter density.
+Here $\frac{dN}{dz}$ is the number of galaxies observed by the survey as a function of redshift while $b(z)$ is the galaxy bias that connects the amplitude of galaxy overdensities to the underlying dark matter density. 
+We use a linear bias independent of the angular scale, which is a reasonable assumption for the relatively large scales relevant for delensing ($\ell<1000$).
 When computing the auto-spectrum of the galaxy density, a shot noise term needs to be taken into account. 
 To do so, we add a constant term to the power spectrum equal to the inverse of the number of galaxies per steradians.
  Different galaxy surveys in this work are then fully characterized by their b(z), $\frac{dN}{dz}$ and the observed galaxy density.
@@ -408,7 +408,7 @@ We conclude this section showing in \reffig{bbplot} the expected residual lensin
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=1.]{../images/BB_res_ell2.pdf}
-\caption{Here we illustrate the effect of delensing on the B-mode power spectrum. The red solid line corresponds to the fiducial lensing B-mode component of the signal while the dashed green line corresponds to the inflationary one for the higher amplitude allowed by current experiments.
+\caption{Here we illustrate the effect of delensing on the B-mode power spectrum. The red solid line corresponds to the fiducial lensing B-mode component of the signal while the dashed blue line corresponds to the inflationary one for the higher amplitude allowed by current experiments.
 These are compared with the residual power left after delensing using some of the LSS tracers described in \refsec{model}. 
 The rapid improvement in the level of instrumental noise (dashed curves for SPTPol and CMB S4) will require a high delensing efficiency to exploit these experiments fully.}
 \label{fig:bbplot}
@@ -444,7 +444,7 @@ However, given the low noise of these measurements and their small overlap with 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=1.]{../images/compare_kernel.pdf}
-\caption{Kernels Comparison: Comparison of the different kernels as a function of redshift for some of the tracers used in this analysis. The bigger the overlap with the CMB lensing kernel the better the reconstruction of the lensing potential will be leading to a higher delensing efficiency. }
+\caption{Kernel Comparison: Comparison of the different kernels as a function of redshift for some of the tracers used in this analysis. The bigger the overlap with the CMB lensing kernel the better the reconstruction of the lensing potential will be leading to a higher delensing efficiency. }
 \label{fig:kernel}
 \end{center}
 \end{figure}
@@ -485,7 +485,7 @@ W_{i}(z) \propto b(z) {\frac{dN(z)}{dz}}
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=1.]{../images/compare_kernel_tomo.pdf}
-\caption{Kernels Comparison with tomographic bins: Comparison of the 10 LSST  tomographic bins together with the full LSST survey and the CMB lensing kernel. 
+\caption{Kernel Comparison with tomographic bins: Comparison of the 10 LSST  tomographic bins together with the full LSST survey and the CMB lensing kernel. 
 Compared to a full survey approach, tomographic binning allows to optimally weight different bins according to their cross-correlation with the CMB lensing. This leads to a better delensing efficiency. }
 \label{fig:kerneltomo}
 \end{center}
@@ -585,7 +585,7 @@ The approximations made here go in the direction of a slightly optimistic \texti
 Recently delensing has been performed for the first time on data using both CIB maps \cite{larsen:2016a,manzotti:2017} and internal CMB lensing maps \cite{carron:2017} as large scale structure tracers.
 Here we discuss the improvement that can be obtained by combining these and other currently available tracers (see \cite{yu:2017} for publicly accessible multi-tracers data-products).
 
-On the CMB side, we will combine a Bicep-Keck like \textit{deep} CMB experiment with an overlapping \textit{higher resolution} experiment. For the deep experiment we assume an instrumental noise equal to \textcolor{red}{$3\mu$K-arcmin}, a beam of \textcolor{red}{30 arcmin} and an angular scale range of $50<\ell<500$.
+On the CMB side, we will combine a BICEP-Keck like \textit{deep} CMB experiment with an overlapping \textit{higher resolution} experiment. For the deep experiment we assume an instrumental noise equal to \textcolor{red}{$3\mu$K-arcmin}, a beam of \textcolor{red}{30 arcmin} and an angular scale range of $50<\ell<500$.
 We assume the CMB lensing reconstruction is  performed by the higher resolution CMB experiment. We explore two possibilities.
 First, we test the efficiency with an internal reconstruction of CMB lensing performed by the Planck collaboration \cite{planck-collaboration:2016a}. We compute the noise in the CMB lensing map in \refeq{noisekappa} using the noise curves publicly available
 \footnote{\url{https://wiki.cosmos.esa.int/planckpla2015/index.php/Specially\_processed\_maps}}.
@@ -778,7 +778,7 @@ Finally, \reffig{corrs4_01} shows that a very futuristic SKA-2 experiment will h
 
 \reftab{S4} shows the improvement on the inflationary constraint given the cross-correlation factors described above. 
 LSST alone will be able to remove almost half of the B-mode lensing power. This will lead to an improvement in $\sigma(r)$ of a factor of 1.8. If we add all the other infrared and optical LSS tracers previously included (i.e. excluding SKA) the improvement factor increase to 2.3.
-These gives an important opportunity: for sufficiently high value of $r$ it will be possible to confirm a detection of primordial gravity waves using spectra delensed with LSS, completely independent of CMB internal data. 
+These gives an important opportunity: for sufficiently high values of $r$ it will be possible to confirm a detection of primordial gravity waves using spectra delensed with LSS, completely independent of CMB internal data. 
 Similarly to \cite{namikawa:2016a} we find that SKA phase-1 radio survey will remove 53\% of the lensing power and, once combined with optical and infrared surveys, this will allow the level of power removed using LSS (62\%) to surpass the level of the CMB S3 internal reconstruction.
 Finally, as previously mentioned, CMB S4 will be the main source of delensing with the ability of removing up to more than 80\% of the B-modes power. This will bring an almost factor of 4 improvement in the null test case even with realistic noise. Combining with LSS will only increase the removed power compared to CMB only by $\simeq 5\%$ but it will be highly beneficial to test the robustness of the final result.
 
@@ -835,7 +835,7 @@ LSS+CMB (86\%)& 5.2 &  &  \\ \hline
 %We compute the derivatives of the power spectra as described
 \section{Conclusions}
 \label{sec:concl}
-The ability to separate the lensing component of the CMB B-modes from a possible primordial inflationary signal ("delensing") is necessary to test inflation using the next generation of CMB polarization experiments. 
+The ability to separate the lensing component of the CMB B-modes from a possible primordial inflationary signal (``delensing'') is necessary to test inflation using the next generation of CMB polarization experiments. 
 To delens, we need to accurately reconstruct the large scale structures that lens the CMB in order to build a template of the expected lensing B-modes in the observed patch.
 In this paper, we studied the potential impact of large-scale structure galaxy surveys in this important endeavor.
 %For current experiment, the cosmic infrared background had already proven to be very efficient in delensing \cite{larsen:2016,manzotti:2017}. 
@@ -871,14 +871,14 @@ This work was partially supported by the Kavli Institute for Cosmological Physic
 \begin{figure}[htbp]
 %\begin{center}
 \includegraphics[scale=1]{../images/errors_summary.pdf}
-\caption{\relook{to be filled with final results}}
+\caption{Summary of the amount of lensing B-modes power removed by different tracers for different generation of experiments.}
 \label{fig}
 %\end{center}
 \end{figure}
 \twocolumngrid
 % ===================
 
-\bibliographystyle{plain}
+\bibliographystyle{apsrev4-1}
 \bibliography{/Users/alessandromanzotti/Work/Astrophysics/latex_bib/cosmobib,/Users/alessandromanzotti/Work/Astrophysics/delensing/sptpol_papers/2016/delens100d/delens100d,/Users/alessandromanzotti/Work/Astrophysics/delensing/sptpol_papers/BIBTEX/spt}
 %/Users/alessandromanzotti/Work/Astrophysics/delensing/sptpol_papers/BIBTEX/spt}
 
