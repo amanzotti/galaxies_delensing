@@ -100,7 +100,7 @@ def main(labels, cmb):
         ckk_noise = noise_fun(lbins)
 
     if cmb == 'S3':
-        noise = 1.5
+        noise = 2.0
         beam = 2
         noise_phi = np.loadtxt(
             './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
