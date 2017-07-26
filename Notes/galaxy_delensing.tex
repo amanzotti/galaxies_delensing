@@ -26,7 +26,7 @@
 \newcommand{\physrep}{Physics Reports}
 \newcommand{\jcap}{JCAP}
 \newcommand{\apjl}{ApJL}
-\def\araa{\ref@jnl{ARA\&A}}
+\newcommand{\araa}{ARA\&A}
 \newcommand{\apjs}{ApJS}
 \newcommand{\aap}{A\&A}
 \newcommand{\mnras}{MNRAS}
@@ -190,13 +190,13 @@ Nevertheless optical galaxy surveys will still play an important role even for C
 \label{sec:intro}
 In the standard cosmological paradigm the early universe underwent a period of near-exponential expansion called ``cosmic inflation''.
 All the cosmological observations agree with this picture, making it a compelling and elegant description of the Universe initial conditions. Despite the experimental effort, other possible explanations are still valid, and a conclusive evidence of inflation is still to be found. 
-Inflation generically predicts a stochastic background of gravitational waves \cite[see e.g.][for a review]{kamionkowski15}. This prediction sets inflation apart from other theories and a detection of primordial gravitational waves could be the compelling evidence cosmologists are looking for. 
+Inflation generically predicts a stochastic background of gravitational waves \cite[see e.g.][for a review]{kamionkowski:2016}. This prediction sets inflation apart from other theories and a detection of primordial gravitational waves could be the compelling evidence cosmologists are looking for. 
 These primordial gravitational waves in the early universe would imprint a unique signature on the polarized anisotropies of the CMB. For this reason, CMB polarization is a promising dataset to understand the physics of the early universe and ultimately test inflation.
 In particular, we can decompose the CMB polarization fields in Fourier space into even-parity (divergence) and odd-parity (curl) components, referred to as ``E'' and ``B'' modes.
  In the standard scenario, the B-mode polarization is a clean probe of primordial gravitational waves, because these are the only source of B-modes at the epoch of recombination.
 
 Because the CMB B-modes provide the cleanest known observational window into the primordial gravitational wave background, improving their measurement is a major objective of current and future CMB experiments.
-Even if inflationary B-modes have not been detected yet, the target value $r \gtrsim 10^{-3}$, should be reachable shortly given the level of noise expected in future CMB experiments \citep{kamionkowski15,abazajian:2016}.
+Even if inflationary B-modes have not been detected yet, the target value $r \gtrsim 10^{-3}$, should be reachable shortly given the level of noise expected in future CMB experiments \citep{kamionkowski:2016,abazajian:2016}.
 However, just reducing the level of noise will not be enough to attain this goal.
 Indeed, the observed B modes are not solely sourced by early universe physics; they are also produced by secondary effects taking place in the late-time low-redshift universe. 
 In this work, we will focus on the effect of gravitational interactions with large scale structures (LSS).
@@ -731,7 +731,7 @@ Surveys & $\alpha_{r=0}, N^{B}_{\ell}=0$ & $\alpha_{r=0}$ & $\alpha_{r=0.12}$ \\
 DESI (10\%) &1.12 & 1.08  & 1.03 \\ \hline
 LSS-S3 (40\%) &1.73& 1.42  & 1.2\\ \hline
 CMB 3G (56\%) &2& 1.57  & 1.21 \\ \hline
-LSS+CMB (69\%)& 2.8 & 1.8& 1.31  \\ \hline
+LSS-S3+CMB (69\%)& 2.8 & 1.8& 1.31  \\ \hline
 \end{tabular}
 \label{tab:S3}
 \end{table}
@@ -755,7 +755,7 @@ The correlation factor with CMB lensing for Stage-4 experiments is shown in \ref
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=1.]{../images/S4_scenario_ska10.pdf}
-\caption{Correlation factor. Same as \reffig{corrnow} but for stage 4 experiments. }
+\caption{Correlation factor $\rho$ with the lensing potential $\kappa$ as a function of the angular scale $\ell$. This figure is the same as \reffig{corrnow} but with a stage-4 CMB experiment performing the internal reconstrcution and with LSST and SKA added to the stage-2 and stage-3 galaxy surveys (LSS-S3). }
 \label{fig:corrs4_10}
 \end{center}
 \end{figure}
@@ -763,7 +763,7 @@ The correlation factor with CMB lensing for Stage-4 experiments is shown in \ref
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=1.]{../images/S4_scenario_ska01.pdf}
-\caption{Correlation factor. Same as \reffig{corrnow} but for stage 4 experiments. }
+\caption{Correlation factor $\rho$ with the lensing potential $\kappa$ as a function of the angular scale $\ell$. This figure is the same as \reffig{corrnow} but with a stage-4 CMB experiment performing the internal reconstrcution and with LSST and SKA added to the stage-2 and stage-3 galaxy surveys (LSS-S3). }
 \label{fig:corrs4_01}
 \end{center}
 \end{figure}
@@ -778,7 +778,7 @@ Finally, \reffig{corrs4_01} shows that a very futuristic SKA-2 experiment will h
 
 \reftab{S4} shows the improvement on the inflationary constraint given the cross-correlation factors described above. 
 LSST alone will be able to remove almost half of the B-mode lensing power. This will lead to an improvement in $\sigma(r)$ of a factor of 1.8. If we add all the other infrared and optical LSS tracers previously included (i.e. excluding SKA) the improvement factor increase to 2.3.
-These gives an important opportunity: for sufficiently high values of $r$ it will be possible to confirm a detection of primordial gravity waves using spectra delensed with LSS, completely independent of CMB internal data. 
+These gives an important opportunity: for sufficiently high values of $r$ it will be possible to confirm a detection of primordial gravitational waves using spectra delensed with LSS, completely independent of CMB internal data. 
 Similarly to \cite{namikawa:2016a} we find that SKA phase-1 radio survey will remove 53\% of the lensing power and, once combined with optical and infrared surveys, this will allow the level of power removed using LSS (62\%) to surpass the level of the CMB S3 internal reconstruction.
 Finally, as previously mentioned, CMB S4 will be the main source of delensing with the ability of removing up to more than 80\% of the B-modes power. This will bring an almost factor of 4 improvement in the null test case even with realistic noise. Combining with LSS will only increase the removed power compared to CMB only by $\simeq 5\%$ but it will be highly beneficial to test the robustness of the final result.
 
@@ -789,13 +789,13 @@ We find the improvement in $\sigma(n_{t})$ to be very similar to the one in $\si
 \begin{tabular}{|c | c | c | c|}
 \hline
 Surveys & $\alpha_{r=0}, N^{B}_{\ell}=0$ & $\alpha_{r=0}$ & $\alpha_{r=0.12}$ \\ \hline \hline
-LSST (48\%) &1.88 & 1.81  &  \\ \hline
-LSS  (60\%) &2.47 & 2.31  & \\ \hline
-SKA (10$\mu$Jy) (53\%) &2.18& 2.06  & \\ \hline
-SKA (0.1$\mu$Jy) (77\%) &4.6& 3.96  & \\ \hline
-LSS + SKA (10$\mu$Jy)  (62\%) &2.74 & 2.53  &  \\ \hline
-LSS + SKA (0.1$\mu$Jy)  (80\%) &4.66 & 3.96  &  \\ \hline
-CMB S4 (81\%) & 4.63 & 3.96  &  \\ \hline
+LSST (48\%) &1.84 & 1.76  & 1.74  \\ \hline
+LSS-S4  (60\%) &2.47 & 2.31  & \\ \hline
+SKA (10$\mu$Jy) (53\%) &2.18& 2.06  & 2.02\\ \hline
+SKA (0.1$\mu$Jy) (77\%) &4.6& 3.96  & 3.9\\ \hline
+LSS-S4 + SKA (10$\mu$Jy)  (62\%) &2.74 & 2.53  &  \\ \hline
+LSS-S4 + SKA (0.1$\mu$Jy)  (80\%) &4.66 & 3.96  &  \\ \hline
+CMB S4 (81\%) & 5.16 & 4.32  & 4.2 \\ \hline
 LSS+CMB (86\%)& 5.2 &  &  \\ \hline
 \end{tabular}
 \label{tab:S4}
@@ -878,7 +878,7 @@ This work was partially supported by the Kavli Institute for Cosmological Physic
 \twocolumngrid
 % ===================
 
-\bibliographystyle{apsrev4-1}
+\bibliographystyle{mnrasunsrt}
 \bibliography{/Users/alessandromanzotti/Work/Astrophysics/latex_bib/cosmobib,/Users/alessandromanzotti/Work/Astrophysics/delensing/sptpol_papers/2016/delens100d/delens100d,/Users/alessandromanzotti/Work/Astrophysics/delensing/sptpol_papers/BIBTEX/spt}
 %/Users/alessandromanzotti/Work/Astrophysics/delensing/sptpol_papers/BIBTEX/spt}
 
