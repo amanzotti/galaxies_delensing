@@ -241,7 +241,7 @@ def main(ini_par):
     # =======
     # j2k = 1.e-6 / np.sqrt(83135.)  # for 353
     lkern = kappa_kernel.kern(z, hspline, chispline, pars.omegac, h, xlss)
-    cib = cib_hall.ssed_kern(h, z, chispline, hspline, 600e9, b=0.5,
+    cib = cib_hall.ssed_kern(h, z, chispline, hspline, 545e9, b=0.62,
                              jbar_kwargs={'zc': 2.0, 'sigmaz': 2.})
 
     # ======

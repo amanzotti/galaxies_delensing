@@ -43,7 +43,7 @@ plt.rcParams['font.size'] = font_size
 plt.rcParams['axes.labelsize'] = font_size * 1.3
 plt.rcParams['axes.linewidth'] = font_size / 10.
 plt.rcParams['axes.titlesize'] = font_size * 1.3
-plt.rcParams['legend.fontsize'] = font_size
+plt.rcParams['legend.fontsize'] = font_size/ 1.2
 plt.rcParams['xtick.labelsize'] = font_size / 1.2
 plt.rcParams['ytick.labelsize'] = font_size / 1.2
 plt.rcParams['xtick.major.width'] = font_size / 10.
@@ -509,7 +509,7 @@ plt_func(clbb_tens(r=0.01, lmax=3000),
          label=r'$C^{BB^{\rm{tens}}}_{\ell} ~ _{r=0.01}$', linestyle='--')
 
 plt_func(clbb(r=0.0, lmax=3000),
-         label=r'$C^{BB}_{\ell}^{\rm{lens}}$', linewidth=font_size / 12.5, alpha=0.8)
+         label=r'$C^{BB^{\rm{lens}}}_{\ell}$', linewidth=font_size / 12.5, alpha=0.8)
 
 plt_func(ell, ell * (ell + 1) * np.array(B_res3[1]) /
          2. / np.pi, label=r'$C^{BB^{\rm{res}}}_{\ell} (\rm{CIB})$', linewidth=font_size / 12.5, alpha=0.8)
