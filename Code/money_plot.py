@@ -88,7 +88,8 @@ plt.close()
 fg = plt.figure(figsize=fig_dims)
 N = 4
 ind = np.arange(N)    # the x locations for the groups
-width = 0.3       # the width of the bars: can also be len(x) sequence
+ind= np.array([0,2,4,6])
+width = 0.55       # the width of the bars: can also be len(x) sequence
 
 # ==========================================
 # ==========================================
@@ -107,7 +108,7 @@ p2 = plt.barh(ind[0] + 1.5 * width, 41 - 36, width, color='#bcbd22', left=36, al
 
 # ==========================================
 plt.gca().set_prop_cycle(None)
-p1 = plt.barh(ind[1], -6., width * 1.1, left=0.)
+p1 = plt.barh(ind[1], -6., width * 1.1, left=0., alpha=0.8)
 p2 = plt.barh(ind[1], -35., width * 1.1, left=-6., alpha=0.8)
 p2 = plt.barh(ind[1], -14, width * 1.1, left=-6 - 35, alpha=0.8)
 p2 = plt.barh(ind[1], -27, width * 1.1, left=-6 - 35 - 14, alpha=0.8)
@@ -147,11 +148,11 @@ p2 = plt.barh(ind[3] + 1.5 * width, 86 - 60, width * 0.9,
 plt.legend()
 # plt.ylim(-0.2, 3.7)
 plt.xlabel(r'Power removed (\%)')
-plt.yticks(ind+0.2, ('Planck', 'SPTpol', 'Stage-3', 'Stage-4'))
-plt.xticks([0, 20,  40,  60, 80,  100])
+plt.yticks(ind + 0.2, ('Planck', 'SPTpol', 'Stage-3', 'Stage-4'))
+plt.xticks([0, 20, 40, 60, 80, 100])
 plt.xlim(-200, 110)
 # plt.legend((p1[0], p2[0]), ('Gals', 'CMB'))
-plt.grid(alpha=0.8, ls='--', lw=0.3)
+plt.grid(color='k', ls='--', lw=0.6)
 plt.gca().yaxis.grid(False)
 
 plt.gca().set_axisbelow(True)
