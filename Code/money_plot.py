@@ -88,7 +88,7 @@ plt.close()
 fg = plt.figure(figsize=fig_dims)
 N = 4
 ind = np.arange(N)    # the x locations for the groups
-ind= np.array([0,2,4,6])
+ind = np.array([0, 2, 4, 6])
 width = 0.55       # the width of the bars: can also be len(x) sequence
 
 # ==========================================
@@ -100,7 +100,8 @@ p2 = plt.barh(ind[0], -14, width, left=-6 - 8, alpha=0.8)
 p2 = plt.barh(ind[0], -27, width, left=-6 - 8 - 14, alpha=0.8)
 
 p1 = plt.barh(ind[0] + 1.5 * width, 36, width, color='#7f7f7f', alpha=0.8)
-p2 = plt.barh(ind[0] + 1.5 * width, 41 - 36, width, color='#bcbd22', left=36, alpha=0.8)
+p2 = plt.barh(ind[0] + 1.5 * width, 41 - 36, width,
+              color='#bcbd22', left=36, alpha=0.8)
 
 # ==========================================
 # ==========================================
@@ -113,8 +114,10 @@ p2 = plt.barh(ind[1], -35., width * 1.1, left=-6., alpha=0.8)
 p2 = plt.barh(ind[1], -14, width * 1.1, left=-6 - 35, alpha=0.8)
 p2 = plt.barh(ind[1], -27, width * 1.1, left=-6 - 35 - 14, alpha=0.8)
 
-p1 = plt.barh(ind[1] + 1.5 * width, 36, width * 0.9, color='#7f7f7f', alpha=0.8)
-p2 = plt.barh(ind[1] + 1.5 * width, 56 - 36, width * 0.9, color='#bcbd22', left=36, alpha=0.8)
+p1 = plt.barh(ind[1] + 1.5 * width, 36, width *
+              0.9, color='#7f7f7f', alpha=0.8)
+p2 = plt.barh(ind[1] + 1.5 * width, 56 - 36, width *
+              0.9, color='#bcbd22', left=36, alpha=0.8)
 # ==========================================
 
 
@@ -125,8 +128,10 @@ p1 = plt.barh(ind[2], -10., width * 1.1, alpha=0.8)
 p2 = plt.barh(ind[2], -40., width * 1.1, left=-10., alpha=0.8)
 p2 = plt.barh(ind[2], -56., width * 1.1, left=-10. - 40., alpha=0.8)
 
-p1 = plt.barh(ind[2] + 1.5 * width, 40, width * 0.9, color='#7f7f7f', alpha=0.8)
-p2 = plt.barh(ind[2] + 1.5 * width, 69 - 40, width * 0.9, color='#bcbd22', left=40, alpha=0.8)
+p1 = plt.barh(ind[2] + 1.5 * width, 40, width *
+              0.9, color='#7f7f7f', alpha=0.8)
+p2 = plt.barh(ind[2] + 1.5 * width, 69 - 40, width *
+              0.9, color='#bcbd22', left=40, alpha=0.8)
 
 # ==========================================
 # ==========================================
@@ -138,7 +143,8 @@ p1 = plt.barh(ind[3], -48, width * 1.1, alpha=0.8)
 p2 = plt.barh(ind[3], -56, width * 1.1, left=-48, alpha=0.8)
 p2 = plt.barh(ind[3], -84, width * 1.1, left=-48 - 56, alpha=0.8)
 
-p1 = plt.barh(ind[3] + 1.5 * width, 60, width * 0.9, color='#7f7f7f', alpha=0.8, label='LSS')
+p1 = plt.barh(ind[3] + 1.5 * width, 60, width * 0.9,
+              color='#7f7f7f', alpha=0.8, label='LSS')
 p2 = plt.barh(ind[3] + 1.5 * width, 86 - 60, width * 0.9,
               color='#bcbd22', left=60, alpha=0.8, label='LSS +CMB')
 
@@ -152,14 +158,61 @@ plt.yticks(ind + 0.2, ('Planck', 'SPTpol', 'Stage-3', 'Stage-4'))
 plt.xticks([0, 20, 40, 60, 80, 100])
 plt.xlim(-200, 110)
 # plt.legend((p1[0], p2[0]), ('Gals', 'CMB'))
-plt.grid(color='k', ls='--', lw=0.6)
+plt.grid(color='k', ls='--', lw=0.6, alpha=0.6)
 plt.gca().yaxis.grid(False)
 
 plt.gca().set_axisbelow(True)
+
+
+# start annotation
+
+plt.text(-47, -0.2, 'CIB', horizontalalignment='left',
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold')
+
+plt.text(-28, - 0.18, 'DES', horizontalalignment='left',
+         verticalalignment='bottom', fontsize=font_size / 1.8, fontweight='bold')
+
+plt.text(-12, 0.3, 'Planck', horizontalalignment='left',
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', rotation=90.)
+
+plt.text(-5, 0.35, 'WISE', horizontalalignment='left',
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', rotation=90.)
+
+plt.text(-75, 2 - 0.2, 'CIB', horizontalalignment='left',
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold')
+
+plt.text(-54.5, 2 - 0.18, 'DES', horizontalalignment='left',
+         verticalalignment='bottom', fontsize=font_size / 1.8, fontweight='bold')
+
+plt.text(-35, 2 - 0.2, 'SPTPol', horizontalalignment='left',
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold')
+
+plt.text(-5, 2 + 0.35, 'WISE', horizontalalignment='left',
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', rotation=90.)
+
+plt.text(-88, 4 - 0.2, 'SPT3G', horizontalalignment='left',
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold')
+
+plt.text(-44, 4 - 0.2, 'LSS-S3', horizontalalignment='left',
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold')
+
+plt.text(-6.9, 4 + 0.4, 'DESI', horizontalalignment='left',
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', rotation=90.)
+
+plt.text(-160, 6 - 0.2, 'SPT-S4', horizontalalignment='left',
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', )
+
+plt.text(-98, 6 - 0.2, r'SKA (10 $\mu$Jy)', horizontalalignment='left',
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold')
+
+plt.text(-35, 6 - 0.2, r'LSST', horizontalalignment='left',
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold')
+
 fg.tight_layout()
+
 # ============================================
 # FINALLY SAVE
-plt.savefig('../images/' + 'errors_summary.pdf', papertype='Letter')
-plt.savefig('../images/' + 'errors_summary.png', papertype='Letter')
-plt.clf()
-plt.close()
+plt.savefig('../images/' + 'errors_summary.pdf', papertype='Letter', dpi=800)
+plt.savefig('../images/' + 'errors_summary.png', papertype='Letter', dpi=800)
+# plt.clf()
+# plt.close()

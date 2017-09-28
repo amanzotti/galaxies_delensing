@@ -60,7 +60,7 @@ def clbb(r=0.1, nt=None, lmax=3000):
     inflation_params = initialpower.InitialPowerParams()
     if nt is None:
         nt = -r / 8.
-    inflation_params.set_params(As=2.1e-9, r=r, nt=nt)
+    inflation_params.set_params(As=2.1e-9, r=r, nt=nt, pivot_tensor=0.01)
     results.power_spectra_from_transfer(inflation_params)
     return results.get_total_cls(lmax)[:, 2] * 7.42835025e12
 
@@ -70,7 +70,7 @@ def clbb_tens(r=0.1, nt=None, lmax=3000):
     inflation_params = initialpower.InitialPowerParams()
     if nt is None:
         nt = -r / 8.
-    inflation_params.set_params(As=2.1e-9, r=r, nt=nt)
+    inflation_params.set_params(As=2.1e-9, r=r, nt=nt, pivot_tensor=0.01)
     results.power_spectra_from_transfer(inflation_params)
     return results.get_tensor_cls(lmax)[:, 2] * 7.42835025e12
 
@@ -249,6 +249,7 @@ print(Fore.YELLOW + 'r=0, no noise')
 print('')
 for i, label in enumerate(rho_names):
     probe = label.split('.txt')[0].split('rho_')[1]
+    # delensed
     sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
         r_fid=r_fid,
         lmin=50,
@@ -258,11 +259,13 @@ for i, label in enumerate(rho_names):
                                  ) + clbb_tens(r_fid, lmax=lmax),
         noise_uK_arcmin=0.,
         fwhm_arcmin=fwhm_arcmin)
+
     sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
         r_fid=r_fid,
         lmin=50,
         lmax=lmax,
         fsky=fsky,
+        # clbb also contains r tensor contributions
         clbb_cov=clbb(r_fid, lmax=lmax),
         noise_uK_arcmin=0.,
         fwhm_arcmin=fwhm_arcmin)
@@ -339,6 +342,8 @@ for i, label in enumerate(rho_names):
 
     print('After delensing % errors', sigma_r_1, sigma_nt)
     print(probe, 'gain = ', sigma_r_1 / sigma_r)
+
+sys.exit()
 
 
 print(Fore.RED + 'Actual scenario High res SPT-pol')
@@ -692,7 +697,8 @@ cmb = 'S4'
 print(Fore.RED + 'Tracers:' + '-'.join(labels))
 
 multiple_survey_delens.main(labels, cmb)
-rho_names = ['rho_ska01.txt', 'rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
+rho_names = ['rho_ska01.txt', 'rho_gals.txt',
+             'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 
 # deep survey to delens or what is giving you E-mode
 B_res3 = rho_to_Bres.main(rho_names, nle)
@@ -818,7 +824,8 @@ cmb = 'S4'
 print(Fore.RED + 'Tracers:' + '-'.join(labels))
 
 multiple_survey_delens.main(labels, cmb)
-rho_names = ['rho_ska10.txt', 'rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
+rho_names = ['rho_ska10.txt', 'rho_gals.txt',
+             'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 
 # deep survey to delens or what is giving you E-mode
 B_res3 = rho_to_Bres.main(rho_names, nle)
@@ -1048,8 +1055,6 @@ for i, label in enumerate(rho_names):
     print((probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
 
 
-
-
 print(Fore.RED + 'CMB S4 + LSST')
 
 #  'wise', 'euclid', 'des_weak', 'lsst', 'ska10',
@@ -1163,8 +1168,6 @@ for i, label in enumerate(rho_names):
         noise_uK_arcmin=noise_uK_arcmin,
         fwhm_arcmin=fwhm_arcmin)
     print((probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
-
-
 
 
 # ---
@@ -1357,7 +1360,8 @@ for noise_p in np.linspace(0.1, 7, 20):
     sigma, sigmant, _, _ = fisher_r_nt(
         lmin=10, lmax=3000, clbb_cov=clbb_tens(0.2), r_fid=0.2, noise_uK_arcmin=noise_p)
     sigma_no_lens.append(sigmant)
-    sigma, sigmant, _, _ = fisher_r_nt(lmin=10, lmax=3000, r_fid=0.2, noise_uK_arcmin=noise_p)
+    sigma, sigmant, _, _ = fisher_r_nt(
+        lmin=10, lmax=3000, r_fid=0.2, noise_uK_arcmin=noise_p)
     sigma_lens.append(sigmant)
 
 
