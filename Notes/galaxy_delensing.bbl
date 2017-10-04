@@ -131,9 +131,8 @@ Knox L.,  Song Y.-S.,  2002, \mn@doi [Phys. Rev. Lett.]
 
 \bibitem[\protect\citeauthoryear{{Manzotti} et~al.,}{{Manzotti}
   et~al.}{2017}]{manzotti:2017}
-{Manzotti} A.,  et~al., 2017, preprint, \href
-  {http://adsabs.harvard.edu/abs/2017arXiv170104396M} {} (\mn@eprint {arXiv}
-  {1701.04396})
+{Manzotti} A.,  et~al., 2017, \mn@doi [\apj] {10.3847/1538-4357/aa82bb}, \href
+  {http://adsabs.harvard.edu/abs/2017ApJ...846...45M} {846, 45}
 
 \bibitem[\protect\citeauthoryear{{Limber}}{{Limber}}{1953}]{limber53}
 {Limber} D.~N.,  1953, \mn@doi [\apj] {10.1086/145672}, \href
@@ -258,6 +257,12 @@ Liddle A.~R.,  Lyth D.~H.,  1992, \mn@doi [Physics Letters B]
 {Planck Collaboration} et~al., 2016, \mn@doi [\aap]
   {10.1051/0004-6361/201525941}, \href
   {http://adsabs.harvard.edu/abs/2016A%26A...594A..15P} {594, A15}
+
+\bibitem[\protect\citeauthoryear{{Henning} et~al.,}{{Henning}
+  et~al.}{2017}]{henning:2017}
+{Henning} J.~W.,  et~al., 2017, preprint, \href
+  {http://adsabs.harvard.edu/abs/2017arXiv170709353H} {} (\mn@eprint {arXiv}
+  {1707.09353})
 
 \bibitem[\protect\citeauthoryear{{LSST Science Collaboration} et~al.,}{{LSST
   Science Collaboration} et~al.}{2009}]{lsst-science-collaboration:2009}
