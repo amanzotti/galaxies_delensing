@@ -199,7 +199,7 @@ plt.text(-44, 4 - 0.2, 'LSS-S3', horizontalalignment='left',
 plt.text(-6.9, 4 + 0.4, 'DESI', horizontalalignment='left',
          verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', rotation=90.)
 
-plt.text(-160, 6 - 0.2, 'SPT-S4', horizontalalignment='left',
+plt.text(-160, 6 - 0.2, 'CMB-S4', horizontalalignment='left',
          verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', )
 
 plt.text(-98, 6 - 0.2, r'SKA (10 $\mu$Jy)', horizontalalignment='left',

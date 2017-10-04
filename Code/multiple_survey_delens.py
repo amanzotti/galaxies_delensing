@@ -51,7 +51,7 @@ def main(labels, cmb):
             # noise is already where you compute spectra
 
         if label == 'cib':
-            cl_auto[label] = np.array([3500. * (1. * l / 3000.)**(-1.25) + 525 for l in lbins])
+            cl_auto[label] = np.array([3400. * (1. * l / 3000.)**(-1.25) + 525 for l in lbins])
             cl_auto[label] += 300 * cl_auto[label][100] * (lbins / lbins[100])**-4.6
 
         rho[label] = cl_cross_k[label] / np.sqrt(ckk[:] * cl_auto[label])

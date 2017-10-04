@@ -23,8 +23,8 @@ import DESI
 
 
 def setup(ini_file='./gal_delens_values.ini'):
+    #  read possible setup options from ini file
     config = configparser.ConfigParser()
-
     # use configparser for this
     config.read('gal_delens_values.ini')
     # # L BINS
@@ -37,6 +37,8 @@ def setup(ini_file='./gal_delens_values.ini'):
     lbins = 10. ** lbins
     ini_pars = {}
     ini_pars['lbins'] = lbins
+    ini_pars['noisy'] = noisy
+
     return ini_pars
 
 
@@ -85,6 +87,7 @@ def make_tomo_bins_equal_gals(z, dndz, sigmaz, nbins, hspline, omegac, h, b=1.):
 
     z_bins = find_bins(z, dndz, nbins)
     # print('z_bins', z_bins)
+
     def p_z_ph_z(z_ph, z, sigma_z):
         return np.exp(-(z_ph - z)**2 / (2. * sigma_z**2)) / np.sqrt(2 * np.pi * sigma_z**2)
 
@@ -119,6 +122,7 @@ def make_tomo_bins_equal_gals_lsst(z, dndz, sigmaz, nbins, hspline, omegac, h, b
 
     z_bins = find_bins(z, dndz, nbins)
     # print('z_bins', z_bins)
+
     def p_z_ph_z(z_ph, z, sigma_z):
         return np.exp(-(z_ph - z)**2 / (2. * sigma_z**2)) / np.sqrt(2 * np.pi * sigma_z**2)
 
@@ -152,7 +156,8 @@ def make_spec_bins(z, dndz_fun, nbins, hspline, omegac, h, b=1.):
     '''
     spec_bins = []
     galaxies_fraction = []
-    z_bins = [z[i:i + int(len(z) / nbins) + 1] for i in range(0, len(z), int(len(z) / nbins))]
+    z_bins = [z[i:i + int(len(z) / nbins) + 1]
+              for i in range(0, len(z), int(len(z) / nbins))]
     # +1 is inserted not to have gaps
     print(z_bins)
     for z in z_bins:
@@ -166,7 +171,8 @@ def make_spec_bins(z, dndz_fun, nbins, hspline, omegac, h, b=1.):
         dndz_bin = InterpolatedUnivariateSpline(
             z, dndz / norm, ext='zeros')
         # print('here', dndz_bin.integral(z[0], z[-1]))
-        spec_bins.append(gals_kernel.kern(z, dndz_bin, hspline, omegac, h, b=b))
+        spec_bins.append(gals_kernel.kern(
+            z, dndz_bin, hspline, omegac, h, b=b))
     # sys.exit()
     return spec_bins, np.array(galaxies_fraction)
 
@@ -183,7 +189,8 @@ def main(ini_par):
     pars = camb.CAMBparams()
     # This function sets up CosmoMC-like settings, with one massive neutrino
     # and helium set using BBN consistency
-    pars.set_cosmology(H0=67.5, ombh2=0.022, omch2=0.122, mnu=0.06, omk=0, tau=0.06)
+    pars.set_cosmology(H0=67.5, ombh2=0.022, omch2=0.122,
+                       mnu=0.06, omk=0, tau=0.06)
     pars.InitPower.set_params(ns=0.965, r=0)
     pars.set_for_lmax(3500, lens_potential_accuracy=2)
     pars.NonLinear = model.NonLinear_both
@@ -222,11 +229,14 @@ def main(ini_par):
     dndz = np.loadtxt(
         '/home/manzotti/cosmosis/modules/limber/data_input/DES/N_z_wavg_spread_model_0.2_1.2_tpz.txt')
     dndzfun = InterpolatedUnivariateSpline(dndz[:, 0], dndz[:, 1], ext=2)
-    norm = scipy.integrate.quad(dndzfun, dndz[0, 0], dndz[-2, 0], limit=100, epsrel=1.49e-03)[0]
+    norm = scipy.integrate.quad(
+        dndzfun, dndz[0, 0], dndz[-2, 0], limit=100, epsrel=1.49e-03)[0]
     # print('norm', norm)
     # normalize
-    dndzfun = InterpolatedUnivariateSpline(dndz[:, 0], dndz[:, 1] / norm, ext='zeros')
-    des = gals_kernel.kern(dndz[:, 0], dndzfun, chispline, pars.omegac, h, b=1.)
+    dndzfun = InterpolatedUnivariateSpline(
+        dndz[:, 0], dndz[:, 1] / norm, ext='zeros')
+    des = gals_kernel.kern(dndz[:, 0], dndzfun,
+                           chispline, pars.omegac, h, b=1.)
     sigmaz = 0.05 * (dndz[:, 0] + 1.)
     # width = z_lsst[-1] / nbins
     # print(dndz[:, 0].shape, dndz[:, 1].shape)
@@ -248,7 +258,6 @@ def main(ini_par):
     # DESI
     # =======
 
-
     desi = gals_kernel.kern(np.linspace(0, 2, 100),
                             DESI.DESISpline_normalized, hspline, pars.omegac, h, b=1.17)
 
@@ -261,13 +270,15 @@ def main(ini_par):
     # ======
 
     wise_dn_dz = np.loadtxt('/home/manzotti/galaxies_delensing/wise_dn_dz.txt')
-    dndzwise = InterpolatedUnivariateSpline(wise_dn_dz[:, 0], wise_dn_dz[:, 1], k=3, ext='zeros')
+    dndzwise = InterpolatedUnivariateSpline(
+        wise_dn_dz[:, 0], wise_dn_dz[:, 1], k=3, ext='zeros')
     norm = dndzwise.integral(wise_dn_dz[:, 0], wise_dn_dz[:, 1])
     dndzwise = InterpolatedUnivariateSpline(
         wise_dn_dz[:, 0], wise_dn_dz[:, 1] / norm, ext='zeros')
     # Biased was measured equal to 1.41 in Feerraro et al. WISE ISW measureament
     # by cross correlating with planck lensing
-    wise = gals_kernel.kern(wise_dn_dz[:, 0], dndzwise, hspline, pars.omegac, h, b=1.41)
+    wise = gals_kernel.kern(
+        wise_dn_dz[:, 0], dndzwise, hspline, pars.omegac, h, b=1.41)
 
     # Weak lensing
 
@@ -282,7 +293,8 @@ def main(ini_par):
 
     # ===
     dndzfun = interp1d(z_ska, dndzska01)
-    norm = scipy.integrate.quad(dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
+    norm = scipy.integrate.quad(
+        dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
     # normalize
     dndzska01 = InterpolatedUnivariateSpline(
         z_ska, dndzska01 / norm * gals_kernel.dNdZ_SKA_bias(z_ska, mujk=0.1), ext='zeros')
@@ -290,7 +302,8 @@ def main(ini_par):
 
     # ===
     dndzfun = interp1d(z_ska, dndzska1)
-    norm = scipy.integrate.quad(dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
+    norm = scipy.integrate.quad(
+        dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
 
     # normalize
     dndzska1 = InterpolatedUnivariateSpline(
@@ -299,7 +312,8 @@ def main(ini_par):
 
     # ===
     dndzfun = interp1d(z_ska, dndzska5)
-    norm = scipy.integrate.quad(dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
+    norm = scipy.integrate.quad(
+        dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
 
     dndzska5 = InterpolatedUnivariateSpline(
         z_ska, dndzska5 / norm * gals_kernel.dNdZ_SKA_bias(z_ska, mujk=5), ext='zeros')
@@ -307,7 +321,8 @@ def main(ini_par):
 
     # ===
     dndzfun = interp1d(z_ska, dndzska10)
-    norm = scipy.integrate.quad(dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
+    norm = scipy.integrate.quad(
+        dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
 
     dndzska10 = InterpolatedUnivariateSpline(
         z_ska, dndzska10 / norm * gals_kernel.dNdZ_SKA_bias(z_ska, mujk=10), ext='zeros')
@@ -320,7 +335,8 @@ def main(ini_par):
     dndzlsst = gals_kernel.dNdZ_parametric_LSST(z_lsst)
     dndzfun = interp1d(z_lsst, dndzlsst)
 
-    norm = scipy.integrate.quad(dndzfun, 0.01, z_lsst[-1], limit=100, epsrel=1.49e-03)[0]
+    norm = scipy.integrate.quad(
+        dndzfun, 0.01, z_lsst[-1], limit=100, epsrel=1.49e-03)[0]
     # used the same bias model of euclid. Find something better
     dndzlsst = InterpolatedUnivariateSpline(
         z_lsst, dndzlsst / norm * 1. * np.sqrt(1. + z_lsst), ext='zeros')
@@ -357,7 +373,8 @@ def main(ini_par):
     # dndzeuclid_deriv_fun = interp1d(
     #     z_euclid, dndzeuclid_param.__call__(z_mean, z_euclid, dx=1, dy=0))
 
-    norm = scipy.integrate.quad(dndzfun, 0.01, 4, limit=100, epsrel=1.49e-03)[0]
+    norm = scipy.integrate.quad(
+        dndzfun, 0.01, 4, limit=100, epsrel=1.49e-03)[0]
     # norm_deriv = scipy.integrate.quad(dndzeuclid_deriv_fun, 0.01, 4, limit=100, epsrel=1.49e-03)[0]
     # dndzeuclid_deriv_fun = InterpolatedUnivariateSpline(
     #     z_euclid, dndzeuclid_deriv_fun / norm_deriv * 1. * np.sqrt(1. + z_euclid))h
@@ -365,7 +382,8 @@ def main(ini_par):
         z_euclid, dndzeuclid / norm * 1. * np.sqrt(1. + z_euclid), ext='zeros')
     # bias montanari et all for Euclid https://arxiv.org/pdf/1506.01369.pdf
 
-    euclid = gals_kernel.kern(z_euclid, dndzeuclid, hspline, pars.omegac, h, b=1.)
+    euclid = gals_kernel.kern(z_euclid, dndzeuclid,
+                              hspline, pars.omegac, h, b=1.)
     nbins = 10
     dndzeuclid = gals_kernel.dNdZ_parametric_LSST(z_euclid)
     sigmaz = 0.01 * (z_euclid + 1.)
@@ -378,8 +396,10 @@ def main(ini_par):
     # Compute Cl implicit loops on ell
     # =======
 
-    kernels = [lkern, wise, euclid, lsst, ska10, ska01, ska5, ska1, cib, desi, des]
-    names = ['k', 'wise', 'euclid', 'lsst', 'ska10', 'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
+    kernels = [lkern, wise, euclid, lsst, ska10,
+               ska01, ska5, ska1, cib, desi, des]
+    names = ['k', 'wise', 'euclid', 'lsst', 'ska10',
+             'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
 
     # kernels = [lkern, desi]
     # names = ['k', 'desi']
@@ -431,16 +451,20 @@ def main(ini_par):
         # cls['cib_fitcib_fit'] = np.array(cls['cib_fitcib_fit']) + 525.
         # from
         if 'ska01ska01' in cls.keys():
-            cls['ska01ska01'] = np.array(cls['ska01ska01']) + 1. / (183868. * 3282.80635)
+            cls['ska01ska01'] = np.array(
+                cls['ska01ska01']) + 1. / (183868. * 3282.80635)
 
         if 'ska1ska1' in cls.keys():
-            cls['ska1ska1'] = np.array(cls['ska1ska1']) + 1. / (65128. * 3282.80635)
+            cls['ska1ska1'] = np.array(
+                cls['ska1ska1']) + 1. / (65128. * 3282.80635)
 
         if 'ska5ska5' in cls.keys():
-            cls['ska5ska5'] = np.array(cls['ska5ska5']) + 1. / (21235. * 3282.80635)
+            cls['ska5ska5'] = np.array(
+                cls['ska5ska5']) + 1. / (21235. * 3282.80635)
 
         if 'ska10ska10' in cls.keys():
-            cls['ska10ska10'] = np.array(cls['ska10ska10']) + 1. / (11849. * 3282.80635)
+            cls['ska10ska10'] = np.array(
+                cls['ska10ska10']) + 1. / (11849. * 3282.80635)
 
         #    150 deg2 for the SV area and 5000 deg2 for the full (5-year) survey.
         # 0.00363618733637157 = 150 0.1212062445 = 5000 rem in total in a sphere
@@ -474,34 +498,38 @@ def main(ini_par):
         # desi has 0.63 gals per arcmin2
         if 'desidesi' in cls.keys():
             print('Adding noise to DESI')
-            cls['desidesi'] = np.array(cls['desidesi']) + (0.63 / (0.000290888)**2)**(-1)
+            cls['desidesi'] = np.array(
+                cls['desidesi']) + (0.63 / (0.000290888)**2)**(-1)
 
         for n, fract in enumerate(galaxies_fraction_desi):
             print('Adding noise to DESI bins')
             name = 'desi_bin{}'.format(int(n))
-            cls[name + name] = cls[name + name] + (0.63 / (0.000290888)**2)**(-1) / fract
+            cls[name + name] = cls[name + name] + \
+                (0.63 / (0.000290888)**2)**(-1) / fract
 
         if 'euclideuclid' in cls.keys():
             print('Adding noise to EUCLID')
-            cls['euclideuclid'] = np.array(cls['euclideuclid']) + (30 / (0.000290888)**2)**(-1)
+            cls['euclideuclid'] = np.array(
+                cls['euclideuclid']) + (30 / (0.000290888)**2)**(-1)
         # for n, fract in enumerate(galaxies_fraction_des):
         #     name = 'des_bin{}'.format(int(n))
         #     cls[name+name] = cls[name+name]+   (30 / (0.000290888)**2)**(-1)/fract
         if 'lsstlsst' in cls.keys():
             print('Adding noise to LSST')
-            cls['lsstlsst'] = np.array(cls['lsstlsst']) + (26 / (0.000290888)**2)**(-1)
+            cls['lsstlsst'] = np.array(
+                cls['lsstlsst']) + (26 / (0.000290888)**2)**(-1)
 
         if 'wfirstwfirst' in cls.keys():
             print('Adding noise to LSST')
-            cls['wfirstwfirst'] = np.array(cls['wfirstwfirst']) + (45 / (0.000290888)**2)**(-1)
-
-
+            cls['wfirstwfirst'] = np.array(
+                cls['wfirstwfirst']) + (45 / (0.000290888)**2)**(-1)
 
         for n, fract in enumerate(galaxies_fraction_lsst):
             print('Adding noise to LSST Bins')
 
             name = 'lsst_bin{}'.format(int(n))
-            cls[name + name] = cls[name + name] + (26 / (0.000290888)**2)**(-1) / fract
+            cls[name + name] = cls[name + name] + \
+                (26 / (0.000290888)**2)**(-1) / fract
 
         #  from Simone Our conservative masking leaves f sky = 0.47 and about
         # 50 million galaxies.

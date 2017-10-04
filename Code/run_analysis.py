@@ -1,8 +1,6 @@
 
 # # Fisher Analysis
 
-# !module load gcc/6.1
-
 import numpy as np
 import matplotlib.pyplot as plt
 try:
@@ -11,8 +9,7 @@ except ImportError:
     import functools as functools32
 
 import sys
-import os
-import numpy as np
+# import os
 import camb
 from camb import model, initialpower
 import multiple_survey_delens
@@ -20,7 +17,7 @@ import configparser as ConfigParser
 import rho_to_Bres
 from scipy.interpolate import InterpolatedUnivariateSpline
 from colorama import init
-from colorama import Fore, Back, Style
+from colorama import Fore
 
 init(autoreset=True)
 np.seterr(divide='ignore', invalid='ignore')
@@ -30,7 +27,7 @@ plt.rc('text', usetex=True)
 plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern Roman']})
 # ============================================
 
-# COSMOSIS VALUES!!!!!!
+# cosmology values!!!!!!
 
 pars = camb.CAMBparams()
 # This function sets up CosmoMC-like settings, with one massive neutrino
@@ -50,10 +47,9 @@ pars.max_eta_k_tensor = 3000.
 
 # print(pars) # if you want to test parasm
 results = camb.get_results(pars)
-tens_cl = results.get_tensor_cls(3000)
 
+# Remember there is a 7.4e12 missing and CAMB always give you $ \ell (\ell +1)/2\pi  $
 
-# ### Remember there is a 7.4e12 missing and CAMB always give you $ \ell (\ell +1)/2\pi  $
 
 @functools32.lru_cache(maxsize=64)
 def clbb(r=0.1, nt=None, lmax=3000):
@@ -154,7 +150,6 @@ def fisher_r_nt(r_fid=0.2, fid=None,
     return (sigma_r, sigma_nt, np.sqrt(1 / Frr), np.sqrt(1 / Fnn))
 
 
-cosmosis_dir = '/home/manzotti/cosmosis/'
 inifile = '/home/manzotti/cosmosis/modules/limber/galaxies_delens.ini'
 Config_ini = ConfigParser.ConfigParser()
 values = ConfigParser.ConfigParser()
@@ -196,8 +191,8 @@ fwhm_arcmin = 30.
 # not used right now
 ell_range_deep = [20, 400]
 ell_range_high = [200, ells_cmb[-1]]
-# nle_deep = nl(noise_uK_arcmin, fwhm_arcmin, lmax=ells_cmb[-1])[2:]
-# nle_high = nl(9., 1., lmax=ells_cmb[-1])[2:]
+nle_deep = nl(noise_uK_arcmin, fwhm_arcmin, lmax=ells_cmb[-1])[2:]
+nle_high = nl(9., 1., lmax=ells_cmb[-1])[2:]
 # nle_high[:ell_range_high[0]] = np.inf
 # nle_deep[:ell_range_deep[0]] = np.inf
 # nle_deep[ell_range_deep[1]:] = np.inf
@@ -233,13 +228,14 @@ for probe in rho_names[0:]:
           'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(np.arange(4, 1000, 100))
                                     ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(np.arange(4, 1500, 100)))
           )
-    print('')
+
+print('')
 
 print('')
 print('')
 
 # sys.exit()
-lmax = ell_range_deep[1]
+lmax = 500
 # This needs to be Bicep like, the value of the deep exp
 r_fid = 0.
 fsky = 0.06
@@ -316,7 +312,7 @@ print('')
 
 clbb.cache_clear()
 clbb_tens.cache_clear()
-r_fid = 0.07
+r_fid = 0.11
 fsky = 0.06
 
 
@@ -342,8 +338,6 @@ for i, label in enumerate(rho_names):
 
     print('After delensing % errors', sigma_r_1, sigma_nt)
     print(probe, 'gain = ', sigma_r_1 / sigma_r)
-
-sys.exit()
 
 
 print(Fore.RED + 'Actual scenario High res SPT-pol')
@@ -480,7 +474,7 @@ lmax = 500
 # This needs to be Bicep like, the value of the deep exp
 noise_uK_arcmin = 3.
 fwhm_arcmin = 30.
-r_fid = 0.12
+r_fid = 0.11
 fsky = 0.06
 print('')
 print('r=0.12')
@@ -639,7 +633,7 @@ clbb_tens.cache_clear()
 lmax = 4000
 noise_uK_arcmin = 3.
 fwhm_arcmin = 1.
-r_fid = 0.12
+r_fid = 0.11
 fsky = 0.06
 print('')
 print('')
@@ -794,7 +788,7 @@ print('')
 for i, label in enumerate(rho_names):
     probe = label.split('.txt')[0].split('rho_')[1]
     sigma_r, sigma_nt, sigr, _ = fisher_r_nt(
-        r_fid=0.12,
+        r_fid=0.11,
         lmin=50,
         lmax=lmax,
         fsky=fsky,
@@ -802,7 +796,7 @@ for i, label in enumerate(rho_names):
         noise_uK_arcmin=noise_uK_arcmin,
         fwhm_arcmin=fwhm_arcmin)
     sigma_r_1, sigma_nt_1, sigr_1, _ = fisher_r_nt(
-        r_fid=0.12,
+        r_fid=0.11,
         lmin=50,
         lmax=lmax,
         fsky=fsky,
