@@ -136,9 +136,15 @@ dndzfun = interp1d(z_ska, dndzska01)
 norm = scipy.integrate.quad(dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
 # print(norm)
 # normalize
+# dndzska01 = InterpolatedUnivariateSpline(
+#     z_ska, dndzska01 / norm * gals_kernel.dNdZ_SKA_bias(z_ska, mujk=0.1))
+
 dndzska01 = InterpolatedUnivariateSpline(
-    z_ska, dndzska01 / norm * gals_kernel.dNdZ_SKA_bias(z_ska, mujk=0.1))
+    z_ska, dndzska01 / norm)
+
+
 ska01 = gals_kernel.kern(z_ska, dndzska01, hspline, omega_m, h0, b=1.)
+# ska10 = gals_kernel.kern(z_ska, dndzska10, hspline, omega_m, h0, b=1.)
 
 
 for i, z in enumerate(z_ska):

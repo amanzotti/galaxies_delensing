@@ -208,11 +208,11 @@ plt.text(-98, 6 - 0.2, r'SKA (10 $\mu$Jy)', horizontalalignment='left',
 plt.text(-35, 6 - 0.2, r'LSST', horizontalalignment='left',
          verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold')
 
-fg.tight_layout()
+# fg.tight_layout()
 
-# ============================================
-# FINALLY SAVE
-plt.savefig('../images/' + 'errors_summary.pdf', papertype='Letter', dpi=800)
-plt.savefig('../images/' + 'errors_summary.png', papertype='Letter', dpi=800)
-# plt.clf()
-# plt.close()
+# # ============================================
+# # FINALLY SAVE
+# plt.savefig('../images/' + 'errors_summary.pdf', papertype='Letter', dpi=800)
+# plt.savefig('../images/' + 'errors_summary.png', papertype='Letter', dpi=800)
+# # plt.clf()
+# # plt.close()

@@ -81,6 +81,15 @@ plt.rcParams['legend.handlelength'] = font_size / 9.
 
 BB_contr = np.genfromtxt('../Data/BB_contribution.csv', delimiter=',')
 
+# dictionary of colors
+colors = {}
+colors['CIB'] = plt.cm.Set1(0)
+colors['DES'] = plt.cm.Set1(1)
+colors['WISE'] = plt.cm.Set1(2)
+colors['DESI'] = plt.cm.Set1(3)
+colors['LSST'] = plt.cm.Set1(4)
+colors['SKA'] = plt.cm.Set1(5)
+
 
 plt.rcParams["figure.figsize"] = fig_dims
 
@@ -97,12 +106,12 @@ lbins, _, _, rho_gals_des, _ = multiple_survey_delens.main(labels, cmb)
 fg = plt.figure(figsize=fig_dims)
 ax1 = fg.add_subplot(111)
 
-plt.plot(lbins, rho['cib'], label='CIB')
-plt.plot(lbins, rho['wise'], label='WISE')
-plt.plot(lbins, rho_gals_des, label='DES')
-plt.plot(lbins, rho_cmb, label='Planck')
-plt.plot(lbins, rho_gals, label='DES+CIB+WISE (LSS S2)')
-plt.plot(lbins, rho_comb, label='LSS S2 + Planck')
+plt.plot(lbins, rho['cib'], color = colors['CIB'], label='CIB')
+plt.plot(lbins, rho['wise'], color = colors['WISE'],label='WISE')
+plt.plot(lbins, rho_gals_des,color = colors['DES'], label='DES')
+plt.plot(lbins, rho_cmb, label='Planck', color = plt.cm.Set1(6))
+plt.plot(lbins, rho_gals, label='DES+CIB+WISE (LSS S2)', color = plt.cm.Set1(7))
+plt.plot(lbins, rho_comb, label='LSS S2 + Planck', color = plt.cm.Set1(8))
 plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]),
          '--', alpha=0.6, linewidth=font_size / 14., color='k')
 
@@ -138,12 +147,12 @@ plt.close()
 
 fg = plt.figure(figsize=fig_dims)
 
-plt.plot(lbins, rho['cib'], label='CIB')
-plt.plot(lbins, rho_gals_des, label='DES')
-plt.plot(lbins, rho['wise'], label='WISE')
-plt.plot(lbins, rho_cmb, label='SPT Pol')
-plt.plot(lbins, rho_gals, label='DES+CIB')
-plt.plot(lbins, rho_comb, label='LSS S2 +  SPTPol')
+plt.plot(lbins, rho['cib'], color = colors['CIB'],label='CIB')
+plt.plot(lbins, rho_gals_des, color = colors['DES'],label='DES')
+plt.plot(lbins, rho['wise'], color = colors['WISE'],label='WISE')
+plt.plot(lbins, rho_cmb, label='SPT Pol', color = plt.cm.Set1(6))
+plt.plot(lbins, rho_gals, label='DES+CIB', color = plt.cm.Set1(7))
+plt.plot(lbins, rho_comb, label='LSS S2 +  SPTPol', color = plt.cm.Set1(8))
 # plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]), '--', alpha=0.6, color='k')
 plt.legend(loc=0, ncol=2)
 plt.ylim(0, 1.2)
@@ -172,10 +181,10 @@ plt.close()
 
 fg = plt.figure(figsize=fig_dims)
 
-plt.plot(lbins, rho_gals_desi, label='DESI')
-plt.plot(lbins, rho_cmb, label='SPT 3G')
-plt.plot(lbins, rho_gals, label='LSS-S2+DESI (LSS-S3)')
-plt.plot(lbins, rho_comb, label='LSS-S3+SPT 3G')
+plt.plot(lbins, rho_gals_desi, color = colors['DESI'],label='DESI')
+plt.plot(lbins, rho_cmb, label='SPT 3G', color = plt.cm.Set1(6))
+plt.plot(lbins, rho_gals, label='LSS-S2+DESI (LSS-S3)', color = plt.cm.Set1(7))
+plt.plot(lbins, rho_comb, label='LSS-S3+SPT 3G', color = plt.cm.Set1(8))
 # plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]), '--', alpha=0.6, color='k')
 
 plt.legend(loc=0, ncol=2)
@@ -202,29 +211,29 @@ lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cm
 
 plt.close()
 fg = plt.figure(figsize=fig_dims)
-plt.plot(lbins, rho_cmb, label='CMB S4')
+plt.plot(lbins, rho_cmb, label='CMB S4', color = plt.cm.Set1(6))
 # plt.plot(lbins, rho_gals, label='Galaxies')
-plt.plot(lbins, rho_comb, label=r'LSS-S4 + SKA' +'\n' + '+ CMB S4')
+plt.plot(lbins, rho_comb, label=r'LSS-S4 + SKA' +'\n' + '+ CMB S4', color = plt.cm.Set1(8))
 # plt.plot(lbins, rho['euclid'], label='Euclid')
 labels = ['lsst_bin0', 'lsst_bin1', 'lsst_bin2',
           'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9']
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
-plt.plot(lbins, rho_gals, label='LSST')
+plt.plot(lbins, rho_gals, color = colors['LSST'],label='LSST')
 # plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]),
 #          '--', alpha=0.6, linewidth=font_size / 14., color='k')
 
 labels = ['ska10']
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
-plt.plot(lbins, rho_gals, label=r'SKA $10\mu$Jy')
+plt.plot(lbins, rho_gals, color = colors['SKA'],label=r'SKA $10\mu$Jy')
 
 
 labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
           'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
-plt.plot(lbins, rho_gals, label='LSS-S3+LSST(LSS-S4)')
+plt.plot(lbins, rho_gals, label='LSS-S3+LSST(LSS-S4)',color = plt.cm.Set1(7))
 
 plt.legend(loc=0, ncol=2)
 plt.ylim(0.45, 1.25)
@@ -249,7 +258,7 @@ lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cm
 plt.close()
 fg = plt.figure(figsize=fig_dims)
 # plt.plot(lbins, rho_gals, label='Galaxies')
-plt.plot(lbins, rho_comb, label='LSS-S4 + CMB S4')
+plt.plot(lbins, rho_comb, label='LSS-S4 + CMB S4', color = plt.cm.Set1(8))
 
 # plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]),
 #          '--', alpha=0.6, linewidth=font_size / 14., color='k')
@@ -257,8 +266,8 @@ plt.plot(lbins, rho_comb, label='LSS-S4 + CMB S4')
 labels = ['ska01']
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(labels, cmb)
-plt.plot(lbins, rho_gals, label=r'SKA $0.1\mu$Jy')
-plt.plot(lbins, rho_cmb, label='CMB S4')
+plt.plot(lbins, rho_gals, color = colors['SKA'],label=r'SKA $0.1\mu$Jy')
+plt.plot(lbins, rho_cmb, label='CMB S4', color = plt.cm.Set1(6))
 
 plt.legend(loc=0, ncol=2)
 plt.ylim(0.5, 1.2)
@@ -304,12 +313,12 @@ lbins, rho_desi, _, _, _ = multiple_survey_delens.main(labels, cmb)
 
 plt.close()
 fg = plt.figure(figsize=fig_dims)
-plt.plot(lbins, rho_lsst['lsst'], label='LSST', color='#1f77b4')
-plt.plot(lbins, rho_gals_lsst, linestyle='-.', color='#1f77b4')
-plt.plot(lbins, rho_des['des'], label='DES', color='#ff7f0e')
-plt.plot(lbins, rho_gals_des, linestyle='-.', color='#ff7f0e')
-plt.plot(lbins, rho_desi['desi'], label='DESI', color='#2ca02c')
-plt.plot(lbins, rho_gals_desi, linestyle='-.', color='#2ca02c')
+plt.plot(lbins, rho_lsst['lsst'], label='LSST', color = colors['LSST'])
+plt.plot(lbins, rho_gals_lsst, linestyle='-.', color=colors['DESI'])
+plt.plot(lbins, rho_des['des'], label='DES', color = colors['DES'],)
+plt.plot(lbins, rho_gals_des, linestyle='-.', color=colors['DESI'])
+plt.plot(lbins, rho_desi['desi'], label='DESI', color = colors['DESI'])
+plt.plot(lbins, rho_gals_desi, linestyle='-.', color=colors['DESI'])
 plt.xlabel(r'$\ell$')
 plt.ylabel(r'$\rho$')
 plt.legend(loc=0, ncol=1)

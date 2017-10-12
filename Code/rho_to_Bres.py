@@ -3,7 +3,7 @@ from scipy.interpolate import RectBivariateSpline, interp1d, InterpolatedUnivari
 import sys
 import configparser as ConfigParser
 import numpy as np
-from joblib import Parallel, delayed
+from joblib import Parallel, delayed, cpu_count
 import scipy.integrate as integrate
 import profiling
 from profiling.sampling import SamplingProfiler
@@ -83,6 +83,24 @@ def compute_res_parallel(rho_filename, output_dir, clee_fun, clpp_fun, nle_fun):
     return clbb_res_ell
 
 
+def load_res(rho_filenames):
+    output_dir = '/home/manzotti/galaxies_delensing/Data/'
+    print(output_dir)
+    clbb_res_ell = []
+    lbins_int = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
+
+    for rho_filename in rho_filenames:
+        # print('start integration')
+        if rho_filename is not 'test':
+            rho_filename = output_dir + 'limber_spectra/' + rho_filename
+            print(rho_filename)
+
+        clbb_res_ell.append(np.loadtxt(
+            rho_filename.split('.txt')[0] + 'Cbb_res.txt'))
+
+    return clbb_res_ell, lbins_int
+
+
 def compute_deriv_2(ells, clee_fun, clpp, l_phi, l_bb):
 
     clpp_mask = np.where(np.logical_and(
@@ -105,7 +123,8 @@ def compute_deriv(ells, clee_fun, clpp, l_phi, l_bb):
     # dx = 2.75
     clpp_fun_test = InterpolatedUnivariateSpline(
         ells[:5000], clpp_mask, ext='zeros')
-    clbb_der = np.array(compute_BB(clee_fun, clpp_fun_test, l_bb, l_phi))  # / dx
+    clbb_der = np.array(compute_BB(
+        clee_fun, clpp_fun_test, l_bb, l_phi))  # / dx
     return clbb_der
 
 
@@ -184,12 +203,14 @@ def compute_deriv_grid_CEE(delta_e, delta_b, n_jobs=15):
         clbb_der[i, :] = np.array(Parallel(n_jobs=n_jobs, verbose=50)(delayed(compute_deriv_CEE)(
             ells, clee, clpp_fun, [ell_e, ell_e + delta_e], [ell_b, ell_b + delta_b]) for ell_e in lee))
 
-        np.save('./grid_deriv_delta_EE_{}_delta_B_{}_der1'.format(delta_e, delta_b), clbb_der)
+        np.save(
+            './grid_deriv_delta_EE_{}_delta_B_{}_der1'.format(delta_e, delta_b), clbb_der)
 
         # prof.stop()
         # prof.run_viewer()
 
-    np.save('./grid_deriv_delta_EE_{}_delta_B_{}_der1'.format(delta_e, delta_b), clbb_der)
+    np.save(
+        './grid_deriv_delta_EE_{}_delta_B_{}_der1'.format(delta_e, delta_b), clbb_der)
     return clbb_der
 
 
@@ -218,7 +239,8 @@ def compute_deriv_grid(delta_phi, delta_b, n_jobs=15):
         clbb_der[i, :] = (ell_b + delta_b / 2.) * np.array(Parallel(n_jobs=n_jobs, verbose=50)(delayed(compute_deriv)(
             ells, clee_fun, clpp, [ell_phi, ell_phi + delta_phi], [ell_b, ell_b + delta_b]) for ell_phi in lphi))
 
-        np.save('./grid_deriv_delta_p_{}_delta_B_{}_post'.format(delta_phi, delta_b), clbb_der)
+        np.save(
+            './grid_deriv_delta_p_{}_delta_B_{}_post'.format(delta_phi, delta_b), clbb_der)
 
         # prof.stop()
         # prof.run_viewer()
@@ -233,15 +255,17 @@ def main(rho_names, nle):
     Config_ini = ConfigParser.ConfigParser()
     Config_ini.read(inifile)
     # output_dir = Config_ini.get('test', 'save_dir')
-    output_dir =  '/home/manzotti/galaxies_delensing/Data/'
+    output_dir = '/home/manzotti/galaxies_delensing/Data/'
     datadir = output_dir
 
     clpp = np.loadtxt(datadir + 'cmb_cl/pp.txt')
     clee = np.loadtxt(datadir + 'cmb_cl/ee.txt')
     ells_cmb = np.loadtxt(datadir + 'cmb_cl/ell.txt')
 
-    clee *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
-    clpp = clpp * 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
+    clee *= 2. * np.pi / (ells_cmb.astype(float) *
+                          (ells_cmb.astype(float) + 1.))
+    clpp = clpp * 2. * np.pi / \
+        (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
 
     # clbb_th = np.loadtxt(
     #     output_dir + 'cmb_cl/bb.txt')
@@ -263,8 +287,9 @@ def main(rho_names, nle):
         ells_cmb[:5000], clpp[:5000], ext='zeros')
     nle_fun = InterpolatedUnivariateSpline(
         ells_cmb[:5000], nle[:5000], ext=2)
-
-    return Parallel(n_jobs=len(rho_names) + 3, verbose=0)(delayed(compute_res_parallel)(i, output_dir, clee_fun, clpp_fun, nle_fun) for i in rho_names)
+    print('in rho_to res', cpu_count(), rho_names)
+    cpus = np.min([len(rho_names) + 3, cpu_count() - 2])
+    return Parallel(n_jobs=cpus, verbose=0)(delayed(compute_res_parallel)(i, output_dir, clee_fun, clpp_fun, nle_fun) for i in rho_names)
 
 
 def compute_derivates():
@@ -283,14 +308,17 @@ def compute_derivates():
     clee = np.loadtxt(datadir + 'cmb_cl/ee.txt')
     ells_cmb = np.loadtxt(datadir + 'cmb_cl/ell.txt')
 
-    clee *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
-    clpp = clpp * 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
+    clee *= 2. * np.pi / (ells_cmb.astype(float) *
+                          (ells_cmb.astype(float) + 1.))
+    clpp = clpp * 2. * np.pi / \
+        (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
 
     lbins = np.logspace(1, 3.5, 190)
 
     clbb_th = np.loadtxt(
         output_dir + 'cmb_cl/bb.txt')
-    clbb_th *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
+    clbb_th *= 2. * np.pi / (ells_cmb.astype(float) *
+                             (ells_cmb.astype(float) + 1.))
 
     # clpp_zeroth
     clee_fun = InterpolatedUnivariateSpline(
@@ -301,6 +329,7 @@ def compute_derivates():
         ells_cmb[:5000], nle[:5000], ext=2)
 
     compute_res_parallel('test', output_dir, clee_fun, clpp_fun, nle_fun)
+
 
 if __name__ == "__main__":
     main(rho_names, nle)

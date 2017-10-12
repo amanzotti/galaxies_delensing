@@ -108,6 +108,23 @@ fg = plt.figure(figsize=fig_dims)
 
 ax1 = fg.add_subplot(111)
 
+
+# build a dictionary of colors
+
+
+colors = {}
+
+color['CIB'] = plt.cm.Set1(0)
+color['DES'] = plt.cm.Set1(1)
+color['CIB'] = plt.cm.Set1(0)
+color['CIB'] = plt.cm.Set1(0)
+color['CIB'] = plt.cm.Set1(0)
+
+
+
+
+
+
 # ax1.set_color_cycle(palettable.colorbrewer.qualitative.Dark2_8.mpl_colors)
 
 # plt.plot(ell, clkappacib / np.sqrt(clkappa * (clcib + 225.)), linestyle='--')

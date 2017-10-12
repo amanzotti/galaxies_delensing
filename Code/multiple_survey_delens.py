@@ -26,6 +26,7 @@ def nl(noise_uK_arcmin, fwhm_arcmin, lmax):
     return (noise_uK_arcmin * np.pi / 180. / 60.)**2 / bl(fwhm_arcmin, lmax)**2
 
 
+
 def main(labels, cmb):
 
     output_dir = '/home/manzotti/galaxies_delensing/Data/'
@@ -51,8 +52,10 @@ def main(labels, cmb):
             # noise is already where you compute spectra
 
         if label == 'cib':
-            cl_auto[label] = np.array([3400. * (1. * l / 3000.)**(-1.25) + 525 for l in lbins])
-            cl_auto[label] += 300 * cl_auto[label][100] * (lbins / lbins[100])**-4.6
+            cl_auto[label] = np.array(
+                [3400. * (1. * l / 3000.)**(-1.25) + 525 for l in lbins])
+            cl_auto[label] += 300 * cl_auto[label][100] * \
+                (lbins / lbins[100])**-4.6
 
         rho[label] = cl_cross_k[label] / np.sqrt(ckk[:] * cl_auto[label])
         if label == 'wise':
@@ -75,8 +78,10 @@ def main(labels, cmb):
             cgg[i, j, :] = np.array(cls[labels[i] + labels[j]])
 
             if (labels[i] == 'cib' and labels[j] == 'cib'):
-                cgg[i, j, :] = np.array([3500. * (1. * l / 3000.)**(-1.25) + 525 for l in lbins])
-                cgg[i, j, :] += 300 * cgg[i, j, 100] * (lbins / lbins[100])**-4.6
+                cgg[i, j, :] = np.array(
+                    [3500. * (1. * l / 3000.)**(-1.25) + 525 for l in lbins])
+                cgg[i, j, :] += 300 * cgg[i, j, 100] * \
+                    (lbins / lbins[100])**-4.6
 
             cgg[j, i, :] = cgg[i, j, :]
 
@@ -84,7 +89,8 @@ def main(labels, cmb):
 
         noise_phi = np.loadtxt('./quicklens_data/nlkk.dat')
         # noise_cmb = nl(noise, beam, lmax=4000)
-        noise_fun = interp1d(noise_phi[:, 0], noise_phi[:, 1], bounds_error=False, fill_value=1e10)
+        noise_fun = interp1d(
+            noise_phi[:, 0], noise_phi[:, 1], bounds_error=False, fill_value=1e10)
         ckk_noise = np.zeros_like(ckk)
         ckk_noise = noise_fun(lbins)
 
@@ -107,6 +113,16 @@ def main(labels, cmb):
         noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
         # noise_cmb = nl(noise, beam, lmax=4000)
         noise_fun = interp1d(np.arange(0, len(noise_phi)), noise_phi)
+        ckk_noise = np.zeros_like(ckk)
+        ckk_noise = noise_fun(lbins)
+
+    if cmb == 'SPT500d':
+        # my bad I added a 10^7 because this is how we plot it
+        noise_phi = np.load('../n0.npy')
+
+        # this is already a kappa noise
+        noise_fun = interp1d(
+            noise_phi[:, 0], noise_phi[:, 1] * 1e-7, bounds_error=False, fill_value=1e10)
         ckk_noise = np.zeros_like(ckk)
         ckk_noise = noise_fun(lbins)
 
