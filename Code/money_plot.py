@@ -223,7 +223,7 @@ plt.text(-35, 6 - 0.2, r'LSST', horizontalalignment='left',
 
 # # ============================================
 # # FINALLY SAVE
-# plt.savefig('../images/' + 'errors_summary.pdf', papertype='Letter', dpi=800)
-# plt.savefig('../images/' + 'errors_summary.png', papertype='Letter', dpi=800)
-# # plt.clf()
-# # plt.close()
+plt.savefig('../images/' + 'errors_summary.pdf', papertype='Letter', dpi=800)
+plt.savefig('../images/' + 'errors_summary.png', papertype='Letter', dpi=800)
+# plt.clf()
+# plt.close()
