@@ -81,6 +81,19 @@ plt.rcParams['legend.handletextpad'] = 0.3
 plt.rcParams['legend.handlelength'] = font_size / 9.
 # ============================================
 
+colormap = plt.cm.Set1
+# colormap = plt.cm.Vega10
+# dictionary of colors
+colors = {}
+colors['CIB'] = colormap(0)
+colors['DES'] = colormap(1)
+colors['WISE'] = colormap(2)
+colors['DESI'] = colormap(3)
+colors['LSST'] = colormap(4)
+colors['SKA'] = colormap(5)
+
+
+
 plt.close()
 plt.close()
 
@@ -163,66 +176,55 @@ plt.gca().yaxis.grid(False)
 
 plt.gca().set_axisbelow(True)
 
-colormap = plt.cm.Set1
-# colormap = plt.cm.Vega10
-# dictionary of colors
-colors = {}
-colors['CIB'] = colormap(0)
-colors['DES'] = colormap(1)
-colors['WISE'] = colormap(2)
-colors['DESI'] = colormap(3)
-colors['LSST'] = colormap(4)
-colors['SKA'] = colormap(5)
-
 
 # start annotation
 
 plt.text(-47, -0.2, 'CIB', horizontalalignment='left',
-         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', color=colors['CIB'])
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold')
 
 plt.text(-28, - 0.18, 'DES', horizontalalignment='left',
-         verticalalignment='bottom', fontsize=font_size / 1.8, fontweight='bold', color=colors['DES'])
+         verticalalignment='bottom', fontsize=font_size / 1.8, fontweight='bold')
 
 plt.text(-12, 0.3, 'Planck', horizontalalignment='left',
-         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', rotation=90., color=colormap(6))
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', rotation=90.)
 
 plt.text(-5, 0.35, 'WISE', horizontalalignment='left',
-         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', rotation=90., color=colors['WISE'])
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', rotation=90.)
 
 plt.text(-75, 2 - 0.2, 'CIB', horizontalalignment='left',
-         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', color=colors['CIB'])
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold')
 
 plt.text(-54.5, 2 - 0.18, 'DES', horizontalalignment='left',
-         verticalalignment='bottom', fontsize=font_size / 1.8, fontweight='bold', color=colors['DES'])
+         verticalalignment='bottom', fontsize=font_size / 1.8, fontweight='bold')
 
 plt.text(-35, 2 - 0.2, 'SPTPol', horizontalalignment='left',
-         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', color=colormap(6))
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold')
 
 plt.text(-5, 2 + 0.35, 'WISE', horizontalalignment='left',
-         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', rotation=90., color=colors['WISE'])
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', rotation=90.)
 
 plt.text(-88, 4 - 0.2, 'SPT3G', horizontalalignment='left',
-         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', color=colormap(6))
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold')
 
 plt.text(-44, 4 - 0.2, 'LSS-S3', horizontalalignment='left',
-         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', color=colormap(7))
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold')
 
 plt.text(-6.9, 4 + 0.4, 'DESI', horizontalalignment='left',
-         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', rotation=90., color=colors['DESI'])
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', rotation=90.)
 
 plt.text(-160, 6 - 0.2, 'CMB-S4', horizontalalignment='left',
          verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', )
 
 plt.text(-98, 6 - 0.2, r'SKA (10 $\mu$Jy)', horizontalalignment='left',
-         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', color=colors['SKA'])
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold')
 
 plt.text(-35, 6 - 0.2, r'LSST', horizontalalignment='left',
-         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', color=colors['LSST'])
+         verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold')
 
-# fg.tight_layout()
+fg.tight_layout()
 
-# # ============================================
-# # FINALLY SAVE
+# ============================================
+# FINALLY SAVE
 plt.savefig('../images/' + 'errors_summary.pdf', papertype='Letter', dpi=800)
 plt.savefig('../images/' + 'errors_summary.png', papertype='Letter', dpi=800)
 # plt.clf()
