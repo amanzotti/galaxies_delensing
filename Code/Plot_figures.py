@@ -80,8 +80,8 @@ plt.rcParams['legend.handlelength'] = font_size / 9.
 # =============================================
 
 BB_contr = np.genfromtxt('../Data/BB_contribution.csv', delimiter=',')
-# colormap = plt.cm.Set1
-colormap = plt.cm.Vega10
+colormap = plt.cm.Set1
+# colormap = plt.cm.Vega10
 # dictionary of colors
 colors = {}
 colors['CIB'] = colormap(0)

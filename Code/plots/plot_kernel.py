@@ -37,6 +37,16 @@ pyximport.install(reload_support=True)
 # except Exception as e:
 #     print('probably palettable not found')
 
+colormap = plt.cm.Set1
+# colormap = plt.cm.Vega10
+# dictionary of colors
+colors = {}
+colors['CIB'] = colormap(0)
+colors['DES'] = colormap(1)
+colors['WISE'] = colormap(2)
+colors['DESI'] = colormap(3)
+colors['LSST'] = colormap(4)
+colors['SKA'] = colormap(5)
 
 datadir = '../../Data/limber_spectra/'
 
@@ -141,21 +151,21 @@ print(fig_dims)
 ax1 = fg.add_subplot(111)
 
 plt.plot(kappakernel_l30[:, 0], kappakernel_l100[:, 1] /
-         np.max(kappakernel_l100[:, 1]), label=r'CMB', alpha=0.8)
+         np.max(kappakernel_l100[:, 1]), label=r'CMB', alpha=0.8, color=colormap(6))
 # plt.plot(kappakernel_l30[:, 0], kappakernel_l100[:, 1] /
 #          np.max(kappakernel_l100[:, 1]), color='#e41a1c', linestyle=':')
 # plt.plot(kappakernel_l30[:, 0], kappakernel_l500[:, 1] /
 #          np.max(kappakernel_l500[:, 1]), color='#e41a1c', linestyle='--')
 
 plt.plot(cibkernel_l100[:, 0], cibkernel_l100[:, 1] /
-         np.max(cibkernel_l100[:, 1]), label=r'CIB')
+         np.max(cibkernel_l100[:, 1]), label=r'CIB', color=colors['CIB'])
 # plt.plot(cibkernel_l30[:, 0], cibkernel_l100[:, 1] /
 #          np.max(cibkernel_l100[:, 1]), color='#377eb8', linestyle=':')
 # plt.plot(cibkernel_l30[:, 0], cibkernel_l500[:, 1] /
 #          np.max(cibkernel_l500[:, 1]), color='#377eb8', linestyle='--')
 
 plt.plot(deskernel_l30[:, 0], deskernel_l100[:, 1] /
-         np.max(deskernel_l100[:, 1]), label=r'DES', alpha=0.8)
+         np.max(deskernel_l100[:, 1]), label=r'DES', alpha=0.8, color=colors['DES'])
 # plt.plot(deskernel_l30[:, 0], deskernel_l100[:, 1] /
 #          np.max(deskernel_l100[:, 1]), color='#4daf4a', linestyle=':')
 # plt.plot(deskernel_l30[:, 0], deskernel_l500[:, 1] /
@@ -163,14 +173,14 @@ plt.plot(deskernel_l30[:, 0], deskernel_l100[:, 1] /
 
 
 plt.plot(skakernel_l100[:, 0], skakernel_l100[:, 1] /
-         np.max(skakernel_l100[:, 1]), label=r'SKA', alpha=0.8)
+         np.max(skakernel_l100[:, 1]), label=r'SKA', alpha=0.8, color=colors['SKA'])
 
 
 # plt.plot(lsstkernel_l100[:, 0], lsstkernel_l100[:, 1] /
 #          np.max(lsstkernel_l100[:, 1]), label=r'$LSST$', alpha=0.8)
 
 plt.plot(desikernel_l30[:, 0], desikernel_l100[:, 1] /
-         np.max(desikernel_l100[:, 1]), label=r'DESI', alpha=0.8)
+         np.max(desikernel_l100[:, 1]), label=r'DESI', alpha=0.8, color=colors['DESI'])
 
 # plt.plot(weakkernel_l100[:, 0], weakkernel_l100[:, 1] /
 #          np.max(weakkernel_l100[:, 1]), label=r'$Weak Lensing$', alpha=0.8)
