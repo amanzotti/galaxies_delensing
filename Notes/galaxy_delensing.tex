@@ -6,14 +6,12 @@
 \usepackage{ifthen}
 \usepackage [english]{babel}
 \usepackage{xstring}
-% \usepackage{graphicx}\usepackage[top=2.5 cm, bottom=2.5 cm, left=1.05in, right=1.05in]{geometry}
 \usepackage[applemac]{inputenc}
 \usepackage{amsmath,amssymb}
 \usepackage{color}
 \usepackage{epstopdf}
-%\usepackage[caption=false]{subcaption}
-%\epstopdfDeclareGraphicsRule{.gif}{png}{.png}{convert gif:#1 png:\OutputFile}
-% \AppendGraphicsExtensions{.gif}
+\usepackage{caption}
+\captionsetup{justification=centerlast,singlelinecheck=false,font=small,skip=2pt}
 % notes to make comment is non-zero if
 \newcommand{\al}[1]{\begin{align} #1 \end{align}}
 
@@ -181,7 +179,6 @@ We quantify this by the improvement due to delensing on the constraints on the i
 Among currently available surveys, a DES-like galaxy survey can remove about $14\%$ of the lensing signal. Ongoing CMB experiments (CMB-S2) will particularly benefit from large scale structure tracers that, once properly combined, will have a better performance than a CMB internal reconstruction.
 With the decrease of instrumental noise, the CMB internal reconstruction will increase its efficiency and the fraction of removed lensing B-modes with CMB alone will rapidly improve from the current level of Planck ($8\%$) and SPTPol ($35\%$) to 3G (56\%) and CMB S4 (85\%) level.  
 Nevertheless optical galaxy surveys will still play an important role even for CMB S4. In particular an LSST-like survey can a achieve a delensing performance comparable to a 3G CMB experiment but with completely different systematics. This will be important to prove the robustness against systematics of an eventual detection of primordial B-modes.
-% maybe non linear scales?
 \end{abstract}
 
 \vspace{1cm}
@@ -208,7 +205,7 @@ This expected component has now been measured both in cross-correlation with LSS
 This component acts as a source of confusion for searches of the primordial gravitational wave background.
 Indeed, the contamination from lensing B modes is already at the level of the instrumental noise of current experiments \citep{bk14}. Thus, together with the experimental effort to reduce the amount of noise, the effect of the lensing component must be understood.
 
-The optimal way to reduce the lensing contributions to the B-modes is to reconstruct a template of the actual lensing B modes on the observed part of the sky and then use it to clean the data in a process called ``delensing''. 
+The optimal way to reduce the lensing contributions to the B-modes is to reconstruct a template of the actual lensing B modes (or the actual large scale structure lensing potential) on the observed part of the sky and then use it to clean the data in a process called ``delensing''. 
 We can delens the observed B-modes by combining CMB polarization data (what is \textit{lensed}) with tracers of the large scale structure (what is \textit{lensing}) to reconstruct a template of the expected lensing B-modes.
 Delensing has been studied for many years \cite{knox2002, kesden2002, seljak2003, simard:2015,sherwin15,smith:2012}.
 Furthermore, it has recently been performed on CMB temperature data using the cosmic infrared background (CIB) as LSS tracer \cite{larsen:2016a} and on CMB temperature and polarization data using CMB data to internally reconstruct the LSS lensing potential \cite{carron:2017}. Finally, the highest B-mode delensing efficiency has been achieved with SPT and Herschel data in which $~28\%$ of the lensing power was removed \cite{manzotti:2017}.
@@ -290,11 +287,13 @@ DES is modeled after the DES Science Verification public data release.
 For DESI we used the $\frac{dN}{dz}$ in Tab. 2.3 of the DESI Technical Design Report. From that we can derive the galaxy denisty of 0.63 galaxies per squared arcmin. 
 %As in \cite{passaglia:2017} we use a linear bias $b$
 
-For LSST we follow \cite{schaan:2017}: $\frac{dN}{dz}\propto z^{\alpha}\exp^{-(z/z_{0})^{\beta}}$ with $\alpha = 1.27$, $\beta = 1.02$, and $z_{0}= 0.5$. Furthermore we assume a density of 26 galaxies per arcmin squared.
+For LSST we follow \cite{schaan:2017}: $\frac{dN}{dz}\propto z^{\alpha}\exp^{-(z/z_{0})^{\beta}}$ with $\alpha = 1.27$, $\beta = 1.02$, and $z_{0}= 0.5$.
+These correspond to a median redshift for LSST galaxies around $z_{\text{median}}\sim1.1$.
+Furthermore we assume a density of 26 galaxies per arcmin squared.
 
 Finally, we consider the Square Kilometre Array (SKA).
 The SKA is a planned radio array that will survey large scale structure primarily by detecting the redshifted neutral hydrogen (HI) 21cm emission line from a large number of galaxies out to high redshift. 
-We will assume an intensity mapping survey mode where SKA will measure the large-scale fluctuations of the \textit{integrated} 21cm intensity from many unresolved galaxies.  
+We will assume a radio continuum survey mode where SKA will detect radio galaxies through their total emission out to very high redshift.  
 We model both the redshift distribution and  bias of radio sources following \cite{namikawa:2016a}. 
 In \reffig{kernel}, we compare the CMB lensing kernel $W^{\kappa}(z)$ to the kernels $W^{g}(z)$ of all the tracers introduced here.
 
@@ -404,8 +403,17 @@ The second captures the difference between the reconstructed $\phi$ and the CMB 
 The larger the $\rho_{\ell}^{2}$ is for an LSS field, the more it is correlated with the lensing potential acting on the CMB photons. A higher correlation allows for a better reconstruction of $\phi$ and, as a consequence, of $B^{\rm{lens}}$ leading to a smaller residual power $C_{{l}}^{BB,\mathrm{res}}$.
 We conclude this section showing in \reffig{bbplot} the expected residual lensing B-modes power spectrum for some of the tracers used in this work together with the primordial B-modes component and the instrumental noise for current and future experiments.
 
+% ===================
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=1.]{../images/compare_kernel.pdf}
+\caption{Kernel Comparison: Comparison of the different kernels as a function of redshift for some of the tracers used in this analysis. The bigger the overlap with the CMB lensing kernel the better the reconstruction of the lensing potential is thus leading to a higher delensing efficiency. }
+\label{fig:kernel}
+\end{center}
+\end{figure}
+% ===================
 
-
+% ===================
 
 \begin{figure}[htbp]
 \begin{center}
@@ -416,6 +424,7 @@ The rapid improvement in the level of instrumental noise (dashed curves for SPTP
 \label{fig:bbplot}
 \end{center}
 \end{figure}
+% ===================
 
 
 \subsection{Multiple tracers of the lensing potential}\label{sec:galcontrib}
@@ -432,7 +441,7 @@ c_{i}     &=& (C_{II}^{-1})_{ij}C^{{\kappa I}^{j}}
 where $C_{II}$ is the covariance matrix of the LSS tracers.
 The residual B-mode power can be derived from \refeq{Bres} using an ``effective'' correlation $\rho^{2}$ of these combined tracers with gravitational lensing:
 \be
-\rho^{2}_{\ell} = \sum_{i,j}\frac{C^{\kappa ^{i}}_{\ell}~(C^{-1}_{\ell})_{ij}~C^{\kappa ^{j}}_{\ell}}{C^{\kappa\kappa}_{\ell}}.
+\rho^{2}_{\ell} = \sum_{i,j}\frac{C^{\kappa I^{i}}_{\ell}~(C^{II}_{\ell})^{-1}_{ij}~C^{\kappa I^{j}}_{\ell}}{C^{\kappa\kappa}_{\ell}}.
 \label{eqn:rho-combined}
 \ee
 
@@ -442,15 +451,7 @@ The cosmic infrared background and 21 cm surveys probe the high redshift structu
 On the other end, galaxy clustering surveys can only reconstruct the low-z portion of the lensing kernel as can be seen from the LSST, DES and DESI curves.
 However, given the low noise of these measurements and their small overlap with other probes, they can still play a major role in delensing even if their overlap with the CMB lensing potential is not optimal.
 
-% ===================
-\begin{figure}[htbp]
-\begin{center}
-\includegraphics[scale=1.]{../images/compare_kernel.pdf}
-\caption{Kernel Comparison: Comparison of the different kernels as a function of redshift for some of the tracers used in this analysis. The bigger the overlap with the CMB lensing kernel the better the reconstruction of the lensing potential is thus leading to a higher delensing efficiency. }
-\label{fig:kernel}
-\end{center}
-\end{figure}
-% ===================
+
 
 \subsection{Improving efficiency with tomographic binning}\label{sec:tomo-bin}
 The delensing efficiency of galaxy surveys can be improved by taking into account redshift information.
@@ -496,8 +497,9 @@ Compared to a full survey approach, tomographic binning allows to optimally weig
 
 
 
-For photometric surveys, the maximum number of bins is dictated by the fact that the bin width can not be smaller than the photo-z accuracy.
+For photometric surveys, the maximum number of bins is dictated by the fact that the bin width cannot be smaller than the photo-z accuracy. Since we are not considering any possible photo-z bias, this is the only way photo-z uncertainties affect the delensing efficiency.
 We used 10 and 4 photometric bins for LSST and DES respectively with a photo-z accuracy of $\sigma(z)_{\textrm{DES}} = 0.05(1+z)$ for DES and $\sigma(z)_{\textrm{LSST}} = 0.01(1+z)$ for LSST. 
+
 In spectroscopic surveys, there are no limitations in increasing the number of bins. We split DESI into 4 spectroscopic bins with no overlap among each others.
 This number of bins is close to the saturation point where adding more bins does not improve delensing significantly while adding complexity to the analysis. As an example, we show in \reffig{kerneltomo} the 10 bins and the full LSST redshift distributions together with the CMB lensing kernel. 
 \reffig{rho-tomo} illustrate the improvement obtained by tomographic binning. In particular on large scales, binning can increase the value of $\rho$ by almost $30\%$ significantly improving the delensing efficiency of galaxy surveys.
@@ -564,11 +566,13 @@ where $\theta_\mathrm{FWHM}$ is the full half width of the telescope beam, and $
 
 It can be seen in \refeq{fisher} that removing the lensing contribution will improve parameter constraints.
 The parameter uncertainties are inversely proportional to the covariance of the measurement. Since the lensing B-modes power $C_{{l}}^{BB,\mathrm{lens}}$ is a substantial component of the covariance, removing part of it through delensing will reduce the parameter statistical error.
-In the following, we sometimes refer to the fraction of lensing B-mode power removed by delensing. This quantity is defined as: $\left< C_{\ell}^{BB,\mathrm{lens}}/C_{{l}}^{BB,\mathrm{res}}\right>_{4<\ell<100}.$
+In the following, we sometimes refer to the fraction of lensing B-mode power removed by delensing. This quantity is defined as: $\left< C_{\ell}^{BB,\mathrm{res}}/C_{{l}}^{BB,\mathrm{lens}}\right>_{4<\ell<100}.$
 
 To quantify the improvement after delensing we introduce the error on a parameter $p$ constrained with \textit{delensed} spectra as $\sigma^{\rm{del}}(p)$.
 This is computed from \refeq{fisher} substituting $C_{{l}}^{BB,\mathrm{lens}}$ with the residual power after delensing $C_{{l}}^{BB,\mathrm{res}}$ in the covariance matrix defined in \refeq{cova}.
 The improvement is then the ratio of the constraints before and after delensing: $\alpha_{r} = \sigma^{\rm{del}}(r)/\sigma(r)$ and $\alpha_{n_{t}} = \sigma^{\rm{del}}(n_{t})/\sigma(n_{t})$. 
+The ratio $\alpha_{r,n_{t}}$ is insensitive to the fraction of the sky observed by the experiment: while the absolute parameter constraints depend on $\fsky$ the relative improvement does not.  For this reason, we do not quote $\fsky$ values for the CMB experiments investigated here. 
+
 
 \refeq{fisher} requires fiducial values for the parameters $p =\{r,n_{t}\}$. We explore different value for $r$ in \refsec{del_res}.
 Given a fiducial value for $r$, the value of $n_{t}$ is fixed imposing the consistency relation $n_t=-r/8$ \cite{LIDDLE1992391}.
@@ -585,7 +589,7 @@ We decided to focus on an ideal situation assuming no foregrounds or perfect cle
 
 Furthermore, we are not considering the uncertainties on galaxy survey internal parameters such as biases, source distributions and photometric redshift uncertainties. These uncertaintes can significantly degrade inflationary constraints \cite{sherwin:2015,namikawa:2016a}.
 However, as shown in \cite{sherwin:2015,namikawa:2016a}, these can be auto-calibrated i.e. they can be tightly constrained using galaxy survey auto- and cross-correlation spectra. We checked this for a few of the tracer combinations used here and find it particularly true once several tracers are jointly taken into account.
-Finally, although we have assumed a Gaussian covariance $\sigma( C_{\ell}^{BB} )$ it actually has small non-Gaussian contributions \cite{motloch:2017,benoit-levy:2012}. This approximation is good enough to show the improvement due to delensing.
+Finally, although we have assumed a Gaussian covariance $\sigma( C_{\ell}^{BB} )$ it actually has a non-Gaussian contribution \cite{motloch:2017,benoit-levy:2012}. This approximation is good enough to show the improvement due to delensing.
 The approximations made here go in the direction of a slightly optimistic \textit{absolute} value for the parameters statistical uncertainties both for the standard and the delensed case. The delensing improvement is defined as the \textit{relative} value of these uncertainties $\alpha_{i} = \sigma^{\rm{del}}(i)/\sigma(i)$ and, at first order, it is not affected by this assumptions.
 
 %===================
@@ -662,8 +666,8 @@ The improvement of \textcolor{blue}{1.57} in $\sigma(r)$ that will follow, even 
 \caption{$\alpha(r)$: Improvements on $\sigma(r)$ due to delensing for completed and ongoing Stage-2 surveys and Planck lensing reconstruction.
 LSS-S2 corresponds to the combination of all the available LSS tracers.
 The values in parenthesis in the first column correspond to the fraction of lensing B-mode power removed using each LSS tracer. 
-It is defined as $\left< \frac{C_{\ell}^{BB,\mathrm{lens}}}{C_{{l}}^{BB,\mathrm{res}}}\right>_{4<\ell<100}.$
-\newline
+It is defined as $\left<C_{\ell}^{BB,\mathrm{res}}/C_{l}^{BB,\mathrm{lens}}\right>_{4<\ell<100}$.
+%\newline
 The values in the other columns correspond to ratio of the error before and after delensing for 3 cases: no instrumental noise in the B-mode measurement (but with instrumental noise in the E-mode used to delens) and realistic noise for two different values of $r$.}
   \vspace{0.2cm}
   \begin{tabular}{|c | c | c | c|}
@@ -811,7 +815,26 @@ LSS+CMB (86\%)& 5.2 &  &  \\ \hline
 \end{tabular}
 \label{tab:S4}
 \end{table}
+
+% ===================
+\begin{figure*}[ht]
+\includegraphics[scale=1]{../images/errors_summary.pdf}
+\caption[]{A summary of the amount of lensing B-modes power removed by different tracers for different generations of experiments.
+
+On the \textit{left} we show the contribution from each lensing tracers. The cross-correlation among tracers is not considered and for this reason, the sum of all the contributions can be bigger than one. The purpose is to highlight the relative importance of each tracer. 
+
+On the \textit{right} we show the power removed by LSS alone and final delensing efficiency once CMB internal delensing is added. Here the double-counting information is taken into account and the bars correspond to final delensing efficiency levels.  }
+\label{fig}
+\end{figure*}
+%% ===================
+
+
+
+
 %=======================================
+
+
+
 
 \section{Conclusions}
 \label{sec:concl}
@@ -845,18 +868,7 @@ This work made use of computing resources and support provided by the Research C
 This work was partially supported by the Kavli Institute for Cosmological Physics at the University of Chicago through grants NSF PHY-1125897 and an endowment from the Kavli Foundation and its founder Fred Kavli.
 %%%=================================================================
 
-% ===================
-\newpage
-\onecolumngrid
-\begin{figure}[htbp]
-%\begin{center}
-\includegraphics[scale=1]{../images/errors_summary.pdf}
-\caption{Summary of the amount of lensing B-modes power removed by different tracers for different generation of experiments.}
-\label{fig}
-%\end{center}
-\end{figure}
-\twocolumngrid
-% ===================
+
 
 \bibliographystyle{mnrasunsrt}
 \bibliography{/Users/alessandromanzotti/Work/Astrophysics/latex_bib/cosmobib,/Users/alessandromanzotti/Work/Astrophysics/delensing/sptpol_papers/2016/delens100d/delens100d,/Users/alessandromanzotti/Work/Astrophysics/delensing/sptpol_papers/BIBTEX/spt}

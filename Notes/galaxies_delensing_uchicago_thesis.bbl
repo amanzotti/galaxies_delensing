@@ -40,17 +40,31 @@ A.~{Benoit-L{\'e}vy}, K.~M. {Smith}, and W.~{Hu}.
   BICEP2}.
 \newblock {\em Physical Review Letters}, 112(24):241101, June 2014.
 
+\bibitem{bicep2-collaboration:2016}
+{BICEP2 Collaboration}, {Keck Array Collaboration}, P.~A.~R. {Ade}, Z.~{Ahmed},
+  R.~W. {Aikin}, K.~D. {Alexander}, D.~{Barkats}, S.~J. {Benton}, C.~A.
+  {Bischoff}, J.~J. {Bock}, R.~{Bowens-Rubin}, J.~A. {Brevik}, I.~{Buder},
+  E.~{Bullock}, V.~{Buza}, J.~{Connors}, B.~P. {Crill}, L.~{Duband},
+  C.~{Dvorkin}, J.~P. {Filippini}, S.~{Fliescher}, J.~{Grayson}, M.~{Halpern},
+  S.~{Harrison}, S.~R. {Hildebrandt}, G.~C. {Hilton}, H.~{Hui}, K.~D. {Irwin},
+  J.~{Kang}, K.~S. {Karkare}, E.~{Karpel}, J.~P. {Kaufman}, B.~G. {Keating},
+  S.~{Kefeli}, S.~A. {Kernasovskiy}, J.~M. {Kovac}, C.~L. {Kuo}, E.~M.
+  {Leitch}, M.~{Lueker}, K.~G. {Megerian}, T.~{Namikawa}, C.~B. {Netterfield},
+  H.~T. {Nguyen}, R.~{O'Brient}, R.~W. {Ogburn}, IV, A.~{Orlando}, C.~{Pryke},
+  S.~{Richter}, R.~{Schwarz}, C.~D. {Sheehy}, Z.~K. {Staniszewski},
+  B.~{Steinbach}, R.~V. {Sudiwala}, G.~P. {Teply}, K.~L. {Thompson}, J.~E.
+  {Tolan}, C.~{Tucker}, A.~D. {Turner}, A.~G. {Vieregg}, A.~C. {Weber}, D.~V.
+  {Wiebe}, J.~{Willmert}, C.~L. {Wong}, W.~L.~K. {Wu}, and K.~W. {Yoon}.
+\newblock {BICEP2/Keck Array VIII: Measurement of Gravitational Lensing from
+  Large-scale B-mode Polarization}.
+\newblock {\em \apj}, 833:228, December 2016.
+
 \bibitem{bicep2/keck-collaboration:2015}
 {BICEP2/Keck Collaboration}, {Planck Collaboration}, P.~A.~R. {Ade},
   N.~{Aghanim}, Z.~{Ahmed}, R.~W. {Aikin}, K.~D. {Alexander}, M.~{Arnaud},
   J.~{Aumont}, C.~{Baccigalupi}, and et~al.
 \newblock {Joint Analysis of BICEP2/Keck Array and Planck Data}.
 \newblock {\em Physical Review Letters}, 114(10):101301, March 2015.
-
-\bibitem{carron17}
-J.~{Carron}, A.~{Lewis}, and A.~{Challinor}.
-\newblock {Internal delensing of Planck CMB temperature and polarization}.
-\newblock {\em ArXiv e-prints}, January 2017.
 
 \bibitem{carron:2017}
 J.~{Carron}, A.~{Lewis}, and A.~{Challinor}.
@@ -75,20 +89,20 @@ R.~A. Fisher.
 \newblock The logic of inductive inference.
 \newblock {\em Journal of the Royal Statistical Society}, 98(1):39--82, 1935.
 
-\bibitem{hall10}
-N.~R. {Hall}, L.~{Knox}, C.~L. {Reichardt}, P.~A.~R. {Ade}, K.~A. {Aird}, B.~A.
-  {Benson}, L.~E. {Bleem}, J.~E. {Carlstrom}, C.~L. {Chang}, {H.~-.} {Cho},
-  T.~M. {Crawford}, A.~T. {Crites}, T.~{de Haan}, M.~A. {Dobbs}, E.~M.
-  {George}, N.~W. {Halverson}, G.~P. {Holder}, W.~L. {Holzapfel}, J.~D.
-  {Hrubes}, M.~{Joy}, R.~{Keisler}, A.~T. {Lee}, E.~M. {Leitch}, M.~{Lueker},
-  J.~J. {McMahon}, J.~{Mehl}, S.~S. {Meyer}, J.~J. {Mohr}, T.~E. {Montroy},
+\bibitem{hall:2010}
+N.~R. {Hall}, R.~{Keisler}, L.~{Knox}, C.~L. {Reichardt}, P.~A.~R. {Ade}, K.~A.
+  {Aird}, B.~A. {Benson}, L.~E. {Bleem}, J.~E. {Carlstrom}, C.~L. {Chang},
+  H.-M. {Cho}, T.~M. {Crawford}, A.~T. {Crites}, T.~{de Haan}, M.~A. {Dobbs},
+  E.~M. {George}, N.~W. {Halverson}, G.~P. {Holder}, W.~L. {Holzapfel}, J.~D.
+  {Hrubes}, M.~{Joy}, A.~T. {Lee}, E.~M. {Leitch}, M.~{Lueker}, J.~J.
+  {McMahon}, J.~{Mehl}, S.~S. {Meyer}, J.~J. {Mohr}, T.~E. {Montroy},
   S.~{Padin}, T.~{Plagge}, C.~{Pryke}, J.~E. {Ruhl}, K.~K. {Schaffer},
-  L.~{Shaw}, E.~{Shirokoff}, H.~G. {Spieler}, Z.~{Staniszewski}, A.~A. {Stark},
-  E.~R. {Switzer}, K.~{Vanderlinde}, J.~D. {Vieira}, R.~{Williamson}, and
-  O.~{Zahn}.
-\newblock {Angular Power Spectra of the Millimeter Wavelength Background Light
+  L.~{Shaw}, E.~{Shirokoff}, H.~G. {Spieler}, B.~{Stalder}, Z.~{Staniszewski},
+  A.~A. {Stark}, E.~R. {Switzer}, K.~{Vanderlinde}, J.~D. {Vieira},
+  R.~{Williamson}, and O.~{Zahn}.
+\newblock {Angular Power Spectra of the Millimeter-wavelength Background Light
   from Dusty Star-forming Galaxies with the South Pole Telescope}.
-\newblock {\em \apj}, 718:632--646, July 2010.
+\newblock {\em \apj}, 718:632--646, August 2010.
 
 \bibitem{hanson13}
 D.~Hanson et~al.
@@ -107,7 +121,7 @@ W.~{Hu} and R.~{Scranton}.
 \newblock {Measuring dark energy clustering with CMB-galaxy correlations}.
 \newblock {\em \prd}, 70(12):123002, December 2004.
 
-\bibitem{kamionkowski15}
+\bibitem{kamionkowski:2016}
 M.~{Kamionkowski} and E.~D. {Kovetz}.
 \newblock {The Quest for B Modes from Inflationary Gravitational Waves}.
 \newblock {\em \araa}, 54:227--269, September 2016.
@@ -167,11 +181,6 @@ Lloyd Knox and Yong-Seon Song.
 \newblock Limit on the detectability of the energy scale of inflation.
 \newblock {\em Phys. Rev. Lett.}, 89:011303, Jun 2002.
 
-\bibitem{larsen:2016}
-P.~{Larsen}, A.~{Challinor}, B.~D. {Sherwin}, and D.~{Mak}.
-\newblock {A first demonstration of CIB delensing}.
-\newblock {\em ArXiv e-prints}, July 2016.
-
 \bibitem{larsen:2016a}
 P.~{Larsen}, A.~{Challinor}, B.~D. {Sherwin}, and D.~{Mak}.
 \newblock {Demonstration of Cosmic Microwave Background Delensing Using the
@@ -183,6 +192,11 @@ R.~{Laureijs}, J.~{Amiaux}, S.~{Arduini}, J.~. {Augu{\`e}res}, J.~{Brinchmann},
   R.~{Cole}, M.~{Cropper}, C.~{Dabin}, L.~{Duvet}, A.~{Ealet}, and et~al.
 \newblock {Euclid Definition Study Report}.
 \newblock {\em ArXiv e-prints}, October 2011.
+
+\bibitem{LIDDLE1992391}
+Andrew~R. Liddle and David~H. Lyth.
+\newblock Cobe, gravitational waves, inflation and extended inflation.
+\newblock {\em Physics Letters B}, 291(4):391 -- 398, 1992.
 
 \bibitem{limber53}
 D.~N. {Limber}.
@@ -224,7 +238,7 @@ P.~{Motloch}, W.~{Hu}, and A.~{Benoit-L{\'e}vy}.
 T.~{Namikawa}.
 \newblock {CMB internal delensing with general optimal estimator for
   higher-order correlations}.
-\newblock {\em ArXiv e-prints}, March 2017.
+\newblock {\em \prd}, 95(10):103514, May 2017.
 
 \bibitem{namikawa:2016a}
 T.~{Namikawa}, D.~{Yamauchi}, B.~{Sherwin}, and R.~{Nagata}.
@@ -254,6 +268,47 @@ T.~{Namikawa}, D.~{Yamauchi}, B.~{Sherwin}, and R.~{Nagata}.
 \newblock {Planck 2015 results. XV. Gravitational lensing}.
 \newblock {\em \aap}, 594:A15, September 2016.
 
+\bibitem{2016A&A...596A.109P}
+{Planck Collaboration}, N.~{Aghanim}, M.~{Ashdown}, J.~{Aumont},
+  C.~{Baccigalupi}, M.~{Ballardini}, A.~J. {Banday}, R.~B. {Barreiro},
+  N.~{Bartolo}, S.~{Basak}, K.~{Benabed}, J.-P. {Bernard}, M.~{Bersanelli},
+  P.~{Bielewicz}, L.~{Bonavera}, J.~R. {Bond}, J.~{Borrill}, F.~R. {Bouchet},
+  F.~{Boulanger}, C.~{Burigana}, E.~{Calabrese}, J.-F. {Cardoso}, J.~{Carron},
+  H.~C. {Chiang}, L.~P.~L. {Colombo}, B.~{Comis}, F.~{Couchot}, A.~{Coulais},
+  B.~P. {Crill}, A.~{Curto}, F.~{Cuttaia}, P.~{de Bernardis}, G.~{de Zotti},
+  J.~{Delabrouille}, E.~{Di Valentino}, C.~{Dickinson}, J.~M. {Diego},
+  O.~{Dor{\'e}}, M.~{Douspis}, A.~{Ducout}, X.~{Dupac}, S.~{Dusini},
+  F.~{Elsner}, T.~A. {En{\ss}lin}, H.~K. {Eriksen}, E.~{Falgarone},
+  Y.~{Fantaye}, F.~{Finelli}, F.~{Forastieri}, M.~{Frailis}, A.~A. {Fraisse},
+  E.~{Franceschi}, A.~{Frolov}, S.~{Galeotta}, S.~{Galli}, K.~{Ganga}, R.~T.
+  {G{\'e}nova-Santos}, M.~{Gerbino}, T.~{Ghosh}, Y.~{Giraud-H{\'e}raud},
+  J.~{Gonz{\'a}lez-Nuevo}, K.~M. {G{\'o}rski}, A.~{Gruppuso}, J.~E.
+  {Gudmundsson}, F.~K. {Hansen}, G.~{Helou}, S.~{Henrot-Versill{\'e}},
+  D.~{Herranz}, E.~{Hivon}, Z.~{Huang}, A.~H. {Jaffe}, W.~C. {Jones},
+  E.~{Keih{\"a}nen}, R.~{Keskitalo}, K.~{Kiiveri}, T.~S. {Kisner},
+  N.~{Krachmalnicoff}, M.~{Kunz}, H.~{Kurki-Suonio}, J.-M. {Lamarre},
+  M.~{Langer}, A.~{Lasenby}, M.~{Lattanzi}, C.~R. {Lawrence}, M.~{Le Jeune},
+  F.~{Levrier}, P.~B. {Lilje}, M.~{Lilley}, V.~{Lindholm},
+  M.~{L{\'o}pez-Caniego}, Y.-Z. {Ma}, J.~F. {Mac{\'{\i}}as-P{\'e}rez},
+  G.~{Maggio}, D.~{Maino}, N.~{Mandolesi}, A.~{Mangilli}, M.~{Maris}, P.~G.
+  {Martin}, E.~{Mart{\'{\i}}nez-Gonz{\'a}lez}, S.~{Matarrese}, N.~{Mauri},
+  J.~D. {McEwen}, A.~{Melchiorri}, A.~{Mennella}, M.~{Migliaccio}, M.-A.
+  {Miville-Desch{\^e}nes}, D.~{Molinari}, A.~{Moneti}, L.~{Montier},
+  G.~{Morgante}, A.~{Moss}, P.~{Natoli}, C.~A. {Oxborrow}, L.~{Pagano},
+  D.~{Paoletti}, G.~{Patanchon}, O.~{Perdereau}, L.~{Perotto}, V.~{Pettorino},
+  F.~{Piacentini}, S.~{Plaszczynski}, L.~{Polastri}, G.~{Polenta}, J.-L.
+  {Puget}, J.~P. {Rachen}, B.~{Racine}, M.~{Reinecke}, M.~{Remazeilles},
+  A.~{Renzi}, G.~{Rocha}, C.~{Rosset}, M.~{Rossetti}, G.~{Roudier}, J.~A.
+  {Rubi{\~n}o-Mart{\'{\i}}n}, B.~{Ruiz-Granados}, L.~{Salvati}, M.~{Sandri},
+  M.~{Savelainen}, D.~{Scott}, C.~{Sirignano}, G.~{Sirri}, J.~D. {Soler}, L.~D.
+  {Spencer}, A.-S. {Suur-Uski}, J.~A. {Tauber}, D.~{Tavagnacco}, M.~{Tenti},
+  L.~{Toffolatti}, M.~{Tomasi}, M.~{Tristram}, T.~{Trombetti}, J.~{Valiviita},
+  F.~{Van Tent}, P.~{Vielva}, F.~{Villa}, N.~{Vittorio}, B.~D. {Wandelt}, I.~K.
+  {Wehus}, A.~{Zacchei}, and A.~{Zonca}.
+\newblock {Planck intermediate results. XLVIII. Disentangling Galactic dust
+  emission and cosmic infrared background anisotropies}.
+\newblock {\em \aap}, 596:A109, December 2016.
+
 \bibitem{polarbear2014b}
 {POLARBEAR Collaboration}.
 \newblock {A Measurement of the Cosmic Microwave Background B-mode Polarization
@@ -267,23 +322,29 @@ T.~{Namikawa}, D.~{Yamauchi}, B.~{Sherwin}, and R.~{Nagata}.
   Background}.
 \newblock {\em Physical Review Letters}, 112(13):131302, April 2014.
 
-\bibitem{schaan:2016}
-E.~{Schaan}, E.~{Krause}, T.~{Eifler}, O.~{Dor{\'e}}, H.~{Miyatake},
-  J.~{Rhodes}, and D.~N. {Spergel}.
-\newblock {Looking through the same lens: shear calibration for LSST, Euclid \&
-  WFIRST with stage 4 CMB lensing}.
-\newblock {\em ArXiv e-prints}, July 2016.
+\bibitem{schaan:2017}
+Emmanuel Schaan, Elisabeth Krause, Tim Eifler, Olivier Dor\'e, Hironao
+  Miyatake, Jason Rhodes, and David~N. Spergel.
+\newblock Looking through the same lens: Shear calibration for lsst, euclid,
+  and wfirst with stage 4 cmb lensing.
+\newblock {\em Phys. Rev. D}, 95:123512, Jun 2017.
 
-\bibitem{sehgal:2016}
+\bibitem{sehgal:2017}
 N.~{Sehgal}, M.~S. {Madhavacheril}, B.~{Sherwin}, and A.~{van Engelen}.
-\newblock {Internal Delensing of Cosmic Microwave Background Acoustic Peaks}.
-\newblock {\em ArXiv e-prints}, December 2016.
+\newblock {Internal delensing of cosmic microwave background acoustic peaks}.
+\newblock {\em \prd}, 95(10):103512, May 2017.
 
 \bibitem{seljak2003}
 U.~{Seljak} and C.~M. {Hirata}.
 \newblock {Gravitational lensing as a contaminant of the gravity wave signal in
   the CMB}.
 \newblock {\em \prd}, 69(4):043005, February 2004.
+
+\bibitem{seljak:1997}
+U.~{Seljak} and M.~{Zaldarriaga}.
+\newblock {Signature of Gravity Waves in the Polarization of the Microwave
+  Background}.
+\newblock {\em Physical Review Letters}, 78:2054--2057, March 1997.
 
 \bibitem{sherwin15}
 B.~D. {Sherwin} and M.~{Schmittfull}.
@@ -319,21 +380,22 @@ D.~{Spergel}, N.~{Gehrels}, J.~{Breckinridge}, M.~{Donahue}, A.~{Dressler},
 \newblock {WFIRST-2.4: What Every Astronomer Should Know}.
 \newblock {\em ArXiv e-prints}, May 2013.
 
-\bibitem{vanengelen14b}
+\bibitem{van-engelen:2015}
 A.~{van Engelen}, B.~D. {Sherwin}, N.~{Sehgal}, G.~E. {Addison}, R.~{Allison},
-  N.~{Battaglia}, F.~{de Bernardis}, E.~{Calabrese}, K.~{Coughlin},
-  D.~{Crichton}, J.~R. {Bond}, R.~{Datta}, R.~{Dunner}, J.~{Dunkley},
-  E.~{Grace}, M.~{Gralla}, A.~{Hajian}, M.~{Hasselfield}, S.~{Henderson}, J.~C.
-  {Hill}, M.~{Hilton}, A.~D. {Hincks}, R.~{Hlozek}, K.~M. {Huffenberger}, J.~P.
-  {Hughes}, B.~{Koopman}, A.~{Kosowsky}, T.~{Louis}, M.~{Lungu},
-  M.~{Madhavacheril}, L.~{Maurin}, J.~{McMahon}, K.~{Moodley}, C.~{Munson},
-  S.~{Naess}, F.~{Nati}, L.~{Newburgh}, M.~D. {Niemack}, M.~{Nolta}, L.~A.
-  {Page}, B.~{Partridge}, C.~{Pappas}, B.~L. {Schmitt}, J.~L. {Sievers},
-  S.~{Simon}, D.~N. {Spergel}, S.~T. {Staggs}, E.~R. {Switzer}, J.~T. {Ward},
-  and E.~J. {Wollack}.
+  N.~{Battaglia}, F.~{de Bernardis}, J.~R. {Bond}, E.~{Calabrese},
+  K.~{Coughlin}, D.~{Crichton}, R.~{Datta}, M.~J. {Devlin}, J.~{Dunkley},
+  R.~{D{\"u}nner}, P.~{Gallardo}, E.~{Grace}, M.~{Gralla}, A.~{Hajian},
+  M.~{Hasselfield}, S.~{Henderson}, J.~C. {Hill}, M.~{Hilton}, A.~D. {Hincks},
+  R.~{Hlozek}, K.~M. {Huffenberger}, J.~P. {Hughes}, B.~{Koopman},
+  A.~{Kosowsky}, T.~{Louis}, M.~{Lungu}, M.~{Madhavacheril}, L.~{Maurin},
+  J.~{McMahon}, K.~{Moodley}, C.~{Munson}, S.~{Naess}, F.~{Nati},
+  L.~{Newburgh}, M.~D. {Niemack}, M.~R. {Nolta}, L.~A. {Page}, C.~{Pappas},
+  B.~{Partridge}, B.~L. {Schmitt}, J.~L. {Sievers}, S.~{Simon}, D.~N.
+  {Spergel}, S.~T. {Staggs}, E.~R. {Switzer}, J.~T. {Ward}, and E.~J.
+  {Wollack}.
 \newblock {The Atacama Cosmology Telescope: Lensing of CMB Temperature and
-  Polarization Derived from Cosmic Infrared Background Cross-Correlation}.
-\newblock {\em ArXiv e-prints}, December 2014.
+  Polarization Derived from Cosmic Infrared Background Cross-correlation}.
+\newblock {\em \apj}, 808:7, July 2015.
 
 \bibitem{wright:2010}
 E.~L. {Wright}, P.~R.~M. {Eisenhardt}, A.~K. {Mainzer}, M.~E. {Ressler}, R.~M.
