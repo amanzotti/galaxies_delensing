@@ -602,11 +602,11 @@ The approximations made here go in the direction of a slightly optimistic \texti
 Recently delensing has been performed for the first time on data using both CIB maps \cite{larsen:2016a,manzotti:2017} and internal CMB lensing maps \cite{carron:2017} as large scale structure tracers.
 Here we discuss the improvement that can be obtained by combining these and other currently Stage-2 available tracers (see \cite{yu:2017} for publicly accessible multi-tracers data-products).
 
-On the CMB side, we will combine a BICEP-Keck like \textit{deep} CMB experiment with an overlapping \textit{higher resolution} experiment. For the deep experiment we assume an instrumental noise equal to $3\mu$K-arcmin, a beam of 30 arcmin and an angular scale range of $50<\ell<500$.
+On the CMB side, we will combine a BICEP-Keck like \textit{deep} CMB experiment with an overlapping \textit{higher resolution} experiment. For the deep experiment we assume an instrumental noise equal to $3\mu$K-arcmin in polarization ($\sqrt(2)$ lower in temperature), a beam of 30 arcmin and an angular scale range of $50<\ell<500$.
 We assume the CMB lensing reconstruction is  performed by the higher resolution CMB experiment. We explore two possibilities.
 First, we test the delensing efficiency with an internal reconstruction of CMB lensing performed by the Planck satellite \cite{planck-collaboration:2016a}. For the noise in the CMB lensing map in \refeq{noisekappa} we use the actual noise curves publicly available
 \footnote{\url{https://wiki.cosmos.esa.int/planckpla2015/index.php/Specially\_processed\_maps}}.
-Then, we test a second scenario with a ground-based experiment characterized by noise levels consistent with SPT-Pol \cite{henning:2017}: $9.4\mu$K-arcmin in polarization with a beam equal to 1.2 arcmin. In this case we set the angular scale range at $50<\ell<4000$. However, the results are quite robust against this choice. 
+Then, we test a second scenario with a ground-based experiment characterized by noise levels in polarization consistent with SPT-Pol \cite{henning:2017}: $9.4\mu$K-arcmin in polarization with a beam equal to 1.2 arcmin. In this case we set the angular scale range at $50<\ell<4000$. However, the results are quite robust against this choice. 
 %since the neglected scales contribute only moderately to the reconstruction of the CMB lensing potential.
 
 We combine these CMB experiments with the CIB and current low redshift galaxy surveys like DES and WISE and we compute the improvement in the delensing efficiency.
@@ -707,9 +707,10 @@ LSS-S2 +SPTPol (58\%) & 2.18 & 1.57 & 1.16  \\ \hline
 
 \subsection{CMB-S3 Era}\label{sec:S3}
 CMB polarization measurements are rapidly improving. Indeed the next generation of ground-based telescopes has been already deployed, and data are currently being taken.
-As we did for Stage-2, we model the CMB S3 as two different overlapping experiments that will be able to combine their measurement.
-The two experiments combined will have a level of noise of $3\mu$K-arcmin and a 1 arcmin beam. This level of noise is also assumed for the internal noise reconstruction.
-We still use an  angular scale range in the Fisher matrix of $50<\ell<4000$ even if most of the high $\ell$ scale do not contribute to the constraints.
+As we did for Stage-2, we model the CMB S3 as two different overlapping experiments.
+For the deep experiment we assume an instrumental noise equal to $2\mu$K-arcmin in polarization and a beam of 30 arcmin.
+The high resolution experiment will have a level of noise in polarization of $3\mu$K-arcmin and a 1 arcmin beam. This level of noise is also assumed for the internal noise reconstruction.
+We still use an angular scale range in the Fisher matrix of $50<\ell<4000$ even if most of the high $\ell$ scale do not contribute to the constraints.
 Furthermore, around 2019, DESI will start taking data. For this reason, we add DESI to the LSS tracers used in \refsec{del_res}. 
 
 The correlation factor attainable using generation 3 experiments is shown in \reffig{corrS3}.
@@ -756,7 +757,9 @@ LSS-S3+CMB (69\%)& 2.8 & 1.8& 1.31  \\ \hline
 Having as a major goal the detection of inflationary B-modes, CMB data will continue improving even after Stage-3.
 An ambitious program for a Stage-4 ground CMB experiment is in the planning phase \cite{abazajian:2016}. 
 Moreover, satellite and balloon CMB experiments have been proposed and have the potential to extend the accessible B-mode measurements to the largest scales. Given the unprecedented low level of noise of these experiment, delensing will be even more important than in previous generations.
-Following \cite{abazajian:2016}, here we assume a CMB-S4 ground experiment with a level of noise of $1\mu$K-arcmin and a 1 arcmin beam.
+Following the B-mode constraints section in \cite{abazajian:2016}, here we assume a CMB-S4 ground experiment composed of two different telescopes.
+For the deep experiment, we assume an instrumental noise equal to $1\mu$K-arcmin in polarization and a beam of 15 arcmin. The high-resolution experiment will have a level of noise in polarization of $1.5\mu$K-arcmin and a 1 arcmin beam.
+
 Furthermore, in the next decade, several next-generation LSS surveys will be online. 
 Even if these LSS surveys will observe an overlapping part of the sky and similar modes, because of their different strengths and weaknesses, it will still be important to combine them efficiently.
 Here, as an example of future optical galaxy surveys, we add LSST \cite{lsst-science-collaboration:2009} to the CMB lensing tracers. 
@@ -862,7 +865,7 @@ Removing this component will reduce the level of non-linearities both in the CMB
 
 %=================================================================
 \section{Acknowledgments}
-We thank S. Dodelson, S. Passaglia, K. Story, A. Vieregg and K. Wu for useful discussion and their review of the draft. 
+We thank T. Crawford, S. Dodelson, Gil Holder, T. Namikawa, S. Passaglia, K. Story, A. Vieregg and K. Wu for useful discussion and their review of the draft. 
 Furthermore we thank D. Alonso for his feedback on radio continuum surveys.
 
 This work made use of computing resources and support provided by the Research Computing Center at the University of Chicago.

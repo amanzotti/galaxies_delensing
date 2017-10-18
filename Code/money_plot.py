@@ -93,7 +93,6 @@ colors['LSST'] = colormap(4)
 colors['SKA'] = colormap(5)
 
 
-
 plt.close()
 plt.close()
 
@@ -107,14 +106,19 @@ width = 0.55       # the width of the bars: can also be len(x) sequence
 # ==========================================
 # ==========================================
 plt.gca().set_prop_cycle(None)
-p1 = plt.barh(ind[0], -6, width, alpha=0.8)
-p2 = plt.barh(ind[0], -8, width, left=-6, alpha=0.8)
-p2 = plt.barh(ind[0], -14, width, left=-6 - 8, alpha=0.8)
-p2 = plt.barh(ind[0], -27, width, left=-6 - 8 - 14, alpha=0.8)
-
-p1 = plt.barh(ind[0] + 1.5 * width, 36, width, color='#7f7f7f', alpha=0.8)
+# WISE
+p1 = plt.barh(ind[0], -6, width, alpha=0.8, color=colors['WISE'])
+# Planck
+p2 = plt.barh(ind[0], -8, width, left=-6, alpha=0.8, color=colormap(6))
+# DES
+p2 = plt.barh(ind[0], -14, width, left=-6 - 8, alpha=0.8, color=colors['DES'])
+# CIB
+p2 = plt.barh(ind[0], -27, width, left=-6 - 8 - 14, alpha=0.8, color=colors['CIB'])
+# LSS
+p1 = plt.barh(ind[0] + 1.5 * width, 36, width, color=colormap(7), alpha=0.8)
+# total
 p2 = plt.barh(ind[0] + 1.5 * width, 41 - 36, width,
-              color='#bcbd22', left=36, alpha=0.8)
+              color=colormap(8), left=36, alpha=0.8)
 
 # ==========================================
 # ==========================================
@@ -122,29 +126,29 @@ p2 = plt.barh(ind[0] + 1.5 * width, 41 - 36, width,
 
 # ==========================================
 plt.gca().set_prop_cycle(None)
-p1 = plt.barh(ind[1], -6., width * 1.1, left=0., alpha=0.8)
-p2 = plt.barh(ind[1], -35., width * 1.1, left=-6., alpha=0.8)
-p2 = plt.barh(ind[1], -14, width * 1.1, left=-6 - 35, alpha=0.8)
-p2 = plt.barh(ind[1], -27, width * 1.1, left=-6 - 35 - 14, alpha=0.8)
+p1 = plt.barh(ind[1], -6., width * 1.1, left=0., alpha=0.8, color=colors['WISE'])
+p2 = plt.barh(ind[1], -35., width * 1.1, left=-6., alpha=0.8, color=colormap(6))
+p2 = plt.barh(ind[1], -14, width * 1.1, left=-6 - 35, alpha=0.8, color=colors['DES'])
+p2 = plt.barh(ind[1], -27, width * 1.1, left=-6 - 35 - 14, alpha=0.8, color=colors['CIB'])
 
 p1 = plt.barh(ind[1] + 1.5 * width, 36, width *
-              0.9, color='#7f7f7f', alpha=0.8)
+              0.9, color=colormap(7), alpha=0.8)
 p2 = plt.barh(ind[1] + 1.5 * width, 56 - 36, width *
-              0.9, color='#bcbd22', left=36, alpha=0.8)
+              0.9, color=colormap(8), left=36, alpha=0.8)
 # ==========================================
 
 
 # ==========================================
 # ==========================================
 plt.gca().set_prop_cycle(None)
-p1 = plt.barh(ind[2], -10., width * 1.1, alpha=0.8)
-p2 = plt.barh(ind[2], -40., width * 1.1, left=-10., alpha=0.8)
-p2 = plt.barh(ind[2], -56., width * 1.1, left=-10. - 40., alpha=0.8)
+p1 = plt.barh(ind[2], -10., width * 1.1, alpha=0.8, color=colors['DESI'])
+p2 = plt.barh(ind[2], -40., width * 1.1, left=-10., alpha=0.8, color=colormap(7))
+p2 = plt.barh(ind[2], -56., width * 1.1, left=-10. - 40., alpha=0.8, color=colormap(6))
 
 p1 = plt.barh(ind[2] + 1.5 * width, 40, width *
-              0.9, color='#7f7f7f', alpha=0.8)
+              0.9, color=colormap(7), alpha=0.8)
 p2 = plt.barh(ind[2] + 1.5 * width, 69 - 40, width *
-              0.9, color='#bcbd22', left=40, alpha=0.8)
+              0.9, color=colormap(8), left=40, alpha=0.8)
 
 # ==========================================
 # ==========================================
@@ -152,14 +156,14 @@ p2 = plt.barh(ind[2] + 1.5 * width, 69 - 40, width *
 # ==========================================
 # ==========================================
 plt.gca().set_prop_cycle(None)
-p1 = plt.barh(ind[3], -48, width * 1.1, alpha=0.8)
-p2 = plt.barh(ind[3], -56, width * 1.1, left=-48, alpha=0.8)
-p2 = plt.barh(ind[3], -84, width * 1.1, left=-48 - 56, alpha=0.8)
+p1 = plt.barh(ind[3], -48, width * 1.1, alpha=0.8, color=colors['LSST'])
+p2 = plt.barh(ind[3], -56, width * 1.1, left=-48, alpha=0.8, color=colors['SKA'])
+p2 = plt.barh(ind[3], -84, width * 1.1, left=-48 - 56, alpha=0.8, color=colormap(6))
 
 p1 = plt.barh(ind[3] + 1.5 * width, 60, width * 0.9,
-              color='#7f7f7f', alpha=0.8, label='LSS')
+              color=colormap(7), alpha=0.8, label='LSS')
 p2 = plt.barh(ind[3] + 1.5 * width, 86 - 60, width * 0.9,
-              color='#bcbd22', left=60, alpha=0.8, label='LSS +CMB')
+              color=colormap(8), left=60, alpha=0.8, label='LSS +CMB')
 
 # ==========================================
 # ==========================================
