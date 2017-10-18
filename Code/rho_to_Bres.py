@@ -7,6 +7,7 @@ from joblib import Parallel, delayed, cpu_count
 import scipy.integrate as integrate
 import profiling
 from profiling.sampling import SamplingProfiler
+import time
 
 
 def bl(fwhm_arcmin, lmax):
@@ -51,10 +52,12 @@ def compute_BB(clee_fun, clpp_fun, ell_b_bin, ell_phi_bin):
 
 
 def compute_res_parallel(rho_filename, output_dir, clee_fun, clpp_fun, nle_fun):
+
     print(output_dir)
     # print('start integration')
+
     if rho_filename == 'test':
-        lmax = 3000
+        lmax = 2000
 
         def integrand(theta, ell, L):
             clee = clee_fun(ell)
@@ -72,11 +75,13 @@ def compute_res_parallel(rho_filename, output_dir, clee_fun, clpp_fun, nle_fun):
             clee = clee_fun(ell)
             return (ell / (2. * np.pi)**2 * (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee * (np.sin(2. * theta))**2) * (1. - (clee / (clee + nle_fun(ell))) * rho_fun(ell) ** 2)
 
-    lbins_int = np.linspace(10, 2500, 80)
-
-    clbb_res_ell = [integrate.dblquad(
-        integrand, 8, lmax, lambda x: 0, lambda x: 2. * np.pi, args=(L,), epsabs=0., epsrel=1.49e-05)[0] for L in lbins_int]
-
+    lbins_int = np.linspace(10, 2000, 50)
+    options1 = {'limit': 500, 'epsabs': 0., 'epsrel': 1.e-3}
+    options2 = {'limit': 40, 'epsabs': 0., 'epsrel': 1.e-3}
+    tic =time.time()
+    clbb_res_ell = [integrate.nquad(
+        integrand, [[0., 2. * np.pi], [8, lmax]], args=(L,), opts=[options1, options2])[0] for L in lbins_int]
+    print('time for the integral total',tic -time.time())
     np.savetxt(rho_filename.split('.txt')[0] + 'Cbb_res.txt', clbb_res_ell)
     np.savetxt(output_dir + 'limber_spectra/cbb_res_ls.txt', lbins_int)
 

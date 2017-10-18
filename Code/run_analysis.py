@@ -34,7 +34,7 @@ pars = camb.CAMBparams()
 # and helium set using BBN consistency
 pars.set_cosmology(H0=70, ombh2=0.0226, omch2=0.112,
                    mnu=0.029, omk=0, tau=0.079)
-pars.InitPower.set_params(ns=0.96, r=0., nt=0)
+pars.InitPower.set_params(ns=0.96, r=0., nt=0, pivot_tensor=0.01, As=2.1e-9)
 pars.set_for_lmax(5000, lens_potential_accuracy=3)
 # pars.set_for_lmax?
 
@@ -47,9 +47,12 @@ pars.max_eta_k_tensor = 3000.
 
 # print(pars) # if you want to test parasm
 results = camb.get_results(pars)
-
+powers = results.get_cmb_power_spectra(pars)
 # Remember there is a 7.4e12 missing and CAMB always give you $ \ell (\ell +1)/2\pi  $
-
+totCL = powers['total']
+cle = totCL[:, 1]
+clp = powers['lens_potential'][:, 0]
+ells_cmb = np.arange(0,len(clp))
 
 @functools32.lru_cache(maxsize=64)
 def clbb(r=0.1, nt=None, lmax=3000):
@@ -106,6 +109,7 @@ def fisher_r_nt(r_fid=0.2, fid=None,
                 fsky=0.5
                 ):
 
+    print('noise', noise_uK_arcmin, 'beam=', fwhm_arcmin)
     nlb = nl(noise_uK_arcmin, fwhm_arcmin, lmax=lmax)
     ell_nlb = np.arange(0, len(nlb))
     nlb = nlb * ell_nlb * (ell_nlb + 1.) / 2. / np.pi
@@ -189,10 +193,10 @@ rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_gals.txt',
 noise_uK_arcmin = 3.
 fwhm_arcmin = 30.
 # not used right now
-ell_range_deep = [20, 400]
-ell_range_high = [200, ells_cmb[-1]]
-nle_deep = nl(noise_uK_arcmin, fwhm_arcmin, lmax=ells_cmb[-1])[2:]
-nle_high = nl(9., 1., lmax=ells_cmb[-1])[2:]
+# ell_range_deep = [20, 400]
+# ell_range_high = [200, ells_cmb[-1]]
+# nle_deep = nl(noise_uK_arcmin, fwhm_arcmin, lmax=ells_cmb[-1])[2:]
+# nle_high = nl(9., 1., lmax=ells_cmb[-1])[2:]
 # nle_high[:ell_range_high[0]] = np.inf
 # nle_deep[:ell_range_deep[0]] = np.inf
 # nle_deep[ell_range_deep[1]:] = np.inf
@@ -200,6 +204,8 @@ nle_high = nl(9., 1., lmax=ells_cmb[-1])[2:]
 
 nle = nl(noise_uK_arcmin, fwhm_arcmin, lmax=ells_cmb[-1])[2:]
 B_test = rho_to_Bres.main(['test'], nle)
+# sys.exit()
+
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_lensed = InterpolatedUnivariateSpline(
     lbins, lbins * (lbins + 1.) * np.nan_to_num(B_test) / 2. / np.pi, ext='extrapolate')
@@ -384,8 +390,6 @@ print('')
 
 lmax = 500
 # This needs to be Bicep like, the value of the deep exp
-noise_uK_arcmin = 3.
-fwhm_arcmin = 30.
 r_fid = 0.
 f_sky = 0.06
 print('')
@@ -474,6 +478,7 @@ lmax = 500
 # This needs to be Bicep like, the value of the deep exp
 noise_uK_arcmin = 3.
 fwhm_arcmin = 30.
+
 r_fid = 0.11
 fsky = 0.06
 print('')
@@ -522,6 +527,9 @@ cmb = 'S3'
 multiple_survey_delens.main(labels, cmb)
 rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_desi.txt',
              'rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
+# This needs to be Bicep like, the value of the deep exp
+noise_uK_arcmin = 2
+fwhm_arcmin = 30.
 # deep survey to delens or what is giving you E-mode
 nle = nl(3, 1, lmax=ells_cmb[-1])[2:]
 B_res3 = rho_to_Bres.main(rho_names, nle)
@@ -564,9 +572,7 @@ print('')
 # noise_uK_arcmin=4.5,
 # fwhm_arcmin=4.,
 lmax = 2000
-# This needs to be Bicep like, the value of the deep exp
-noise_uK_arcmin = 3
-fwhm_arcmin = 1.
+
 r_fid = 0.0001
 fsky = 0.06
 
@@ -631,8 +637,8 @@ clbb.cache_clear()
 clbb_tens.cache_clear()
 
 lmax = 4000
-noise_uK_arcmin = 3.
-fwhm_arcmin = 1.
+noise_uK_arcmin = 2
+fwhm_arcmin = 30.
 r_fid = 0.11
 fsky = 0.06
 print('')
@@ -674,8 +680,8 @@ for i, label in enumerate(rho_names):
 # ==============================
 lmax = 3000
 # This needs to be Bicep like, the value of the deep exp
-noise_uK_arcmin = 1
-fwhm_arcmin = 1.
+noise_uK_arcmin = 1.5
+fwhm_arcmin = 15.
 r_fid = 0.
 nle = nl(1, 1, lmax=ells_cmb[-1])[2:]
 
