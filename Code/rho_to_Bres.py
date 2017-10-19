@@ -1,12 +1,12 @@
 # coding: utf-8
-from scipy.interpolate import RectBivariateSpline, interp1d, InterpolatedUnivariateSpline
+from scipy.interpolate import InterpolatedUnivariateSpline
 import sys
 import configparser as ConfigParser
 import numpy as np
 from joblib import Parallel, delayed, cpu_count
 import scipy.integrate as integrate
-import profiling
-from profiling.sampling import SamplingProfiler
+# import profiling
+# from profiling.sampling import SamplingProfiler
 import time
 
 
@@ -52,7 +52,9 @@ def compute_BB(clee_fun, clpp_fun, ell_b_bin, ell_phi_bin):
 
 
 def compute_res_parallel(rho_filename, output_dir, clee_fun, clpp_fun, nle_fun):
-
+    """
+    This function compute both a lensing B-mode from cle and clpp ("test mode") as well as the residual power after delensing if a rho_file that represent the degree of correlation of the phi map with the true phi is passed.
+    """
     print(output_dir)
     # print('start integration')
 
@@ -61,6 +63,7 @@ def compute_res_parallel(rho_filename, output_dir, clee_fun, clpp_fun, nle_fun):
 
         def integrand(theta, ell, L):
             clee = clee_fun(ell)
+            # typical integrand to get BB from EE and phi. no correlation rho here
             return (ell / (2. * np.pi)**2 * (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee * (np.sin(2. * theta))**2)
     else:
         rho_filename = output_dir + 'limber_spectra/' + rho_filename
@@ -72,16 +75,20 @@ def compute_res_parallel(rho_filename, output_dir, clee_fun, clpp_fun, nle_fun):
         lmax = np.max(lbins)
 
         def integrand(theta, ell, L):
+            """
+            integrand to get the residual B-mode
+            """
             clee = clee_fun(ell)
             return (ell / (2. * np.pi)**2 * (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee * (np.sin(2. * theta))**2) * (1. - (clee / (clee + nle_fun(ell))) * rho_fun(ell) ** 2)
 
-    lbins_int = np.linspace(10, 2000, 50)
-    options1 = {'limit': 500, 'epsabs': 0., 'epsrel': 1.e-3}
-    options2 = {'limit': 40, 'epsabs': 0., 'epsrel': 1.e-3}
-    tic =time.time()
+    lbins_int = np.linspace(10, 1800, 45)
+    options1 = {'limit': 500, 'epsabs': 0., 'epsrel': 1.e-2}
+    options2 = {'limit': 500, 'epsabs': 0., 'epsrel': 1.e-2}
+
+    tic = time.time()
     clbb_res_ell = [integrate.nquad(
-        integrand, [[0., 2. * np.pi], [8, lmax]], args=(L,), opts=[options1, options2])[0] for L in lbins_int]
-    print('time for the integral total',tic -time.time())
+        integrand, [[0., 2. * np.pi], [8, lmax]], args=(L,), opts=[options1, options2]) for L in lbins_int]
+    print('time for the integral total', tic - time.time())
     np.savetxt(rho_filename.split('.txt')[0] + 'Cbb_res.txt', clbb_res_ell)
     np.savetxt(output_dir + 'limber_spectra/cbb_res_ls.txt', lbins_int)
 
@@ -254,7 +261,7 @@ def compute_deriv_grid(delta_phi, delta_b, n_jobs=15):
     return clbb_der
 
 
-def main(rho_names, nle):
+def main(rho_names, nle_fun, clpp_fun, clee_fun):
     inifile = '/home/manzotti/cosmosis/modules/limber/galaxies_delens.ini'
 
     Config_ini = ConfigParser.ConfigParser()
@@ -262,38 +269,8 @@ def main(rho_names, nle):
     # output_dir = Config_ini.get('test', 'save_dir')
     output_dir = '/home/manzotti/galaxies_delensing/Data/'
     datadir = output_dir
-
-    clpp = np.loadtxt(datadir + 'cmb_cl/pp.txt')
-    clee = np.loadtxt(datadir + 'cmb_cl/ee.txt')
-    ells_cmb = np.loadtxt(datadir + 'cmb_cl/ell.txt')
-
-    clee *= 2. * np.pi / (ells_cmb.astype(float) *
-                          (ells_cmb.astype(float) + 1.))
-    clpp = clpp * 2. * np.pi / \
-        (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
-
-    # clbb_th = np.loadtxt(
-    #     output_dir + 'cmb_cl/bb.txt')
-    # clbb_th *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
-
-    # surveys = ['test', 'cib', 'des', 'comb_des_cib', 'comb_des_cib_cmb',
-    #            'ska10', 'ska5', 'ska1', 'ska01', 'lsst', 'euclid', 'rho_comb', 'rho_cmbS4', 'rho_cmbS3']
-
-    # surveys = ['rho_cmbS3', 'rho_cmbS4']
-    # generating noise in E-modes
-    # nle = nl(1, 1, lmax=ells_cmb[-1])[2:]
-
-    # B_res = Parallel(n_jobs=len(surveys), verbose=50)(delayed(
-    #     compute_res)(i) for i in surveys)
-
-    clee_fun = InterpolatedUnivariateSpline(
-        ells_cmb[:5000], clee[:5000], ext=2)
-    clpp_fun = InterpolatedUnivariateSpline(
-        ells_cmb[:5000], clpp[:5000], ext='zeros')
-    nle_fun = InterpolatedUnivariateSpline(
-        ells_cmb[:5000], nle[:5000], ext=2)
     print('in rho_to res', cpu_count(), rho_names)
-    cpus = np.min([len(rho_names) + 3, cpu_count() - 2])
+    cpus = np.min([len(rho_names), cpu_count() - 2])
     return Parallel(n_jobs=cpus, verbose=0)(delayed(compute_res_parallel)(i, output_dir, clee_fun, clpp_fun, nle_fun) for i in rho_names)
 
 
@@ -337,4 +314,4 @@ def compute_derivates():
 
 
 if __name__ == "__main__":
-    main(rho_names, nle)
+    main(rho_names, nle_fun, clpp_fun, clee_fun)

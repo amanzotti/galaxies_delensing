@@ -27,32 +27,6 @@ plt.rc('text', usetex=True)
 plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern Roman']})
 # ============================================
 
-# cosmology values!!!!!!
-
-pars = camb.CAMBparams()
-# This function sets up CosmoMC-like settings, with one massive neutrino
-# and helium set using BBN consistency
-pars.set_cosmology(H0=70, ombh2=0.0226, omch2=0.112,
-                   mnu=0.029, omk=0, tau=0.079)
-pars.InitPower.set_params(ns=0.96, r=0., nt=0, pivot_tensor=0.01, As=2.1e-9)
-pars.set_for_lmax(5000, lens_potential_accuracy=3)
-# pars.set_for_lmax?
-
-pars.AccurateBB = True
-pars.OutputNormalization = False
-pars.WantTensors = True
-pars.DoLensing = True
-pars.max_l_tensor = 3000
-pars.max_eta_k_tensor = 3000.
-
-# print(pars) # if you want to test parasm
-results = camb.get_results(pars)
-powers = results.get_cmb_power_spectra(pars)
-# Remember there is a 7.4e12 missing and CAMB always give you $ \ell (\ell +1)/2\pi  $
-totCL = powers['total']
-cle = totCL[:, 1]
-clp = powers['lens_potential'][:, 0]
-ells_cmb = np.arange(0,len(clp))
 
 @functools32.lru_cache(maxsize=64)
 def clbb(r=0.1, nt=None, lmax=3000):
@@ -154,6 +128,40 @@ def fisher_r_nt(r_fid=0.2, fid=None,
     return (sigma_r, sigma_nt, np.sqrt(1 / Frr), np.sqrt(1 / Fnn))
 
 
+# cosmology values!!!!!!
+
+
+pars = camb.CAMBparams()
+# This function sets up CosmoMC-like settings, with one massive neutrino
+# and helium set using BBN consistency
+pars.set_cosmology(H0=70, ombh2=0.0226, omch2=0.112,
+                   mnu=0.029, omk=0, tau=0.079)
+pars.InitPower.set_params(ns=0.96, r=0., nt=0, pivot_tensor=0.01, As=2.1e-9)
+pars.set_for_lmax(5000, lens_potential_accuracy=3)
+# pars.set_for_lmax?
+
+pars.AccurateBB = True
+pars.OutputNormalization = False
+pars.WantTensors = True
+pars.DoLensing = True
+pars.max_l_tensor = 3000
+pars.max_eta_k_tensor = 3000.
+
+# print(pars) # if you want to test parasm
+results = camb.get_results(pars)
+powers = results.get_cmb_power_spectra(pars)
+# Remember there is a 7.4e12 missing and CAMB always give you $ \ell (\ell +1)/2\pi  $
+totCL = powers['total']
+cle = totCL[:, 1]
+ells_cmb = np.arange(0, len(cle))
+clp = powers['lens_potential'][:, 0] / (ells_cmb * (ells_cmb + 1))**2 * (2. * np.pi)
+cle = cle * 7.42835025e12 / (ells_cmb * (ells_cmb + 1)) * (2. * np.pi)
+clpp_fun = InterpolatedUnivariateSpline(
+    ells_cmb[:5000], np.nan_to_num(clp[:5000]), ext=2)
+clee_fun = InterpolatedUnivariateSpline(
+    ells_cmb[:5000], np.nan_to_num(cle[:5000]), ext=2)
+
+
 inifile = '/home/manzotti/cosmosis/modules/limber/galaxies_delens.ini'
 Config_ini = ConfigParser.ConfigParser()
 values = ConfigParser.ConfigParser()
@@ -203,13 +211,14 @@ fwhm_arcmin = 30.
 # nle = 1/(1/nle_high +1/nle_deep)
 
 nle = nl(noise_uK_arcmin, fwhm_arcmin, lmax=ells_cmb[-1])[2:]
-B_test = rho_to_Bres.main(['test'], nle)
-# sys.exit()
-
+nle_fun = InterpolatedUnivariateSpline(
+    np.arange(0, len(nle)), nle, ext=2)
+B_test = rho_to_Bres.main(['test'], nle_fun, clpp_fun, clee_fun)
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_lensed = InterpolatedUnivariateSpline(
     lbins, lbins * (lbins + 1.) * np.nan_to_num(B_test) / 2. / np.pi, ext='extrapolate')
-B_res3 = rho_to_Bres.main(rho_names, nle)
+
+B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 
 clbb_res = {}
@@ -356,7 +365,9 @@ rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_gals.txt',
              'rho_wise.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 # deep survey to delens or what is giving you E-mode
 nle = nl(9, 1, lmax=ells_cmb[-1])[2:]
-B_res3 = rho_to_Bres.main(rho_names, nle)
+nle_fun = InterpolatedUnivariateSpline(
+    np.arange(0, len(nle)), nle, ext=2)
+B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
 
 
 # In[275]:
@@ -532,7 +543,9 @@ noise_uK_arcmin = 2
 fwhm_arcmin = 30.
 # deep survey to delens or what is giving you E-mode
 nle = nl(3, 1, lmax=ells_cmb[-1])[2:]
-B_res3 = rho_to_Bres.main(rho_names, nle)
+nle_fun = InterpolatedUnivariateSpline(
+    np.arange(0, len(nle)), nle, ext=2)
+B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
 
 
 # In[279]:
@@ -701,7 +714,9 @@ rho_names = ['rho_ska01.txt', 'rho_gals.txt',
              'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 
 # deep survey to delens or what is giving you E-mode
-B_res3 = rho_to_Bres.main(rho_names, nle)
+nle_fun = InterpolatedUnivariateSpline(
+    np.arange(0, len(nle)), nle, ext=2)
+B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_res = {}
 for i, probe in enumerate(rho_names):
@@ -828,7 +843,9 @@ rho_names = ['rho_ska10.txt', 'rho_gals.txt',
              'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 
 # deep survey to delens or what is giving you E-mode
-B_res3 = rho_to_Bres.main(rho_names, nle)
+nle_fun = InterpolatedUnivariateSpline(
+    np.arange(0, len(nle)), nle, ext=2)
+B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_res = {}
 for i, probe in enumerate(rho_names):
@@ -950,7 +967,9 @@ cmb = 'S4'
 multiple_survey_delens.main(labels, cmb)
 rho_names = ['rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 # deep survey to delens or what is giving you E-mode
-B_res3 = rho_to_Bres.main(rho_names, nle)
+nle_fun = InterpolatedUnivariateSpline(
+    np.arange(0, len(nle)), nle, ext=2)
+B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_res = {}
 for i, probe in enumerate(rho_names):
@@ -1066,7 +1085,9 @@ print(Fore.RED + 'Tracers:' + '-'.join(labels))
 multiple_survey_delens.main(labels, cmb)
 rho_names = ['rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 # deep survey to delens or what is giving you E-mode
-B_res3 = rho_to_Bres.main(rho_names, nle)
+nle_fun = InterpolatedUnivariateSpline(
+    np.arange(0, len(nle)), nle, ext=2)
+B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_res = {}
 for i, probe in enumerate(rho_names):

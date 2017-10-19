@@ -189,10 +189,11 @@ def main(ini_par):
     pars = camb.CAMBparams()
     # This function sets up CosmoMC-like settings, with one massive neutrino
     # and helium set using BBN consistency
+
     pars.set_cosmology(H0=67.5, ombh2=0.022, omch2=0.122,
                        mnu=0.06, omk=0, tau=0.06)
-    pars.InitPower.set_params(ns=0.965, r=0)
-    pars.set_for_lmax(3500, lens_potential_accuracy=2)
+    pars.InitPower.set_params(ns=0.96, r=0., nt=0, pivot_tensor=0.01, As=2.1e-9)
+    pars.set_for_lmax(3500, lens_potential_accuracy=3)
     pars.NonLinear = model.NonLinear_both
     pars.set_matter_power(redshifts=np.linspace(0., 13, 50), kmax=5.0)
     results = camb.get_results(pars)
