@@ -107,18 +107,18 @@ width = 0.55       # the width of the bars: can also be len(x) sequence
 # ==========================================
 plt.gca().set_prop_cycle(None)
 # WISE
-p1 = plt.barh(ind[0], -6, width, alpha=0.8, color=colors['WISE'])
+p1 = plt.barh(ind[0], -7, width, alpha=0.8, color=colors['WISE'])
 # Planck
-p2 = plt.barh(ind[0], -8, width, left=-6, alpha=0.8, color=colormap(6))
+p2 = plt.barh(ind[0], -6, width, left=-7, alpha=0.8, color=colormap(6))
 # DES
-p2 = plt.barh(ind[0], -14, width, left=-6 - 8, alpha=0.8, color=colors['DES'])
+p2 = plt.barh(ind[0], -15, width, left=-7 - 6, alpha=0.8, color=colors['DES'])
 # CIB
-p2 = plt.barh(ind[0], -27, width, left=-6 - 8 - 14, alpha=0.8, color=colors['CIB'])
+p2 = plt.barh(ind[0], -31, width, left=-7 - 6 - 15, alpha=0.8, color=colors['CIB'])
 # LSS
-p1 = plt.barh(ind[0] + 1.5 * width, 36, width, color=colormap(7), alpha=0.8)
+p1 = plt.barh(ind[0] + 1.5 * width, 41, width, color=colormap(7), alpha=0.8)
 # total
-p2 = plt.barh(ind[0] + 1.5 * width, 41 - 36, width,
-              color=colormap(8), left=36, alpha=0.8)
+p2 = plt.barh(ind[0] + 1.5 * width, 44 - 41, width,
+              color=colormap(8), left=41, alpha=0.8)
 
 # ==========================================
 # ==========================================
@@ -126,15 +126,15 @@ p2 = plt.barh(ind[0] + 1.5 * width, 41 - 36, width,
 
 # ==========================================
 plt.gca().set_prop_cycle(None)
-p1 = plt.barh(ind[1], -6., width * 1.1, left=0., alpha=0.8, color=colors['WISE'])
-p2 = plt.barh(ind[1], -35., width * 1.1, left=-6., alpha=0.8, color=colormap(6))
-p2 = plt.barh(ind[1], -14, width * 1.1, left=-6 - 35, alpha=0.8, color=colors['DES'])
-p2 = plt.barh(ind[1], -27, width * 1.1, left=-6 - 35 - 14, alpha=0.8, color=colors['CIB'])
+p1 = plt.barh(ind[1], -7., width * 1.1, left=0., alpha=0.8, color=colors['WISE'])
+p2 = plt.barh(ind[1], -31., width * 1.1, left=-7., alpha=0.8, color=colormap(6))
+p2 = plt.barh(ind[1], -15, width * 1.1, left=-6 - 31, alpha=0.8, color=colors['DES'])
+p2 = plt.barh(ind[1], -31, width * 1.1, left=-6 - 31 - 15, alpha=0.8, color=colors['CIB'])
 
-p1 = plt.barh(ind[1] + 1.5 * width, 36, width *
+p1 = plt.barh(ind[1] + 1.5 * width, 43, width *
               0.9, color=colormap(7), alpha=0.8)
-p2 = plt.barh(ind[1] + 1.5 * width, 56 - 36, width *
-              0.9, color=colormap(8), left=36, alpha=0.8)
+p2 = plt.barh(ind[1] + 1.5 * width, 56 - 43, width *
+              0.9, color=colormap(8), left=43, alpha=0.8)
 # ==========================================
 
 
@@ -142,13 +142,13 @@ p2 = plt.barh(ind[1] + 1.5 * width, 56 - 36, width *
 # ==========================================
 plt.gca().set_prop_cycle(None)
 p1 = plt.barh(ind[2], -10., width * 1.1, alpha=0.8, color=colors['DESI'])
-p2 = plt.barh(ind[2], -40., width * 1.1, left=-10., alpha=0.8, color=colormap(7))
-p2 = plt.barh(ind[2], -56., width * 1.1, left=-10. - 40., alpha=0.8, color=colormap(6))
+p2 = plt.barh(ind[2], -43., width * 1.1, left=-10., alpha=0.8, color=colormap(7))
+p2 = plt.barh(ind[2], -56., width * 1.1, left=-10. - 43., alpha=0.8, color=colormap(6))
 
-p1 = plt.barh(ind[2] + 1.5 * width, 40, width *
+p1 = plt.barh(ind[2] + 1.5 * width, 43, width *
               0.9, color=colormap(7), alpha=0.8)
-p2 = plt.barh(ind[2] + 1.5 * width, 69 - 40, width *
-              0.9, color=colormap(8), left=40, alpha=0.8)
+p2 = plt.barh(ind[2] + 1.5 * width, 69 - 43, width *
+              0.9, color=colormap(8), left=43, alpha=0.8)
 
 # ==========================================
 # ==========================================
@@ -183,10 +183,10 @@ plt.gca().set_axisbelow(True)
 
 # start annotation
 
-plt.text(-47, -0.2, 'CIB', horizontalalignment='left',
+plt.text(-49, -0.2, 'CIB', horizontalalignment='left',
          verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold')
 
-plt.text(-28, - 0.18, 'DES', horizontalalignment='left',
+plt.text(-26, - 0.18, 'DES', horizontalalignment='left',
          verticalalignment='bottom', fontsize=font_size / 1.8, fontweight='bold')
 
 plt.text(-12, 0.3, 'Planck', horizontalalignment='left',
@@ -195,13 +195,13 @@ plt.text(-12, 0.3, 'Planck', horizontalalignment='left',
 plt.text(-5, 0.35, 'WISE', horizontalalignment='left',
          verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold', rotation=90.)
 
-plt.text(-75, 2 - 0.2, 'CIB', horizontalalignment='left',
+plt.text(-72, 2 - 0.2, 'CIB', horizontalalignment='left',
          verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold')
 
-plt.text(-54.5, 2 - 0.18, 'DES', horizontalalignment='left',
+plt.text(-52.5, 2 - 0.18, 'DES', horizontalalignment='left',
          verticalalignment='bottom', fontsize=font_size / 1.8, fontweight='bold')
 
-plt.text(-35, 2 - 0.2, 'SPTPol', horizontalalignment='left',
+plt.text(-32, 2 - 0.2, 'SPTPol', horizontalalignment='left',
          verticalalignment='bottom', fontsize=font_size / 1.5, fontweight='bold')
 
 plt.text(-5, 2 + 0.35, 'WISE', horizontalalignment='left',

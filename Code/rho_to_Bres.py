@@ -79,15 +79,17 @@ def compute_res_parallel(rho_filename, output_dir, clee_fun, clpp_fun, nle_fun):
             integrand to get the residual B-mode
             """
             clee = clee_fun(ell)
+            # print(nle_fun(ell), rho_fun(ell))
+
             return (ell / (2. * np.pi)**2 * (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee * (np.sin(2. * theta))**2) * (1. - (clee / (clee + nle_fun(ell))) * rho_fun(ell) ** 2)
 
-    lbins_int = np.linspace(10, 1800, 45)
-    options1 = {'limit': 500, 'epsabs': 0., 'epsrel': 1.e-2}
-    options2 = {'limit': 500, 'epsabs': 0., 'epsrel': 1.e-2}
+    lbins_int = np.concatenate((np.linspace(4, 300, 60), np.linspace(310, 1800, 60)))
+    options1 = {'limit': 500, 'epsabs': 0., 'epsrel': 5.e-3}
+    options2 = {'limit': 500, 'epsabs': 0., 'epsrel': 5.e-3}
 
     tic = time.time()
     clbb_res_ell = [integrate.nquad(
-        integrand, [[0., 2. * np.pi], [8, lmax]], args=(L,), opts=[options1, options2]) for L in lbins_int]
+        integrand, [[0., 2. * np.pi], [8, lmax]], args=(L,), opts=[options1, options2])[0] for L in lbins_int]
     print('time for the integral total', tic - time.time())
     np.savetxt(rho_filename.split('.txt')[0] + 'Cbb_res.txt', clbb_res_ell)
     np.savetxt(output_dir + 'limber_spectra/cbb_res_ls.txt', lbins_int)

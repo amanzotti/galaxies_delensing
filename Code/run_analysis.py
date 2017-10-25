@@ -52,6 +52,112 @@ clbb_tens.cache_clear()
 clbb.cache_clear()
 
 
+def run_fisher_cases(rho_names, lmin, lmax, fsky, deep):
+    print('')
+    print(Fore.YELLOW + 'r=0, no noise')
+    print('')
+    r_fid = 0
+    for i, label in enumerate(rho_names):
+        probe = label.split('.txt')[0].split('rho_')[1]
+        # delensed
+        sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
+            r_fid=r_fid,
+            lmin=lmin,
+            lmax=lmax,
+            fsky=fsky,
+            clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))
+                                     ) + clbb_tens(r_fid, lmax=lmax),
+            noise_uK_arcmin=0.,
+            fwhm_arcmin=deep['fwhm_arcmin'])
+
+        sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
+            r_fid=r_fid,
+            lmin=lmin,
+            lmax=lmax,
+            fsky=fsky,
+            # clbb also contains r tensor contributions
+            clbb_cov=clbb(r_fid, lmax=lmax),
+            noise_uK_arcmin=0.,
+            fwhm_arcmin=deep['fwhm_arcmin'])
+        print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
+                       sigma_nt_1 / sigma_nt))
+
+    print('After delensing % errors', sigma_r_1 * 1e2)
+
+    print('')
+    print('')
+
+    print('')
+    print(Fore.YELLOW + 'r=0')
+    print('')
+    r_fid = 0
+
+    for i, label in enumerate(rho_names):
+        probe = label.split('.txt')[0].split('rho_')[1]
+        sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
+            r_fid=r_fid,
+            lmin=lmin,
+            lmax=lmax,
+            fsky=fsky,
+            clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))
+                                     ) + clbb_tens(r_fid, lmax=lmax),
+            noise_uK_arcmin=deep['noise_uK_arcmin'],
+            fwhm_arcmin=deep['fwhm_arcmin'])
+        sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
+            r_fid=r_fid,
+            lmin=lmin,
+            lmax=lmax,
+            fsky=fsky,
+            clbb_cov=clbb(r_fid, lmax=lmax),
+            noise_uK_arcmin=deep['noise_uK_arcmin'],
+            fwhm_arcmin=deep['fwhm_arcmin'])
+        print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
+                       sigma_nt_1 / sigma_nt))
+
+    print('After delensing % errors', sigma_r_1 * 1e2)
+
+
+    print('')
+    print('')
+
+    # In[271]:
+
+    clbb.cache_clear()
+    clbb_tens.cache_clear()
+    r_fid = 0.11
+    fsky = 0.06
+
+    # ### r=0.07
+    print(Fore.YELLOW + 'r={}'.format(r_fid))
+    print('')
+    print('')
+
+    for i, label in enumerate(rho_names):
+        probe = label.split('.txt')[0].split('rho_')[1]
+        sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
+            r_fid=r_fid,
+            lmin=lmin,
+            fsky=fsky,
+            lmax=lmax,
+            clbb_cov=clbb_res[probe](np.arange(0, len(clbb(r_fid, lmax=lmax)))
+                                     ) + clbb_tens(r_fid, lmax=lmax),
+            noise_uK_arcmin=deep['noise_uK_arcmin'],
+            fwhm_arcmin=deep['fwhm_arcmin'])
+        sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
+            r_fid=r_fid,
+            lmin=lmin,
+            lmax=lmax,
+            fsky=fsky,
+            clbb_cov=clbb(r_fid, lmax=lmax),
+            noise_uK_arcmin=deep['noise_uK_arcmin'],
+            fwhm_arcmin=deep['fwhm_arcmin'])
+
+        print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
+                       sigma_nt_1 / sigma_nt))
+
+    print('After delensing % errors', sigma_r_1 * 1e2)
+
+
 def bl(fwhm_arcmin, lmax):
     """ returns the map-level transfer function for a symmetric Gaussian beam.
          * fwhm_arcmin      - beam full-width-at-half-maximum (fwhm) in arcmin.
@@ -83,7 +189,7 @@ def fisher_r_nt(r_fid=0.2, fid=None,
                 fsky=0.5
                 ):
 
-    print('noise', noise_uK_arcmin, 'beam=', fwhm_arcmin)
+    # print('noise', noise_uK_arcmin, 'beam=', fwhm_arcmin)
     nlb = nl(noise_uK_arcmin, fwhm_arcmin, lmax=lmax)
     ell_nlb = np.arange(0, len(nlb))
     nlb = nlb * ell_nlb * (ell_nlb + 1.) / 2. / np.pi
@@ -127,6 +233,27 @@ def fisher_r_nt(r_fid=0.2, fid=None,
 #     print(sigma_r,sigma_nt)
     return (sigma_r, sigma_nt, np.sqrt(1 / Frr), np.sqrt(1 / Fnn))
 
+
+def combine_deep_high_res(deep_noise, deep_fwhm, highres_noise, highres_fwhm, lmin_deep=20, lmax_deep=400, lmin_highres=2000):
+    deep = {}
+    deep['noise_uK_arcmin'] = 3.
+    deep['fwhm_arcmin'] = 30.
+    # high res
+    high_res = {}
+    high_res['noise_uK_arcmin'] = 9.4
+    high_res['fwhm_arcmin'] = 1.
+
+    # not used right now
+    ell_range_deep = [lmin_deep, lmax_deep]
+    ell_range_high = [lmin_highres, ells_cmb[-1]]
+    nle_deep = nl(deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+    nle_high = nl(deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+    nle_high[:ell_range_high[0]] = np.inf
+    nle_deep[:ell_range_deep[0]] = np.inf
+    nle_deep[ell_range_deep[1]:] = np.inf
+    nle = 1 / (1 / nle_high + 1 / nle_deep)
+    nle[np.where(nle == np.inf)] = 1e20
+    return deep, nle
 
 # cosmology values!!!!!!
 
@@ -198,19 +325,26 @@ rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_gals.txt',
 # deep survey to delens or what is giving you E-mode
 # BICEP level 3 muK and 30 arcmin beam
 
-noise_uK_arcmin = 3.
-fwhm_arcmin = 30.
-# not used right now
-# ell_range_deep = [20, 400]
-# ell_range_high = [200, ells_cmb[-1]]
-# nle_deep = nl(noise_uK_arcmin, fwhm_arcmin, lmax=ells_cmb[-1])[2:]
-# nle_high = nl(9., 1., lmax=ells_cmb[-1])[2:]
-# nle_high[:ell_range_high[0]] = np.inf
-# nle_deep[:ell_range_deep[0]] = np.inf
-# nle_deep[ell_range_deep[1]:] = np.inf
-# nle = 1/(1/nle_high +1/nle_deep)
+# deep
+deep = {}
+deep['noise_uK_arcmin'] = 3.
+deep['fwhm_arcmin'] = 30.
+# high res
+high_res = {}
+high_res['noise_uK_arcmin'] = 9.4
+high_res['fwhm_arcmin'] = 1.
 
-nle = nl(noise_uK_arcmin, fwhm_arcmin, lmax=ells_cmb[-1])[2:]
+# not used right now
+ell_range_deep = [20, 800]
+ell_range_high = [50, ells_cmb[-1]]
+nle_deep = nl(deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_high = nl(deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_high[:ell_range_high[0]] = np.inf
+nle_deep[:ell_range_deep[0]] = np.inf
+nle_deep[ell_range_deep[1]:] = np.inf
+nle = 1 / (1 / nle_high + 1 / nle_deep)
+nle[np.where(nle == np.inf)] = 1e20
+
 nle_fun = InterpolatedUnivariateSpline(
     np.arange(0, len(nle)), nle, ext=2)
 B_test = rho_to_Bres.main(['test'], nle_fun, clpp_fun, clee_fun)
@@ -219,7 +353,6 @@ clbb_lensed = InterpolatedUnivariateSpline(
     lbins, lbins * (lbins + 1.) * np.nan_to_num(B_test) / 2. / np.pi, ext='extrapolate')
 
 B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
-lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 
 clbb_res = {}
 for i, probe in enumerate(rho_names):
@@ -240,119 +373,26 @@ for probe in rho_names[0:]:
     print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
           'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) /
                                    clbb_lensed(np.arange(4, 500, 75))),
-          'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(np.arange(4, 1000, 100))
+          'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(50, 100, 100)) / clbb_lensed(np.arange(50, 100, 100))
                                     ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(np.arange(4, 1500, 100)))
           )
 
 print('')
-
 print('')
 print('')
 
 # sys.exit()
+lmin = 50
 lmax = 500
 # This needs to be Bicep like, the value of the deep exp
 r_fid = 0.
 fsky = 0.06
 
-print('')
-print(Fore.YELLOW + 'r=0, no noise')
-print('')
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    # delensed
-    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))
-                                 ) + clbb_tens(r_fid, lmax=lmax),
-        noise_uK_arcmin=0.,
-        fwhm_arcmin=fwhm_arcmin)
 
-    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        # clbb also contains r tensor contributions
-        clbb_cov=clbb(r_fid, lmax=lmax),
-        noise_uK_arcmin=0.,
-        fwhm_arcmin=fwhm_arcmin)
-    print('After delensing % errors', sigma_r_1 * 1e2)
-    print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
-                   sigma_nt_1 / sigma_nt, sigr_1 / sigr, sigmant_1 / sigmant))
-
-print('')
-print('')
+run_fisher_cases(rho_names, lmin, lmax, fsky, deep)
 
 
-print('')
-print(Fore.YELLOW + 'r=0')
-print('')
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))
-                                 ) + clbb_tens(r_fid, lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb(r_fid, lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    print('After delensing % errors', sigma_r_1 * 1e2)
-    print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
-                   sigma_nt_1 / sigma_nt, sigr_1 / sigr, sigmant_1 / sigmant))
-
-print('')
-print('')
-
-
-# ### r=0.07
-print(Fore.YELLOW + 'r=0.12')
-print('')
-print('')
-
-# In[271]:
-
-clbb.cache_clear()
-clbb_tens.cache_clear()
-r_fid = 0.11
-fsky = 0.06
-
-
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=4,
-        fsky=fsky,
-        lmax=lmax,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(r_fid, lmax=lmax)))
-                                 ) + clbb_tens(r_fid, lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=4,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb(r_fid, lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-
-    print('After delensing % errors', sigma_r_1, sigma_nt)
-    print(probe, 'gain = ', sigma_r_1 / sigma_r)
+# sys.exit()
 
 
 print(Fore.RED + 'Actual scenario High res SPT-pol')
@@ -364,7 +404,27 @@ multiple_survey_delens.main(labels, cmb)
 rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_gals.txt',
              'rho_wise.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 # deep survey to delens or what is giving you E-mode
-nle = nl(9, 1, lmax=ells_cmb[-1])[2:]
+
+# deep
+deep = {}
+deep['noise_uK_arcmin'] = 3.
+deep['fwhm_arcmin'] = 30.
+# high res
+high_res = {}
+high_res['noise_uK_arcmin'] = 9.4
+high_res['fwhm_arcmin'] = 1.
+
+# not used right now
+ell_range_deep = [20, 800]
+ell_range_high = [50, ells_cmb[-1]]
+nle_deep = nl(deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_high = nl(deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_high[:ell_range_high[0]] = np.inf
+nle_deep[:ell_range_deep[0]] = np.inf
+nle_deep[ell_range_deep[1]:] = np.inf
+nle = 1 / (1 / nle_high + 1 / nle_deep)
+nle[np.where(nle == np.inf)] = 1e20
+
 nle_fun = InterpolatedUnivariateSpline(
     np.arange(0, len(nle)), nle, ext=2)
 B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
@@ -382,14 +442,14 @@ for i, probe in enumerate(rho_names):
 
 print('')
 print(Fore.YELLOW + 'Fraction of removed Bmode power')
-for probe in rho_names[1:]:
+for probe in rho_names[:]:
     probe = probe.split('.txt')[0].split('rho_')[1]
     print(probe)
-    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
-          'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) /
-                                   clbb_lensed(np.arange(4, 500, 75))),
-          'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(np.arange(4, 1000, 100))
-                                    ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(np.arange(4, 1500, 100)))
+    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(10, 100, 25)) / clbb_lensed(np.arange(10, 100, 25))),
+          'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(10, 500, 75)) /
+                                   clbb_lensed(np.arange(10, 500, 75))),
+          'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(50, 200, 100)) / clbb_lensed(np.arange(50, 200, 100))
+                                    ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(10, 1500, 100)) / clbb_lensed(np.arange(10, 1500, 100)))
           )
     print('')
 
@@ -398,126 +458,12 @@ print('')
 
 
 # In[276]:
-
+lmin = 50
 lmax = 500
 # This needs to be Bicep like, the value of the deep exp
 r_fid = 0.
 f_sky = 0.06
-print('')
-print('')
-
-# ### r=0.07
-
-print('')
-print(Fore.YELLOW + 'r=0, no noise')
-print('')
-print('')
-print('')
-
-
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))
-                                 ) + clbb_tens(r_fid, lmax=lmax),
-        noise_uK_arcmin=0.,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb(r_fid, lmax=lmax),
-        noise_uK_arcmin=0.,
-        fwhm_arcmin=fwhm_arcmin)
-    print('After delensing % errors', sigma_r_1 * 1e2)
-    print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
-                   sigma_nt_1 / sigma_nt, sigr_1 / sigr, sigmant_1 / sigmant))
-
-
-# ### r=0.12
-
-# In[277]:
-
-clbb.cache_clear()
-clbb_tens.cache_clear()
-
-
-print('')
-print(Fore.YELLOW + 'r=0')
-print('')
-print('')
-print('')
-
-
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))
-                                 ) + clbb_tens(r_fid, lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb(r_fid, lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    print('After delensing % errors', sigma_r_1 * 1e2)
-    print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
-                   sigma_nt_1 / sigma_nt, sigr_1 / sigr, sigmant_1 / sigmant))
-
-
-# ### r=0.12
-
-# In[277]:
-
-clbb.cache_clear()
-clbb_tens.cache_clear()
-
-lmax = 500
-# This needs to be Bicep like, the value of the deep exp
-noise_uK_arcmin = 3.
-fwhm_arcmin = 30.
-
-r_fid = 0.11
-fsky = 0.06
-print('')
-print('r=0.12')
-print('')
-
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=4,
-        fsky=fsky,
-        lmax=lmax,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(r_fid, lmax=lmax)))
-                                 ) + clbb_tens(r_fid, lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=4,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb(r_fid, lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-
-    print('After delensing % errors', sigma_r_1, sigma_nt)
-    print(probe, 'gain = ', sigma_r_1 / sigma_r)
+run_fisher_cases(rho_names, lmin, lmax, fsky, deep)
 # ====================================
 # ====================================
 
@@ -539,10 +485,29 @@ multiple_survey_delens.main(labels, cmb)
 rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_desi.txt',
              'rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 # This needs to be Bicep like, the value of the deep exp
-noise_uK_arcmin = 2
-fwhm_arcmin = 30.
+
+# deep
+deep = {}
+deep['noise_uK_arcmin'] = 2.
+deep['fwhm_arcmin'] = 30.
+# high res
+high_res = {}
+high_res['noise_uK_arcmin'] = 3
+high_res['fwhm_arcmin'] = 1.
+
+# not used right now
+ell_range_deep = [20, 800]
+ell_range_high = [50, ells_cmb[-1]]
+nle_deep = nl(deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_high = nl(deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_high[:ell_range_high[0]] = np.inf
+nle_deep[:ell_range_deep[0]] = np.inf
+nle_deep[ell_range_deep[1]:] = np.inf
+nle = 1 / (1 / nle_high + 1 / nle_deep)
+nle[np.where(nle == np.inf)] = 1e20
+
+
 # deep survey to delens or what is giving you E-mode
-nle = nl(3, 1, lmax=ells_cmb[-1])[2:]
 nle_fun = InterpolatedUnivariateSpline(
     np.arange(0, len(nle)), nle, ext=2)
 B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
@@ -588,102 +553,9 @@ lmax = 2000
 
 r_fid = 0.0001
 fsky = 0.06
-
-print('')
-print(Fore.YELLOW + 'r=0, no noise')
-print('')
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        fsky=fsky,
-        lmax=lmax,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(r_fid, lmax=lmax)))
-                                 ) + clbb_tens(r_fid, lmax=lmax),
-        noise_uK_arcmin=0.,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb(r_fid, lmax=lmax),
-        noise_uK_arcmin=0.,
-        fwhm_arcmin=fwhm_arcmin)
-
-    print('After delensing % errors', sigma_r, sigma_nt)
-    print(probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt)
-
-clbb.cache_clear()
-clbb_tens.cache_clear()
-
-print('')
-print(Fore.YELLOW + 'r=0')
-print('')
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        fsky=fsky,
-        lmax=lmax,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(r_fid, lmax=lmax)))
-                                 ) + clbb_tens(r_fid, lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb(r_fid, lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-
-    print('After delensing % errors', sigma_r, sigma_r_1, sigma_nt)
-    print(probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt)
-
-
-# ### r=0.12
-clbb.cache_clear()
-clbb_tens.cache_clear()
-
-lmax = 4000
-noise_uK_arcmin = 2
-fwhm_arcmin = 30.
-r_fid = 0.11
-fsky = 0.06
-print('')
-print('')
-
-# ### r=0.07
-print(Fore.YELLOW + 'r=0.12')
-print('')
-print('')
-
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        fsky=fsky,
-        lmax=lmax,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(r_fid, lmax=lmax)))
-                                 ) + clbb_tens(r_fid, lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb(r_fid, lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-
-    print('After delensing % errors', sigma_r_1, sigma_nt, sigma_nt_1)
-    print(probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt)
+lmin=50
+lmax=500
+run_fisher_cases(rho_names, lmin, lmax, fsky, deep)
 
 
 # ==============================
@@ -693,139 +565,74 @@ for i, label in enumerate(rho_names):
 # ==============================
 lmax = 3000
 # This needs to be Bicep like, the value of the deep exp
-noise_uK_arcmin = 1.5
-fwhm_arcmin = 15.
+
+
+# deep
+deep = {}
+deep['noise_uK_arcmin'] = 1.5
+deep['fwhm_arcmin'] = 15.
+# high res
+high_res = {}
+high_res['noise_uK_arcmin'] = 1.
+high_res['fwhm_arcmin'] = 1.
+
+# not used right now
+ell_range_deep = [20, 800]
+ell_range_high = [50, ells_cmb[-1]]
+nle_deep = nl(deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_high = nl(deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_high[:ell_range_high[0]] = np.inf
+nle_deep[:ell_range_deep[0]] = np.inf
+nle_deep[ell_range_deep[1]:] = np.inf
+nle = 1 / (1 / nle_high + 1 / nle_deep)
+nle[np.where(nle == np.inf)] = 1e20
 r_fid = 0.
-nle = nl(1, 1, lmax=ells_cmb[-1])[2:]
 
 
-print('')
-print(Fore.RED + 'CMB S4 + SKA01')
-print('')
+# print('')
+# print(Fore.RED + 'CMB S4 + SKA01')
+# print('')
 
-labels = ['wise', 'ska01', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
-          'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
-cmb = 'S4'
+# labels = ['wise', 'ska01', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
+#           'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
+# cmb = 'S4'
 
-print(Fore.RED + 'Tracers:' + '-'.join(labels))
+# print(Fore.RED + 'Tracers:' + '-'.join(labels))
 
-multiple_survey_delens.main(labels, cmb)
-rho_names = ['rho_ska01.txt', 'rho_gals.txt',
-             'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
+# multiple_survey_delens.main(labels, cmb)
+# rho_names = ['rho_ska01.txt', 'rho_gals.txt',
+#              'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 
-# deep survey to delens or what is giving you E-mode
-nle_fun = InterpolatedUnivariateSpline(
-    np.arange(0, len(nle)), nle, ext=2)
-B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
-lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
-clbb_res = {}
-for i, probe in enumerate(rho_names):
-    print(i, probe.split('.txt')[0].split('rho_')[1])
-    clbb_res[probe.split('.txt')[0].split('rho_')[1]] = InterpolatedUnivariateSpline(
-        lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
-
-
-print('')
-print(Fore.YELLOW + 'Fraction of removed Bmode power')
-for probe in rho_names[0:]:
-    probe = probe.split('.txt')[0].split('rho_')[1]
-    print(probe)
-    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
-          'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) /
-                                   clbb_lensed(np.arange(4, 500, 75))),
-          'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(np.arange(4, 1000, 100))
-                                    ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(np.arange(4, 1500, 100)))
-          )
-    print('')
-
-print('')
-print('')
+# # deep survey to delens or what is giving you E-mode
+# nle_fun = InterpolatedUnivariateSpline(
+#     np.arange(0, len(nle)), nle, ext=2)
+# B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
+# lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
+# clbb_res = {}
+# for i, probe in enumerate(rho_names):
+#     print(i, probe.split('.txt')[0].split('rho_')[1])
+#     clbb_res[probe.split('.txt')[0].split('rho_')[1]] = InterpolatedUnivariateSpline(
+#         lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
 
 
-print('')
-print(Fore.YELLOW + 'r=0, no noise')
-print('')
-print('')
-print('')
+# print('')
+# print(Fore.YELLOW + 'Fraction of removed Bmode power')
+# for probe in rho_names[0:]:
+#     probe = probe.split('.txt')[0].split('rho_')[1]
+#     print(probe)
+#     print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
+#           'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) /
+#                                    clbb_lensed(np.arange(4, 500, 75))),
+#           'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(np.arange(4, 1000, 100))
+#                                     ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(np.arange(4, 1500, 100)))
+#           )
+#     print('')
+
+# print('')
+# print('')
 
 
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))
-                                 ) + clbb_tens(r_fid, lmax=lmax),
-        noise_uK_arcmin=0.,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb(r_fid, lmax=lmax),
-        noise_uK_arcmin=0.,
-        fwhm_arcmin=fwhm_arcmin)
-    print('After delensing % errors', sigma_r_1 * 1e2)
-    print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
-                   sigma_nt_1 / sigma_nt, sigr_1 / sigr, sigmant_1 / sigmant))
-
-
-print('')
-print(Fore.YELLOW + 'r=0')
-print('')
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, _ = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        fsky=fsky,
-        lmax=lmax,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, _ = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb(0., lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    print((probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
-
-
-print('')
-print('')
-
-# ### r=0.07
-print(Fore.YELLOW + 'r=0.12')
-print('')
-print('')
-
-
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, _ = fisher_r_nt(
-        r_fid=0.11,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, _ = fisher_r_nt(
-        r_fid=0.11,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb(0., lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    print(probe, 'errors =', sigma_r_1, sigma_r, sigma_nt_1, sigma_nt)
-    print((probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
+# run_fisher_cases(rho_names, lmin, lmax, fsky, deep)
 
 
 print('')
@@ -870,86 +677,7 @@ for probe in rho_names[0:]:
 print('')
 print('')
 
-print('')
-print(Fore.YELLOW + 'r=0, no noise')
-print('')
-print('')
-print('')
-
-
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))
-                                 ) + clbb_tens(r_fid, lmax=lmax),
-        noise_uK_arcmin=0.,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb(r_fid, lmax=lmax),
-        noise_uK_arcmin=0.,
-        fwhm_arcmin=fwhm_arcmin)
-    print('After delensing % errors', sigma_r_1 * 1e2)
-    print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
-                   sigma_nt_1 / sigma_nt, sigr_1 / sigr, sigmant_1 / sigmant))
-
-
-print('')
-print(Fore.YELLOW + 'r=0')
-print('')
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, _ = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, _ = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        clbb_cov=clbb(0., lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    print((probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
-
-
-print('')
-print('')
-
-# ### r=0.07
-print(Fore.YELLOW + 'r=0.12')
-print('')
-print('')
-
-
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, _ = fisher_r_nt(
-        r_fid=0.12,
-        lmin=50,
-        lmax=lmax,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, _ = fisher_r_nt(
-        r_fid=0.12,
-        lmin=50,
-        lmax=lmax,
-        clbb_cov=clbb(0., lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    print((probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
-
+run_fisher_cases(rho_names, lmin, lmax, fsky, deep)
 
 # ## LSS minus SKA
 
@@ -994,84 +722,7 @@ for probe in rho_names[0:]:
 print('')
 print('')
 print('')
-print(Fore.YELLOW + 'r=0, no noise')
-print('')
-print('')
-print('')
-
-
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))
-                                 ) + clbb_tens(r_fid, lmax=lmax),
-        noise_uK_arcmin=0.,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb(r_fid, lmax=lmax),
-        noise_uK_arcmin=0.,
-        fwhm_arcmin=fwhm_arcmin)
-    print('After delensing % errors', sigma_r_1 * 1e2)
-    print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
-                   sigma_nt_1 / sigma_nt, sigr_1 / sigr, sigmant_1 / sigmant))
-
-
-print('')
-print(Fore.YELLOW + 'r=0')
-print('')
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, _ = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, _ = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        clbb_cov=clbb(0., lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    print((probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
-
-
-print('')
-print('')
-
-# ### r=0.07
-print(Fore.YELLOW + 'r=0.12')
-print('')
-print('')
-
-
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, _ = fisher_r_nt(
-        r_fid=0.12,
-        lmin=50,
-        lmax=lmax,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, _ = fisher_r_nt(
-        r_fid=0.12,
-        lmin=50,
-        lmax=lmax,
-        clbb_cov=clbb(0., lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    print((probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
+run_fisher_cases(rho_names, lmin, lmax, fsky, deep)
 
 
 print(Fore.RED + 'CMB S4 + LSST')
@@ -1112,83 +763,8 @@ for probe in rho_names[0:]:
 print('')
 print('')
 print('')
-print(Fore.YELLOW + 'r=0, no noise')
-print('')
-print('')
-print('')
 
-
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, sigmant = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))
-                                 ) + clbb_tens(r_fid, lmax=lmax),
-        noise_uK_arcmin=0.,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        fsky=fsky,
-        clbb_cov=clbb(r_fid, lmax=lmax),
-        noise_uK_arcmin=0.,
-        fwhm_arcmin=fwhm_arcmin)
-    print('After delensing % errors', sigma_r_1 * 1e2)
-    print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
-                   sigma_nt_1 / sigma_nt, sigr_1 / sigr, sigmant_1 / sigmant))
-
-
-print('')
-print(Fore.YELLOW + 'r=0')
-print('')
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, _ = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, _ = fisher_r_nt(
-        r_fid=r_fid,
-        lmin=50,
-        lmax=lmax,
-        clbb_cov=clbb(0., lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    print((probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
-
-print('')
-print('')
-
-# ### r=0.07
-print(Fore.YELLOW + 'r=0.12')
-print('')
-print('')
-
-
-for i, label in enumerate(rho_names):
-    probe = label.split('.txt')[0].split('rho_')[1]
-    sigma_r, sigma_nt, sigr, _ = fisher_r_nt(
-        r_fid=0.12,
-        lmin=50,
-        lmax=lmax,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    sigma_r_1, sigma_nt_1, sigr_1, _ = fisher_r_nt(
-        r_fid=0.12,
-        lmin=50,
-        lmax=lmax,
-        clbb_cov=clbb(0., lmax=lmax),
-        noise_uK_arcmin=noise_uK_arcmin,
-        fwhm_arcmin=fwhm_arcmin)
-    print((probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
+run_fisher_cases(rho_names, lmin, lmax, fsky, deep)
 
 
 # ---
