@@ -1,3 +1,9 @@
+'''
+Here we plot all the correlations plot (rho) for different lensing tracers.
+
+'''
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 import multiple_survey_delens
@@ -99,7 +105,9 @@ cmb = 'Planck'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(
     labels, cmb)
 
-
+# Because we want to plot the rho for the tomographic binned survey.
+# you will see this for all the survey here. Is a bit pedantic and should be made
+# more beautiful
 labels = ['des_bin0', 'des_bin1', 'des_bin2', 'des_bin3']
 cmb = 'Planck'
 lbins, _, _, rho_gals_des, _ = multiple_survey_delens.main(labels, cmb)
@@ -243,7 +251,7 @@ labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_b
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(
     labels, cmb)
-plt.plot(lbins, rho_gals, label='LSS-S3+LSST(LSS-S4)', color=colormap(7))
+plt.plot(lbins, rho['ska10'], label='LSS-S3+LSST(LSS-S4)', color=colormap(7))
 
 plt.legend(loc=0, ncol=2)
 plt.ylim(0.45, 1.25)
@@ -257,6 +265,7 @@ fg.tight_layout()
 plt.savefig('../images/S4_scenario_ska10.pdf', dpi=600, papertype='Letter')
 plt.savefig('../images/S4_scenario_ska10.png')
 
+sys.exit()
 
 # In[29]: 'ska10', 'ska01', 'ska5', 'ska1'
 
