@@ -198,6 +198,19 @@ Addison G.~E.,  Dunkley J.,  Hajian A.,  Viero M.,  Bond J.~R.,   et~al., 2012,
   {10.1103/PhysRevLett.78.2054}, \href
   {http://adsabs.harvard.edu/abs/1997PhRvL..78.2054S} {78, 2054}
 
+\bibitem[\protect\citeauthoryear{{BICEP2/Keck Collaboration}
+  et~al.,}{{BICEP2/Keck Collaboration}
+  et~al.}{2015}]{bicep2/keck-collaboration:2015}
+{BICEP2/Keck Collaboration} et~al., 2015, \mn@doi [Physical Review Letters]
+  {10.1103/PhysRevLett.114.101301}, \href
+  {http://adsabs.harvard.edu/abs/2015PhRvL.114j1301B} {114, 101301}
+
+\bibitem[\protect\citeauthoryear{{Millea}, {Anderes}  \& {Wandelt}}{{Millea}
+  et~al.}{2017}]{millea:2017}
+{Millea} M.,  {Anderes} E.,   {Wandelt} B.~D.,  2017, preprint, \href
+  {http://adsabs.harvard.edu/abs/2017arXiv170806753M} {} (\mn@eprint {arXiv}
+  {1708.06753})
+
 \bibitem[\protect\citeauthoryear{{Hu} \& {Scranton}}{{Hu} \&
   {Scranton}}{2004}]{hu:2004}
 {Hu} W.,  {Scranton} R.,  2004, \mn@doi [\prd] {10.1103/PhysRevD.70.123002},
@@ -210,17 +223,16 @@ Fisher R.~A.,  1935, Journal of the Royal Statistical Society, 98, 39
 {Knox} L.,  1995, \mn@doi [\prd] {10.1103/PhysRevD.52.4307}, \href
   {http://adsabs.harvard.edu/abs/1995PhRvD..52.4307K} {52, 4307}
 
+\bibitem[\protect\citeauthoryear{{Namikawa} \& {Nagata}}{{Namikawa} \&
+  {Nagata}}{2015}]{namikawa:2015}
+{Namikawa} T.,  {Nagata} R.,  2015, \mn@doi [\jcap]
+  {10.1088/1475-7516/2015/10/004}, \href
+  {http://adsabs.harvard.edu/abs/2015JCAP...10..004N} {10, 004}
+
 \bibitem[\protect\citeauthoryear{Liddle \& Lyth}{Liddle \&
   Lyth}{1992}]{LIDDLE1992391}
 Liddle A.~R.,  Lyth D.~H.,  1992, \mn@doi [Physics Letters B]
   {http://dx.doi.org/10.1016/0370-2693(92)91393-N}, 291, 391
-
-\bibitem[\protect\citeauthoryear{{BICEP2/Keck Collaboration}
-  et~al.,}{{BICEP2/Keck Collaboration}
-  et~al.}{2015}]{bicep2/keck-collaboration:2015}
-{BICEP2/Keck Collaboration} et~al., 2015, \mn@doi [Physical Review Letters]
-  {10.1103/PhysRevLett.114.101301}, \href
-  {http://adsabs.harvard.edu/abs/2015PhRvL.114j1301B} {114, 101301}
 
 \bibitem[\protect\citeauthoryear{{Planck Collaboration} et~al.,}{{Planck
   Collaboration} et~al.}{2015}]{planck-collaboration:2015}

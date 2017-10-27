@@ -599,21 +599,20 @@ The approximations made here go in the direction of a slightly optimistic \texti
 % \the\textwidth
 
 
-Recently delensing has been performed for the first time on data using both CIB maps \cite{larsen:2016a,manzotti:2017} and internal CMB lensing maps \cite{carron:2017} as large scale structure tracers.
+Recently delensing has been performed for the first time on data using both CIB maps \cite{larsen:2016a,manzotti:2017} and internally reconstructed CMB lensing maps \cite{carron:2017} as large scale structure tracers.
 Here we discuss the improvement that can be obtained by combining these and other currently Stage-2 available tracers (see \cite{yu:2017} for publicly accessible multi-tracers data-products).
 
 On the CMB side, we will combine a BICEP-Keck like \textit{deep} CMB experiment with an overlapping \textit{higher resolution} experiment. For the deep experiment we assume an instrumental noise equal to $3\mu$K-arcmin in polarization ($\sqrt(2)$ lower in temperature), a beam of 30 arcmin and an angular scale range of $50<\ell<500$.
-We assume the CMB lensing reconstruction is performed by the higher resolution CMB experiment. We explore two possibilities.
-First, we test the delensing efficiency with an internal reconstruction of CMB lensing performed by the Planck satellite \cite{planck-collaboration:2016a}. For the noise in the CMB lensing map in \refeq{noisekappa} we use the actual noise curves publicly available
+We assume that the CMB lensing reconstruction is performed by the higher resolution CMB experiment. We explore two possibilities.
+First, we test the delensing efficiency with an internal reconstruction of CMB lensing performed by the Planck satellite \cite{planck-collaboration:2016a}. In this case, for the noise in the CMB lensing map in \refeq{noisekappa} we use the actual noise curves publicly available
 \footnote{\url{https://wiki.cosmos.esa.int/planckpla2015/index.php/Specially\_processed\_maps}}.
 Then, we test a second scenario with a ground-based experiment characterized by noise levels in polarization consistent with SPT-Pol \cite{henning:2017}: $9.4\mu$K-arcmin in polarization with a beam equal to 1.2 arcmin. In this case we set the angular scale range at $50<\ell<4000$. However, the results are quite robust against this choice. 
-%since the neglected scales contribute only moderately to the reconstruction of the CMB lensing potential.
 
 We combine these CMB experiments with the CIB and current low redshift galaxy surveys like DES and WISE and we compute the improvement in the delensing efficiency.
 Following \cite{yu:2017} we cut both the CIB and WISE at $\ell<100$ where they are contaminated by large Galactic dust residuals.
 Optical surveys galaxies like DES are less affected by dust and can be used on larger scales.
 The achievable correlation is shown in \reffig{corrnow-planck} for Planck and in \reffig{corrnow} for SPT-Pol.
-In these figures we include a dashed curve that corresponds to (with arbitrary scale) $<C_{\ell}^{\kappa \kappa} \times \frac{\partial C^{BB}_{\ell'}}{\partial{C^{\kappa \kappa}_{\ell}}}>_{\ell ' <100}$, in order to show which scales in $\kappa$ contribute to the $\ell<100$ B-mode power.
+In these figures, in order to show which scales in $\kappa$ contribute to the $\ell<100$ B-mode power, we include a dashed curve that corresponds to (with arbitrary scale) $<C_{\ell}^{\kappa \kappa} \times \frac{\partial C^{BB}_{\ell'}}{\partial{C^{\kappa \kappa}_{\ell}}}>_{\ell ' <100}$.
 
 
 For Planck, the internal reconstruction is at most $\sim 65\%$ correlated at very large scales and then it falls rapidly to $40\%$ at $\ell=200$. Its correlation is comparable to the one of LSS at almost all scales.
@@ -651,13 +650,13 @@ We only report the improvements in $r$ but we still let $n_{t}$ to vary in our f
 We first compute the improvement with a fiducial value of $r_{\rm{fid}}=0$.
 The results are summarized in \reftab{current} and \reftab{current-spt} for the Planck and SPTPol case respectively.
  
-The lensing reconstruction noise in Planck is such that internal delensing can only remove \textcolor{blue}{$8\%$} of the power, improving the constraints on $r$ by a factor of \textcolor{blue}{1.06} even in the ideal scenario of no instrumental noise in the B-modes. A similar performance is achieved with WISE. DES can do better, removing a level of \textcolor{blue}{11\%} of power. However, it covers a smaller fraction of the sky than the two previous probes. As shown in previous works \cite{sherwin:2015}, the best tracer is the CIB with a \textcolor{blue}{27\%} reduction in power.
-Nonetheless, it is worthwhile combining all the tracers. Indeed a multi tracer-approach can bring the removed power on the overlapping area from \textcolor{blue}{27\%} of the CIB alone to \textcolor{blue}{36\%} using all the LSS (LSS-S2) and \textcolor{blue}{41\%} when Planck lensing reconstruction is added to the set.
-However, if we consider a realistic level of noise in the measured B-modes, this level of residual power $C_{{l}}^{BB,\mathrm{res}}$ only leads to a 30\% improvement in $\sigma(r)$ for the null hypothesis case of $r=0$. Furthermore, as explained in \refsec{fisher}, this is only an upper limit and will be even smaller when, for example, non-perfect foreground cleaning is considered. Indeed current experiments are still significantly limited by foregrounds and instrumental noise together and not only by lensing. 
+The lensing reconstruction noise in Planck is such that internal delensing can only remove $7\%$ of the power, improving the constraints on $r$ by a factor of 1.06 even in the ideal scenario of no instrumental noise in the B-modes. A slightly better performance is achieved with WISE. DES can do better, once binned in redshift, removing a level of $17\%$ of power. However, it covers a smaller fraction of the sky than the two previous probes. As shown in previous works \cite{sherwin:2015}, the best tracer is the CIB with a $30\%$ reduction in power.
+Nonetheless, it is worthwhile combining all the tracers. Indeed a multi tracer-approach can bring the removed power on the overlapping area from $30\%$ of the CIB alone to $43\%$ using all the LSS (LSS-S2) and $45\%$ when Planck lensing reconstruction is added to the set.
+However, if we consider a realistic level of noise in the measured B-modes, this level of residual power $C_{{l}}^{BB,\mathrm{res}}$ only leads to a 45\% improvement in $\sigma(r)$ for the null hypothesis case of $r=0$. Furthermore, as explained in \refsec{fisher}, this is only an upper limit and will be even smaller when, for example, non-perfect foreground cleaning is considered. Indeed current experiments are still significantly limited by foregrounds and instrumental noise together and not only by lensing. 
 
 If, on the other hand, we consider a high-resolution ground base experiment the internal lensing reconstruction improves significantly. 
-\reftab{current-spt} shows that, with an instrumental noise at the expected level for SPTPol, the CMB will soon be able to remove an amount of power \textcolor{blue}{35\%} at the level of the CIB. Once combined with LSS tracer this will lead to removing \textcolor{blue}{56\%} of the power. 
-The improvement of \textcolor{blue}{1.57} in $\sigma(r)$ that will follow, even when realistic noise is considered, is such that it will make delensing a needed step for CMB polarization data analysis.
+\reftab{current-spt} shows that, with an instrumental noise at the expected level for SPTPol, the CMB will soon be able to remove an amount of power $31\%$ at the level of the CIB. Once combined with LSS tracer this will lead to removing $55\%$ of the power. 
+The improvement of 1.6 in $\sigma(r)$ that will follow, even when realistic noise is considered, is such that it will make delensing a needed step for CMB polarization data analysis.
  
  
 %===========================
@@ -668,17 +667,17 @@ LSS-S2 corresponds to the combination of all the available LSS tracers.
 The values in parenthesis in the first column correspond to the fraction of lensing B-mode power removed using each LSS tracer. 
 It is defined as $\left<C_{\ell}^{BB,\mathrm{res}}/C_{l}^{BB,\mathrm{lens}}\right>_{4<\ell<100}$.
 %\newline
-The values in the other columns correspond to ratio of the error before and after delensing for 3 cases: no instrumental noise in the B-mode measurement (but with instrumental noise in the E-mode used to delens) and realistic noise for two different values of $r$.}
+The values in the other columns correspond to ratio of the error before and after delensing for 3 cases: no instrumental noise in the B-mode measurement (but with instrumental noise in the E-mode used to delens) and with instrumental noise for two different values of $r$.}
   \vspace{0.2cm}
   \begin{tabular}{|c | c | c | c|}
 \hline
 Surveys & $\alpha_{r=0}, N^{B}_{\ell}=0$ & $\alpha_{r=0}$ & $\alpha_{r=0.12}$ \\ \hline \hline
-WISE (7\%)& 1.09& 1.06 & 1.02 \\ \hline
-DES (15\%) &1.19 & 1.12  & 1.04 \\ \hline
-CIB (31\%) &1.48& 1.28  & 1.08\\ \hline
-LSS-S2 (41\%) &1.76& 1.41  & 1.11\\ \hline
-CMB Planck (7\%) &1.08 & 1.05  & 1.02 \\ \hline
-LSS-S2 +CMB (44\%)& 1.83& 1.44& 1.13  \\ \hline
+WISE (8\%)& 1.08& 1.05 & 1.02 \\ \hline
+DES (17\%) &1.20 & 1.13  & 1.05 \\ \hline
+CIB (30\%) &1.44& 1.26  & 1.08\\ \hline
+LSS-S2 (42\%) &1.75& 1.42  & 1.11\\ \hline
+CMB Planck (7\%) &1.06 & 1.04  & 1.02 \\ \hline
+LSS-S2 +CMB (45\%)& 1.81& 1.45& 1.13  \\ \hline
 \end{tabular}
 \label{tab:current}
 \end{table}
@@ -693,8 +692,8 @@ We also test a scenario where primordial gravitational waves are present at thei
   \begin{tabular}{|c | c | c | c|}
 \hline
 Surveys &$\alpha_{r=0}, N^{B}_{\ell}=0$& $\alpha_{r=0}$ & $\alpha_{r=0.12}$ \\ \hline \hline
-SPTPol (31\%) &1.46& 1.27  & 1.08 \\ \hline
-LSS-S2 +SPTPol (54\%) & 2.24 & 1.59 & 1.14  \\ \hline
+SPTPol (31\%) &1.43& 1.26  & 1.08 \\ \hline
+LSS-S2 +SPTPol (55\%) & 2.2 & 1.6 & 1.14  \\ \hline
 
   \end{tabular}
   \label{tab:current-spt}
@@ -710,13 +709,12 @@ CMB polarization measurements are rapidly improving. Indeed the next generation 
 As we did for Stage-2, we model the CMB S3 as two different overlapping experiments.
 For the deep experiment we assume an instrumental noise equal to $2\mu$K-arcmin in polarization and a beam of 30 arcmin.
 The high resolution experiment will have a level of noise in polarization of $3\mu$K-arcmin and a 1 arcmin beam. This level of noise is also assumed for the internal noise reconstruction.
-We still use an angular scale range in the Fisher matrix of $50<\ell<4000$ even if most of the high $\ell$ scale do not contribute to the constraints.
+We use an angular scale range in the Fisher matrix of $50<\ell<800$ even if most of the high $\ell$ scale do not contribute to the constraints.
 Furthermore, around 2019, DESI will start taking data. For this reason, we add DESI to the LSS tracers used in \refsec{del_res}. 
 
 The correlation factor attainable using generation 3 experiments is shown in \reffig{corrS3}.
-An interesting finding is that DESI will be less efficient (removing \textcolor{blue}{9\%} of the power) than a DES-like survey (\textcolor{blue}{11\%}) despite the fact that it can probe slightly higher redshift. The reason is that, because of the broad CMB kernel, spectroscopic redshift accuracy is not needed and the lower shot noise in DES increases the delensing efficiency. Unfortunately, adding DESI will only bring the power removed using LSS from \textcolor{blue}{36 to 41\%}.
-Indeed, even in the near future, CIB will still play the dominant role among LSS.
-Contrary to current experiments, the CMB internal reconstruction will dominate the correlation with the lensing potential up to $\ell\simeq 550$.
+An interesting finding is that DESI will be less efficient (removing $11\%$ of the power) than a DES-like survey ($17\%$) despite the fact that it can probe slightly higher redshift. The reason is that, because of the broad CMB kernel, spectroscopic redshift accuracy is not needed and the lower shot noise in DES increases the delensing efficiency. Unfortunately, adding DESI will only bring the power removed using LSS from 41 to 45\%.
+Contrary to current S2 experiments, the CMB internal reconstruction will dominate the correlation with the lensing potential up to $\ell\simeq 600$.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -728,12 +726,13 @@ Contrary to current experiments, the CMB internal reconstruction will dominate t
 
  
 We summarize the improvement in the constraint on $r$ in \reftab{S3}. 
-Given the improvement in the noise of the high-resolution experiment, CMB alone will be able to improve constraint on $r$ by a factor of \textcolor{blue}{2} through internal delensing in the ideal case of no instrumental noise in the B-modes \textcolor{red}{(but with instrumental noise in the E-mode used to delens)}.
+Given the improvement in the noise of the high-resolution experiment, CMB alone will be able to improve constraint on $r$ by a factor of $\sim 2.4$ through internal delensing in the ideal case of no instrumental noise in the B-modes (but with instrumental noise in the E-mode used to delens).
 Adding galaxy surveys will lead to a further improvement without additional effort.
-Indeed galaxy surveys will still be able to remove an additional \textcolor{blue}{$20\%$} of power from $C_{\ell}^{BB,\mathrm{lens}}$ and to improve our constraint on the null hypothesis ($r=0$) by \textcolor{blue}{$15\%$}. Note that apart from the addition of DESI, the tracers used here are already available today. The ongoing effort can then lead to a significant improvement even for the next generation of experiments. 
-Finally, the combination of CMB and galaxy surveys will be able to improve the constrain on the null hypothesis of no primordial waves by a factor \textcolor{blue}{1.8} or to improve the constraint of a possible detection (r=0.12) by \textcolor{blue}{30\%}.
-As expected the improvement on $n_{t}$ is similar to the one in $r$ since they are both proportional to the variance of the measured B-modes. We tested this in the scenario $r=0.12$ where we additionally impose the consistency relation $n_{t}^{\rm{fid}}=-r^{\rm{fid}}/8$. 
-It is important to note that, independent of the level of delensing, for CMB 3G experiments the statistical error on $n_{t}$ will still be several times bigger than the fiducial value.  
+Indeed galaxy surveys will still be able to remove an additional $11\%$ of power from $C_{\ell}^{BB,\mathrm{lens}}$ and to improve our constraint on the null hypothesis ($r=0$) by $34\%$. Note that apart from the addition of DESI, the tracers used here are already available today. The ongoing effort can then lead to a significant improvement even for the next generation of experiments. 
+Finally, the combination of CMB and galaxy surveys will be able to improve the constrain on the null hypothesis of no primordial waves by a factor \textcolor{blue}{1.8} or to improve the constraint of a possible detection (r=0.07) by 34\%.
+As expected the improvement on $n_{t}$ is similar to the one in $r$ since they are both proportional to the variance of the measured B-modes. 
+We tested this in the scenario $r=0.12$ where we additionally impose the consistency relation $n_{t}^{\rm{fid}}=-r^{\rm{fid}}/8$. 
+It is important to note that, independent of the level of delensing, for CMB 3G experiments the statistical error on $n_{t}$ will still be several times bigger than the fiducial value but it can still be tight enough to constrain more exotic inflationary models.  
 
 
 
@@ -744,10 +743,10 @@ It is important to note that, independent of the level of delensing, for CMB 3G 
 \begin{tabular}{|c | c | c | c|}
 \hline
 Surveys & $\alpha_{r=0}, N^{B}_{\ell}=0$ & $\alpha_{r=0}$ & $\alpha_{r=0.12}$ \\ \hline \hline
-DESI (10\%) &1.12 & 1.08  & 1.03 \\ \hline
-LSS-S3 (43\%) &1.82& 1.42  & 1.12\\ \hline
-CMB 3G (56\%) &2.38& 1.9  & 1.16 \\ \hline
-LSS-S3+CMB (69\%)& 3.2 & 2.3& 1.21  \\ \hline
+DESI (11\%) &1.13 & 1.08  & 1.03 \\ \hline
+LSS-S3 (45\%) &1.82& 1.42  & 1.12\\ \hline
+CMB 3G (56\%) &2.38& 1.7  & 1.16 \\ \hline
+LSS-S3+CMB (68\%)& 3.2 & 2.3& 1.21  \\ \hline
 \end{tabular}
 \label{tab:S3}
 \end{table}
@@ -763,9 +762,9 @@ For the deep experiment, we assume an instrumental noise equal to $1\mu$K-arcmin
 Furthermore, in the next decade, several next-generation LSS surveys will be online. 
 Even if these LSS surveys will observe an overlapping part of the sky and similar modes, because of their different strengths and weaknesses, it will still be important to combine them efficiently.
 Here, as an example of future optical galaxy surveys, we add LSST \cite{lsst-science-collaboration:2009} to the CMB lensing tracers. 
-We do not consider other surveys but we test that other experiments like Euclid \cite{laureijs:2011} and WFIRST \cite{spergel:2013} have similar delensing performance. 
+We do not show results for other surveys here but we test that other experiments like Euclid \cite{laureijs:2011} and WFIRST \cite{spergel:2013} have similar delensing performance. 
 We also consider a radio continuum survey modeled following the SKA specifications. Radio continuum observations of the 21 cm line are in their early stage, and several experimental and data-analysis challenges need to be overcome. 
-However, this technique has the potential to map the LSS with relatively low noise up to redshift $z=6$. Here we considered just two possible detection thresholds at 1 GHz (flux cut): 10 $\mu$Jy and 0.1 $\mu$Jy, which are representatives of the upper and lower limit levels for a SKA phase 1 (SKA1) and a following SKA phase 2 (SKA2) survey.
+However, this technique has the potential to map the LSS with relatively low noise up to redshift $z=6$. Here we considered a detection thresholds at 1 GHz (flux cut) of 10 $\mu$Jy which should be representative of SKA phase 1 (SKA1) \cite{namikawa:2016a}.
 Given the importance of delensing for Stage-4 experiments, here we combine radio and optical survey to test their delensing efficiency.
 
 The correlation factor with CMB lensing for Stage-4 experiments is shown in \reffig{corrs4_10}.
@@ -777,28 +776,20 @@ The correlation factor with CMB lensing for Stage-4 experiments is shown in \ref
 \label{fig:corrs4_10}
 \end{center}
 \end{figure}
-%%=======
-%\begin{figure}[htbp]
-%\begin{center}
-%\includegraphics[scale=1.]{../images/S4_scenario_ska01.pdf}
-%\caption{Correlation factor $\rho$ with the CMB lensing potential as a function of the angular scale $\ell$. This figure is the same as \reffig{corrnow} but with a stage-4 CMB experiment performing the internal reconstrcution and with LSST and SKA added to the stage-2 and stage-3 galaxy surveys (LSS-S3). }
-%\label{fig:corrs4_01}
-%\end{center}
-%\end{figure}
-%%=======
+
 A tomographically binned LSST-like experiment will be a very efficient CMB lensing tracer. Indeed it will be more than 70\% correlated with CMB lensing for all the scales $\ell<600$, a performance similar to a Stage-3 CMB internal reconstruction.
 A very similar level of efficiency will be achieved by a SKA1-like experiment.
 With SKA and LSST, for the first time we will have LSS tracers with a higher delensing efficiency than the CIB.
 Despite the improvement in galaxy surveys, the CMB internal reconstruction will still be the main source of delensing. Having a perfect kernel overlap with the true lensing potential it will benefit from the very low level of noise of CMB S4 experiments.
-\reffig{corrs4_10} shows that a CMB-S4 experiment will be able to internally reconstruct the lensing potential at more than 90\% up to $\ell=400$.
+\reffig{corrs4_10} shows that a CMB-S4 experiment will be able to internally reconstruct the lensing potential at more than 90\% up to $\ell=450$.
 At this level, CMB S4 internal delensing will not be limited by noise but by small secondary effects like foregrounds contamination, filtered modes etc.
-Finally, \reftab{S4} shows that a very futuristic SKA-2 experiment will have a very high correlation with CMB lensing, being more than 80\% correlated at all the scales. This performance is comparable to a CMB-S4 internal reconstruction.
+%Finally, \reftab{S4} shows that a very futuristic SKA-2 experiment will have a very high correlation with CMB lensing, being more than 80\% correlated at all the scales. This performance is comparable to a CMB-S4 internal reconstruction.
 
 \reftab{S4} shows the improvement on the inflationary constraint given the cross-correlation factors described above. 
-LSST alone will be able to remove almost \textcolor{blue}{half} of the B-mode lensing power. This will lead to an improvement in $\sigma(r)$ of a factor of \textcolor{blue}{1.8}. If we add all the other infrared and optical LSS tracers previously included (i.e. excluding SKA) the improvement factor increase to \textcolor{blue}{2.3}.
+LSST alone will be able to remove almost half of the B-mode lensing power. This will lead to an improvement in $\sigma(r)$ of a factor of 2. If we add all the other infrared and optical LSS tracers previously included (i.e. excluding SKA) the improvement factor increase to 2.5.
 These gives an important opportunity: for sufficiently high values of $r$ it will be possible to confirm a detection of primordial gravitational waves using spectra delensed with LSS, completely independent of CMB internal data. 
-Similarly to \cite{namikawa:2016a} we find that SKA phase-1 radio survey will remove \textcolor{blue}{53\%} of the lensing power and, once combined with optical and infrared surveys, this will allow the level of power removed using LSS \textcolor{blue}{(62\%)} to surpass the level of the CMB S3 internal reconstruction.
-Finally, as previously mentioned, CMB S4 will be the main source of delensing with the ability of removing up to more than 80\% of the B-modes power. This will bring an almost factor of 4 improvement in the null test case even with realistic noise. Combining with LSS will only increase the removed power compared to CMB only by \textcolor{blue}{$\simeq 5\%$} but it will be highly beneficial to test the robustness of the final result.
+Similarly to \cite{namikawa:2016a} we find that SKA phase-1 radio survey will remove 53\% of the lensing power and, once combined with optical and infrared surveys, this will allow the level of power removed using LSS (62\%) to surpass the level of the CMB S3 internal reconstruction.
+Finally, as previously mentioned, CMB S4 will be the main source of delensing with the ability of removing up to more than 80\% of the B-modes power. This will bring an almost factor of 3.7 improvement in the null test case even with realistic noise. Combining with LSS will only increase the removed power compared to CMB only by $\simeq 4.3\%$ but it will be highly beneficial to test the robustness of the final result.
 
 We find the improvement in $\sigma(n_{t})$ to be very similar to the one in $\sigma(r)$ for all the CMB-S4 cases. This is reasonable because, given the level of noise in CMB-S4, the variance at angular scales $\ell<200$ are dominated by instrumental noise and not by the lensing component. Independent of the delensing level, given the small value allowed for $r$ will not allow to test the consistency relations.
 
@@ -807,12 +798,12 @@ We find the improvement in $\sigma(n_{t})$ to be very similar to the one in $\si
 \begin{tabular}{|c | c | c | c|}
 \hline
 Surveys & $\alpha_{r=0}, N^{B}_{\ell}=0$ & $\alpha_{r=0}$ & $\alpha_{r=0.12}$ \\ \hline \hline
-LSST (48\%) &1.8 & 1.7  & 1.7  \\ \hline
-LSS-S4  (60\%) &2.5 & 2.3  & 2.3 \\ \hline
+LSST (51\%) &2.0 & 1.9  & 1.7  \\ \hline
+LSS-S4  (59\%) &2.5 & 2.3  & 2.3 \\ \hline
 SKA (10$\mu$Jy) (53\%) &2.1& 1.9  & 1.16\\ \hline
-LSS-S4 + SKA (10$\mu$Jy)  (65\%) &2.7 & 2.5  & 2.5  \\ \hline
-CMB S4 (81\%) & 5.1 & 4.3  & 4.2 \\ \hline
-LSS+CMB (86\%)& 5.2 &  &  \\ \hline
+LSS-S4 + SKA (10$\mu$Jy)  (62\%) &2.6 & 2.3  & 2.5  \\ \hline
+CMB S4 (81\%) & 5.0 & 3.7  & 4.2 \\ \hline
+LSS-S4+CMB (86\%)& 6.6 & 4.3  &  \\ \hline
 \end{tabular}
 \label{tab:S4}
 \end{table}
