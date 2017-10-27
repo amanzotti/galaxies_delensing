@@ -26,7 +26,6 @@ def nl(noise_uK_arcmin, fwhm_arcmin, lmax):
     return (noise_uK_arcmin * np.pi / 180. / 60.)**2 / bl(fwhm_arcmin, lmax)**2
 
 
-
 def main(labels, cmb):
 
     output_dir = '/home/manzotti/galaxies_delensing/Data/'
@@ -53,7 +52,7 @@ def main(labels, cmb):
 
         if label == 'cib':
             cl_auto[label] = np.array(
-                [3400. * (1. * l / 3000.)**(-1.25) + 525 for l in lbins])
+                [3800. * (1. * l / 3000.)**(-1.25) + 525 for l in lbins])
             cl_auto[label] += 300 * cl_auto[label][100] * \
                 (lbins / lbins[100])**-4.6
 
@@ -79,7 +78,7 @@ def main(labels, cmb):
 
             if (labels[i] == 'cib' and labels[j] == 'cib'):
                 cgg[i, j, :] = np.array(
-                    [3500. * (1. * l / 3000.)**(-1.25) + 525 for l in lbins])
+                    [3800. * (1. * l / 3000.)**(-1.25) + 525 for l in lbins])
                 cgg[i, j, :] += 300 * cgg[i, j, 100] * \
                     (lbins / lbins[100])**-4.6
 
@@ -180,6 +179,11 @@ def main(labels, cmb):
                np.vstack((lbins, rho_gals)).T)
     np.savetxt(output_dir + '/limber_spectra/rho_{}.txt'.format('cmb_' + cmb),
                np.vstack((lbins, rho_cmb)).T)
+
+    # rho['comb'] = rho_comb
+    # rho['gals'] = rho_gals
+    # rho['cmb'] = rho_cmb
+    # rho['lbins'] = rho_cmb
 
     print('done computing rhos')
     return lbins, rho, rho_comb, rho_gals, rho_cmb

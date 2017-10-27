@@ -243,7 +243,7 @@ labels = ['ska10']
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(
     labels, cmb)
-plt.plot(lbins, rho_gals, color=colors['SKA'], label=r'SKA $10\mu$Jy')
+plt.plot(lbins, rho['ska10'], color=colors['SKA'], label=r'SKA $10\mu$Jy')
 
 
 labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
@@ -251,7 +251,7 @@ labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_b
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(
     labels, cmb)
-plt.plot(lbins, rho['ska10'], label='LSS-S3+LSST(LSS-S4)', color=colormap(7))
+plt.plot(lbins, rho_gals, label='LSS-S3+LSST(LSS-S4)', color=colormap(7))
 
 plt.legend(loc=0, ncol=2)
 plt.ylim(0.45, 1.25)
@@ -556,8 +556,10 @@ plt_func(ell, ell * (ell + 1) * np.array(B_res3[-1]) /
 
 # plt_func(clbb(r=0.01, lmax=3000), label=r'$C^{BB^{\rm{tot}}}_{\ell}$')
 fact = np.arange(0, 4001) * (np.arange(0, 4001) + 1.) / 2. / np.pi
+
 plt.plot(np.arange(0, 4001), fact * nl(9, 1, 4000), color='black', linestyle='--',
          linewidth=font_size / 14.5, alpha=0.7)
+
 plt.plot(np.arange(0, 4001), fact * nl(1, 1, 4000), color='black', linestyle='--',
          linewidth=font_size / 14.5, alpha=0.7)
 plt.ylim(1e-5, 1.5e-1)

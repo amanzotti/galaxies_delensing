@@ -25,13 +25,24 @@ spectra_dir = '/home/manzotti/galaxies_delensing/Data/'
 
 
 # SET UP CAMB
+# This function sets up CosmoMC-like settings, with one massive neutrino
+# and helium set using BBN consistency
 pars = camb.CAMBparams()
 # This function sets up CosmoMC-like settings, with one massive neutrino
 # and helium set using BBN consistency
-pars.set_cosmology(H0=67.5, ombh2=0.022, omch2=0.122, mnu=0.06, omk=0, tau=0.06)
-pars.InitPower.set_params(ns=0.965, r=0)
-pars.set_for_lmax(3500, lens_potential_accuracy=0)
+pars.set_cosmology(H0=67.26, ombh2=0.02222, omch2=0.1199,
+                   mnu=0.06, omk=0, tau=0.079)
+pars.InitPower.set_params(ns=0.96, r=0., nt=0, pivot_tensor=0.01, As=2.1e-9)
+pars.set_for_lmax(5000, lens_potential_accuracy=3)
 pars.NonLinear = model.NonLinear_both
+
+pars.AccurateBB = True
+pars.OutputNormalization = False
+pars.WantTensors = True
+pars.DoLensing = True
+pars.max_l_tensor = 3000
+pars.max_eta_k_tensor = 3000.
+
 pars.set_matter_power(redshifts=np.linspace(0., 13, 50), kmax=5.0)
 results = camb.get_results(pars)
 
@@ -101,6 +112,8 @@ desi = gals_kernel.kern(dndz[:, 0], dndzfun_desi, hspline, omega_m, h0)
 des_weak = kappa_gals_kernel.kern(dndz_des[:, 0], dndzfun_des, chispline, hspline, omega_m, h0)
 
 l = 500
+
+
 z_kappa = np.linspace(0, 13, 500)
 w_kappa = np.zeros_like(z_kappa)
 for i, z in enumerate(z_kappa):

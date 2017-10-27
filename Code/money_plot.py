@@ -111,9 +111,9 @@ p1 = plt.barh(ind[0], -7, width, alpha=0.8, color=colors['WISE'])
 # Planck
 p2 = plt.barh(ind[0], -6, width, left=-7, alpha=0.8, color=colormap(6))
 # DES
-p2 = plt.barh(ind[0], -15, width, left=-7 - 6, alpha=0.8, color=colors['DES'])
+p2 = plt.barh(ind[0], -17, width, left=-7 - 6, alpha=0.8, color=colors['DES'])
 # CIB
-p2 = plt.barh(ind[0], -31, width, left=-7 - 6 - 15, alpha=0.8, color=colors['CIB'])
+p2 = plt.barh(ind[0], -31, width, left=-7 - 6 - 17, alpha=0.8, color=colors['CIB'])
 # LSS
 p1 = plt.barh(ind[0] + 1.5 * width, 41, width, color=colormap(7), alpha=0.8)
 # total
@@ -128,8 +128,8 @@ p2 = plt.barh(ind[0] + 1.5 * width, 44 - 41, width,
 plt.gca().set_prop_cycle(None)
 p1 = plt.barh(ind[1], -7., width * 1.1, left=0., alpha=0.8, color=colors['WISE'])
 p2 = plt.barh(ind[1], -31., width * 1.1, left=-7., alpha=0.8, color=colormap(6))
-p2 = plt.barh(ind[1], -15, width * 1.1, left=-6 - 31, alpha=0.8, color=colors['DES'])
-p2 = plt.barh(ind[1], -31, width * 1.1, left=-6 - 31 - 15, alpha=0.8, color=colors['CIB'])
+p2 = plt.barh(ind[1], -17, width * 1.1, left=-6 - 31, alpha=0.8, color=colors['DES'])
+p2 = plt.barh(ind[1], -31, width * 1.1, left=-6 - 31 - 17, alpha=0.8, color=colors['CIB'])
 
 p1 = plt.barh(ind[1] + 1.5 * width, 43, width *
               0.9, color=colormap(7), alpha=0.8)

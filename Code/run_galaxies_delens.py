@@ -190,10 +190,17 @@ def main(ini_par):
     # This function sets up CosmoMC-like settings, with one massive neutrino
     # and helium set using BBN consistency
 
-    pars.set_cosmology(H0=67.5, ombh2=0.022, omch2=0.122,
-                       mnu=0.06, omk=0, tau=0.06)
+    pars = camb.CAMBparams()
+    # This function sets up CosmoMC-like settings, with one massive neutrino
+    # and helium set using BBN consistency
+    pars.set_cosmology(H0=67.26, ombh2=0.02222, omch2=0.1199,
+                       mnu=0.06, omk=0, tau=0.079)
     pars.InitPower.set_params(ns=0.96, r=0., nt=0, pivot_tensor=0.01, As=2.1e-9)
-    pars.set_for_lmax(3500, lens_potential_accuracy=3)
+    pars.set_for_lmax(5000, lens_potential_accuracy=3)
+    # pars.set_for_lmax?
+
+
+
     pars.NonLinear = model.NonLinear_both
     pars.set_matter_power(redshifts=np.linspace(0., 13, 50), kmax=5.0)
     results = camb.get_results(pars)
@@ -217,8 +224,8 @@ def main(ini_par):
 
     # GROWTH
 
-    growth = InterpolatedUnivariateSpline(np.linspace(0, 15, 100), np.sqrt(
-        (rbs(0.01, np.linspace(0, 15, 100)) / rbs(0.01, 0)))[0])
+    # growth = InterpolatedUnivariateSpline(np.linspace(0, 15, 100), np.sqrt(
+    #     (rbs(0.01, np.linspace(0, 15, 100)) / rbs(0.01, 0)))[0])
 
     # LOAD DNDZ
     # =======================
@@ -264,7 +271,7 @@ def main(ini_par):
 
     desi_spec_bins, galaxies_fraction_desi = make_spec_bins(np.linspace(
         0, 2, 100), DESI.DESISpline_normalized, 4, hspline, pars.omegac, h, b=1.17)
-    print('DESI', galaxies_fraction_desi, np.sum(galaxies_fraction_desi))
+    # print('DESI', galaxies_fraction_desi, np.sum(galaxies_fraction_desi))
 
     # ======
     # WISE
@@ -276,7 +283,7 @@ def main(ini_par):
     norm = dndzwise.integral(wise_dn_dz[:, 0], wise_dn_dz[:, 1])
     dndzwise = InterpolatedUnivariateSpline(
         wise_dn_dz[:, 0], wise_dn_dz[:, 1] / norm, ext='zeros')
-    # Biased was measured equal to 1.41 in Feerraro et al. WISE ISW measureament
+    # Biased was measured equal to 1.41 in Ferraro et al. WISE ISW measureament
     # by cross correlating with planck lensing
     wise = gals_kernel.kern(
         wise_dn_dz[:, 0], dndzwise, hspline, pars.omegac, h, b=1.41)
@@ -288,37 +295,37 @@ def main(ini_par):
     # =======
     z_ska = np.linspace(0.01, 6, 600)
     dndzska10 = gals_kernel.dNdZ_parametric_SKA_10mujk(z_ska)
-    dndzska1 = gals_kernel.dNdZ_parametric_SKA_1mujk(z_ska)
-    dndzska5 = gals_kernel.dNdZ_parametric_SKA_5mujk(z_ska)
-    dndzska01 = gals_kernel.dNdZ_parametric_SKA_01mujk(z_ska)
+    # dndzska1 = gals_kernel.dNdZ_parametric_SKA_1mujk(z_ska)
+    # dndzska5 = gals_kernel.dNdZ_parametric_SKA_5mujk(z_ska)
+    # dndzska01 = gals_kernel.dNdZ_parametric_SKA_01mujk(z_ska)
 
     # ===
-    dndzfun = interp1d(z_ska, dndzska01)
-    norm = scipy.integrate.quad(
-        dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
-    # normalize
-    dndzska01 = InterpolatedUnivariateSpline(
-        z_ska, dndzska01 / norm * gals_kernel.dNdZ_SKA_bias(z_ska, mujk=0.1), ext='zeros')
-    ska01 = gals_kernel.kern(z_ska, dndzska01, hspline, pars.omegac, h, b=1.)
+    # dndzfun = interp1d(z_ska, dndzska01)
+    # norm = scipy.integrate.quad(
+    #     dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
+    # # normalize
+    # dndzska01 = InterpolatedUnivariateSpline(
+    #     z_ska, dndzska01 / norm * gals_kernel.dNdZ_SKA_bias(z_ska, mujk=0.1), ext='zeros')
+    # ska01 = gals_kernel.kern(z_ska, dndzska01, hspline, pars.omegac, h, b=1.)
 
-    # ===
-    dndzfun = interp1d(z_ska, dndzska1)
-    norm = scipy.integrate.quad(
-        dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
+    # # ===
+    # dndzfun = interp1d(z_ska, dndzska1)
+    # norm = scipy.integrate.quad(
+    #     dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
 
-    # normalize
-    dndzska1 = InterpolatedUnivariateSpline(
-        z_ska, dndzska1 / norm * gals_kernel.dNdZ_SKA_bias(z_ska, mujk=1), ext='zeros')
-    ska1 = gals_kernel.kern(z_ska, dndzska1, hspline, pars.omegac, h, b=1.)
+    # # normalize
+    # dndzska1 = InterpolatedUnivariateSpline(
+    #     z_ska, dndzska1 / norm * gals_kernel.dNdZ_SKA_bias(z_ska, mujk=1), ext='zeros')
+    # ska1 = gals_kernel.kern(z_ska, dndzska1, hspline, pars.omegac, h, b=1.)
 
-    # ===
-    dndzfun = interp1d(z_ska, dndzska5)
-    norm = scipy.integrate.quad(
-        dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
+    # # ===
+    # dndzfun = interp1d(z_ska, dndzska5)
+    # norm = scipy.integrate.quad(
+    #     dndzfun, z_ska[0], z_ska[-1], limit=100, epsrel=1.49e-03)[0]
 
-    dndzska5 = InterpolatedUnivariateSpline(
-        z_ska, dndzska5 / norm * gals_kernel.dNdZ_SKA_bias(z_ska, mujk=5), ext='zeros')
-    ska5 = gals_kernel.kern(z_ska, dndzska5, hspline, pars.omegac, h, b=1.)
+    # dndzska5 = InterpolatedUnivariateSpline(
+    #     z_ska, dndzska5 / norm * gals_kernel.dNdZ_SKA_bias(z_ska, mujk=5), ext='zeros')
+    # ska5 = gals_kernel.kern(z_ska, dndzska5, hspline, pars.omegac, h, b=1.)
 
     # ===
     dndzfun = interp1d(z_ska, dndzska10)
@@ -419,7 +426,7 @@ def main(ini_par):
         names.extend(['desi_bin{}'.format(int(n))])
         kernels.extend([bin_gal])
 
-    print(kernels)
+    # print(kernels)
 # kernels = [lkern, desi1, desi2]
 # names = ['k', 'desi1', 'desi2']
     labels = []
@@ -570,8 +577,3 @@ def main(ini_par):
 if __name__ == "__main__":
     ini_pars = setup(ini_file='./gal_delens_values.ini')
     ells, cls = main(ini_pars)
-    # plt.loglog(ells, cls['lsstlsst'])
-    # cl_sum = np.zeros_like(np.array(cls['desidesi']))
-    # for n, fraction in enumerate(frac):
-    #     cl_sum = cl_sum + \
-    #         cls['lsst_bin{}'.format(int(n)) + 'lsst_bin{}'.format(int(n))] * fraction**2

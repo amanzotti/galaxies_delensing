@@ -18,6 +18,11 @@ import rho_to_Bres
 from scipy.interpolate import InterpolatedUnivariateSpline
 from colorama import init
 from colorama import Fore
+import datetime
+
+
+sys.stdout = open('run_analysis' + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"+'.txt'), 'w')
+
 
 init(autoreset=True)
 np.seterr(divide='ignore', invalid='ignore')
@@ -52,10 +57,12 @@ clbb_tens.cache_clear()
 clbb.cache_clear()
 
 
-def run_fisher_cases(rho_names, lmin, lmax, fsky, deep):
+def run_fisher_cases(rho_names, lmin, lmax, deep, fsky=0.06, r_tens_case=0.07):
     print('')
     print(Fore.YELLOW + 'r=0, no noise')
     print('')
+
+    cbb_lensed = clbb_lensed(np.arange(0, len(clbb(0.0, lmax=lmax))))
     r_fid = 0
     for i, label in enumerate(rho_names):
         probe = label.split('.txt')[0].split('rho_')[1]
@@ -76,7 +83,7 @@ def run_fisher_cases(rho_names, lmin, lmax, fsky, deep):
             lmax=lmax,
             fsky=fsky,
             # clbb also contains r tensor contributions
-            clbb_cov=clbb(r_fid, lmax=lmax),
+            clbb_cov=cbb_lensed + clbb_tens(r_fid, lmax=lmax),
             noise_uK_arcmin=0.,
             fwhm_arcmin=deep['fwhm_arcmin'])
         print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
@@ -108,14 +115,13 @@ def run_fisher_cases(rho_names, lmin, lmax, fsky, deep):
             lmin=lmin,
             lmax=lmax,
             fsky=fsky,
-            clbb_cov=clbb(r_fid, lmax=lmax),
+            clbb_cov=cbb_lensed + clbb_tens(r_fid, lmax=lmax),
             noise_uK_arcmin=deep['noise_uK_arcmin'],
             fwhm_arcmin=deep['fwhm_arcmin'])
         print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
                        sigma_nt_1 / sigma_nt))
 
     print('After delensing % errors', sigma_r_1 * 1e2)
-
 
     print('')
     print('')
@@ -124,7 +130,7 @@ def run_fisher_cases(rho_names, lmin, lmax, fsky, deep):
 
     clbb.cache_clear()
     clbb_tens.cache_clear()
-    r_fid = 0.11
+    r_fid = r_tens_case
     fsky = 0.06
 
     # ### r=0.07
@@ -148,14 +154,14 @@ def run_fisher_cases(rho_names, lmin, lmax, fsky, deep):
             lmin=lmin,
             lmax=lmax,
             fsky=fsky,
-            clbb_cov=clbb(r_fid, lmax=lmax),
+            clbb_cov=cbb_lensed + clbb_tens(r_fid, lmax=lmax),
             noise_uK_arcmin=deep['noise_uK_arcmin'],
             fwhm_arcmin=deep['fwhm_arcmin'])
 
         print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
                        sigma_nt_1 / sigma_nt))
 
-    print('After delensing % errors', sigma_r_1 * 1e2)
+    print('After delensing % errors sigma(r)*1e2', sigma_r_1 * 1e2)
 
 
 def bl(fwhm_arcmin, lmax):
@@ -261,11 +267,14 @@ def combine_deep_high_res(deep_noise, deep_fwhm, highres_noise, highres_fwhm, lm
 pars = camb.CAMBparams()
 # This function sets up CosmoMC-like settings, with one massive neutrino
 # and helium set using BBN consistency
-pars.set_cosmology(H0=70, ombh2=0.0226, omch2=0.112,
-                   mnu=0.029, omk=0, tau=0.079)
+pars = camb.CAMBparams()
+# This function sets up CosmoMC-like settings, with one massive neutrino
+# and helium set using BBN consistency
+pars.set_cosmology(H0=67.26, ombh2=0.02222, omch2=0.1199,
+                   mnu=0.06, omk=0, tau=0.079)
 pars.InitPower.set_params(ns=0.96, r=0., nt=0, pivot_tensor=0.01, As=2.1e-9)
 pars.set_for_lmax(5000, lens_potential_accuracy=3)
-# pars.set_for_lmax?
+pars.NonLinear = model.NonLinear_both
 
 pars.AccurateBB = True
 pars.OutputNormalization = False
@@ -295,8 +304,16 @@ values = ConfigParser.ConfigParser()
 Config_ini.read(inifile)
 values_file = Config_ini.get('pipeline', 'values')
 output_dir = Config_ini.get('test', 'save_dir')
+
+# ==========================================
+# ==========================================
+# L range to be used in the fisher forecasts
+lmin = 50
+lmax = 800
+
+
 print('')
-print(Fore.RED + 'PLANCK + DES + CIB + WISE')
+print(Fore.RED + 'PLANCK + DES ')
 print('')
 
 
@@ -314,11 +331,11 @@ print('')
 # # =====================================
 
 
-labels = ['wise', 'cib', 'des']
+labels = ['des_bin0', 'des_bin1', 'des_bin2', 'des_bin3']
 cmb = 'Planck'
 multiple_survey_delens.main(labels, cmb)
 ells_cmb = np.loadtxt(output_dir + 'cmb_cl/ell.txt')
-rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_gals.txt',
+rho_names = ['rho_cib.txt', 'rho_gals.txt',
              'rho_wise.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 
 
@@ -347,10 +364,20 @@ nle[np.where(nle == np.inf)] = 1e20
 
 nle_fun = InterpolatedUnivariateSpline(
     np.arange(0, len(nle)), nle, ext=2)
+
+
+# ==========================================
+#  Compute BB lens with our integral to have a fair comparison.
+# Do so once for all here
+# ==========================================
+
+
 B_test = rho_to_Bres.main(['test'], nle_fun, clpp_fun, clee_fun)
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_lensed = InterpolatedUnivariateSpline(
     lbins, lbins * (lbins + 1.) * np.nan_to_num(B_test) / 2. / np.pi, ext='extrapolate')
+
+# ================================================
 
 B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
 
@@ -382,15 +409,99 @@ print('')
 print('')
 
 # sys.exit()
-lmin = 50
-lmax = 500
+
 # This needs to be Bicep like, the value of the deep exp
-r_fid = 0.
-fsky = 0.06
 
 
-run_fisher_cases(rho_names, lmin, lmax, fsky, deep)
+run_fisher_cases(rho_names, lmin, lmax, deep)
 
+print('')
+print(Fore.RED + 'PLANCK + DES + CIB + WISE')
+print('')
+
+
+# # =====================================
+# # TEST
+
+# labels = ['wise', 'cib', 'des']
+# cmb = 'S3'
+# multiple_survey_delens.main(labels, cmb)
+# rho_names = ['rho_cmb_' + cmb + '.txt']
+
+# cmb = 'S4'
+# multiple_survey_delens.main(labels, cmb)
+# rho_names.append('rho_cmb_' + cmb + '.txt')
+# # =====================================
+
+
+labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3']
+cmb = 'Planck'
+multiple_survey_delens.main(labels, cmb)
+ells_cmb = np.loadtxt(output_dir + 'cmb_cl/ell.txt')
+rho_names = ['rho_cib.txt', 'rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
+
+
+# deep survey to delens or what is giving you E-mode
+# BICEP level 3 muK and 30 arcmin beam
+
+# deep
+deep = {}
+deep['noise_uK_arcmin'] = 3.
+deep['fwhm_arcmin'] = 30.
+# high res
+high_res = {}
+high_res['noise_uK_arcmin'] = 9.4
+high_res['fwhm_arcmin'] = 1.
+
+# not used right now
+ell_range_deep = [20, 800]
+ell_range_high = [50, ells_cmb[-1]]
+nle_deep = nl(deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_high = nl(deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_high[:ell_range_high[0]] = np.inf
+nle_deep[:ell_range_deep[0]] = np.inf
+nle_deep[ell_range_deep[1]:] = np.inf
+nle = 1 / (1 / nle_high + 1 / nle_deep)
+nle[np.where(nle == np.inf)] = 1e20
+
+nle_fun = InterpolatedUnivariateSpline(
+    np.arange(0, len(nle)), nle, ext=2)
+
+
+B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
+
+clbb_res = {}
+for i, probe in enumerate(rho_names):
+    if probe == 'test':
+        print(i, probe)
+        clbb_res[probe] = InterpolatedUnivariateSpline(
+            lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
+    else:
+        print(i, probe.split('.txt')[0].split('rho_')[1])
+        clbb_res[probe.split('.txt')[0].split('rho_')[1]] = InterpolatedUnivariateSpline(
+            lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
+
+print('')
+print(Fore.YELLOW + 'Fraction of removed Bmode power')
+for probe in rho_names[0:]:
+    probe = probe.split('.txt')[0].split('rho_')[1]
+    print(probe)
+    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
+          'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) /
+                                   clbb_lensed(np.arange(4, 500, 75))),
+          'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(50, 100, 100)) / clbb_lensed(np.arange(50, 100, 100))
+                                    ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(np.arange(4, 1500, 100)))
+          )
+
+print('')
+print('')
+print('')
+
+# sys.exit()
+
+# This needs to be Bicep like, the value of the deep exp
+
+run_fisher_cases(rho_names, lmin, lmax, deep)
 
 # sys.exit()
 
@@ -398,10 +509,10 @@ run_fisher_cases(rho_names, lmin, lmax, fsky, deep)
 print(Fore.RED + 'Actual scenario High res SPT-pol')
 # In[274]:
 
-labels = ['wise', 'cib', 'des']
+labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3']
 cmb = 'now'
 multiple_survey_delens.main(labels, cmb)
-rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_gals.txt',
+rho_names = ['rho_cib.txt', 'rho_gals.txt',
              'rho_wise.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 # deep survey to delens or what is giving you E-mode
 
@@ -458,13 +569,10 @@ print('')
 
 
 # In[276]:
-lmin = 50
-lmax = 500
+
 # This needs to be Bicep like, the value of the deep exp
-r_fid = 0.
-f_sky = 0.06
-run_fisher_cases(rho_names, lmin, lmax, fsky, deep)
-# ====================================
+
+run_fisher_cases(rho_names, lmin, lmax, deep)  # ====================================
 # ====================================
 
 # CMB S3
@@ -475,14 +583,54 @@ run_fisher_cases(rho_names, lmin, lmax, fsky, deep)
 
 # In[278]:
 print('')
+print(Fore.RED + 'CMB S3 + DESI')
+print('')
+
+labels = ['desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
+
+cmb = 'S3'
+print(Fore.RED + 'Tracers:' + '-'.join(labels))
+multiple_survey_delens.main(labels, cmb)
+rho_names = ['rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
+# deep survey to delens or what is giving you E-mode
+nle_fun = InterpolatedUnivariateSpline(
+    np.arange(0, len(nle)), nle, ext=2)
+B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
+lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
+clbb_res = {}
+for i, probe in enumerate(rho_names):
+    print(i, probe.split('.txt')[0].split('rho_')[1])
+    clbb_res[probe.split('.txt')[0].split('rho_')[1]] = InterpolatedUnivariateSpline(
+        lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
+
+
+print('')
+print(Fore.YELLOW + 'Fraction of removed Bmode power')
+for probe in rho_names[0:]:
+    probe = probe.split('.txt')[0].split('rho_')[1]
+    print(probe)
+    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
+          'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) /
+                                   clbb_lensed(np.arange(4, 500, 75))),
+          'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(np.arange(4, 1000, 100))
+                                    ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(np.arange(4, 1500, 100)))
+          )
+    print('')
+
+print('')
+print('')
+print('')
+
+run_fisher_cases(rho_names, lmin, lmax, deep)
+print('')
 print(Fore.RED + 'CMB S3')
 print('')
 # possible names orders matters = ['k', 'euclid', 'des_weak', 'lsst',
 # 'ska10',            'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
-labels = ['wise', 'cib', 'desi', 'des']
+labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
 cmb = 'S3'
 multiple_survey_delens.main(labels, cmb)
-rho_names = ['rho_cib.txt', 'rho_des.txt', 'rho_desi.txt',
+rho_names = ['rho_cib.txt', 'rho_des.txt',
              'rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 # This needs to be Bicep like, the value of the deep exp
 
@@ -549,14 +697,9 @@ print('')
 
 # noise_uK_arcmin=4.5,
 # fwhm_arcmin=4.,
-lmax = 2000
 
-r_fid = 0.0001
-fsky = 0.06
-lmin=50
-lmax=500
-run_fisher_cases(rho_names, lmin, lmax, fsky, deep)
 
+run_fisher_cases(rho_names, lmin, lmax, deep)
 
 # ==============================
 # ==============================
@@ -632,8 +775,7 @@ r_fid = 0.
 # print('')
 
 
-# run_fisher_cases(rho_names, lmin, lmax, fsky, deep)
-
+# run_fisher_cases(rho_names, lmin, lmax, deep)
 
 print('')
 print(Fore.RED + 'CMB S4 + SKA10')
@@ -677,8 +819,7 @@ for probe in rho_names[0:]:
 print('')
 print('')
 
-run_fisher_cases(rho_names, lmin, lmax, fsky, deep)
-
+run_fisher_cases(rho_names, lmin, lmax, deep)
 # ## LSS minus SKA
 
 # In[ ]:
@@ -722,15 +863,15 @@ for probe in rho_names[0:]:
 print('')
 print('')
 print('')
-run_fisher_cases(rho_names, lmin, lmax, fsky, deep)
-
+run_fisher_cases(rho_names, lmin, lmax, deep)
 
 print(Fore.RED + 'CMB S4 + LSST')
 
 #  'wise', 'euclid', 'des_weak', 'lsst', 'ska10',
 # #              'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
-labels = ['lsst_bin3', 'lsst_bin4', 'lsst_bin5',
-          'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9']
+labels = ['lsst_bin0', 'lsst_bin1', 'lsst_bin2',
+          'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9']
+
 cmb = 'S4'
 print(Fore.RED + 'Tracers:' + '-'.join(labels))
 multiple_survey_delens.main(labels, cmb)
@@ -764,8 +905,7 @@ print('')
 print('')
 print('')
 
-run_fisher_cases(rho_names, lmin, lmax, fsky, deep)
-
+run_fisher_cases(rho_names, lmin, lmax, deep)
 
 # ---
 sys.exit('CRoss checks are done after this')
