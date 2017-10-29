@@ -211,6 +211,12 @@ Addison G.~E.,  Dunkley J.,  Hajian A.,  Viero M.,  Bond J.~R.,   et~al., 2012,
   {http://adsabs.harvard.edu/abs/2017arXiv170806753M} {} (\mn@eprint {arXiv}
   {1708.06753})
 
+\bibitem[\protect\citeauthoryear{{Sherwin} \& {Schmittfull}}{{Sherwin} \&
+  {Schmittfull}}{2015}]{sherwin:2015}
+{Sherwin} B.~D.,  {Schmittfull} M.,  2015, \mn@doi [\prd]
+  {10.1103/PhysRevD.92.043005}, \href
+  {http://adsabs.harvard.edu/abs/2015PhRvD..92d3005S} {92, 043005}
+
 \bibitem[\protect\citeauthoryear{{Hu} \& {Scranton}}{{Hu} \&
   {Scranton}}{2004}]{hu:2004}
 {Hu} W.,  {Scranton} R.,  2004, \mn@doi [\prd] {10.1103/PhysRevD.70.123002},
@@ -239,12 +245,6 @@ Liddle A.~R.,  Lyth D.~H.,  1992, \mn@doi [Physics Letters B]
 {Planck Collaboration} et~al., 2015, \mn@doi [\aap]
   {10.1051/0004-6361/201424082}, \href
   {http://adsabs.harvard.edu/abs/2015A%26A...576A.104P} {576, A104}
-
-\bibitem[\protect\citeauthoryear{{Sherwin} \& {Schmittfull}}{{Sherwin} \&
-  {Schmittfull}}{2015}]{sherwin:2015}
-{Sherwin} B.~D.,  {Schmittfull} M.,  2015, \mn@doi [\prd]
-  {10.1103/PhysRevD.92.043005}, \href
-  {http://adsabs.harvard.edu/abs/2015PhRvD..92d3005S} {92, 043005}
 
 \bibitem[\protect\citeauthoryear{{Motloch}, {Hu}  \&
   {Benoit-L{\'e}vy}}{{Motloch} et~al.}{2017}]{motloch:2017}
