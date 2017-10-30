@@ -21,7 +21,7 @@ from colorama import Fore
 import datetime
 
 
-sys.stdout = open('run_analysis' + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"+'.txt'), 'w')
+# sys.stdout = open('run_analysis_S4' + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"+'.txt'), 'w')
 
 
 init(autoreset=True)
@@ -89,15 +89,15 @@ def run_fisher_cases(rho_names, lmin, lmax, deep, fsky=0.06, r_tens_case=0.07):
         print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
                        sigma_nt_1 / sigma_nt))
 
-    print('After delensing % errors', sigma_r_1 * 1e2)
-
+    print('After delensing % errors sigma(r)*1e2', sigma_r * 1e2)
+    print('After delensing % errors sigma(nt)', sigma_nt)
     print('')
     print('')
 
     print('')
     print(Fore.YELLOW + 'r=0')
     print('')
-    r_fid = 0
+    r_fid = 1e-4
 
     for i, label in enumerate(rho_names):
         probe = label.split('.txt')[0].split('rho_')[1]
@@ -121,8 +121,8 @@ def run_fisher_cases(rho_names, lmin, lmax, deep, fsky=0.06, r_tens_case=0.07):
         print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
                        sigma_nt_1 / sigma_nt))
 
-    print('After delensing % errors', sigma_r_1 * 1e2)
-
+    print('After delensing % errors sigma(r)*1e2', sigma_r * 1e2)
+    print('After delensing % errors sigma(nt)', sigma_nt)
     print('')
     print('')
 
@@ -161,7 +161,8 @@ def run_fisher_cases(rho_names, lmin, lmax, deep, fsky=0.06, r_tens_case=0.07):
         print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
                        sigma_nt_1 / sigma_nt))
 
-    print('After delensing % errors sigma(r)*1e2', sigma_r_1 * 1e2)
+    print('After delensing % errors sigma(r)*1e2', sigma_r * 1e2)
+    print('After delensing % errors sigma(nt)', sigma_nt)
 
 
 def bl(fwhm_arcmin, lmax):
@@ -201,8 +202,9 @@ def fisher_r_nt(r_fid=0.2, fid=None,
     nlb = nlb * ell_nlb * (ell_nlb + 1.) / 2. / np.pi
 
     if fid is None:
-        #         print('n_t fis in None set consistency relation')
+                # print('n_t fis in None set consistency relation')
         fid = -r_fid / 8.
+        # fid= 0.
 
     if clbb_cov is None:
         clbb_cov = clbb(r_fid, fid, lmax=lmax)
@@ -212,12 +214,12 @@ def fisher_r_nt(r_fid=0.2, fid=None,
 
 #     print(r_fid, fid,Cov)
 
-    dx = r_fid * 0.02 + 0.01
+    dx = r_fid * 0.02 + 0.03
     dBl_dr = (-clbb(r_fid + 2. * dx, fid, lmax=lmax) + 8. * clbb(r_fid + dx, fid, lmax=lmax) -
               8. * clbb(r_fid - dx, fid, lmax=lmax) + clbb(r_fid - 2. * dx, fid, lmax=lmax)) / (12. * dx)
 #     print(dBl_dr)
 
-    dx = fid * 0.05 + 0.04
+    dx = fid * 0.03 + 0.03
     nt_deriv = (-clbb(r_fid, fid + 2 * dx, lmax=lmax) + 8. * clbb(r_fid, fid + dx, lmax=lmax) -
                 8. * clbb(r_fid, fid - dx, lmax=lmax) + clbb(r_fid, fid - 2 * dx, lmax=lmax)) / (12. * dx)
 #     print(nt_deriv)
@@ -309,7 +311,7 @@ output_dir = Config_ini.get('test', 'save_dir')
 # ==========================================
 # L range to be used in the fisher forecasts
 lmin = 50
-lmax = 800
+lmax = 500
 
 
 print('')
@@ -348,8 +350,8 @@ deep['noise_uK_arcmin'] = 3.
 deep['fwhm_arcmin'] = 30.
 # high res
 high_res = {}
-high_res['noise_uK_arcmin'] = 9.4
-high_res['fwhm_arcmin'] = 1.
+high_res['noise_uK_arcmin'] = 60.
+high_res['fwhm_arcmin'] = 7.
 
 # not used right now
 ell_range_deep = [20, 800]
@@ -377,7 +379,7 @@ lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_lensed = InterpolatedUnivariateSpline(
     lbins, lbins * (lbins + 1.) * np.nan_to_num(B_test) / 2. / np.pi, ext='extrapolate')
 
-# ================================================
+# # ================================================
 
 B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
 
@@ -450,8 +452,8 @@ deep['noise_uK_arcmin'] = 3.
 deep['fwhm_arcmin'] = 30.
 # high res
 high_res = {}
-high_res['noise_uK_arcmin'] = 9.4
-high_res['fwhm_arcmin'] = 1.
+high_res['noise_uK_arcmin'] = 60
+high_res['fwhm_arcmin'] = 7.
 
 # not used right now
 ell_range_deep = [20, 800]
@@ -572,7 +574,8 @@ print('')
 
 # This needs to be Bicep like, the value of the deep exp
 
-run_fisher_cases(rho_names, lmin, lmax, deep)  # ====================================
+run_fisher_cases(rho_names, lmin, lmax, deep)
+# ====================================
 # ====================================
 
 # CMB S3
@@ -592,6 +595,28 @@ cmb = 'S3'
 print(Fore.RED + 'Tracers:' + '-'.join(labels))
 multiple_survey_delens.main(labels, cmb)
 rho_names = ['rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
+# deep survey to delens or what is giving you E-mode
+# deep
+deep = {}
+deep['noise_uK_arcmin'] = 2.
+deep['fwhm_arcmin'] = 30.
+# high res
+high_res = {}
+high_res['noise_uK_arcmin'] = 3
+high_res['fwhm_arcmin'] = 1.
+
+# not used right now
+ell_range_deep = [20, 800]
+ell_range_high = [50, ells_cmb[-1]]
+nle_deep = nl(deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_high = nl(deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_high[:ell_range_high[0]] = np.inf
+nle_deep[:ell_range_deep[0]] = np.inf
+nle_deep[ell_range_deep[1]:] = np.inf
+nle = 1 / (1 / nle_high + 1 / nle_deep)
+nle[np.where(nle == np.inf)] = 1e20
+
+
 # deep survey to delens or what is giving you E-mode
 nle_fun = InterpolatedUnivariateSpline(
     np.arange(0, len(nle)), nle, ext=2)
@@ -701,12 +726,12 @@ print('')
 
 run_fisher_cases(rho_names, lmin, lmax, deep)
 
+
 # ==============================
 # ==============================
 # CMB-S4
 # ==============================
 # ==============================
-lmax = 3000
 # This needs to be Bicep like, the value of the deep exp
 
 
@@ -729,53 +754,52 @@ nle_deep[:ell_range_deep[0]] = np.inf
 nle_deep[ell_range_deep[1]:] = np.inf
 nle = 1 / (1 / nle_high + 1 / nle_deep)
 nle[np.where(nle == np.inf)] = 1e20
-r_fid = 0.
 
 
-# print('')
-# print(Fore.RED + 'CMB S4 + SKA01')
-# print('')
+print('')
+print(Fore.RED + 'CMB S4 + SKA01')
+print('')
 
-# labels = ['wise', 'ska01', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
-#           'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
-# cmb = 'S4'
+labels = ['wise', 'ska01', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
+          'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
+cmb = 'S4'
 
-# print(Fore.RED + 'Tracers:' + '-'.join(labels))
+print(Fore.RED + 'Tracers:' + '-'.join(labels))
 
-# multiple_survey_delens.main(labels, cmb)
-# rho_names = ['rho_ska01.txt', 'rho_gals.txt',
-#              'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
+multiple_survey_delens.main(labels, cmb)
+rho_names = ['rho_ska01.txt', 'rho_gals.txt',
+             'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 
-# # deep survey to delens or what is giving you E-mode
-# nle_fun = InterpolatedUnivariateSpline(
-#     np.arange(0, len(nle)), nle, ext=2)
-# B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
-# lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
-# clbb_res = {}
-# for i, probe in enumerate(rho_names):
-#     print(i, probe.split('.txt')[0].split('rho_')[1])
-#     clbb_res[probe.split('.txt')[0].split('rho_')[1]] = InterpolatedUnivariateSpline(
-#         lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
-
-
-# print('')
-# print(Fore.YELLOW + 'Fraction of removed Bmode power')
-# for probe in rho_names[0:]:
-#     probe = probe.split('.txt')[0].split('rho_')[1]
-#     print(probe)
-#     print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
-#           'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) /
-#                                    clbb_lensed(np.arange(4, 500, 75))),
-#           'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(np.arange(4, 1000, 100))
-#                                     ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(np.arange(4, 1500, 100)))
-#           )
-#     print('')
-
-# print('')
-# print('')
+# deep survey to delens or what is giving you E-mode
+nle_fun = InterpolatedUnivariateSpline(
+    np.arange(0, len(nle)), nle, ext=2)
+B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
+lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
+clbb_res = {}
+for i, probe in enumerate(rho_names):
+    print(i, probe.split('.txt')[0].split('rho_')[1])
+    clbb_res[probe.split('.txt')[0].split('rho_')[1]] = InterpolatedUnivariateSpline(
+        lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
 
 
-# run_fisher_cases(rho_names, lmin, lmax, deep)
+print('')
+print(Fore.YELLOW + 'Fraction of removed Bmode power')
+for probe in rho_names[0:]:
+    probe = probe.split('.txt')[0].split('rho_')[1]
+    print(probe)
+    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
+          'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) /
+                                   clbb_lensed(np.arange(4, 500, 75))),
+          'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(np.arange(4, 1000, 100))
+                                    ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(np.arange(4, 1500, 100)))
+          )
+    print('')
+
+print('')
+print('')
+
+
+run_fisher_cases(rho_names, lmin, lmax, deep)
 
 print('')
 print(Fore.RED + 'CMB S4 + SKA10')
