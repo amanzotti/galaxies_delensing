@@ -198,12 +198,11 @@ Addison G.~E.,  Dunkley J.,  Hajian A.,  Viero M.,  Bond J.~R.,   et~al., 2012,
   {10.1103/PhysRevLett.78.2054}, \href
   {http://adsabs.harvard.edu/abs/1997PhRvL..78.2054S} {78, 2054}
 
-\bibitem[\protect\citeauthoryear{{BICEP2/Keck Collaboration}
-  et~al.,}{{BICEP2/Keck Collaboration}
-  et~al.}{2015}]{bicep2/keck-collaboration:2015}
-{BICEP2/Keck Collaboration} et~al., 2015, \mn@doi [Physical Review Letters]
-  {10.1103/PhysRevLett.114.101301}, \href
-  {http://adsabs.harvard.edu/abs/2015PhRvL.114j1301B} {114, 101301}
+\bibitem[\protect\citeauthoryear{{BICEP2 Collaboration} et~al.,}{{BICEP2
+  Collaboration} et~al.}{2016}]{bicep2-collaboration:2016a}
+{BICEP2 Collaboration} et~al., 2016, \mn@doi [Physical Review Letters]
+  {10.1103/PhysRevLett.116.031302}, \href
+  {http://adsabs.harvard.edu/abs/2016PhRvL.116c1302B} {116, 031302}
 
 \bibitem[\protect\citeauthoryear{{Millea}, {Anderes}  \& {Wandelt}}{{Millea}
   et~al.}{2017}]{millea:2017}
@@ -239,6 +238,13 @@ Fisher R.~A.,  1935, Journal of the Royal Statistical Society, 98, 39
   Lyth}{1992}]{LIDDLE1992391}
 Liddle A.~R.,  Lyth D.~H.,  1992, \mn@doi [Physics Letters B]
   {http://dx.doi.org/10.1016/0370-2693(92)91393-N}, 291, 391
+
+\bibitem[\protect\citeauthoryear{{BICEP2/Keck Collaboration}
+  et~al.,}{{BICEP2/Keck Collaboration}
+  et~al.}{2015}]{bicep2/keck-collaboration:2015}
+{BICEP2/Keck Collaboration} et~al., 2015, \mn@doi [Physical Review Letters]
+  {10.1103/PhysRevLett.114.101301}, \href
+  {http://adsabs.harvard.edu/abs/2015PhRvL.114j1301B} {114, 101301}
 
 \bibitem[\protect\citeauthoryear{{Planck Collaboration} et~al.,}{{Planck
   Collaboration} et~al.}{2015}]{planck-collaboration:2015}
