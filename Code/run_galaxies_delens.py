@@ -58,7 +58,7 @@ def find_bins(z, dndz, nbins):
     args = np.hstack((np.array(0.), np.searchsorted(
         cum, [cum[-1] / nbins * n for n in np.arange(1, nbins + 1)]))).astype(np.int)
     args[-1] = len(cum) - 1
-    return [z[args[i]:args[i + 1]] for i in np.arange(0, len(args) - 1.)], args
+    return [z[args[np.int(i)]:args[np.int(i) + 1]] for i in np.arange(0, len(args) - 1.)], args
 
 
 def make_tomo_bins(z, dndz, sigmaz, width, nbins, hspline, omegac, h, b=1.):
@@ -70,11 +70,11 @@ def make_tomo_bins(z, dndz, sigmaz, width, nbins, hspline, omegac, h, b=1.):
         dndz_win = dndz * (scipy.special.erfc((width * (n - 1) - z) / (sigmaz * np.sqrt(2))
                                               ) - scipy.special.erfc((width * n - z) / (sigmaz * np.sqrt(2))))
         dndzlsst_temp = InterpolatedUnivariateSpline(
-            z, dndz_win, ext='zeros')
+            z, dndz_win, ext='raise')
         norm = dndzlsst_temp.integral(z[0], z[-1])
         # print(norm, dndz_win, z)
         dndzlsst_temp_fun = InterpolatedUnivariateSpline(
-            z, dndz_win / norm * np.sqrt(1. + z), ext='zeros')
+            z, dndz_win / norm * np.sqrt(1. + z), ext='raise')
         lsst_tomo_bins.append(gals_kernel.kern(
             z, dndzlsst_temp_fun, hspline, omegac, h, b=1.))
     return lsst_tomo_bins
@@ -104,12 +104,12 @@ def make_tomo_bins_equal_gals(z, dndz, sigmaz, nbins, hspline, omegac, h, b=1.):
 
         dndz_win = dndz * photoz_confusion
         dndzlsst_temp = InterpolatedUnivariateSpline(
-            z, dndz_win, ext='zeros')
+            z, dndz_win, ext='raise')
         norm = dndzlsst_temp.integral(z[0], z[-1])
         # print(norm, dndz_win, z)
         galaxies_fraction.append(norm)
         dndzlsst_temp_fun = InterpolatedUnivariateSpline(
-            z, dndz_win / norm, ext='zeros')
+            z, dndz_win / norm, ext='raise')
         lsst_tomo_bins.append(gals_kernel.kern(
             z, dndzlsst_temp_fun, hspline, omegac, h, b=b))
     return lsst_tomo_bins, np.array(galaxies_fraction)
@@ -159,7 +159,7 @@ def make_spec_bins(z, dndz_fun, nbins, hspline, omegac, h, b=1.):
     z_bins = [z[i:i + int(len(z) / nbins) + 1]
               for i in range(0, len(z), int(len(z) / nbins))]
     # +1 is inserted not to have gaps
-    print(z_bins)
+    # print(z_bins)
     for z in z_bins:
         dndz = dndz_fun(z)
         # print('z',z)
@@ -198,8 +198,6 @@ def main(ini_par):
     pars.InitPower.set_params(ns=0.96, r=0., nt=0, pivot_tensor=0.01, As=2.1e-9)
     pars.set_for_lmax(5000, lens_potential_accuracy=3)
     # pars.set_for_lmax?
-
-
 
     pars.NonLinear = model.NonLinear_both
     pars.set_matter_power(redshifts=np.linspace(0., 13, 50), kmax=5.0)
@@ -271,13 +269,13 @@ def main(ini_par):
 
     desi_spec_bins, galaxies_fraction_desi = make_spec_bins(np.linspace(
         0, 2, 100), DESI.DESISpline_normalized, 4, hspline, pars.omegac, h, b=1.17)
-    # print('DESI', galaxies_fraction_desi, np.sum(galaxies_fraction_desi))
+    # s('DESI', galaxies_fraction_desi, np.sum(galaxies_fraction_desi))
 
     # ======
     # WISE
     # ======
 
-    wise_dn_dz = np.loadtxt('/home/manzotti/galaxies_delensing/wise_dn_dz.txt')
+    wise_dn_dz = np.loadtxt('./wise_dn_dz.txt')
     dndzwise = InterpolatedUnivariateSpline(
         wise_dn_dz[:, 0], wise_dn_dz[:, 1], k=3, ext='zeros')
     norm = dndzwise.integral(wise_dn_dz[:, 0], wise_dn_dz[:, 1])
@@ -404,18 +402,20 @@ def main(ini_par):
     # Compute Cl implicit loops on ell
     # =======
 
-    kernels = [lkern, wise, euclid, lsst, ska10,
-               ska01, ska5, ska1, cib, desi, des]
-    names = ['k', 'wise', 'euclid', 'lsst', 'ska10',
-             'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
+    kernels = [lkern, wise, euclid, lsst, ska10, cib, desi, des]
+    names = ['k', 'wise', 'euclid', 'lsst', 'ska10', 'cib', 'desi', 'des']
+
+    kernels = [ ]
+    names = []
+
 
     # kernels = [lkern, desi]
     # names = ['k', 'desi']
     assert(len(kernels) == len(names))
     # add binned surveys.
-    for n, bin_gal in enumerate(des_tomo_bins):
-        names.extend(['des_bin{}'.format(int(n))])
-        kernels.extend([bin_gal])
+    # for n, bin_gal in enumerate(des_tomo_bins):
+    #     names.extend(['des_bin{}'.format(int(n))])
+    #     kernels.extend([bin_gal])
 
     for n, bin_gal in enumerate(lsst_tomo_bins):
         names.extend(['lsst_bin{}'.format(int(n))])
@@ -439,7 +439,13 @@ def main(ini_par):
             # print(i,j,names[i], names[j])
             labels.append(names[i] + names[j])
             kernel_list.append([kernels[i], kernels[j]])
-    # print(kernel_list)
+    print(labels[40:])
+
+
+    import warnings
+    warnings.filterwarnings('error')
+
+
     cls_out = Parallel(n_jobs=-2, verbose=10)(delayed(limber_integrals.cl_limber_z_ell)(chispline, hspline, rbs, ini_pars[
         'lbins'], kernel_1=ker[0], kernel_2=ker[1], zmin=max(ker[0].zmin, ker[1].zmin), zmax=min(ker[0].zmax, ker[1].zmax)) for ker in kernel_list)
     cls = {k: v for k, v in zip(labels, cls_out)}

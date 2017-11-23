@@ -298,7 +298,7 @@ class kern():
         self.dndzfun = dndzfun
         self.norm = scipy.integrate.quad(
             dndzfun, self.zmin, self.zmax, limit=100, epsrel=1.49e-03)[0]
-        print(self.norm, self.zmin, self.zmax)
+        # print(self.norm, self.zmin, self.zmax)
         self.hspline = hspline
 
     def w_lxz(self, float l, float x, float z):
@@ -314,7 +314,7 @@ class kern():
        '''
         cdef double dndz, b
         dndz = self.dndzfun(z)
-
+        # assert(dndz is not np.nan)
         b = self.b
         # print z,self.dndzfun(z),  self.norm  , self.b
         return dndz * self.b

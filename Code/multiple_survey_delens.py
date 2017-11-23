@@ -26,10 +26,10 @@ def nl(noise_uK_arcmin, fwhm_arcmin, lmax):
     return (noise_uK_arcmin * np.pi / 180. / 60.)**2 / bl(fwhm_arcmin, lmax)**2
 
 
-def main(labels, cmb):
+def main(labels, cmb, spectra_file='../Data/limber_spectra_delens.pkl'):
 
     output_dir = '/home/manzotti/galaxies_delensing/Data/'
-    cls = pickle.load(open('../Data/limber_spectra_delens.pkl', 'rb'))
+    cls = pickle.load(open(spectra_file, 'rb'))
     lbins = np.load('../Data/ells.npy')
 
     ckk = cls['kk']
@@ -107,6 +107,17 @@ def main(labels, cmb):
     if cmb == 'S3':
         noise = 2.0
         beam = 2
+        noise_phi = np.loadtxt(
+            './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
+        noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
+        # noise_cmb = nl(noise, beam, lmax=4000)
+        noise_fun = interp1d(np.arange(0, len(noise_phi)), noise_phi)
+        ckk_noise = np.zeros_like(ckk)
+        ckk_noise = noise_fun(lbins)
+
+    if cmb == 'SPT_deep':
+        noise = 7.0
+        beam = 1
         noise_phi = np.loadtxt(
             './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
         noise_phi *= np.arange(0, len(noise_phi))**4. / 4.

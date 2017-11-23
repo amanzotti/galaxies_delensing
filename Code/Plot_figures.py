@@ -134,9 +134,9 @@ plt.xlim(10, 1400)
 plt.ylim(0, 1.15)
 fg.tight_layout()
 
-plt.savefig('../images/actual_scenario_planck.pdf',
+plt.savefig('../Notes/images/actual_scenario_planck.pdf',
             dpi=600, papertype='Letter')
-plt.savefig('../images/actual_scenario_planck.png')
+plt.savefig('../Notes/images/actual_scenario_planck.png')
 
 
 # ## CMB current scenario
@@ -165,6 +165,8 @@ plt.plot(lbins, rho['wise'], color=colors['WISE'], label='WISE')
 plt.plot(lbins, rho_cmb, label='SPT Pol', color=colormap(6))
 plt.plot(lbins, rho_gals, label='DES+CIB', color=colormap(7))
 plt.plot(lbins, rho_comb, label='LSS S2 +  SPTPol', color=colormap(8))
+plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]),
+         '--', alpha=0.6, linewidth=font_size / 14., color='k')
 # plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]), '--', alpha=0.6, color='k')
 plt.legend(loc=0, ncol=2)
 plt.ylim(0, 1.2)
@@ -175,8 +177,8 @@ plt.xlim(10, 1400)
 fg.tight_layout()
 
 
-plt.savefig('../images/actual_scenario.pdf', dpi=600, papertype='Letter')
-plt.savefig('../images/actual_scenario.png')
+plt.savefig('../Notes/images/actual_scenario.pdf', dpi=600, papertype='Letter')
+plt.savefig('../Notes/images/actual_scenario.png')
 
 # ## CMB S3 scenario
 
@@ -198,6 +200,9 @@ plt.plot(lbins, rho_gals_desi, color=colors['DESI'], label='DESI')
 plt.plot(lbins, rho_cmb, label='SPT 3G', color=colormap(6))
 plt.plot(lbins, rho_gals, label='LSS-S2+DESI (LSS-S3)', color=colormap(7))
 plt.plot(lbins, rho_comb, label='LSS-S3+SPT 3G', color=colormap(8))
+plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]),
+         '--', alpha=0.6, linewidth=font_size / 14., color='k')
+
 # plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]), '--', alpha=0.6, color='k')
 
 plt.legend(loc=0, ncol=2)
@@ -209,8 +214,8 @@ plt.xlabel(r'$\ell$')
 plt.ylabel(r'$\rho$')
 fg.tight_layout()
 
-plt.savefig('../images/S3_scenario.pdf', dpi=600, papertype='Letter')
-plt.savefig('../images/S3_scenario.png')
+plt.savefig('../Notes/images/S3_scenario.pdf', dpi=600, papertype='Letter')
+plt.savefig('../Notes/images/S3_scenario.png')
 
 
 # ## CMB S4 scenario
@@ -253,6 +258,9 @@ lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(
     labels, cmb)
 plt.plot(lbins, rho_gals, label='LSS-S3+LSST(LSS-S4)', color=colormap(7))
 
+plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]),
+         '--', alpha=0.6, linewidth=font_size / 14., color='k')
+
 plt.legend(loc=0, ncol=2)
 plt.ylim(0.45, 1.25)
 plt.xlim(10, 1400)
@@ -262,8 +270,8 @@ plt.xlabel(r'$\ell$')
 plt.ylabel(r'$\rho$')
 fg.tight_layout()
 
-plt.savefig('../images/S4_scenario_ska10.pdf', dpi=600, papertype='Letter')
-plt.savefig('../images/S4_scenario_ska10.png')
+plt.savefig('../Notes/images/S4_scenario_ska10.pdf', dpi=600, papertype='Letter')
+plt.savefig('../Notes//images/S4_scenario_ska10.png')
 
 sys.exit()
 
