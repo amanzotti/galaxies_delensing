@@ -89,7 +89,7 @@ norm = dndzfun.integral(dndz[0, 0], dndz[-2, 0])
 dndzfun_desi = InterpolatedUnivariateSpline(dndz[:, 0], dndz[:, 1] / norm)
 
 
-wise_dn_dz = np.loadtxt('/home/manzotti/galaxies_delensing/wise_dn_dz.txt')
+wise_dn_dz = np.loadtxt('/home/manzotti/galaxies_delensing/Code/wise_dn_dz.txt')
 dndzwise = InterpolatedUnivariateSpline(wise_dn_dz[:, 0], wise_dn_dz[:, 1], k=3, ext='zeros')
 norm = dndzwise.integral(0, 2)
 dndzwise = InterpolatedUnivariateSpline(
@@ -111,7 +111,7 @@ desi = gals_kernel.kern(dndz[:, 0], dndzfun_desi, hspline, omega_m, h0)
 
 des_weak = kappa_gals_kernel.kern(dndz_des[:, 0], dndzfun_des, chispline, hspline, omega_m, h0)
 
-l = 500
+l = 100
 
 
 z_kappa = np.linspace(0, 13, 500)
@@ -174,7 +174,7 @@ w_structure = np.zeros_like(z_kappa_gal)
 for i, z in enumerate(z_kappa_gal):
 
     x = chispline(z)
-    w_kappa_gal[i] = 1. / x * des_weak.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
+    # w_kappa_gal[i] = 1. / x * des_weak.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
     w_structure[i] = np.sqrt(rbs.ev((l + 0.5) / x, z))  # des_weak.w_lxz(l, x, z)
 
 z_cib = np.linspace(0, 13., 500)
@@ -182,7 +182,8 @@ w_cib = np.zeros_like(z_cib)
 for i, z in enumerate(z_cib):
 
     x = chispline(z)
-    w_cib[i] = 1. / x * cib.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
+    # w_cib[i] = 1. / x * cib.w_lxz(l, x, z) * np.sqrt(rbs.ev((l + 0.5) / x, z))
+    w_cib[i] = cib.w_lxz(l, x, z)
 
 # plt.plot(z_cib,w_cib,label = 'cib')
 
