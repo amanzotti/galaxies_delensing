@@ -7,7 +7,7 @@
 \usepackage{amsmath,amssymb} 
 % See the ``Article customise'' template for come common customisations
 
-\title{Referee Response}
+\title{  \scriptsize{Response to Referee for: "Future cosmic microwave background delensing with galaxy surveys"}}
 \author{A. Manzotti}
 \date{} % delete this line to display the current date
 
@@ -16,12 +16,18 @@
 
 \maketitle
 
+Thank you for your very careful review of our paper, and for the comments, corrections and suggestions that ensued. 
+
+We sequentially address all of the points raised below.
+While working on this answer, I found a minor bug in the part of the code that plots the CIB kernel in Fig 1 (the CIB kernel peaks is slightly shifted). This is fixed now and it has no effect on the results. 
+\vspace{1.cm}
+
 \begin{enumerate}
 \item The abstract is unnecessarily very long and could be considerably
 shortened. 
 
 \vspace{0.4cm}
-The abstract length is now reduced to $~80\%$ of its previous length, mainly removing redundancy and quantitative results that can be found easily in the tables but leaving the main general points.
+The abstract length is now reduced to $\sim 80\%$ of its previous length, mainly removing redundancy and quantitative results that can be found easily in the tables but leaving the main general points.
 \vspace{1cm}
 
 \item Putting the lmin-lmax ranges in the tables as well as having the
@@ -29,7 +35,7 @@ dashed grey line of Fig. 5 onto Fig 6-7-8 would help the readability
 of the paper. 
 \vspace{0.4cm}
 
-I agree with the referee on this point. I first thought this can cause a bit of clatter, but the gain in readability is worth the risk.
+I agree with the referee on this point. I first thought this could cause a bit of clatter, but the gain in readability is worth the risk.
 I added the dashed line to all the figures.
 
 \vspace{1cm}
@@ -41,11 +47,11 @@ for the experiments considered there.
 
 \vspace{0.4cm}
 
-We agree that the phrasing of the sentences where secondary B-modes sources are introduced can be confusing. While it is well known in the field, it is definitely important to be clear to a wider audience.
+We agree that the phrasing of the sentences where secondary B-modes sources are introduced can be confusing. While it is well known in the field, it is  important to be clear to a broader audience.
 For this reason we add this sentence in the introduction:
 
 \textit{Two main effects produce non-primordial B-modes: the polarized foregrounds from our own galaxy  and the effect of gravitational interactions with large scale structures (LSS). 
-This two components needs to be treated with very different techniques and in this work we will focus on the latter (see \cite{remazeilles:2017b} for a review on the former).}
+This two components needs to be treated with very different techniques and in this work we will focus on the latter (see (CORE cleaning paper) for a review on the former).}
 
 \vspace{1cm}
 \item The author introduces sharp cuts to CIB and WISE at l < 100. Is the
@@ -62,7 +68,15 @@ overlap but can still achieve very high performance on large scales.
 Can the author comment and help the reader make sense of that figure ? 
 
 \vspace{0.4cm}
+Fig 1 can be confusing because it does not tell the entire story. 
+The redshift overlap is not the only ingredient for the delensing efficiency. For example, the noise is relevant as well, and this is why for example for S2 experiments CIB can be better than the CMB reconstruction even if the latter has a perfect overlap. 
+Additionally, not all the redshift matters at the same way since they correspond to different angular scales (depending on the distance of the tracer) which, as shown by the dashed curves in the figures 5-8, contributes differently.
+Showing all of this in one plot is hard. 
 
+However, I think Fig 1 tells most of the story. For example, the referee is right that DES is less efficient than SKA in delensing efficiency (16\%) vs (52\%).
+Furthermore, I think this figure highlights the main difference in the calculation of different tracers spectra (using Eq. 2) for people not familiar with it.
+
+I added to the caption that the efficiency is not proportional to the overlapping area of this plot because different redshifts contribute differently both because of noise and the geometric properties of the lensing kernel.
 \vspace{1cm}
 
 \item Is it clear, as the author claims in IV A with no supporting
@@ -72,18 +86,47 @@ is unequally important in the delensed vs nominal cases. An slightly
 improved discussion would be welcome here. 
 
 \vspace{0.4cm}
+Note that indeed, as specified in the text, the chosen cosmology has an impact on the $r$,$n_{t}$ constraints.
+What I claim cosmology has almost no impact on is the delensing efficiency (how much these constraints improve), i.e. the ratio nominal/delensed. What matters for the efficiency is the \textit{fraction} of removed power. That depends only on the factor  $1-\rho^2$ where $\rho$ is the correlation factor.
+The correlation factor has a very little dependence on cosmology in particular given the tight constraints from Planck, and it is expected to be a secondary uncertainty here compared to, for example, the redshift distribution of tracers. Indeed $\rho$ contains $C^{II}$ $C^{I\phi}$, $C^{\phi\phi}$ that are integrals, with slightly different weights in redshift, of the power spectrum $P(k)$. For this reason, they should scale similarly with cosmology leading to a cancellation in the cosmological dependence of $\rho$.
+
+%Furthermore, the amplitude of the lensing B-modes (more so given that we do not use the reionization peak in the constraints) scale very simply with cosmology.
 
 \vspace{1cm}
 
 
 \item The author makes a strong point that survey data should be split
-into bins, as this makes the correlation increases by 30%. I am not
+into bins, as this makes the correlation increases by 30\%. I am not
 entirely convinced that this is as relevant as claimed. From Fig 4, it
 seems that the improvement is fairly limited on the scales that are
 relevant for B-mode delensing. Presumably, that is more important for
 T or E delensing. The author might want to comment or adapt. 
 
 \vspace{0.4cm}
+In general, I agree with the point that quoting the improvement in the correlation is not entirely fair because the scale at which that happen is also necessary to understand how much power will be removed.
+For this reason, I added in the abstract this quantity too.
+
+Furthermore, while I agree that the improvement would be even more significant for T-E delensing, it is nonetheless also quite important for BB too.
+As can be seen in Figure 4 in the paper LSST shows a significant improvement in the correlation with the lensing potential all the way to $\ell\sim 800$. Even for other probes, in general, less powerful like, there is still an improvement for example where the contribution to BB (the dashed line peaks at $\ell\sim350$).
+Below I am attaching a table that shows the improvement in the BB power removed and constraints on $\sigma(r)$.
+
+\begin{table}[htp]
+\caption{Improvement on $\sigma(r)$ constraints together with the BB power removed (in parenthesis) with and without binning.}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Survey & No Binning & Binning\\
+\hline
+DES & 1.17 (14\%)& 1.20 (16\%) \\
+\hline
+LSST & 1.67 (40\%) & 2.10 (52\%)\\
+\hline
+DESI & 1.10 (9\%) & 1.13 (12\%)  \\
+\hline
+\end{tabular}
+\end{center}
+\label{default}
+\end{table}%
 
 \vspace{1cm}
  
