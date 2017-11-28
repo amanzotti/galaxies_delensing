@@ -258,7 +258,7 @@ lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(
     labels, cmb)
 plt.plot(lbins, rho_gals, label='LSS-S3+LSST(LSS-S4)', color=colormap(7))
 
-plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1]),
+plt.plot(BB_contr[:, 0], BB_contr[:, 1] - np.min(BB_contr[:, 1])+0.45,
          '--', alpha=0.6, linewidth=font_size / 14., color='k')
 
 plt.legend(loc=0, ncol=2)
