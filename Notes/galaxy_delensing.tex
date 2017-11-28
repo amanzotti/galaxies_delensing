@@ -253,7 +253,8 @@ However, when computing the power spectrum of the latter, we need to add a noise
 \beq\label{eqn:noisekappa}
 \cl^{\kappa_\mathrm{rec} \kappa_\mathrm{rec}} = \cl^{\kappa \kappa } +N^{\kappa \kappa}_{\ell}
 \eeq
-In this work, the level of noise is computed assuming an iterative approach to the CMB lensing reconstruction as described in \cite{smith:2012,hirata:2003}.
+In this work, the level of noise is computed assuming an iterative approach to the CMB lensing reconstruction as described in \cite{smith:2012,hirata:2003}. The iterative approach has not been fully demonstrated on data yet but it is among the major goals of the CMB community (\cite{abazajian:2016}).
+Note however that, as pointed out in in \cite{smith:2012,hirata:2003}, this improves the CMB lensing reconstruction compared to a quadratic estimator approach only for CMB-S4 noise levels. 
 
 
 
@@ -702,6 +703,7 @@ Furthermore, around 2019, DESI will start taking data. For this reason, we add D
 The correlation factor attainable using generation 3 experiments is shown in \reffig{corrS3}.
 An interesting finding is that DESI will be less efficient (removing $11\%$ of the power) than a DES-like survey ($17\%$) despite the fact that it can probe slightly higher redshift. The reason is that, because of the broad CMB kernel, spectroscopic redshift accuracy is not needed and the lower shot noise in DES increases the delensing efficiency. Unfortunately, adding DESI will only bring the power removed using LSS from 41 to 45\%.
 Contrary to current S2 experiments, the CMB internal reconstruction will dominate the correlation with the lensing potential up to $\ell\simeq 600$.
+For CMB S3, the improvement due to an iterative approach compared to the quadratic estimator is still minimal so that the more traditional technique can be used. For example, in this case, the removed power goes from $56\%$ to $54\%$ (quoted in \reftab{S3}) when using a quadratic estimator instead of the iterative one.
 
 \begin{figure}[htbp]
 \begin{center}

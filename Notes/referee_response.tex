@@ -16,7 +16,7 @@
 
 \maketitle
 
-Thank you for your very careful review of our paper, and for the comments, corrections and suggestions that ensued. 
+I want to thank the referee for the very careful review of the paper, and for the comments, corrections and suggestions that ensued. 
 
 We sequentially address all of the points raised below.
 While working on this answer, I found a minor bug in the part of the code that plots the CIB kernel in Fig 1 (the CIB kernel peaks is slightly shifted). This is fixed now and it has no effect on the results. 
@@ -148,7 +148,20 @@ Q.E. and iterative delensing were presented.
 
 \vspace{0.4cm}
 
-I
+One information that is probably not clear enough or partially missing in the text is that iterative delensing compared to iterative delensing is important only for CMB-S4 noise levels. For example, the amount of BB power removed for CMB-S3 level using iterative vs. QE is 56\% vs. 58\%. 
+
+Furthermore, the idea of a separation in scale between the CMB data used to reconstruct the potential and the data used to constrained r, to solve the so-called "internal delensing bias" is important for both QE and iterative approach. 
+While important, we left a full study...
+
+In some sense, we assume that either the technique applied in Namikava 2017 or () can work without a significant loss of signal. (put that in the text?s)
+Again to test this one needs either real data or full ray tracing simulation for CMB lensing. For example, the deep 100 deg$^{2}$ field measured by SPTPol that can reach a depth of 5-6 muK arcmin with high resolution might be the first dataset where this can be explored.
+
+Following the referee comments, we
+\begin{itemize}
+\item Make it clear that only CMB S4 will benefit from iterative delensing.
+\item Add the level of delensing that is possible to achieve with CMB-S4 if the well tested QE is used instead of the iterative approach. This gives in some sense a range of possible efficiency for CMB S4 experiments.
+\end{itemize}
+
  
 \end{enumerate}
 
