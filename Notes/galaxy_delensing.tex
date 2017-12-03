@@ -254,7 +254,7 @@ However, when computing the power spectrum of the latter, we need to add a noise
 \cl^{\kappa_\mathrm{rec} \kappa_\mathrm{rec}} = \cl^{\kappa \kappa } +N^{\kappa \kappa}_{\ell}
 \eeq
 In this work, the level of noise is computed assuming an iterative approach to the CMB lensing reconstruction as described in \cite{smith:2012,hirata:2003}. The iterative approach has not been fully demonstrated on data yet but it is among the major goals of the CMB community (\cite{abazajian:2016}).
-Note however that, as pointed out in in \cite{smith:2012,hirata:2003}, this improves the CMB lensing reconstruction compared to a quadratic estimator approach only for CMB-S4 noise levels. 
+Note however that, as pointed out in in \cite{smith:2012,hirata:2003}, this improves the CMB lensing reconstruction compared to a quadratic estimator approach mainly for CMB-S4 noise levels. 
 
 
 
@@ -567,7 +567,7 @@ Furthermore, these results depend mildly on the choice of the pivot scale for th
 In order to minimize the degeneracy between $r$ and $n_{t}$ \cite{abazajian:2016}, we choose as a pivot scale $k_{t}=0.01 $ Mpc$^{-1}$ .
 
 In \refeq{fisher} we are making a few important assumptions. 
-First, we are fixing all the cosmological parameters except $\{r,n_{t}\}$. Uncertainties in those will propagate to larger uncertainties in $\{r,n_{t}\}$. While neglecting this will lead to slightly optimistic constraints, it has no significant impact on the estimate of the improvement due to delensing.
+First, we are fixing all the cosmological parameters except $\{r,n_{t}\}$. Uncertainties in those will propagate to larger uncertainties in $\{r,n_{t}\}$. While neglecting this will lead to slightly optimistic absolute constraints, it has no significant impact on the estimate of the improvement due to delensing. For example, running the same pipeline with $10\%$ higher $\Omega h^{2}$, which is almost 40 times more than what Planck constraints \cite{planck-collaboration:2016b}, change the delensing improvement factors by at most $6-7\%$.
 
 We are also neglecting an important contribution to the measured CMB B-modes: galactic polarized foregrounds. 
 The amplitude of these has been constrained in \cite{bicep2/keck-collaboration:2015, planck-collaboration:2015} and it strongly varies in different parts of the sky. Future experiments will use multi-band data to exploit the frequency dependence of these contaminants to remove them from the data. The amount of residual foregrounds depends both on uncertain foreground properties and experimental choices (see a review in \cite{abazajian:2016}).
@@ -655,7 +655,7 @@ LSS-S2 corresponds to the combination of all the available LSS tracers.
 The values in parenthesis in the first column correspond to the fraction of lensing B-mode power removed using each LSS tracer. 
 It is defined as $\left<C_{\ell}^{BB,\mathrm{res}}/C_{l}^{BB,\mathrm{lens}}\right>_{4<\ell<100}$.
 %\newline
-The values in the other columns correspond to ratio of the error before and after delensing for 3 cases: no instrumental noise in the B-mode measurement (but with instrumental noise in the E-mode used to delens) and with instrumental noise for two different values of $r$.}
+The values in the other columns correspond to ratio of the error before and after delensing for 3 cases: no instrumental noise in the B-mode measurement (but with instrumental noise in the E-mode used to delens) and with instrumental noise for two different values of $r$. The error $\sigma(r)$ is computed using \refeq{fisher} with $50<\ell<500$.}
   \vspace{0.2cm}
   \begin{tabular}{|c | c | c | c|}
 \hline
@@ -726,7 +726,7 @@ It is important to note that, independent of the level of delensing, for CMB 3G 
 
 
 \begin{table}
-\caption{$\alpha$: Improvements on $\sigma(r)$ due to delensing for S3 experiments. Here we define LSS-S3 as the combination of S2 LSS tracers (LSS-S2) and DESI. We also use a CMB S3 experiment for the lensing internal reconstruction. See \refsec{S3} for details.}
+\caption{$\alpha$: Improvements on $\sigma(r)$ due to delensing for S3 experiments. Here we define LSS-S3 as the combination of S2 LSS tracers (LSS-S2) and DESI. We also use a CMB S3 experiment for the lensing internal reconstruction. The error $\sigma(r)$ is computed using \refeq{fisher} with $50<\ell<800$, see \refsec{S3} for details.}
 %The absolute error value of $\sigma(r)$ after delensing for $f_{sky} = $ is $\sigma(r) =$ 
 \hspace{2.2cm}
 \begin{tabular}{|c | c | c | c|}
@@ -783,7 +783,7 @@ For the case $r=0.07$, we find the improvement in $\sigma(n_{t})$ to be just sli
 The conclusions about the relative importance of LSS tracers we find for $\sigma(r)$ are still valid for $\sigma(n_{t})$. Even if a test of consistency relation is not possible even for S4 experiment, delensing can still be useful also to constrain more exotic inflationary models.
 
 \begin{table}
-\caption{$\alpha$: Improvements on $\sigma(r)$ and $\sigma(n_{t})$ after delensing for S4 experiments. Here we define LSS-S4 as the combination of S3 LSS tracers (LSS-S3) and LSST. We also consider SKA-like radio-continuum surveys. We also use a CMB S4 experiment for the lensing internal reconstruction. The improvement for $\sigma(n_{t})$ is computed for fiducial values $r=0.07$ and $n_t=-r/8$. See \refsec{S4} for details.}
+\caption{$\alpha$: Improvements on $\sigma(r)$ and $\sigma(n_{t})$ after delensing for S4 experiments. Here we define LSS-S4 as the combination of S3 LSS tracers (LSS-S3) and LSST. We also consider SKA-like radio-continuum surveys. We also use a CMB S4 experiment for the lensing internal reconstruction. The improvement for $\sigma(n_{t})$ is computed for fiducial values $r=0.07$ and $n_t=-r/8$. The error $\sigma(r)$ is computed using \refeq{fisher} with $50<\ell<800$ see \refsec{S4} for details.}
 \begin{tabular}{|c | c | c | c| c|}
 \hline
 Surveys & $\alpha_{r=0}, N^{B}_{\ell}=0$ & $\alpha_{r=0}$ & $\alpha_{r=0.07}$ & $\alpha^{n_{t}}_{r=0.07}$ \\ \hline \hline
@@ -854,8 +854,7 @@ This work was partially supported by the Kavli Institute for Cosmological Physic
 
 
 \bibliographystyle{mnrasunsrt}
-\bibliography{/Users/alessandromanzotti/Work/Astrophysics/latex_bib/cosmobib,/Users/alessandromanzotti/Work/Astrophysics/delensing/sptpol_papers/2016/delens100d/delens100d,/Users/alessandromanzotti/Work/Astrophysics/delensing/sptpol_papers/BIBTEX/spt}
-%/Users/alessandromanzotti/Work/Astrophysics/delensing/sptpol_papers/BIBTEX/spt}
+\bibliography{/Users/alessandromanzotti/Work/Astrophysics/latex_bib/cosmobib,/Users/alessandromanzotti/Work/Astrophysics/galaxies_delensing/Notes/spt}
 
 %\bibliography{DES_rec_phi_paper}
 \end{document}

@@ -35,22 +35,85 @@
   {http://adsabs.harvard.edu/abs/2017arXiv170404501R} {} (\mn@eprint {arXiv}
   {1704.04501})
 
+\bibitem[\protect\citeauthoryear{{Zaldarriaga} \& {Seljak}}{{Zaldarriaga} \&
+  {Seljak}}{1998}]{zaldarriaga98}
+{Zaldarriaga} M.,  {Seljak} U.,  1998, \prd, 58, 23003 (6 pages)
+
+\bibitem[\protect\citeauthoryear{Hanson et~al.}{Hanson et~al.}{2013}]{hanson13}
+Hanson D.,  et~al., 2013, \mn@doi [Phys.Rev.Lett.]
+  {10.1103/PhysRevLett.111.141301}, 111, 141301
+
 \bibitem[\protect\citeauthoryear{{BICEP2 Collaboration} et~al.,}{{BICEP2
   Collaboration} et~al.}{2016}]{bicep2-collaboration:2016}
 {BICEP2 Collaboration} et~al., 2016, \mn@doi [\apj]
   {10.3847/1538-4357/833/2/228}, \href
   {http://adsabs.harvard.edu/abs/2016ApJ...833..228B} {833, 228}
 
+\bibitem[\protect\citeauthoryear{{POLARBEAR Collaboration}}{{POLARBEAR
+  Collaboration}}{2014}]{polarbear2014c}
+{POLARBEAR Collaboration} 2014, \mn@doi [Physical Review Letters]
+  {10.1103/PhysRevLett.112.131302}, \href
+  {http://adsabs.harvard.edu/abs/2014PhRvL.112m1302A} {112, 131302}
+
 \bibitem[\protect\citeauthoryear{{van Engelen} et~al.,}{{van Engelen}
   et~al.}{2015}]{van-engelen:2015}
 {van Engelen} A.,  et~al., 2015, \mn@doi [\apj] {10.1088/0004-637X/808/1/7},
   \href {http://adsabs.harvard.edu/abs/2015ApJ...808....7V} {808, 7}
+
+\bibitem[\protect\citeauthoryear{{Planck Collaboration} et~al.,}{{Planck
+  Collaboration} et~al.}{2016}]{planck2015XV}
+{Planck Collaboration} et~al., 2016, \mn@doi [\aap]
+  {10.1051/0004-6361/201525941}, \href
+  {http://adsabs.harvard.edu/abs/2016A%26A...594A..15P} {594, A15}
+
+\bibitem[\protect\citeauthoryear{{POLARBEAR Collaboration}}{{POLARBEAR
+  Collaboration}}{2014}]{polarbear2014b}
+{POLARBEAR Collaboration} 2014, \mn@doi [\apj] {10.1088/0004-637X/794/2/171},
+  \href {http://adsabs.harvard.edu/abs/2014ApJ...794..171T} {794, 171}
+
+\bibitem[\protect\citeauthoryear{{BICEP2 Collaboration}}{{BICEP2
+  Collaboration}}{2014}]{bicep2a}
+{BICEP2 Collaboration} 2014, \mn@doi [Physical Review Letters]
+  {10.1103/PhysRevLett.112.241101}, \href
+  {http://adsabs.harvard.edu/abs/2014PhRvL.112x1101A} {112, 241101}
+
+\bibitem[\protect\citeauthoryear{{Keisler} et~al.,}{{Keisler}
+  et~al.}{2015}]{keisler15}
+{Keisler} R.,  et~al., 2015, \mn@doi [\apj] {10.1088/0004-637X/807/2/151},
+  \href {http://adsabs.harvard.edu/abs/2015ApJ...807..151K} {807, 151}
+
+\bibitem[\protect\citeauthoryear{{Keck Array \& BICEP2 Collaborations}
+  et~al.,}{{Keck Array \& BICEP2 Collaborations} et~al.}{2016}]{bk14}
+{Keck Array \& BICEP2 Collaborations} et~al., 2016, \mn@doi [Physical Review
+  Letters] {10.1103/PhysRevLett.116.031302}, 116, 031302
+
+\bibitem[\protect\citeauthoryear{Knox \& Song}{Knox \& Song}{2002}]{knox2002}
+Knox L.,  Song Y.-S.,  2002, \mn@doi [Phys. Rev. Lett.]
+  {10.1103/PhysRevLett.89.011303}, 89, 011303
+
+\bibitem[\protect\citeauthoryear{{Kesden}, {Cooray}  \&
+  {Kamionkowski}}{{Kesden} et~al.}{2002}]{kesden2002}
+{Kesden} M.,  {Cooray} A.,   {Kamionkowski} M.,  2002, \mn@doi [Physical Review
+  Letters] {10.1103/PhysRevLett.89.011304}, \href
+  {http://adsabs.harvard.edu/abs/2002PhRvL..89a1304K} {89, 011304}
+
+\bibitem[\protect\citeauthoryear{{Seljak} \& {Hirata}}{{Seljak} \&
+  {Hirata}}{2004}]{seljak2003}
+{Seljak} U.,  {Hirata} C.~M.,  2004, \mn@doi [\prd]
+  {10.1103/PhysRevD.69.043005}, \href
+  {http://adsabs.harvard.edu/abs/2004PhRvD..69d3005S} {69, 043005}
 
 \bibitem[\protect\citeauthoryear{{Simard}, {Hanson}  \& {Holder}}{{Simard}
   et~al.}{2015}]{simard:2015}
 {Simard} G.,  {Hanson} D.,   {Holder} G.,  2015, \mn@doi [\apj]
   {10.1088/0004-637X/807/2/166}, \href
   {http://adsabs.harvard.edu/abs/2015ApJ...807..166S} {807, 166}
+
+\bibitem[\protect\citeauthoryear{{Sherwin} \& {Schmittfull}}{{Sherwin} \&
+  {Schmittfull}}{2015}]{sherwin15}
+{Sherwin} B.~D.,  {Schmittfull} M.,  2015, \mn@doi [\prd]
+  {10.1103/PhysRevD.92.043005}, \href
+  {http://adsabs.harvard.edu/abs/2015PhRvD..92d3005S} {92, 043005}
 
 \bibitem[\protect\citeauthoryear{{Smith}, {Hanson}, {LoVerde}, {Hirata}  \&
   {Zahn}}{{Smith} et~al.}{2012}]{smith:2012}
@@ -74,6 +137,10 @@
   et~al.}{2017}]{manzotti:2017}
 {Manzotti} A.,  et~al., 2017, \mn@doi [\apj] {10.3847/1538-4357/aa82bb}, \href
   {http://adsabs.harvard.edu/abs/2017ApJ...846...45M} {846, 45}
+
+\bibitem[\protect\citeauthoryear{{Limber}}{{Limber}}{1953}]{limber53}
+{Limber} D.~N.,  1953, \mn@doi [\apj] {10.1086/145672}, \href
+  {http://adsabs.harvard.edu/abs/1953ApJ...117..134L} {117, 134}
 
 \bibitem[\protect\citeauthoryear{{Hirata} \& {Seljak}}{{Hirata} \&
   {Seljak}}{2003}]{hirata:2003}
@@ -112,6 +179,11 @@ Schaan E.,  Krause E.,  Eifler T.,  Dor\'e O.,  Miyatake H.,  Rhodes J.,
   et~al.}{2006}]{dole:2006}
 {Dole} H.,  et~al., 2006, \mn@doi [\aap] {10.1051/0004-6361:20054446}, \href
   {http://adsabs.harvard.edu/abs/2006A%26A...451..417D} {451, 417}
+
+\bibitem[\protect\citeauthoryear{Addison, Dunkley, Hajian, Viero, Bond
+  et~al.}{Addison et~al.}{2012}]{Addison:2011se}
+Addison G.~E.,  Dunkley J.,  Hajian A.,  Viero M.,  Bond J.~R.,   et~al., 2012,
+  \mn@doi [Astrophys.J.] {10.1088/0004-637X/752/2/120}, 752, 120
 
 \bibitem[\protect\citeauthoryear{{Hall} et~al.,}{{Hall}
   et~al.}{2010}]{hall:2010}
@@ -170,6 +242,12 @@ Fisher R.~A.,  1935, Journal of the Royal Statistical Society, 98, 39
   Lyth}{1992}]{LIDDLE1992391}
 Liddle A.~R.,  Lyth D.~H.,  1992, \mn@doi [Physics Letters B]
   {http://dx.doi.org/10.1016/0370-2693(92)91393-N}, 291, 391
+
+\bibitem[\protect\citeauthoryear{{Planck Collaboration} et~al.,}{{Planck
+  Collaboration} et~al.}{2016}]{planck-collaboration:2016b}
+{Planck Collaboration} et~al., 2016, \mn@doi [\aap]
+  {10.1051/0004-6361/201525830}, \href
+  {http://adsabs.harvard.edu/abs/2016A%26A...594A..13P} {594, A13}
 
 \bibitem[\protect\citeauthoryear{{BICEP2/Keck Collaboration}
   et~al.,}{{BICEP2/Keck Collaboration}
