@@ -38,7 +38,7 @@
 \newcommand{\physrev}{Phys. Rev.}
 \newcommand{\physrevlett}{Phys. Rev. Lett.}
 \newcommand*\aj{AJ}
-%\newcommand*\prd{Phys.~Rev.~D}
+\newcommand*\prd{Phys.~Rev.~D}
 
 
 \newcommand{\nver}{\hat{\mathbf{n}}}
@@ -312,13 +312,17 @@ Q.E. and iterative delensing were presented.
 
 \vspace{0.4cm}
 
-One information that is probably not clear enough or partially missing in the text is that iterative delensing compared to iterative delensing is important only for CMB-S4 noise levels. For example, the amount of BB power removed for CMB-S3 level using iterative vs. QE is 51\% vs. 56\%. 
+%One information that is probably not clear enough or partially missing in the text is that iterative delensing compared to iterative delensing is important only for CMB-S4 noise levels. 
+%For example, the amount of BB power removed for CMB-S3 level using iterative vs. QE is 51\% vs. 56\%. 
 
-Furthermore, the idea of a separation in scale between the CMB data used to reconstruct the potential and the data used to constrained r, to solve the so-called "internal delensing bias" is important for both QE and iterative approach. 
-While important, we left a full study...
+Let me start from the first part of the comment which regards the scales used here.
+The idea of a separation in scale between the CMB data used to reconstruct the potential and the data used to constrained r, is indeed an interesting idea proposed (for example in \cite{sehgal:2017}) to solve the so-called "internal delensing bias". This is important for both QE and iterative approach. This and other methods have shown that, at least on simulations, we can avoid this bias \textit{without losing performance}. 
+Other groups have shown that it is possible to use overlapping scales and then correct for the bias.
+For this reason, we can reconstruct the lensing potential using scales that overlap with the primordial B-mode, without being over-optimistic. 
+While a full treatment of this effects with realistic simulations is important, we left a full study for future works.
+Again this can also be tested on data. For example, the deep 100 deg$^{2}$ field measured by SPTPol that can reach a depth of $5-6 ~\mu$K arcmin with high resolution might be the first dataset where this can be explored.
 
-In some sense, we assume that either the technique applied in Namikava 2017 or () can work without a significant loss of signal. (put that in the text?s)
-Again to test this one needs either real data or full ray tracing simulation for CMB lensing. For example, the deep 100 deg$^{2}$ field measured by SPTPol that can reach a depth of 5-6 muK arcmin with high resolution might be the first dataset where this can be explored.
+Regarding the second part of the comment, I agree that it is interesting to quickly investigate the loss in performance if the quadratic estimator is used instead of the iterative one. For this reason, I added a new case for S3 and S4 experiment: the quadratic estimator case. Since this is a widely used technique, I think it can be presented without much introduction. I added a few sentences at the end of section IIA and in the S3 and S4 sections. Note that there is no difference between these two approaches for current levels of noise (S2).
 
 Following the referee comments, we
 \begin{itemize}
