@@ -148,6 +148,26 @@ Knox L.,  Song Y.-S.,  2002, \mn@doi [Phys. Rev. Lett.]
   {10.1103/PhysRevD.68.083002}, \href
   {http://adsabs.harvard.edu/abs/2003PhRvD..68h3002H} {68, 083002}
 
+\bibitem[\protect\citeauthoryear{{Okamoto} \& {Hu}}{{Okamoto} \&
+  {Hu}}{2003}]{okamoto:2003}
+{Okamoto} T.,  {Hu} W.,  2003, \mn@doi [\prd] {10.1103/PhysRevD.67.083002},
+  \href {http://adsabs.harvard.edu/abs/2003PhRvD..67h3002O} {67, 083002}
+
+\bibitem[\protect\citeauthoryear{{Hu} \& {Okamoto}}{{Hu} \&
+  {Okamoto}}{2002}]{hu:2002}
+{Hu} W.,  {Okamoto} T.,  2002, \mn@doi [\apj] {10.1086/341110}, \href
+  {http://adsabs.harvard.edu/abs/2002ApJ...574..566H} {574, 566}
+
+\bibitem[\protect\citeauthoryear{{Sehgal}, {Madhavacheril}, {Sherwin}  \& {van
+  Engelen}}{{Sehgal} et~al.}{2017}]{sehgal:2017}
+{Sehgal} N.,  {Madhavacheril} M.~S.,  {Sherwin} B.,   {van Engelen} A.,  2017,
+  \mn@doi [\prd] {10.1103/PhysRevD.95.103512}, \href
+  {http://adsabs.harvard.edu/abs/2017PhRvD..95j3512S} {95, 103512}
+
+\bibitem[\protect\citeauthoryear{{Namikawa}}{{Namikawa}}{2017}]{namikawa:2017}
+{Namikawa} T.,  2017, \mn@doi [\prd] {10.1103/PhysRevD.95.103514}, \href
+  {http://adsabs.harvard.edu/abs/2017PhRvD..95j3514N} {95, 103514}
+
 \bibitem[\protect\citeauthoryear{{Wright} et~al.,}{{Wright}
   et~al.}{2010}]{wright:2010}
 {Wright} E.~L.,  et~al., 2010, \mn@doi [\aj] {10.1088/0004-6256/140/6/1868},
@@ -280,6 +300,11 @@ Liddle A.~R.,  Lyth D.~H.,  1992, \mn@doi [Physics Letters B]
   {http://adsabs.harvard.edu/abs/2017arXiv170502332Y} {} (\mn@eprint {arXiv}
   {1705.02332})
 
+\bibitem[\protect\citeauthoryear{{Dodelson}}{{Dodelson}}{2014}]{dodelson:2014}
+{Dodelson} S.,  2014, \mn@doi [Physical Review Letters]
+  {10.1103/PhysRevLett.112.191301}, \href
+  {http://adsabs.harvard.edu/abs/2014PhRvL.112s1301D} {112, 191301}
+
 \bibitem[\protect\citeauthoryear{{Planck Collaboration} et~al.,}{{Planck
   Collaboration} et~al.}{2016}]{planck-collaboration:2016a}
 {Planck Collaboration} et~al., 2016, \mn@doi [\aap]
@@ -309,16 +334,6 @@ Liddle A.~R.,  Lyth D.~H.,  1992, \mn@doi [Physics Letters B]
 {Spergel} D.,  et~al., 2013, preprint, \href
   {http://adsabs.harvard.edu/abs/2013arXiv1305.5425S} {} (\mn@eprint {arXiv}
   {1305.5425})
-
-\bibitem[\protect\citeauthoryear{{Sehgal}, {Madhavacheril}, {Sherwin}  \& {van
-  Engelen}}{{Sehgal} et~al.}{2017}]{sehgal:2017}
-{Sehgal} N.,  {Madhavacheril} M.~S.,  {Sherwin} B.,   {van Engelen} A.,  2017,
-  \mn@doi [\prd] {10.1103/PhysRevD.95.103512}, \href
-  {http://adsabs.harvard.edu/abs/2017PhRvD..95j3512S} {95, 103512}
-
-\bibitem[\protect\citeauthoryear{{Namikawa}}{{Namikawa}}{2017}]{namikawa:2017}
-{Namikawa} T.,  2017, \mn@doi [\prd] {10.1103/PhysRevD.95.103514}, \href
-  {http://adsabs.harvard.edu/abs/2017PhRvD..95j3514N} {95, 103514}
 
 \makeatother
 \end{thebibliography}

@@ -196,7 +196,7 @@ of the paper.
 \vspace{0.4cm}
 
 I agree with the referee on this point. I first thought this could cause a bit of clatter, but the gain in readability is worth the risk.
-I added the dashed line to all the figures. The $\ell$ range used for the inflationary constraints is also at the end of each table both for readability and reproducibility. The choice was quite arbitrary tough. We used all the scales available to the instrument. The range where the bulk of the signal to noise is, has been explored in some of the referenced work (\cite{wu:2014,abazajian:2016} etc.) but not here.
+I added the dashed line to all the figures. The $\ell$ range used for the inflationary constraints is also at the end of each table both for readability and reproducibility. The choice was quite arbitrary tough. We used all the scales available to the instrument. The range where the bulk of the signal to noise is, has been explored in some of the referenced work (\cite{dodelson:2014,abazajian:2016} etc.) but not here.
 
 \vspace{1cm}
 \item Twice in the paper the author writes that lensing is only one of
@@ -207,12 +207,20 @@ for the experiments considered there.
 
 \vspace{0.4cm}
 
-We agree that the phrasing of the sentences where secondary B-modes sources are introduced can be confusing. While it is well known in the field, it is  important to be clear to a broader audience.
-For this reason we add this sentence in the introduction:
+We agree that the phrasing of the sentences where secondary B-modes sources are introduced can be confusing. While it is well known in the field, it is important to be clear to a broader audience.
+For this reason, we add this sentence in the introduction:
 
 \vspace{1cm}
-\textit{Two main effects produce non-primordial B-modes: the polarized foregrounds from our own galaxy  and the effect of gravitational interactions with large scale structures (LSS). 
-This two components needs to be treated with very different techniques and in this work we will focus on the latter (see \cite{remazeilles:2017b} for a review on the former).}
+\textit{Two main effects produce non-primordial B-modes: the polarized foregrounds from the Galaxy  and the effect of gravitational interactions with large scale structures (LSS). 
+These two components need to be treated with very different techniques and in this work, we will focus on the latter (see \cite{remazeilles:2017b} for a review on the former).}
+
+\vspace{0.2 cm}
+
+Note that if the referee meant that the galactic B-modes component is the only relevant secondary component compared to lensing B-modes, I do not think that is necessarily true. 
+While on most of the sky the galactic component is the higher contribution in power, that is not true for an opportunely chose small say 1\% patch. Furthermore, that is probably not the best metric.
+As shown in the CMB-S4 science book \cite{abazajian:2016} if one wants to maximize the $r$ constraints, lensing and foregrounds are equally important. 
+The importance there is measured as the number of detectors used to either improve the lensing reconstruction or to observe the sky at different frequencies to clean the foregrounds component.
+This depends slightly on the fraction of the sky used, but it is true for a wide range that contains all possible future ground experiments. 
 
 \vspace{1cm}
 \item The author introduces sharp cuts to CIB and WISE at $\ell < 100$. Is the
@@ -221,8 +229,8 @@ auto spectra of the tracer (E.g. Eq. 17) combination possible ? That
 would retain some more of the signal presumably. 
 \vspace{0.4cm}
 
-This is indeed a good idea. The real obstacle to that is our current knowledge of foreground spectra. There is not an accurate model for that (at higher scales we use a simple power law). However one might measure that empirically, given a dataset with enough signal to noise on those large scales, by measuring $C^{II}$ and $C^{I\phi}$ directly from the data. Doing that will call everything in the tracer map that does not correlate with $\phi$, "noise". That noise will include foregrounds too. However, it is unclear if eventual dust residual can cause biases in the delensed B-modes (if they correlate with dust contamination in CMB polarizations).
-Given the small amount of delensing power for $\ell<100$ the field decided, so far, to cut those in forecasts. Given how much foregrounds are complicated I believed only data would answer this. An exploration of these on simulations is probably beyond the scope of this paper, but very soon future delensing work will need to explore this on real data.
+This is indeed a good idea. The real obstacle here is our current knowledge of foreground spectra. There is not an accurate model for that (at higher scales we use a simple power law). However one might measure that empirically, given a dataset with enough signal to noise on those large scales, by measuring $C^{II}$ and $C^{I\phi}$ directly from the data. Doing that will call everything in the tracer map that does not correlate with $\phi$, "noise". That noise will include foregrounds too. However, it is unclear if eventual dust residual can cause biases in the delensed B-modes (if they correlate with dust contamination in CMB polarizations).
+Given the small amount of delensing power for $\ell<100$ the field decided, so far, to cut those in forecasts. Given how much foregrounds are complicated I believed only data would answer this. An exploration of these on simulations is probably beyond the scope of this paper, but very soon future delensing work will test this on real data.
 
 \vspace{1cm}
 \item Fig 1 might look confusing at first. The SKA kernel there shows
@@ -232,15 +240,15 @@ overlap but can still achieve very high performance on large scales.
 Can the author comment and help the reader make sense of that figure ? 
 
 \vspace{0.4cm}
-I agree Fig 1 may be a little confusing because it does not tell the entire story. 
+I agree that Fig 1 may be a little confusing because it does not tell the entire story. 
 The redshift overlap is not the only ingredient for the delensing efficiency. For example, the noise is relevant as well, and this is why for example for S2 experiments CIB can be better than the CMB internal reconstruction even if the latter has a perfect overlap. 
-Additionally, not all the redshifts matter at the same level since they correspond to different angular scales (depending on the distance of the tracer) which, as shown by the dashed curves in the figures 5-8, contributes differently.
+Additionally, not all the redshifts matter at the same level since they correspond to different angular scales (depending on the distance of the tracer) which, as shown by the dashed curves in the figures 5-8, contributes differently to the generation of CMB B-modes.
 Showing all of this in one plot is hard. 
 
 However, I think Fig 1 tells most of the story. For example, the referee is right that DES is less efficient than SKA in delensing efficiency (16\%) vs (52\%).
 Furthermore, I think this figure highlights the central part (the "kernel") that characterize different tracers spectra (using Eq. 2) for people not familiar with it.
 
-I added to the caption a sentence to highlight that the efficiency is not proportional to the overlapping area of this plot because different redshifts contribute differently due to instrumental noise and the geometric properties of the lensing kernel.
+I added to the caption of Fig. 1 a sentence to highlight that the efficiency is not proportional to the overlapping area of this plot because different redshifts contribute differently due to instrumental noise and the geometric properties of the lensing kernel.
 \vspace{1cm}
 
 \item Is it clear, as the author claims in IV A with no supporting
@@ -250,11 +258,15 @@ is unequally important in the delensed vs nominal cases. An slightly
 improved discussion would be welcome here. 
 
 \vspace{0.4cm}
-Note that indeed, as specified in the text, the chosen cosmology \textit{has} an impact on the absolute value of the $r$,$n_{t}$ constraints.
-What I claim is that cosmology has almost no impact on, in particular if compared to other uncertainties, is the delensing efficiency (how much these constraints improve), i.e. the ratio $C^{BB}_{\ell}$ nominal/delensed. What matters for the efficiency is the \textit{fraction} of removed power. That depends only on the factor  $1-\rho^2$ where $\rho$ is the correlation factor.
-The correlation factor has a very little dependence on cosmology in particular given the tight constraints from Planck on $\Omega_{m}h^2$ and $\sigma_{8}$, and it is expected to be a secondary uncertainty here compared to, for example, the redshift distribution of tracers. Indeed $\rho$ contains $C^{II}$ $C^{I\phi}$, $C^{\phi\phi}$ that are integrals, with slightly different weights in redshift, of the cosmology dependent power spectrum $P(k)$. For this reason, they should scale similarly with cosmology leading to a cancellation in the cosmological dependence of $\rho$.
+Note that indeed, as specified in the text, the chosen cosmology \textit{has} an impact on the absolute value of the ($r$,$n_{t}$) constraints.
+What I claim cosmology has almost no impact on, in particular if compared to other uncertainties, is the delensing efficiency (how much these constraints improve), i.e. the ratio $C^{BB}_{\ell}$ nominal/delensed. What matters for the efficiency is the \textit{fraction} of removed power. That depends only on the factor  $1-\rho^2$ where $\rho$ is the correlation factor. 
+The correlation factor has a very little dependence on cosmology in particular given the tight constraints from Planck on $\Omega_{m}h^2$ and $\sigma_{8}$, and it is expected to be a secondary uncertainty here compared to, for example, the redshift distribution of tracers. Indeed $\rho$ contains $C^{II}$ $C^{I\phi}$, $C^{\phi\phi}$ that are integrals, with slightly different weights in redshift, of the cosmology dependent power spectrum $P(k)$. For this reason, they should scale similarly with cosmology leading to a substantial cancellation in the cosmological dependence of $\rho$.
 
-Testing this intuition is important. For this reason, I run the same pipeline with $10\%$ higher $\Omega h^{2}$, which is almost 40 times more than what Planck constraints \cite{planck-collaboration:2016b}. The efficiency values changes, but by at most $7\%$. Given that the Planck constraints are way tighter I consider this, as expected, a present but subdominant effect. I added a line to the paper to report this test. 
+Different cosmologies can also shifts the scales where the information on ($r$, $n_{t}$) come from by changing the shape of the $C_{\ell}^{BB}$ spectra.
+
+I agree that testing this intuition is important. For this reason, I run the same pipeline with $10\%$ higher $\Omega h^{2}$, which is almost 40 times more than what Planck constraints \citep{planck-collaboration:2016b}. The efficiency values changes, but by at most $8-9\%$. Given that the Planck constraints are way tighter I consider this, as expected, a present but subdominant effect. 
+For example for $1\%$ higher $\Omega h^{2}$ the efficiency values changes by at most $1.5\%$
+I added few sentences to the paper to report this test. 
 
 
 %Furthermore, the amplitude of the lensing B-modes (more so given that we do not use the reionization peak in the constraints) scale very simply with cosmology.
@@ -274,8 +286,9 @@ In general, I agree with the point that quoting the improvement in the correlati
 For this reason, I added in the abstract this quantity too.
 
 Furthermore, while I agree that the improvement would be even more significant for T-E delensing, it is nonetheless also quite important for BB too.
-As can be seen in Figure 4 in the paper LSST shows a significant improvement in the correlation with the lensing potential all the way to $\ell\sim 800$. Even for other probes, in general, less powerful, there is still an improvement for example where the contribution to BB (the dashed line peaks at $\ell\sim350$).
+As can be seen in Figure 4 in the paper LSST shows a significant improvement in the correlation with the lensing potential all the way to $\ell\sim 800$. Even for other probes, in general, less powerful, there is still an improvement for example at \textit{all} the scales where the contribution to BB (the dashed line) is relevant $50<\ell<400$.
 Below I am attaching a table that shows the improvement in the BB power removed and constraints on $\sigma(r)$.
+Note that the 30\% level quoted in the abstract corresponds to the most futuristic tracer, i.e., LSST. That should be explicitly stated, so I added this to the abstract.
 
 \begin{table}[htp]
 \caption{Improvement on $\sigma(r)$ constraints together with the BB power removed (in parenthesis) with and without binning.}
@@ -315,22 +328,24 @@ Q.E. and iterative delensing were presented.
 %One information that is probably not clear enough or partially missing in the text is that iterative delensing compared to iterative delensing is important only for CMB-S4 noise levels. 
 %For example, the amount of BB power removed for CMB-S3 level using iterative vs. QE is 51\% vs. 56\%. 
 
-Let me start from the first part of the comment which regards the scales used here.
-The idea of a separation in scale between the CMB data used to reconstruct the potential and the data used to constrained r, is indeed an interesting idea proposed (for example in \cite{sehgal:2017}) to solve the so-called "internal delensing bias". This is important for both QE and iterative approach. This and other methods have shown that, at least on simulations, we can avoid this bias \textit{without losing performance}. 
+Let me start from the first part of the comment which regards the scales used here. 
+For reproducibility, I added the scales used for the lensing reconstruction for the different CMB stages.
+Furthermore, the idea of a separation in scale between the CMB data used to reconstruct the potential and the data used to constrained $r$, is indeed an interesting idea proposed (for example in \cite{sehgal:2017}) to solve the so-called "internal delensing bias". This is important for both QE and iterative approach. This and other methods have shown that, at least on simulations, we can avoid this bias \textit{without losing performance}. 
 Other groups have shown that it is possible to use overlapping scales and then correct for the bias.
-For this reason, we can reconstruct the lensing potential using scales that overlap with the primordial B-mode, without being over-optimistic. 
+For this reason, we assume here that we can reconstruct the lensing potential using scales that overlap with the primordial B-mode, without being over-optimistic. 
 While a full treatment of this effects with realistic simulations is important, we left a full study for future works.
-Again this can also be tested on data. For example, the deep 100 deg$^{2}$ field measured by SPTPol that can reach a depth of $5-6 ~\mu$K arcmin with high resolution might be the first dataset where this can be explored.
+Again this can also be tested on data. For example, the deep 100 deg$^{2}$ field measured by SPTPol that can reach a depth of $5-6 ~\mu$K arcmin with high resolution might be the the first dataset where this can be explored. 
+I comment on this at the end of section IIA. 
 
 Regarding the second part of the comment, I agree that it is interesting to quickly investigate the loss in performance if the quadratic estimator is used instead of the iterative one. For this reason, I added a new case for S3 and S4 experiment: the quadratic estimator case. Since this is a widely used technique, I think it can be presented without much introduction. I added a few sentences at the end of section IIA and in the S3 and S4 sections. Note that there is no difference between these two approaches for current levels of noise (S2).
 
-Following the referee comments, we
-\begin{itemize}
-\item Make it clear that only CMB S4 will benefit from iterative delensing.
-\item Add the level of delensing that is possible to achieve with CMB-S4 if the well tested QE is used instead of the iterative approach. This gives in some sense a range of possible efficiency for CMB S4 experiments.
-\end{itemize}
-
- 
+%Following the referee comments, we
+%\begin{itemize}
+%\item Make it clear that only CMB S4 will benefit from iterative delensing.
+%\item Add the level of delensing that is possible to achieve with CMB-S4 if the well tested QE is used instead of the iterative approach. This gives in some sense a range of possible efficiency for CMB S4 experiments.
+%\end{itemize}
+%
+% 
 \end{enumerate}
 
 
