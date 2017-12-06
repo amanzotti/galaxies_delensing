@@ -277,7 +277,7 @@ pars = camb.CAMBparams()
 pars = camb.CAMBparams()
 # This function sets up CosmoMC-like settings, with one massive neutrino
 # and helium set using BBN consistency
-pars.set_cosmology(H0=67.26, ombh2=0.02222, omch2=0.1199 + 0.1199 * 0.1,
+pars.set_cosmology(H0=67.26, ombh2=0.02222, omch2=0.1199 + 0.1199 * 0.01,
                    mnu=0.06, omk=0, tau=0.079)
 pars.InitPower.set_params(ns=0.96, r=0., nt=0, pivot_tensor=0.01, As=2.1e-9)
 pars.set_for_lmax(5000, lens_potential_accuracy=3)
@@ -761,50 +761,50 @@ nle = 1 / (1 / nle_high + 1 / nle_deep)
 nle[np.where(nle == np.inf)] = 1e20
 
 
-print('')
-print(Fore.RED + 'CMB S4 + SKA01')
-print('')
+# print('')
+# print(Fore.RED + 'CMB S4 + SKA01')
+# print('')
 
-labels = ['wise', 'ska01', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
-          'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
-cmb = 'S4'
+# labels = ['wise', 'ska01', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
+#           'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
+# cmb = 'S4'
 
-print(Fore.RED + 'Tracers:' + '-'.join(labels))
+# print(Fore.RED + 'Tracers:' + '-'.join(labels))
 
-multiple_survey_delens.main(labels, cmb, spectra_file=spectra_file)
-rho_names = ['rho_ska01.txt', 'rho_gals.txt',
-             'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
+# multiple_survey_delens.main(labels, cmb, spectra_file=spectra_file)
+# rho_names = ['rho_ska01.txt', 'rho_gals.txt',
+#              'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 
-# deep survey to delens or what is giving you E-mode
-nle_fun = InterpolatedUnivariateSpline(
-    np.arange(0, len(nle)), nle, ext=2)
-B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
-lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
-clbb_res = {}
-for i, probe in enumerate(rho_names):
-    print(i, probe.split('.txt')[0].split('rho_')[1])
-    clbb_res[probe.split('.txt')[0].split('rho_')[1]] = InterpolatedUnivariateSpline(
-        lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
-
-
-print('')
-print(Fore.YELLOW + 'Fraction of removed Bmode power')
-for probe in rho_names[0:]:
-    probe = probe.split('.txt')[0].split('rho_')[1]
-    print(probe)
-    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
-          'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) /
-                                   clbb_lensed(np.arange(4, 500, 75))),
-          'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(np.arange(4, 1000, 100))
-                                    ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(np.arange(4, 1500, 100)))
-          )
-    print('')
-
-print('')
-print('')
+# # deep survey to delens or what is giving you E-mode
+# nle_fun = InterpolatedUnivariateSpline(
+#     np.arange(0, len(nle)), nle, ext=2)
+# B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
+# lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
+# clbb_res = {}
+# for i, probe in enumerate(rho_names):
+#     print(i, probe.split('.txt')[0].split('rho_')[1])
+#     clbb_res[probe.split('.txt')[0].split('rho_')[1]] = InterpolatedUnivariateSpline(
+#         lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
 
 
-run_fisher_cases(rho_names, lmin, lmax, deep)
+# print('')
+# print(Fore.YELLOW + 'Fraction of removed Bmode power')
+# for probe in rho_names[0:]:
+#     probe = probe.split('.txt')[0].split('rho_')[1]
+#     print(probe)
+#     print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
+#           'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) /
+#                                    clbb_lensed(np.arange(4, 500, 75))),
+#           'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(np.arange(4, 1000, 100))
+#                                     ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(np.arange(4, 1500, 100)))
+#           )
+#     print('')
+
+# print('')
+# print('')
+
+
+# run_fisher_cases(rho_names, lmin, lmax, deep)
 
 print('')
 print(Fore.RED + 'CMB S4 + SKA10')

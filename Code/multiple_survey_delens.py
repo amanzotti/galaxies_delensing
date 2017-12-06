@@ -93,7 +93,7 @@ def main(labels, cmb, spectra_file='../Data/limber_spectra_delens.pkl'):
         ckk_noise = np.zeros_like(ckk)
         ckk_noise = noise_fun(lbins)
 
-    if cmb == 'LiteBird':
+    elif cmb == 'LiteBird':
         noise = 2.0
         beam = 30
         noise_phi = np.loadtxt(
@@ -104,7 +104,7 @@ def main(labels, cmb, spectra_file='../Data/limber_spectra_delens.pkl'):
         ckk_noise = np.zeros_like(ckk)
         ckk_noise = noise_fun(lbins)
 
-    if cmb == 'S3':
+    elif cmb == 'S3':
         noise = 2.0
         beam = 2
         noise_phi = np.loadtxt(
@@ -115,7 +115,7 @@ def main(labels, cmb, spectra_file='../Data/limber_spectra_delens.pkl'):
         ckk_noise = np.zeros_like(ckk)
         ckk_noise = noise_fun(lbins)
 
-    if cmb == 'SPT_deep':
+    elif cmb == 'SPT_deep':
         noise = 7.0
         beam = 1
         noise_phi = np.loadtxt(
@@ -126,7 +126,7 @@ def main(labels, cmb, spectra_file='../Data/limber_spectra_delens.pkl'):
         ckk_noise = np.zeros_like(ckk)
         ckk_noise = noise_fun(lbins)
 
-    if cmb == 'SPT500d':
+    elif cmb == 'SPT500d':
         # my bad I added a 10^7 because this is how we plot it
         noise_phi = np.load('../n0.npy')
 
@@ -159,6 +159,21 @@ def main(labels, cmb, spectra_file='../Data/limber_spectra_delens.pkl'):
         ckk_noise = np.zeros_like(ckk)
         ckk_noise = noise_fun(lbins)
 
+    elif isinstance(cmb, dict):
+        noise = cmb['noise_in_pol']
+        beam = cmb['beam']
+        noise_phi = np.loadtxt(
+            './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(noise, int(beam)))
+        noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
+        # noise_cmb = nl(noise, beam, lmax=4000)
+        noise_fun = interp1d(np.arange(0, len(noise_phi)), noise_phi)
+        ckk_noise = np.zeros_like(ckk)
+        ckk_noise = noise_fun(lbins)
+
+    else:
+        print('cmb =', cmb)
+        sys.exit('cmb input format not recognized')
+
     # add cmb lensing
     cgk[-1, :] = ckk
     cgg[-1, :, :] = cgk[:, :]
@@ -188,8 +203,12 @@ def main(labels, cmb, spectra_file='../Data/limber_spectra_delens.pkl'):
                np.vstack((lbins, rho_comb)).T)
     np.savetxt(output_dir + '/limber_spectra/rho_{}.txt'.format('gals'),
                np.vstack((lbins, rho_gals)).T)
-    np.savetxt(output_dir + '/limber_spectra/rho_{}.txt'.format('cmb_' + cmb),
-               np.vstack((lbins, rho_cmb)).T)
+    if isinstance(cmb, dict):
+        np.savetxt(output_dir + '/limber_spectra/rho_{}.txt'.format('cmb_' + cmb['label']),
+                   np.vstack((lbins, rho_cmb)).T)
+    else:
+        np.savetxt(output_dir + '/limber_spectra/rho_{}.txt'.format('cmb_' + cmb),
+                   np.vstack((lbins, rho_cmb)).T)
 
     # rho['comb'] = rho_comb
     # rho['gals'] = rho_gals

@@ -140,7 +140,7 @@ plt.rcParams['path.simplify'] = False
 plt.rcParams['legend.frameon'] = False
 plt.rcParams['legend.numpoints'] = 1
 plt.rcParams['legend.handletextpad'] = 0.3
-plt.rcParams['legend.handlelength'] = font_size /9.
+plt.rcParams['legend.handlelength'] = font_size / 9.
 # ============================================
 
 
@@ -173,7 +173,7 @@ plt.plot(deskernel_l100[:, 0], deskernel_l100[:, 1] /
 
 
 plt.plot(skakernel_l100[:, 0], skakernel_l100[:, 1] /
-         np.max(skakernel_l100[:, 1]), label=r'SKA', alpha=0.8, color=colors['SKA'])
+         np.max(skakernel_l100[:, 1]), label=r'SKA $10\mu$Jy', alpha=0.8, color=colors['SKA'])
 
 
 # plt.plot(lsstkernel_l100[:, 0], lsstkernel_l100[:, 1] /
@@ -193,7 +193,7 @@ plt.plot(desikernel_l100[:, 0], desikernel_l100[:, 1] /
 #       np.max(desikernel_l30[:, 1]))
 plt.xlabel(r'z')
 plt.ylabel(r' $W(z)$ ')
-plt.legend(loc='best', ncol =3 ,mode='expand' )
+plt.legend(loc='best', ncol=3, mode='expand')
 plt.xlim(0, 4.5)
 plt.ylim(0, 1.4)
 fg.tight_layout()
