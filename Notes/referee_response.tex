@@ -1,6 +1,6 @@
 
 \documentclass[12pt]{amsart}
-\usepackage[top=2.5 cm, bottom=2.5 cm, left=1.05in, right=1.05in]{geometry}
+\usepackage[top=2. cm, bottom=2. cm, left=1.0in, right=1.0in]{geometry}
 %\geometry{a4paper} % or letter or a5paper or ... etc
 % \geometry{landscape} % rotated page geometry
 \usepackage[applemac]{inputenc}
@@ -168,17 +168,25 @@
 
 \title{  \scriptsize{Response to Referee for: "Future cosmic microwave background delensing with galaxy surveys"}}
 \author{A. Manzotti}
-\date{} % delete this line to display the current date
+%\date{} % delete this line to display the current date
 
 %%% BEGIN DOCUMENT
 \begin{document}
 \pagestyle{empty}
+\date{\today}
 \maketitle
+%\date{\today}
+I want to thank the referee for the careful review of the paper, and for the comments, corrections, and suggestions that ensued. 
 
-I want to thank the referee for the very careful review of the paper, and for the comments, corrections, and suggestions that ensued. 
+\vspace{0.1cm}
 
-We sequentially address all of the points raised below.
-While working on this answer, I found a minor bug in the part of the code that plots the CIB kernel in Fig 1 (the CIB kernel peak is slightly shifted). This is fixed now, and it does not affect the results.
+Below, we sequentially address all of the points raised.
+
+\vspace{0.1cm}
+
+
+While working on this answer, I found a minor bug in the part of the code that plots the CIB kernel in Fig 1 (the CIB kernel peak is then slightly shifted). This is fixed now, and it did not affect the results. Also after working on point 5 below, I switched the SKA kernel in Fig. 1 from the optimistic 0.1 $\mu$Jy to the more realistic 10 $\mu$Jy casee. Furthermore, I explicitly refer to that in the label. The 0.1 $\mu$Jy threshold case was discussed in an earlier version of this paper and it was mistakenly left in the Figure. I am sorry for the confusion.
+
 \vspace{1.cm}
 
 \begin{enumerate}
@@ -187,7 +195,7 @@ shortened.
 
 \vspace{0.4cm}
 I agree.
-The abstract length is now reduced to $\sim 80\%$ of its previous length, mainly removing redundancy and quantitative results that can be found easily in the tables while leaving the main general points. I believe it is still a little bit longer than the average but reasonably so.
+The abstract length is now reduced to $\sim 80\%$ of its previous length, mainly removing redundancy and quantitative results that can be found easily in the tables. I believe it is still a little bit longer than the average but reasonably so.
 \vspace{1cm}
 
 \item Putting the lmin-lmax ranges in the tables as well as having the
@@ -196,7 +204,7 @@ of the paper.
 \vspace{0.4cm}
 
 I agree with the referee on this point. I first thought this could cause a bit of clatter, but the gain in readability is worth the risk.
-I added the dashed line to all the figures. The $\ell$ range used for the inflationary constraints is also at the end of each table both for readability and reproducibility. The choice was quite arbitrary tough. We used all the scales available to the instrument. The range where the bulk of the signal to noise is, has been explored in some of the referenced work (\cite{dodelson:2014,abazajian:2016} etc.) but not here.
+I added the dashed line to all the figures. The $\ell$ range used for the inflationary constraints is also at the end of each table both for readability and reproducibility. The choice was quite arbitrary tough. We used all the scales available to the instrument. The range where the bulk of the signal to noise is, has already been explored in some of the referenced work (\cite{dodelson:2014,abazajian:2016} etc.).
 
 \vspace{1cm}
 \item Twice in the paper the author writes that lensing is only one of
@@ -217,7 +225,9 @@ These two components need to be treated with very different techniques and in th
 \vspace{0.2 cm}
 
 Note that if the referee meant that the galactic B-modes component is the only relevant secondary component compared to lensing B-modes, I do not think that is necessarily true. 
-While on most of the sky the galactic component is the higher contribution in power, that is not true for an opportunely chose small say 1\% patch. Furthermore, that is probably not the best metric.
+While on most of the sky the galactic component is the higher contribution in power, that is not true for an opportunely chose small (say 1\%) patch. 
+This is the size we plan for future experiments like CMB-S4.
+Furthermore, that is probably not the best metric.
 As shown in the CMB-S4 science book \cite{abazajian:2016} if one wants to maximize the $r$ constraints, lensing and foregrounds are equally important. 
 The importance there is measured as the number of detectors used to either improve the lensing reconstruction or to observe the sky at different frequencies to clean the foregrounds component.
 This depends slightly on the fraction of the sky used, but it is true for a wide range that contains all possible future ground experiments. 
@@ -229,8 +239,12 @@ auto spectra of the tracer (E.g. Eq. 17) combination possible ? That
 would retain some more of the signal presumably. 
 \vspace{0.4cm}
 
-This is indeed a good idea. The real obstacle here is our current knowledge of foreground spectra. There is not an accurate model for that (at higher scales we use a simple power law). However one might measure that empirically, given a dataset with enough signal to noise on those large scales, by measuring $C^{II}$ and $C^{I\phi}$ directly from the data. Doing that will call everything in the tracer map that does not correlate with $\phi$, "noise". That noise will include foregrounds too. However, it is unclear if eventual dust residual can cause biases in the delensed B-modes (if they correlate with dust contamination in CMB polarizations).
-Given the small amount of delensing power for $\ell<100$ the field decided, so far, to cut those in forecasts. Given how much foregrounds are complicated I believed only data would answer this. An exploration of these on simulations is probably beyond the scope of this paper, but very soon future delensing work will test this on real data.
+This is indeed a good idea. The real obstacle here is our current knowledge of foreground spectra. There is not an accurate model for that (at higher scales we use a simple power law). However one might measure that empirically, given a dataset with enough signal to noise on those large scales, by measuring $C^{II}$ and $C^{I\phi}$ directly from the data. Doing that will call everything in the tracer map that does not correlate with $\phi$, "noise". That noise will include foregrounds too. However, it is unclear if eventual dust residual can cause biases in the delensed B-modes (if they correlate with dust contamination in CMB polarizations). This is certainly small, but maybe at the level of very futuristic CMB inflationary constraints.
+Given the small amount of delensing power for $\ell<100$ the field decided, so far, to cut those in forecasts. Foregrounds are quite complicated and therefore I believed only data would answer this. An exploration of these on simulations is probably beyond the scope of this paper, but very soon future delensing work will test this on real data.
+
+\vspace{0.3cm}
+
+I added added a sentence to the paper regarding this possible way forward.
 
 \vspace{1cm}
 \item Fig 1 might look confusing at first. The SKA kernel there shows
@@ -240,13 +254,20 @@ overlap but can still achieve very high performance on large scales.
 Can the author comment and help the reader make sense of that figure ? 
 
 \vspace{0.4cm}
-I agree that Fig 1 may be a little confusing because it does not tell the entire story. 
+
+As pointed out at the very beginning the confusion was probably caused by a mistake: I was plotting an optimistic SKA case (with a threshold at $0.1\mu$Jy) instead of the
+$10\mu$Jy case discussed in the paper. Again, thanks for catching this.
+
+\vspace{0.2cm}
+
+
+However I agree that Fig 1 may be a little confusing because it does not tell the entire story. 
 The redshift overlap is not the only ingredient for the delensing efficiency. For example, the noise is relevant as well, and this is why for example for S2 experiments CIB can be better than the CMB internal reconstruction even if the latter has a perfect overlap. 
 Additionally, not all the redshifts matter at the same level since they correspond to different angular scales (depending on the distance of the tracer) which, as shown by the dashed curves in the figures 5-8, contributes differently to the generation of CMB B-modes.
 Showing all of this in one plot is hard. 
 
-However, I think Fig 1 tells most of the story. For example, the referee is right that DES is less efficient than SKA in delensing efficiency (16\%) vs (52\%).
-Furthermore, I think this figure highlights the central part (the "kernel") that characterize different tracers spectra (using Eq. 2) for people not familiar with it.
+However, I think Fig 1 tells most of the story. For example, DES is quite less efficient than SKA in delensing efficiency (16\%) vs (52\%) and SKA is one of the most efficient LSS survey.
+Furthermore, I think this figure highlights the central part (the "kernel") that characterize the calculation of different tracers spectra (using Eq. 2) for people not familiar with it.
 
 I added to the caption of Fig. 1 a sentence to highlight that the efficiency is not proportional to the overlapping area of this plot because different redshifts contribute differently due to instrumental noise and the geometric properties of the lensing kernel.
 \vspace{1cm}
@@ -265,7 +286,8 @@ The correlation factor has a very little dependence on cosmology in particular g
 Different cosmologies can also shifts the scales where the information on ($r$, $n_{t}$) come from by changing the shape of the $C_{\ell}^{BB}$ spectra.
 
 I agree that testing this intuition is important. For this reason, I run the same pipeline with $10\%$ higher $\Omega h^{2}$, which is almost 40 times more than what Planck constraints \citep{planck-collaboration:2016b}. The efficiency values changes, but by at most $8-9\%$. Given that the Planck constraints are way tighter I consider this, as expected, a present but subdominant effect. 
-For example for $1\%$ higher $\Omega h^{2}$ the efficiency values changes by at most $1.5\%$
+For example for $1\%$ higher $\Omega h^{2}$ the efficiency values changes by at most $1.5\%$.
+
 I added few sentences to the paper to report this test. 
 
 
@@ -291,7 +313,7 @@ Below I am attaching a table that shows the improvement in the BB power removed 
 Note that the 30\% level quoted in the abstract corresponds to the most futuristic tracer, i.e., LSST. That should be explicitly stated, so I added this to the abstract.
 
 \begin{table}[htp]
-\caption{Improvement on $\sigma(r)$ constraints together with the BB power removed (in parenthesis) with and without binning.}
+\caption{Improvement on $\sigma(r)$ constraints together with the BB power removed (in parenthesis) with and without binning. Note that the improvement is noise-dependent but the removed power is not.}
 \begin{center}
 \begin{tabular}{|c|c|c|}
 \hline
@@ -335,7 +357,10 @@ Other groups have shown that it is possible to use overlapping scales and then c
 For this reason, we assume here that we can reconstruct the lensing potential using scales that overlap with the primordial B-mode, without being over-optimistic. 
 While a full treatment of this effects with realistic simulations is important, we left a full study for future works.
 Again this can also be tested on data. For example, the deep 100 deg$^{2}$ field measured by SPTPol that can reach a depth of $5-6 ~\mu$K arcmin with high resolution might be the the first dataset where this can be explored. 
+
 I comment on this at the end of section IIA. 
+
+\vspace{0.3cm}
 
 Regarding the second part of the comment, I agree that it is interesting to quickly investigate the loss in performance if the quadratic estimator is used instead of the iterative one. For this reason, I added a new case for S3 and S4 experiment: the quadratic estimator case. Since this is a widely used technique, I think it can be presented without much introduction. I added a few sentences at the end of section IIA and in the S3 and S4 sections. Note that there is no difference between these two approaches for current levels of noise (S2).
 
