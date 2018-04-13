@@ -300,13 +300,11 @@ clee_fun = InterpolatedUnivariateSpline(
     ells_cmb[:5000], np.nan_to_num(cle[:5000]), ext=2)
 
 
-inifile = '/home/manzotti/cosmosis/modules/limber/galaxies_delens.ini'
-Config_ini = ConfigParser.ConfigParser()
-values = ConfigParser.ConfigParser()
-Config_ini.read(inifile)
-values_file = Config_ini.get('pipeline', 'values')
-output_dir = Config_ini.get('test', 'save_dir')
-
+# inifile = '/home/manzotti/cosmosis/modules/limber/galaxies_delens.ini'
+# Config_ini = ConfigParser.ConfigParser()
+# values = ConfigParser.ConfigParser()
+# Config_ini.read(inifile)
+output_dir = "../data/limber_spectra/"
 # ==========================================
 # ==========================================
 # L range to be used in the fisher forecasts

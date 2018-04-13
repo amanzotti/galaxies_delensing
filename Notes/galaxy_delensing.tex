@@ -283,7 +283,7 @@ We defined the redshift distribution of the WISE infrared galaxy samples followi
 To compute the noise term, we assume that the available sky after masking is around $f_{sky}=0.44$ with 50 million galaxies \cite{ferraro:2015} and that the galaxy density is approximately uniform. Furthermore we adopt a linear bias $b_{\rm{WISE}}=1.41$ obtained by cross correlating WISE with Planck lensing potential \cite{ferraro:2015}.
 
 DES is modeled after the DES Science Verification public data release.
-For DESI we used the $\frac{dN}{dz}$ in Tab. 2.3 of \cite{Aghamousa:2016zmz}. From that we can derive the galaxy density of 0.63 galaxies per squared arcmin.
+For DESI we used the $\frac{dN}{dz}$ in Tab. 2.3 of \cite{desi-collaboration:2016}. From that we can derive the galaxy density of 0.63 galaxies per squared arcmin.
 
 For LSST we follow \cite{schaan:2017}: $\frac{dN}{dz}\propto z^{\alpha}\exp^{-(z/z_{0})^{\beta}}$ with $\alpha = 1.27$, $\beta = 1.02$, and $z_{0}= 0.5$.
 These correspond to a median redshift for LSST galaxies around $z_{\text{median}}\sim1.1$.
@@ -397,7 +397,7 @@ with
 
 \refeq{Bres} highlights the different factors that control the delensing efficiency.
 The first part of the second term in the parenthesis consists of an inverse variance filter applied to the measured E-mode.
-The smaller the noise in the E-modes ($N^{EE}$) is the closer this term is to a value of one: a less noisy measurement improves the template of the lensing B-modes.
+The smaller the noise in the E-modes ($N^{EE}$) is the closer this term is to a value of 1: a less noisy measurement improves the template of the lensing B-modes.
 The second captures the difference between the reconstructed $\phi$ and the CMB lensing potential, and it directly relates the residual power after delensing with the cross-correlation coefficients with CMB lensing of the tracers used.
 The larger the $\rho_{\ell}^{2}$ is for an LSS field, the more it is correlated with the lensing potential acting on the CMB photons. A higher correlation allows for a better reconstruction of $\phi$ and, as a consequence, of $B^{\rm{lens}}$ leading to a smaller residual power $C_{{l}}^{BB,\mathrm{res}}$.
 We conclude this section showing in \reffig{bbplot} the expected residual lensing B-modes power spectrum for some of the tracers used in this work together with the primordial B-modes component and the instrumental noise for current and future experiments.

@@ -193,19 +193,19 @@ def main(ini_par):
     pars = camb.CAMBparams()
     # This function sets up CosmoMC-like settings, with one massive neutrino
     # and helium set using BBN consistency
-    pars.set_cosmology(H0=67.26, ombh2=0.02222, omch2=0.1199,
-                       mnu=0.06, omk=0, tau=0.079)
-    pars.InitPower.set_params(ns=0.96, r=0., nt=0, pivot_tensor=0.01, As=2.1e-9)
-    pars.set_for_lmax(5000, lens_potential_accuracy=3)
+    pars.set_cosmology(H0=67.94, ombh2=0.022199, omch2=0.11847,
+                       mnu=0.06, omk=0, tau=0.0943)
+    pars.InitPower.set_params(ns=0.9624, r=0., nt=0, pivot_tensor=0.05, As=2.208061336e-9)
+    pars.set_for_lmax(8000, lens_potential_accuracy=3)
     # pars.set_for_lmax?
 
     pars.NonLinear = model.NonLinear_both
-    pars.set_matter_power(redshifts=np.linspace(0., 13, 50), kmax=5.0)
+    pars.set_matter_power(redshifts=np.linspace(0., 13, 50), kmax=15.0)
     results = camb.get_results(pars)
 
     # P(z,k)
     kh_nonlin, z_nonlin, pk_nonlin = results.get_matter_power_spectrum(
-        minkh=1e-6, maxkh=5, have_power_spectra=False, npoints=250)
+        minkh=1e-6, maxkh=10, have_power_spectra=False, npoints=250)
     rbs = RectBivariateSpline(kh_nonlin, z_nonlin, pk_nonlin.T)
     h = pars.H0 / 100.
 
@@ -405,9 +405,8 @@ def main(ini_par):
     kernels = [lkern, wise, euclid, lsst, ska10, cib, desi, des]
     names = ['k', 'wise', 'euclid', 'lsst', 'ska10', 'cib', 'desi', 'des']
 
-    kernels = [ ]
+    kernels = []
     names = []
-
 
     # kernels = [lkern, desi]
     # names = ['k', 'desi']
@@ -441,12 +440,10 @@ def main(ini_par):
             kernel_list.append([kernels[i], kernels[j]])
     print(labels[40:])
 
-
     import warnings
     warnings.filterwarnings('error')
 
-
-    cls_out = Parallel(n_jobs=-2, verbose=10)(delayed(limber_integrals.cl_limber_z_ell)(chispline, hspline, rbs, ini_pars[
+    cls_out = Parallel(n_jobs=-1, verbose=10)(delayed(limber_integrals.cl_limber_z_ell)(chispline, hspline, rbs, ini_pars[
         'lbins'], kernel_1=ker[0], kernel_2=ker[1], zmin=max(ker[0].zmin, ker[1].zmin), zmax=min(ker[0].zmax, ker[1].zmax)) for ker in kernel_list)
     cls = {k: v for k, v in zip(labels, cls_out)}
     # print(cls.keys())
@@ -556,7 +553,7 @@ def main(ini_par):
             cls['wisewise'] = np.array(cls['wisewise']) + 1 / gal_per_ster
 
     # SAVE
-    obj = '_delens'
+    obj = '_delens_SPT_MSIP'
     section = "limber_spectra"
     import os.path
     if os.path.isfile('../Data/' + section + obj + '.pkl'):
