@@ -29,7 +29,7 @@ def setup(ini_file='./gal_delens_values.ini'):
     config.read('gal_delens_values.ini')
     # # L BINS
     llmin = config.getfloat('spectra', 'llmin', fallback=0.)
-    llmax = config.getfloat('spectra', 'llmax', fallback=3.)
+    llmax = config.getfloat('spectra', 'llmax', fallback=3.7)
     dlnl = config.getfloat('spectra', "dlnl", fallback=.1)
     noisy = config.getboolean('spectra', "noisy", fallback=True)
 
@@ -224,6 +224,7 @@ def main(ini_par):
     # =======================
     # noisy = ini_par['noisy']
     # what integral routine to use
+
     cl_limber_z = limber_integrals.cl_limber_z
     noisy = True
 
@@ -498,20 +499,19 @@ def main(ini_par):
     kernels = [lkern, wise, euclid, lsst, ska10, cib, desi, des]
     names = ['k', 'wise', 'euclid', 'lsst', 'ska10', 'cib', 'desi', 'des']
 
-    kernels = []
-    names = []
-
     # kernels = [lkern, desi]
     # names = ['k', 'desi']
     assert (len(kernels) == len(names))
     # add binned surveys.
-    # for n, bin_gal in enumerate(des_tomo_bins):
-    #     names.extend(['des_bin{}'.format(int(n))])
-    #     kernels.extend([bin_gal])
+
+    for n, bin_gal in enumerate(des_tomo_bins):
+        names.extend(['des_bin{}'.format(int(n))])
+        kernels.extend([bin_gal])
 
     for n, bin_gal in enumerate(lsst_tomo_bins):
         names.extend(['lsst_bin{}'.format(int(n))])
         kernels.extend([bin_gal])
+        print('lsst_bin{}'.format(int(n)), bin_gal.zmin, bin_gal.zmax)
 
     for n, bin_gal in enumerate(desi_spec_bins):
         # print(n,len(desi_spec_bins),len(galaxies_fraction_desi))
@@ -532,11 +532,16 @@ def main(ini_par):
         for j in np.arange(i, len(kernels)):
             # print(i,j,names[i], names[j])
             labels.append(names[i] + names[j])
-            kernel_list.append([kernels[i], kernels[j]])
-    print(labels[40:])
+            # if np.max([kernels[i].zmin, kernels[j].zmin]) > np.min([kernels[i].zmax, kernels[j].zmax]):
+            #     print("new feature", names[i] + names[j], kernels[i].zmin, kernels[i].zmax, kernels[j].zmin, kernels[j].zmax)
 
-    import warnings
-    warnings.filterwarnings('error')
+            # continue
+
+            kernel_list.append([kernels[i], kernels[j]])
+    # print(labels[40:])
+    # sys.exit()
+    # import warnings
+    # warnings.filterwarnings('error')
 
     cls_out = Parallel(
         n_jobs=-1, verbose=10)(delayed(limber_integrals.cl_limber_z_ell)(
@@ -671,7 +676,7 @@ def main(ini_par):
     else:
         pk.dump(cls, open('../Data/' + section + obj + '.pkl', 'wb'))
 
-    np.save('../Data/' + 'ells', ini_pars['lbins'])
+    np.save('../Data/' + section + obj + '_ells', ini_pars['lbins'])
     # profiler.stop()
     # profiler.run_viewer()
     return ini_pars['lbins'], cls  # , galaxies_fraction_lsst

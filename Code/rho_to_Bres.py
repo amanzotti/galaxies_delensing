@@ -35,7 +35,7 @@ def compute_BB(clee_fun, clpp_fun, ell_b_bin, ell_phi_bin):
         return (ell / (2. * np.pi)**2 * (
             L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(
                 np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee *
-                (np.sin(2. * theta))**2)
+            (np.sin(2. * theta))**2)
 
     options1 = {'limit': 4900, 'epsabs': 0., 'epsrel': 1.e-7}
     options2 = {'limit': 4900, 'epsabs': 0., 'epsrel': 1.e-3}
@@ -63,7 +63,7 @@ def compute_res_parallel(rho_filename, output_dir, clee_fun, clpp_fun,
     """
     This function compute both a lensing B-mode from cle and clpp ("test mode") as well as the residual power after delensing if a rho_file that represent the degree of correlation of the phi map with the true phi is passed.
     """
-    print(output_dir)
+    # print(output_dir)
     # print('start integration')
 
     if rho_filename == 'test':
@@ -77,31 +77,31 @@ def compute_res_parallel(rho_filename, output_dir, clee_fun, clpp_fun,
                         np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta)))
                     * clee * (np.sin(2. * theta))**2)
     else:
-        rho_filename = output_dir + 'limber_spectra/' + rho_filename
-        print(rho_filename)
+        rho_filename = output_dir + 'correlation_values_3G_MSIP/' + rho_filename
+        # print(rho_filename)
         rho = np.loadtxt(rho_filename)[:, 1]
         lbins = np.loadtxt(rho_filename)[:, 0]
+        # print(lbins)
         rho_fun = InterpolatedUnivariateSpline(
-            lbins, np.nan_to_num(rho), ext='raise')
-        lmax = np.max(lbins)
+            lbins, np.nan_to_num(rho), ext='zeros')
+        lmax = 3000
 
         def integrand(theta, ell, L):
             """
             integrand to get the residual B-mode
             """
             clee = clee_fun(ell)
-            # print(nle_fun(ell), rho_fun(ell))
+            # print(ell, L, rho_fun(ell))
 
             return (ell / (2. * np.pi)**2 *
                     (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(
                         np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))
-                    ) * clee * (np.sin(2. * theta))**2) * (
-                        1. - (clee / (clee + nle_fun(ell))) * rho_fun(ell)**2)
+            ) * clee * (np.sin(2. * theta))**2) * (
+                1. - (clee / (clee + nle_fun(ell))) * rho_fun(ell)**2)
 
-    lbins_int = np.concatenate((np.linspace(4, 300, 60),
-                                np.linspace(310, 1800, 60)))
-    options1 = {'limit': 500, 'epsabs': 0., 'epsrel': 5.e-3}
-    options2 = {'limit': 500, 'epsabs': 0., 'epsrel': 5.e-3}
+    lbins_int = np.linspace(4, 360, 60)
+    options1 = {'limit': 1500, 'epsabs': 0., 'epsrel': 5.e1}
+    options2 = {'limit': 1500, 'epsabs': 0., 'epsrel': 5.e1}
 
     tic = time.time()
     clbb_res_ell = [
@@ -110,8 +110,9 @@ def compute_res_parallel(rho_filename, output_dir, clee_fun, clpp_fun,
             args=(L, ),
             opts=[options1, options2])[0] for L in lbins_int
     ]
-    print('time for the integral total', tic - time.time())
+    print('time for the integral total', time.time() - tic)
     np.savetxt(rho_filename.split('.txt')[0] + 'Cbb_res.txt', clbb_res_ell)
+    # print(output_dir)
     np.savetxt(output_dir + 'limber_spectra/cbb_res_ls.txt', lbins_int)
 
     return clbb_res_ell
@@ -130,7 +131,9 @@ def load_res(rho_filenames):
             print(rho_filename)
 
         clbb_res_ell.append(
-            np.loadtxt(rho_filename.split('.txt')[0] + 'Cbb_res.txt'))
+            np.loadtxt(
+                rho_filename.split('.txt')[0] + 'limber_spectra/' +
+                'Cbb_res.txt'))
 
     return clbb_res_ell, lbins_int
 
@@ -298,7 +301,7 @@ def main(rho_names, nle_fun, clpp_fun, clee_fun):
     Config_ini.read(inifile)
     # output_dir = Config_ini.get('test', 'save_dir')
     output_dir = '/home/manzotti/galaxies_delensing/Data/'
-    datadir = output_dir
+    # datadir = output_dir
     print('in rho_to res', cpu_count(), rho_names)
     cpus = np.min([len(rho_names), cpu_count() - 2])
     return Parallel(
@@ -317,6 +320,7 @@ def compute_derivates():
     output_dir = Config_ini.get('test', 'save_dir')
 
     datadir = output_dir
+    print("output_dir", output_dir)
 
     clpp = np.loadtxt(datadir + 'cmb_cl/pp.txt')
     clee = np.loadtxt(datadir + 'cmb_cl/ee.txt')

@@ -27,11 +27,14 @@ def nl(noise_uK_arcmin, fwhm_arcmin, lmax):
     return (noise_uK_arcmin * np.pi / 180. / 60.)**2 / bl(fwhm_arcmin, lmax)**2
 
 
-def main(labels, year, spectra_file='../Data/limber_spectra_delens.pkl'):
+def main(labels,
+         year,
+         spectra_file='../Data/limber_spectra_delens_SPT_MSIP.pkl'):
 
     output_dir = '/home/manzotti/galaxies_delensing/Data/'
     cls = pickle.load(open(spectra_file, 'rb'))
-    lbins = np.load('../Data/ells.npy')
+
+    lbins = np.load('../Data/limber_spectra_delens_SPT_MSIP_ells.npy')
 
     ckk = cls['kk']
     # initialize
@@ -90,12 +93,13 @@ def main(labels, year, spectra_file='../Data/limber_spectra_delens.pkl'):
 
     ells_nlp = np.arange(0, len(nlpp[1, :]))
 
-    assert ((year >= 0) &
-            (year < 5)), "years of SPT3G operation needs to be between 0 and 6"
+    assert (
+        (year >= 0) &
+        (year <= 5)), "years of SPT3G operation needs to be between 0 and 6"
 
     noise_fun = interp1d(
         ells_nlp,
-        nlpp[year, :, :] * ells_nlp**4 / 4.,
+        nlpp[year, :] * ells_nlp**4 / 4.,
         bounds_error=False,
         fill_value=1e10)
     ckk_noise = np.zeros_like(ckk)
@@ -139,9 +143,10 @@ def main(labels, year, spectra_file='../Data/limber_spectra_delens.pkl'):
     #                np.vstack((lbins, rho_cmb)).T)
     # else:
 
-    np.savetxt(output_dir +
-               '/correlation_values_3G_MSIP/rho_{}.txt'.format('year_' + year),
-               np.vstack((lbins, rho_cmb)).T)
+    np.savetxt(
+        output_dir + '/correlation_values_3G_MSIP/rho_SPT3G_{}.txt'.format(
+            'year_' + str(year)),
+        np.vstack((lbins, rho_cmb)).T)
 
     # rho['comb'] = rho_comb
     # rho['gals'] = rho_gals
