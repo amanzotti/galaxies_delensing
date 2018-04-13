@@ -248,7 +248,8 @@ labels = ['ska10']
 cmb = 'S4'
 lbins, rho, rho_comb, rho_gals, rho_cmb = multiple_survey_delens.main(
     labels, cmb)
-plt.plot(lbins, rho['ska10'], color=colors['SKA'], label=r'SKA $10\mu$Jy')
+plt.plot(lbins, rho['ska10'], color=colors['SKA'],
+         )
 
 
 labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
