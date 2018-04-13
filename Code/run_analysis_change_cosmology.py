@@ -1,6 +1,4 @@
-
 # # Fisher Analysis
-
 '''
 HERE WE SLIGHLTY  MODIFIED COSMOLOGY TO TEST A DOUPT OF THE REFEREE. AROUND LINE 279 WE CHANGE THE COSMOLY.
 Note you also have to change the run_galaxies delens to use the same cosmology when you generate the tracers.
@@ -25,9 +23,9 @@ from colorama import init
 from colorama import Fore
 import datetime
 
-
-sys.stdout = open('run_analysis_change_cosmology' + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"+'.txt'), 'w')
-
+sys.stdout = open(
+    'run_analysis_change_cosmology' +
+    datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S" + '.txt'), 'w')
 
 init(autoreset=True)
 np.seterr(divide='ignore', invalid='ignore')
@@ -77,8 +75,8 @@ def run_fisher_cases(rho_names, lmin, lmax, deep, fsky=0.06, r_tens_case=0.07):
             lmin=lmin,
             lmax=lmax,
             fsky=fsky,
-            clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))
-                                     ) + clbb_tens(r_fid, lmax=lmax),
+            clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))) +
+            clbb_tens(r_fid, lmax=lmax),
             noise_uK_arcmin=0.,
             fwhm_arcmin=deep['fwhm_arcmin'])
 
@@ -91,8 +89,8 @@ def run_fisher_cases(rho_names, lmin, lmax, deep, fsky=0.06, r_tens_case=0.07):
             clbb_cov=cbb_lensed + clbb_tens(r_fid, lmax=lmax),
             noise_uK_arcmin=0.,
             fwhm_arcmin=deep['fwhm_arcmin'])
-        print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
-                       sigma_nt_1 / sigma_nt))
+        print('gain',
+              (probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
 
     print('After delensing % errors sigma(r)*1e2', sigma_r * 1e2)
     print('After delensing % errors sigma(nt)', sigma_nt)
@@ -111,8 +109,8 @@ def run_fisher_cases(rho_names, lmin, lmax, deep, fsky=0.06, r_tens_case=0.07):
             lmin=lmin,
             lmax=lmax,
             fsky=fsky,
-            clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))
-                                     ) + clbb_tens(r_fid, lmax=lmax),
+            clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))) +
+            clbb_tens(r_fid, lmax=lmax),
             noise_uK_arcmin=deep['noise_uK_arcmin'],
             fwhm_arcmin=deep['fwhm_arcmin'])
         sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
@@ -123,8 +121,8 @@ def run_fisher_cases(rho_names, lmin, lmax, deep, fsky=0.06, r_tens_case=0.07):
             clbb_cov=cbb_lensed + clbb_tens(r_fid, lmax=lmax),
             noise_uK_arcmin=deep['noise_uK_arcmin'],
             fwhm_arcmin=deep['fwhm_arcmin'])
-        print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
-                       sigma_nt_1 / sigma_nt))
+        print('gain',
+              (probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
 
     print('After delensing % errors sigma(r)*1e2', sigma_r * 1e2)
     print('After delensing % errors sigma(nt)', sigma_nt)
@@ -150,8 +148,8 @@ def run_fisher_cases(rho_names, lmin, lmax, deep, fsky=0.06, r_tens_case=0.07):
             lmin=lmin,
             fsky=fsky,
             lmax=lmax,
-            clbb_cov=clbb_res[probe](np.arange(0, len(clbb(r_fid, lmax=lmax)))
-                                     ) + clbb_tens(r_fid, lmax=lmax),
+            clbb_cov=clbb_res[probe](np.arange(0, len(clbb(r_fid, lmax=lmax))))
+            + clbb_tens(r_fid, lmax=lmax),
             noise_uK_arcmin=deep['noise_uK_arcmin'],
             fwhm_arcmin=deep['fwhm_arcmin'])
         sigma_r_1, sigma_nt_1, sigr_1, sigmant_1 = fisher_r_nt(
@@ -163,8 +161,8 @@ def run_fisher_cases(rho_names, lmin, lmax, deep, fsky=0.06, r_tens_case=0.07):
             noise_uK_arcmin=deep['noise_uK_arcmin'],
             fwhm_arcmin=deep['fwhm_arcmin'])
 
-        print('gain', (probe, 'gain = ', sigma_r_1 / sigma_r,
-                       sigma_nt_1 / sigma_nt))
+        print('gain',
+              (probe, 'gain = ', sigma_r_1 / sigma_r, sigma_nt_1 / sigma_nt))
 
     print('After delensing % errors sigma(r)*1e2', sigma_r * 1e2)
     print('After delensing % errors sigma(nt)', sigma_nt)
@@ -192,14 +190,14 @@ def nl(noise_uK_arcmin, fwhm_arcmin, lmax):
     return (noise_uK_arcmin * np.pi / 180. / 60.)**2 / bl(fwhm_arcmin, lmax)**2
 
 
-def fisher_r_nt(r_fid=0.2, fid=None,
+def fisher_r_nt(r_fid=0.2,
+                fid=None,
                 lmin=10,
                 lmax=2000,
                 noise_uK_arcmin=4.5,
                 fwhm_arcmin=4.,
                 clbb_cov=None,
-                fsky=0.5
-                ):
+                fsky=0.5):
 
     # print('noise', noise_uK_arcmin, 'beam=', fwhm_arcmin)
     nlb = nl(noise_uK_arcmin, fwhm_arcmin, lmax=lmax)
@@ -207,28 +205,30 @@ def fisher_r_nt(r_fid=0.2, fid=None,
     nlb = nlb * ell_nlb * (ell_nlb + 1.) / 2. / np.pi
 
     if fid is None:
-                # print('n_t fis in None set consistency relation')
+        # print('n_t fis in None set consistency relation')
         fid = -r_fid / 8.
         # fid= 0.
 
     if clbb_cov is None:
         clbb_cov = clbb(r_fid, fid, lmax=lmax)
 
-    Cov = np.sqrt(2. / (fsky * (2. * np.arange(0, len(nlb)) + 1.))
-                  ) * (clbb_cov + nlb)
+    Cov = np.sqrt(2. / (fsky *
+                        (2. * np.arange(0, len(nlb)) + 1.))) * (clbb_cov + nlb)
 
-#     print(r_fid, fid,Cov)
+    #     print(r_fid, fid,Cov)
 
     dx = r_fid * 0.02 + 0.03
-    dBl_dr = (-clbb(r_fid + 2. * dx, fid, lmax=lmax) + 8. * clbb(r_fid + dx, fid, lmax=lmax) -
-              8. * clbb(r_fid - dx, fid, lmax=lmax) + clbb(r_fid - 2. * dx, fid, lmax=lmax)) / (12. * dx)
-#     print(dBl_dr)
+    dBl_dr = (-clbb(r_fid + 2. * dx, fid, lmax=lmax) + 8. * clbb(
+        r_fid + dx, fid, lmax=lmax) - 8. * clbb(r_fid - dx, fid, lmax=lmax) +
+              clbb(r_fid - 2. * dx, fid, lmax=lmax)) / (12. * dx)
+    #     print(dBl_dr)
 
     dx = fid * 0.03 + 0.03
-    nt_deriv = (-clbb(r_fid, fid + 2 * dx, lmax=lmax) + 8. * clbb(r_fid, fid + dx, lmax=lmax) -
-                8. * clbb(r_fid, fid - dx, lmax=lmax) + clbb(r_fid, fid - 2 * dx, lmax=lmax)) / (12. * dx)
-#     print(nt_deriv)
-#     print(dBl_dr, nt_deriv)
+    nt_deriv = (-clbb(r_fid, fid + 2 * dx, lmax=lmax) + 8. * clbb(
+        r_fid, fid + dx, lmax=lmax) - 8. * clbb(r_fid, fid - dx, lmax=lmax) +
+                clbb(r_fid, fid - 2 * dx, lmax=lmax)) / (12. * dx)
+    #     print(nt_deriv)
+    #     print(dBl_dr, nt_deriv)
 
     Frr = np.sum(np.nan_to_num(dBl_dr**2 / Cov**2)[lmin:lmax])
     Fnn = np.sum(np.nan_to_num(nt_deriv**2 / Cov**2)[lmin:lmax])
@@ -240,14 +240,20 @@ def fisher_r_nt(r_fid=0.2, fid=None,
     F_matrix[0, 1] = Fnr
     F_matrix[1, 1] = Fnn
 
-#     print(F_matrix)
+    #     print(F_matrix)
     sigma_r = np.sqrt(np.linalg.inv(F_matrix)[0, 0])
     sigma_nt = np.sqrt(np.linalg.inv(F_matrix)[1, 1])
-#     print(sigma_r,sigma_nt)
+    #     print(sigma_r,sigma_nt)
     return (sigma_r, sigma_nt, np.sqrt(1 / Frr), np.sqrt(1 / Fnn))
 
 
-def combine_deep_high_res(deep_noise, deep_fwhm, highres_noise, highres_fwhm, lmin_deep=20, lmax_deep=400, lmin_highres=2000):
+def combine_deep_high_res(deep_noise,
+                          deep_fwhm,
+                          highres_noise,
+                          highres_fwhm,
+                          lmin_deep=20,
+                          lmax_deep=400,
+                          lmin_highres=2000):
     deep = {}
     deep['noise_uK_arcmin'] = 3.
     deep['fwhm_arcmin'] = 30.
@@ -259,8 +265,11 @@ def combine_deep_high_res(deep_noise, deep_fwhm, highres_noise, highres_fwhm, lm
     # not used right now
     ell_range_deep = [lmin_deep, lmax_deep]
     ell_range_high = [lmin_highres, ells_cmb[-1]]
-    nle_deep = nl(deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
-    nle_high = nl(deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+    nle_deep = nl(
+        deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+    nle_high = nl(
+        deep['noise_uK_arcmin'], high_res['fwhm_arcmin'],
+        lmax=ells_cmb[-1])[2:]
     nle_high[:ell_range_high[0]] = np.inf
     nle_deep[:ell_range_deep[0]] = np.inf
     nle_deep[ell_range_deep[1]:] = np.inf
@@ -268,17 +277,22 @@ def combine_deep_high_res(deep_noise, deep_fwhm, highres_noise, highres_fwhm, lm
     nle[np.where(nle == np.inf)] = 1e20
     return deep, nle
 
+
 # cosmology values!!!!!!
 
-
 pars = camb.CAMBparams()
 # This function sets up CosmoMC-like settings, with one massive neutrino
 # and helium set using BBN consistency
 pars = camb.CAMBparams()
 # This function sets up CosmoMC-like settings, with one massive neutrino
 # and helium set using BBN consistency
-pars.set_cosmology(H0=67.26, ombh2=0.02222, omch2=0.1199 + 0.1199 * 0.01,
-                   mnu=0.06, omk=0, tau=0.079)
+pars.set_cosmology(
+    H0=67.26,
+    ombh2=0.02222,
+    omch2=0.1199 + 0.1199 * 0.01,
+    mnu=0.06,
+    omk=0,
+    tau=0.079)
 pars.InitPower.set_params(ns=0.96, r=0., nt=0, pivot_tensor=0.01, As=2.1e-9)
 pars.set_for_lmax(5000, lens_potential_accuracy=3)
 pars.NonLinear = model.NonLinear_both
@@ -297,7 +311,8 @@ powers = results.get_cmb_power_spectra(pars)
 totCL = powers['total']
 cle = totCL[:, 1]
 ells_cmb = np.arange(0, len(cle))
-clp = powers['lens_potential'][:, 0] / (ells_cmb * (ells_cmb + 1))**2 * (2. * np.pi)
+clp = powers['lens_potential'][:, 0] / (ells_cmb *
+                                        (ells_cmb + 1))**2 * (2. * np.pi)
 cle = cle * 7.42835025e12 / (ells_cmb * (ells_cmb + 1)) * (2. * np.pi)
 clpp_fun = InterpolatedUnivariateSpline(
     ells_cmb[:5000], np.nan_to_num(clp[:5000]), ext=2)
@@ -318,11 +333,9 @@ output_dir = Config_ini.get('test', 'save_dir')
 lmin = 50
 lmax = 500
 
-
 print('')
 print(Fore.RED + 'PLANCK + DES ')
 print('')
-
 
 # # =====================================
 # # TEST
@@ -337,14 +350,14 @@ print('')
 # rho_names.append('rho_cmb_' + cmb + '.txt')
 # # =====================================
 
-
 labels = ['des_bin0', 'des_bin1', 'des_bin2', 'des_bin3']
 cmb = 'Planck'
 multiple_survey_delens.main(labels, cmb, spectra_file=spectra_file)
 ells_cmb = np.loadtxt(output_dir + 'cmb_cl/ell.txt')
-rho_names = ['rho_cib.txt', 'rho_gals.txt',
-             'rho_wise.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
-
+rho_names = [
+    'rho_cib.txt', 'rho_gals.txt', 'rho_wise.txt', 'rho_comb.txt',
+    'rho_cmb_' + cmb + '.txt'
+]
 
 # deep survey to delens or what is giving you E-mode
 # BICEP level 3 muK and 30 arcmin beam
@@ -361,28 +374,29 @@ high_res['fwhm_arcmin'] = 7.
 # not used right now
 ell_range_deep = [20, 800]
 ell_range_high = [50, ells_cmb[-1]]
-nle_deep = nl(deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
-nle_high = nl(deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_deep = nl(
+    deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_high = nl(
+    deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
 nle_high[:ell_range_high[0]] = np.inf
 nle_deep[:ell_range_deep[0]] = np.inf
 nle_deep[ell_range_deep[1]:] = np.inf
 nle = 1 / (1 / nle_high + 1 / nle_deep)
 nle[np.where(nle == np.inf)] = 1e20
 
-nle_fun = InterpolatedUnivariateSpline(
-    np.arange(0, len(nle)), nle, ext=2)
-
+nle_fun = InterpolatedUnivariateSpline(np.arange(0, len(nle)), nle, ext=2)
 
 # ==========================================
 #  Compute BB lens with our integral to have a fair comparison.
 # Do so once for all here
 # ==========================================
 
-
 B_test = rho_to_Bres.main(['test'], nle_fun, clpp_fun, clee_fun)
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_lensed = InterpolatedUnivariateSpline(
-    lbins, lbins * (lbins + 1.) * np.nan_to_num(B_test) / 2. / np.pi, ext='extrapolate')
+    lbins,
+    lbins * (lbins + 1.) * np.nan_to_num(B_test) / 2. / np.pi,
+    ext='extrapolate')
 
 # # ================================================
 
@@ -393,23 +407,30 @@ for i, probe in enumerate(rho_names):
     if probe == 'test':
         print(i, probe)
         clbb_res[probe] = InterpolatedUnivariateSpline(
-            lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
+            lbins,
+            lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi,
+            ext='extrapolate')
     else:
         print(i, probe.split('.txt')[0].split('rho_')[1])
-        clbb_res[probe.split('.txt')[0].split('rho_')[1]] = InterpolatedUnivariateSpline(
-            lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
+        clbb_res[probe.split('.txt')[0].split('rho_')[
+            1]] = InterpolatedUnivariateSpline(
+                lbins,
+                lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi,
+                ext='extrapolate')
 
 print('')
 print(Fore.YELLOW + 'Fraction of removed Bmode power')
 for probe in rho_names[0:]:
     probe = probe.split('.txt')[0].split('rho_')[1]
     print(probe)
-    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
-          'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) /
-                                   clbb_lensed(np.arange(4, 500, 75))),
-          'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(50, 100, 100)) / clbb_lensed(np.arange(50, 100, 100))
-                                    ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(np.arange(4, 1500, 100)))
-          )
+    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(
+        4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))), 'ell<500=',
+          1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) / clbb_lensed(
+              np.arange(4, 500, 75))), 'ell<1000=',
+          1. - np.mean(clbb_res[probe](np.arange(50, 100, 100)) / clbb_lensed(
+              np.arange(50, 100, 100))), 'ell<1500=',
+          1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(
+              np.arange(4, 1500, 100))))
 
 print('')
 print('')
@@ -419,13 +440,11 @@ print('')
 
 # This needs to be Bicep like, the value of the deep exp
 
-
 run_fisher_cases(rho_names, lmin, lmax, deep)
 
 print('')
 print(Fore.RED + 'PLANCK + DES + CIB + WISE')
 print('')
-
 
 # # =====================================
 # # TEST
@@ -440,13 +459,13 @@ print('')
 # rho_names.append('rho_cmb_' + cmb + '.txt')
 # # =====================================
 
-
 labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3']
 cmb = 'Planck'
 multiple_survey_delens.main(labels, cmb)
 ells_cmb = np.loadtxt(output_dir + 'cmb_cl/ell.txt')
-rho_names = ['rho_cib.txt', 'rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
-
+rho_names = [
+    'rho_cib.txt', 'rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt'
+]
 
 # deep survey to delens or what is giving you E-mode
 # BICEP level 3 muK and 30 arcmin beam
@@ -463,17 +482,17 @@ high_res['fwhm_arcmin'] = 7.
 # not used right now
 ell_range_deep = [20, 800]
 ell_range_high = [50, ells_cmb[-1]]
-nle_deep = nl(deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
-nle_high = nl(deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_deep = nl(
+    deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_high = nl(
+    deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
 nle_high[:ell_range_high[0]] = np.inf
 nle_deep[:ell_range_deep[0]] = np.inf
 nle_deep[ell_range_deep[1]:] = np.inf
 nle = 1 / (1 / nle_high + 1 / nle_deep)
 nle[np.where(nle == np.inf)] = 1e20
 
-nle_fun = InterpolatedUnivariateSpline(
-    np.arange(0, len(nle)), nle, ext=2)
-
+nle_fun = InterpolatedUnivariateSpline(np.arange(0, len(nle)), nle, ext=2)
 
 B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
 
@@ -482,23 +501,30 @@ for i, probe in enumerate(rho_names):
     if probe == 'test':
         print(i, probe)
         clbb_res[probe] = InterpolatedUnivariateSpline(
-            lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
+            lbins,
+            lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi,
+            ext='extrapolate')
     else:
         print(i, probe.split('.txt')[0].split('rho_')[1])
-        clbb_res[probe.split('.txt')[0].split('rho_')[1]] = InterpolatedUnivariateSpline(
-            lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
+        clbb_res[probe.split('.txt')[0].split('rho_')[
+            1]] = InterpolatedUnivariateSpline(
+                lbins,
+                lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi,
+                ext='extrapolate')
 
 print('')
 print(Fore.YELLOW + 'Fraction of removed Bmode power')
 for probe in rho_names[0:]:
     probe = probe.split('.txt')[0].split('rho_')[1]
     print(probe)
-    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
-          'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) /
-                                   clbb_lensed(np.arange(4, 500, 75))),
-          'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(50, 100, 100)) / clbb_lensed(np.arange(50, 100, 100))
-                                    ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(np.arange(4, 1500, 100)))
-          )
+    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(
+        4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))), 'ell<500=',
+          1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) / clbb_lensed(
+              np.arange(4, 500, 75))), 'ell<1000=',
+          1. - np.mean(clbb_res[probe](np.arange(50, 100, 100)) / clbb_lensed(
+              np.arange(50, 100, 100))), 'ell<1500=',
+          1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(
+              np.arange(4, 1500, 100))))
 
 print('')
 print('')
@@ -512,15 +538,16 @@ run_fisher_cases(rho_names, lmin, lmax, deep)
 
 # sys.exit()
 
-
 print(Fore.RED + 'Actual scenario High res SPT-pol')
 # In[274]:
 
 labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3']
 cmb = 'now'
 multiple_survey_delens.main(labels, cmb, spectra_file=spectra_file)
-rho_names = ['rho_cib.txt', 'rho_gals.txt',
-             'rho_wise.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
+rho_names = [
+    'rho_cib.txt', 'rho_gals.txt', 'rho_wise.txt', 'rho_comb.txt',
+    'rho_cmb_' + cmb + '.txt'
+]
 # deep survey to delens or what is giving you E-mode
 
 # deep
@@ -535,18 +562,18 @@ high_res['fwhm_arcmin'] = 1.
 # not used right now
 ell_range_deep = [20, 800]
 ell_range_high = [50, ells_cmb[-1]]
-nle_deep = nl(deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
-nle_high = nl(deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_deep = nl(
+    deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_high = nl(
+    deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
 nle_high[:ell_range_high[0]] = np.inf
 nle_deep[:ell_range_deep[0]] = np.inf
 nle_deep[ell_range_deep[1]:] = np.inf
 nle = 1 / (1 / nle_high + 1 / nle_deep)
 nle[np.where(nle == np.inf)] = 1e20
 
-nle_fun = InterpolatedUnivariateSpline(
-    np.arange(0, len(nle)), nle, ext=2)
+nle_fun = InterpolatedUnivariateSpline(np.arange(0, len(nle)), nle, ext=2)
 B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
-
 
 # In[275]:
 
@@ -554,26 +581,29 @@ lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_res = {}
 for i, probe in enumerate(rho_names):
     print(i, probe.split('.txt')[0].split('rho_')[1])
-    clbb_res[probe.split('.txt')[0].split('rho_')[1]] = InterpolatedUnivariateSpline(
-        lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
-
+    clbb_res[probe.split('.txt')[0].split('rho_')[
+        1]] = InterpolatedUnivariateSpline(
+            lbins,
+            lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi,
+            ext='extrapolate')
 
 print('')
 print(Fore.YELLOW + 'Fraction of removed Bmode power')
 for probe in rho_names[:]:
     probe = probe.split('.txt')[0].split('rho_')[1]
     print(probe)
-    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(10, 100, 25)) / clbb_lensed(np.arange(10, 100, 25))),
-          'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(10, 500, 75)) /
-                                   clbb_lensed(np.arange(10, 500, 75))),
-          'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(50, 200, 100)) / clbb_lensed(np.arange(50, 200, 100))
-                                    ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(10, 1500, 100)) / clbb_lensed(np.arange(10, 1500, 100)))
-          )
+    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(
+        10, 100, 25)) / clbb_lensed(np.arange(10, 100, 25))), 'ell<500=',
+          1. - np.mean(clbb_res[probe](np.arange(10, 500, 75)) / clbb_lensed(
+              np.arange(10, 500, 75))), 'ell<1000=',
+          1. - np.mean(clbb_res[probe](np.arange(50, 200, 100)) / clbb_lensed(
+              np.arange(50, 200, 100))), 'ell<1500=',
+          1. - np.mean(clbb_res[probe](np.arange(10, 1500, 100)) / clbb_lensed(
+              np.arange(10, 1500, 100))))
     print('')
 
 print('')
 print('')
-
 
 # In[276]:
 
@@ -587,7 +617,6 @@ run_fisher_cases(rho_names, lmin, lmax, deep)
 
 # ====================================
 # ====================================
-
 
 # In[278]:
 print('')
@@ -613,38 +642,42 @@ high_res['fwhm_arcmin'] = 1.
 # not used right now
 ell_range_deep = [20, 800]
 ell_range_high = [50, ells_cmb[-1]]
-nle_deep = nl(deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
-nle_high = nl(deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_deep = nl(
+    deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_high = nl(
+    deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
 nle_high[:ell_range_high[0]] = np.inf
 nle_deep[:ell_range_deep[0]] = np.inf
 nle_deep[ell_range_deep[1]:] = np.inf
 nle = 1 / (1 / nle_high + 1 / nle_deep)
 nle[np.where(nle == np.inf)] = 1e20
 
-
 # deep survey to delens or what is giving you E-mode
-nle_fun = InterpolatedUnivariateSpline(
-    np.arange(0, len(nle)), nle, ext=2)
+nle_fun = InterpolatedUnivariateSpline(np.arange(0, len(nle)), nle, ext=2)
 B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_res = {}
 for i, probe in enumerate(rho_names):
     print(i, probe.split('.txt')[0].split('rho_')[1])
-    clbb_res[probe.split('.txt')[0].split('rho_')[1]] = InterpolatedUnivariateSpline(
-        lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
-
+    clbb_res[probe.split('.txt')[0].split('rho_')[
+        1]] = InterpolatedUnivariateSpline(
+            lbins,
+            lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi,
+            ext='extrapolate')
 
 print('')
 print(Fore.YELLOW + 'Fraction of removed Bmode power')
 for probe in rho_names[0:]:
     probe = probe.split('.txt')[0].split('rho_')[1]
     print(probe)
-    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
-          'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) /
-                                   clbb_lensed(np.arange(4, 500, 75))),
-          'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(np.arange(4, 1000, 100))
-                                    ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(np.arange(4, 1500, 100)))
-          )
+    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(
+        4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))), 'ell<500=',
+          1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) / clbb_lensed(
+              np.arange(4, 500, 75))), 'ell<1000=',
+          1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(
+              np.arange(4, 1000, 100))), 'ell<1500=',
+          1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(
+              np.arange(4, 1500, 100))))
     print('')
 
 print('')
@@ -657,11 +690,16 @@ print(Fore.RED + 'CMB S3')
 print('')
 # possible names orders matters = ['k', 'euclid', 'des_weak', 'lsst',
 # 'ska10',            'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
-labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
+labels = [
+    'wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'desi_bin0',
+    'desi_bin1', 'desi_bin2', 'desi_bin3'
+]
 cmb = 'S3'
 multiple_survey_delens.main(labels, cmb, spectra_file=spectra_file)
-rho_names = ['rho_cib.txt', 'rho_des.txt',
-             'rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
+rho_names = [
+    'rho_cib.txt', 'rho_des.txt', 'rho_gals.txt', 'rho_comb.txt',
+    'rho_cmb_' + cmb + '.txt'
+]
 # This needs to be Bicep like, the value of the deep exp
 
 # deep
@@ -676,20 +714,19 @@ high_res['fwhm_arcmin'] = 1.
 # not used right now
 ell_range_deep = [20, 800]
 ell_range_high = [50, ells_cmb[-1]]
-nle_deep = nl(deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
-nle_high = nl(deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_deep = nl(
+    deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_high = nl(
+    deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
 nle_high[:ell_range_high[0]] = np.inf
 nle_deep[:ell_range_deep[0]] = np.inf
 nle_deep[ell_range_deep[1]:] = np.inf
 nle = 1 / (1 / nle_high + 1 / nle_deep)
 nle[np.where(nle == np.inf)] = 1e20
 
-
 # deep survey to delens or what is giving you E-mode
-nle_fun = InterpolatedUnivariateSpline(
-    np.arange(0, len(nle)), nle, ext=2)
+nle_fun = InterpolatedUnivariateSpline(np.arange(0, len(nle)), nle, ext=2)
 B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
-
 
 # In[279]:
 
@@ -697,29 +734,31 @@ lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_res = {}
 for i, probe in enumerate(rho_names):
     print(i, probe.split('.txt')[0].split('rho_')[1])
-    clbb_res[probe.split('.txt')[0].split('rho_')[1]] = InterpolatedUnivariateSpline(
-        lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
-
+    clbb_res[probe.split('.txt')[0].split('rho_')[
+        1]] = InterpolatedUnivariateSpline(
+            lbins,
+            lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi,
+            ext='extrapolate')
 
 print('')
 print(Fore.YELLOW + 'Fraction of removed Bmode power')
 for probe in rho_names[0:]:
     probe = probe.split('.txt')[0].split('rho_')[1]
     print(probe)
-    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
-          'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) /
-                                   clbb_lensed(np.arange(4, 500, 75))),
-          'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(np.arange(4, 1000, 100))
-                                    ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(np.arange(4, 1500, 100)))
-          )
+    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(
+        4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))), 'ell<500=',
+          1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) / clbb_lensed(
+              np.arange(4, 500, 75))), 'ell<1000=',
+          1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(
+              np.arange(4, 1000, 100))), 'ell<1500=',
+          1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(
+              np.arange(4, 1500, 100))))
     print('')
 
 print('')
 print('')
 
-
 # sys.exit()
-
 
 # ### r=0
 
@@ -728,9 +767,7 @@ print('')
 # noise_uK_arcmin=4.5,
 # fwhm_arcmin=4.,
 
-
 run_fisher_cases(rho_names, lmin, lmax, deep)
-
 
 # ==============================
 # ==============================
@@ -738,7 +775,6 @@ run_fisher_cases(rho_names, lmin, lmax, deep)
 # ==============================
 # ==============================
 # This needs to be Bicep like, the value of the deep exp
-
 
 # deep
 deep = {}
@@ -752,14 +788,15 @@ high_res['fwhm_arcmin'] = 1.
 # not used right now
 ell_range_deep = [20, 800]
 ell_range_high = [50, ells_cmb[-1]]
-nle_deep = nl(deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
-nle_high = nl(deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_deep = nl(
+    deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
+nle_high = nl(
+    deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
 nle_high[:ell_range_high[0]] = np.inf
 nle_deep[:ell_range_deep[0]] = np.inf
 nle_deep[ell_range_deep[1]:] = np.inf
 nle = 1 / (1 / nle_high + 1 / nle_deep)
 nle[np.where(nle == np.inf)] = 1e20
-
 
 # print('')
 # print(Fore.RED + 'CMB S4 + SKA01')
@@ -786,7 +823,6 @@ nle[np.where(nle == np.inf)] = 1e20
 #     clbb_res[probe.split('.txt')[0].split('rho_')[1]] = InterpolatedUnivariateSpline(
 #         lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
 
-
 # print('')
 # print(Fore.YELLOW + 'Fraction of removed Bmode power')
 # for probe in rho_names[0:]:
@@ -803,46 +839,53 @@ nle[np.where(nle == np.inf)] = 1e20
 # print('')
 # print('')
 
-
 # run_fisher_cases(rho_names, lmin, lmax, deep)
 
 print('')
 print(Fore.RED + 'CMB S4 + SKA10')
 print('')
 
-labels = ['wise', 'ska10', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
-          'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
+labels = [
+    'wise', 'ska10', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3',
+    'lsst_bin0', 'lsst_bin1', 'lsst_bin2', 'lsst_bin3', 'lsst_bin4',
+    'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9',
+    'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3'
+]
 cmb = 'S4'
 
 print(Fore.RED + 'Tracers:' + '-'.join(labels))
 
 multiple_survey_delens.main(labels, cmb, spectra_file=spectra_file)
-rho_names = ['rho_ska10.txt', 'rho_gals.txt',
-             'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
+rho_names = [
+    'rho_ska10.txt', 'rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt'
+]
 
 # deep survey to delens or what is giving you E-mode
-nle_fun = InterpolatedUnivariateSpline(
-    np.arange(0, len(nle)), nle, ext=2)
+nle_fun = InterpolatedUnivariateSpline(np.arange(0, len(nle)), nle, ext=2)
 B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_res = {}
 for i, probe in enumerate(rho_names):
     print(i, probe.split('.txt')[0].split('rho_')[1])
-    clbb_res[probe.split('.txt')[0].split('rho_')[1]] = InterpolatedUnivariateSpline(
-        lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
-
+    clbb_res[probe.split('.txt')[0].split('rho_')[
+        1]] = InterpolatedUnivariateSpline(
+            lbins,
+            lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi,
+            ext='extrapolate')
 
 print('')
 print(Fore.YELLOW + 'Fraction of removed Bmode power')
 for probe in rho_names[0:]:
     probe = probe.split('.txt')[0].split('rho_')[1]
     print(probe)
-    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
-          'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) /
-                                   clbb_lensed(np.arange(4, 500, 75))),
-          'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(np.arange(4, 1000, 100))
-                                    ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(np.arange(4, 1500, 100)))
-          )
+    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(
+        4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))), 'ell<500=',
+          1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) / clbb_lensed(
+              np.arange(4, 500, 75))), 'ell<1000=',
+          1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(
+              np.arange(4, 1000, 100))), 'ell<1500=',
+          1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(
+              np.arange(4, 1500, 100))))
     print('')
 
 print('')
@@ -856,8 +899,12 @@ print(Fore.RED + 'CMB S4 no SKA at all')
 
 #  'wise', 'euclid', 'des_weak', 'lsst', 'ska10',
 # #              'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
-labels = ['wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0', 'lsst_bin1', 'lsst_bin2',
-          'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0', 'desi_bin1', 'desi_bin2', 'desi_bin3']
+labels = [
+    'wise', 'cib', 'des_bin0', 'des_bin1', 'des_bin2', 'des_bin3', 'lsst_bin0',
+    'lsst_bin1', 'lsst_bin2', 'lsst_bin3', 'lsst_bin4', 'lsst_bin5',
+    'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9', 'desi_bin0',
+    'desi_bin1', 'desi_bin2', 'desi_bin3'
+]
 
 print(Fore.RED + 'Tracers:' + '-'.join(labels))
 
@@ -865,28 +912,31 @@ cmb = 'S4'
 multiple_survey_delens.main(labels, cmb, spectra_file=spectra_file)
 rho_names = ['rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 # deep survey to delens or what is giving you E-mode
-nle_fun = InterpolatedUnivariateSpline(
-    np.arange(0, len(nle)), nle, ext=2)
+nle_fun = InterpolatedUnivariateSpline(np.arange(0, len(nle)), nle, ext=2)
 B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_res = {}
 for i, probe in enumerate(rho_names):
     print(i, probe.split('.txt')[0].split('rho_')[1])
-    clbb_res[probe.split('.txt')[0].split('rho_')[1]] = InterpolatedUnivariateSpline(
-        lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
-
+    clbb_res[probe.split('.txt')[0].split('rho_')[
+        1]] = InterpolatedUnivariateSpline(
+            lbins,
+            lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi,
+            ext='extrapolate')
 
 print('')
 print(Fore.YELLOW + 'Fraction of removed Bmode power')
 for probe in rho_names[0:]:
     probe = probe.split('.txt')[0].split('rho_')[1]
     print(probe)
-    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
-          'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) /
-                                   clbb_lensed(np.arange(4, 500, 75))),
-          'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(np.arange(4, 1000, 100))
-                                    ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(np.arange(4, 1500, 100)))
-          )
+    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(
+        4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))), 'ell<500=',
+          1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) / clbb_lensed(
+              np.arange(4, 500, 75))), 'ell<1000=',
+          1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(
+              np.arange(4, 1000, 100))), 'ell<1500=',
+          1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(
+              np.arange(4, 1500, 100))))
     print('')
 
 print('')
@@ -898,36 +948,41 @@ print(Fore.RED + 'CMB S4 + LSST')
 
 #  'wise', 'euclid', 'des_weak', 'lsst', 'ska10',
 # #              'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
-labels = ['lsst_bin0', 'lsst_bin1', 'lsst_bin2',
-          'lsst_bin3', 'lsst_bin4', 'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9']
+labels = [
+    'lsst_bin0', 'lsst_bin1', 'lsst_bin2', 'lsst_bin3', 'lsst_bin4',
+    'lsst_bin5', 'lsst_bin6', 'lsst_bin7', 'lsst_bin8', 'lsst_bin9'
+]
 
 cmb = 'S4'
 print(Fore.RED + 'Tracers:' + '-'.join(labels))
 multiple_survey_delens.main(labels, cmb, spectra_file=spectra_file)
 rho_names = ['rho_gals.txt', 'rho_comb.txt', 'rho_cmb_' + cmb + '.txt']
 # deep survey to delens or what is giving you E-mode
-nle_fun = InterpolatedUnivariateSpline(
-    np.arange(0, len(nle)), nle, ext=2)
+nle_fun = InterpolatedUnivariateSpline(np.arange(0, len(nle)), nle, ext=2)
 B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_res = {}
 for i, probe in enumerate(rho_names):
     print(i, probe.split('.txt')[0].split('rho_')[1])
-    clbb_res[probe.split('.txt')[0].split('rho_')[1]] = InterpolatedUnivariateSpline(
-        lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
-
+    clbb_res[probe.split('.txt')[0].split('rho_')[
+        1]] = InterpolatedUnivariateSpline(
+            lbins,
+            lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi,
+            ext='extrapolate')
 
 print('')
 print(Fore.YELLOW + 'Fraction of removed Bmode power')
 for probe in rho_names[0:]:
     probe = probe.split('.txt')[0].split('rho_')[1]
     print(probe)
-    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))),
-          'ell<500=', 1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) /
-                                   clbb_lensed(np.arange(4, 500, 75))),
-          'ell<1000=', 1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(np.arange(4, 1000, 100))
-                                    ), 'ell<1500=', 1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(np.arange(4, 1500, 100)))
-          )
+    print('ell<100=', 1. - np.mean(clbb_res[probe](np.arange(
+        4, 100, 25)) / clbb_lensed(np.arange(4, 100, 25))), 'ell<500=',
+          1. - np.mean(clbb_res[probe](np.arange(4, 500, 75)) / clbb_lensed(
+              np.arange(4, 500, 75))), 'ell<1000=',
+          1. - np.mean(clbb_res[probe](np.arange(4, 1000, 100)) / clbb_lensed(
+              np.arange(4, 1000, 100))), 'ell<1500=',
+          1. - np.mean(clbb_res[probe](np.arange(4, 1500, 100)) / clbb_lensed(
+              np.arange(4, 1500, 100))))
     print('')
 
 print('')
@@ -966,12 +1021,10 @@ results = camb.get_results(pars)
 results = camb.get_transfer_functions(pars)
 tens_cl = results.get_tensor_cls(1000)
 
-
 # In[45]:
 
 clbb.cache_clear()
 clbb_tens.cache_clear()
-
 
 # In[46]:
 
@@ -1052,7 +1105,6 @@ for r in [0.2, 0.1, 0.05, 0.02]:
 
         sigma_lens.append(sigmant)
 
-
 # ## Seems like it is working!
 
 # ### Simard et al.
@@ -1077,9 +1129,7 @@ pars.max_eta_k_tensor = 1200.0 * 3
 results = camb.get_results(pars)
 results = camb.get_transfer_functions(pars)
 
-
 # In[ ]:
-
 
 # #### Look at Fig 3.
 
@@ -1087,7 +1137,6 @@ results = camb.get_transfer_functions(pars)
 
 clbb.cache_clear()
 clbb_tens.cache_clear()
-
 
 # In[62]:
 
@@ -1106,16 +1155,14 @@ for r in np.linspace(0.0, 0.25, 20):
         lmin=10, lmax=3000, r_fid=r, noise_uK_arcmin=1)
     sigma_lens.append(sigmant)
 
-
 # In[65]:
 
 plt.plot(np.linspace(0.01, 0.25, 20), sigma_no_lens)
 plt.plot(np.linspace(0.01, 0.25, 20), sigma_lens)
 plt.ylim(0, 0.2)
-plt.xlim(0.02,)
+plt.xlim(0.02, )
 plt.xlabel(r'$r_{fid}$')
 plt.ylabel(r'$\sigma(n_{T})$')
-
 
 # In[60]:
 
@@ -1124,12 +1171,15 @@ sigma_no_lens = []
 for noise_p in np.linspace(0.1, 7, 20):
     print(noise_p)
     sigma, sigmant, _, _ = fisher_r_nt(
-        lmin=10, lmax=3000, clbb_cov=clbb_tens(0.2), r_fid=0.2, noise_uK_arcmin=noise_p)
+        lmin=10,
+        lmax=3000,
+        clbb_cov=clbb_tens(0.2),
+        r_fid=0.2,
+        noise_uK_arcmin=noise_p)
     sigma_no_lens.append(sigmant)
     sigma, sigmant, _, _ = fisher_r_nt(
         lmin=10, lmax=3000, r_fid=0.2, noise_uK_arcmin=noise_p)
     sigma_lens.append(sigmant)
-
 
 # In[61]:
 
@@ -1138,7 +1188,6 @@ plt.plot(np.linspace(0.1, 7, 20), sigma_lens)
 plt.ylim(0, 0.1)
 plt.xlabel(r'$\Delta_{P}$')
 plt.ylabel(r'$\sigma(n_{T})$')
-
 
 # ## Cross Check with delensing works
 
@@ -1166,12 +1215,10 @@ pars.max_eta_k_tensor = 1200.0 * 3
 results = camb.get_results(pars)
 results = camb.get_transfer_functions(pars)
 
-
 # In[146]:
 
 clbb.cache_clear()
 clbb_tens.cache_clear()
-
 
 # In[187]:
 
@@ -1180,7 +1227,6 @@ labels = ['ska10', 'ska01', 'ska5', 'ska1']
 #            'ska5', 'ska1', 'cib', 'desi', 'des']
 cmb = 'S3'
 get_ipython().magic(u'run -i multiple_survey_delens.py')
-
 
 # In[189]:
 
@@ -1193,7 +1239,6 @@ plt.ylim(0, 1)
 plt.grid()
 plt.legend()
 
-
 # In[90]:
 
 plt.plot(lbins, rho['ska01']**2, label='01')
@@ -1204,7 +1249,6 @@ plt.xlim(0, 400)
 plt.ylim(0.5, 1)
 plt.grid()
 plt.legend()
-
 
 # In[191]:
 
@@ -1217,16 +1261,13 @@ rho_ska_1 = rho_to_Bres.compute_res(
 rho_ska_01 = rho_to_Bres.compute_res(
     '/home/manzotti/galaxies_delensing/Data/limber_spectra/rho_ska01.txt')
 
-
 # In[192]:
 
 clbb_test = rho_to_Bres.compute_res('test')
 
-
 # In[193]:
 
 ells = np.arange(4, 1500, 10)
-
 
 # In[194]:
 
@@ -1238,7 +1279,6 @@ plt.legend()
 plt.xlim(0, 200)
 plt.ylim(0, 1)
 
-
 # Alpha calcualtion
 
 # In[162]:
@@ -1246,48 +1286,90 @@ plt.ylim(0, 1)
 plt.plot(clbb_res_fun_ska5(np.arange(0, len(clbb(0.0, lmax=1000)))))
 plt.plot(clbb(0.0, 0., lmax=1000))
 
-
 # In[195]:
 
 clbb_res_fun_ska5 = scipy.interpolate.UnivariateSpline(
-    ells, ells * (ells + 1) * np.array(rho_ska_5) / 2. / np.pi, k=3, s=0, ext=3)
+    ells,
+    ells * (ells + 1) * np.array(rho_ska_5) / 2. / np.pi,
+    k=3,
+    s=0,
+    ext=3)
 clbb_res_fun_ska1 = scipy.interpolate.UnivariateSpline(
-    ells, ells * (ells + 1) * np.array(rho_ska_1) / 2. / np.pi, k=3, s=0, ext=3)
+    ells,
+    ells * (ells + 1) * np.array(rho_ska_1) / 2. / np.pi,
+    k=3,
+    s=0,
+    ext=3)
 clbb_res_fun_ska01 = scipy.interpolate.UnivariateSpline(
-    ells, ells * (ells + 1) * np.array(rho_ska_01) / 2. / np.pi, k=3, s=0, ext=3)
+    ells,
+    ells * (ells + 1) * np.array(rho_ska_01) / 2. / np.pi,
+    k=3,
+    s=0,
+    ext=3)
 clbb_res_fun_ska10 = scipy.interpolate.UnivariateSpline(
-    ells, ells * (ells + 1) * np.array(rho_ska_10) / 2. / np.pi, k=3, s=0, ext=3)
+    ells,
+    ells * (ells + 1) * np.array(rho_ska_10) / 2. / np.pi,
+    k=3,
+    s=0,
+    ext=3)
 clbb_res_fun_test = scipy.interpolate.UnivariateSpline(
-    ells, ells * (ells + 1) * np.array(clbb_test) / 2. / np.pi, k=3, s=0, ext=3)
-
+    ells,
+    ells * (ells + 1) * np.array(clbb_test) / 2. / np.pi,
+    k=3,
+    s=0,
+    ext=3)
 
 # In[197]:
 
-sigma_r5, _, sigr, _ = fisher_r_nt(r_fid=0, fid=0., lmin=4, lmax=100, noise_uK_arcmin=2.,
-                                   fwhm_arcmin=30., clbb_cov=clbb_res_fun_ska5(
-                                       np.arange(0, len(clbb(0.0, lmax=100)))))
+sigma_r5, _, sigr, _ = fisher_r_nt(
+    r_fid=0,
+    fid=0.,
+    lmin=4,
+    lmax=100,
+    noise_uK_arcmin=2.,
+    fwhm_arcmin=30.,
+    clbb_cov=clbb_res_fun_ska5(np.arange(0, len(clbb(0.0, lmax=100)))))
 
+sigma_r1, _, sigr, _ = fisher_r_nt(
+    r_fid=0,
+    fid=0.,
+    lmin=4,
+    lmax=100,
+    noise_uK_arcmin=2.,
+    fwhm_arcmin=30.,
+    clbb_cov=clbb_res_fun_ska1(np.arange(0, len(clbb(0.0, lmax=100)))))
 
-sigma_r1, _, sigr, _ = fisher_r_nt(r_fid=0, fid=0., lmin=4, lmax=100, noise_uK_arcmin=2.,
-                                   fwhm_arcmin=30., clbb_cov=clbb_res_fun_ska1(
-                                       np.arange(0, len(clbb(0.0, lmax=100)))))
+sigma_r01, _, sigr, _ = fisher_r_nt(
+    r_fid=0,
+    fid=0.,
+    lmin=4,
+    lmax=100,
+    noise_uK_arcmin=2.,
+    fwhm_arcmin=30.,
+    clbb_cov=clbb_res_fun_ska01(np.arange(0, len(clbb(0.0, lmax=100)))))
 
-sigma_r01, _, sigr, _ = fisher_r_nt(r_fid=0, fid=0., lmin=4, lmax=100, noise_uK_arcmin=2.,
-                                    fwhm_arcmin=30., clbb_cov=clbb_res_fun_ska01(
-                                        np.arange(0, len(clbb(0.0, lmax=100)))))
+sigma_r10, _, sigr, _ = fisher_r_nt(
+    r_fid=0,
+    fid=0.,
+    lmin=4,
+    lmax=100,
+    noise_uK_arcmin=2.,
+    fwhm_arcmin=30.,
+    clbb_cov=clbb_res_fun_ska10(np.arange(0, len(clbb(0.0, lmax=100)))))
 
-sigma_r10, _, sigr, _ = fisher_r_nt(r_fid=0, fid=0., lmin=4, lmax=100, noise_uK_arcmin=2.,
-                                    fwhm_arcmin=30., clbb_cov=clbb_res_fun_ska10(
-                                        np.arange(0, len(clbb(0.0, lmax=100)))))
-
-sigma_r_1, _, sigr_1, _ = fisher_r_nt(r_fid=0, fid=0., lmin=4, lmax=100, noise_uK_arcmin=2.,
-                                      fwhm_arcmin=30., clbb_cov=clbb_res_fun_test(np.arange(0, len(clbb(0.0, lmax=100)))))
+sigma_r_1, _, sigr_1, _ = fisher_r_nt(
+    r_fid=0,
+    fid=0.,
+    lmin=4,
+    lmax=100,
+    noise_uK_arcmin=2.,
+    fwhm_arcmin=30.,
+    clbb_cov=clbb_res_fun_test(np.arange(0, len(clbb(0.0, lmax=100)))))
 
 print(('gain ska5= ', sigma_r_1 / sigma_r5))
 print(('gain ska1 = ', sigma_r_1 / sigma_r1))
 print(('gain ska10 = ', sigma_r_1 / sigma_r10))
 print(('gain ska01 = ', sigma_r_1 / sigma_r01))
-
 
 # In[198]:
 
@@ -1297,21 +1379,23 @@ nlb = nl(noise_uK_arcmin, fwhm_arcmin, 100)
 ell_nlb = np.arange(0, len(nlb))
 nlb = nlb * ell_nlb * (ell_nlb + 1.) / 2. / np.pi
 
-
 # In[199]:
 
-print((np.mean((clbb_res_fun_test(np.arange(0, len(clbb(0.0, lmax=100)))) + nlb) /
-               (clbb_res_fun_ska10(np.arange(0, len(clbb(0.0, lmax=100)))) + nlb))))
+print((np.mean(
+    (clbb_res_fun_test(np.arange(0, len(clbb(0.0, lmax=100)))) + nlb) /
+    (clbb_res_fun_ska10(np.arange(0, len(clbb(0.0, lmax=100)))) + nlb))))
 
-print((np.mean((clbb_res_fun_test(np.arange(0, len(clbb(0.0, lmax=100)))) + nlb) /
-               (clbb_res_fun_ska5(np.arange(0, len(clbb(0.0, lmax=100)))) + nlb))))
+print((np.mean(
+    (clbb_res_fun_test(np.arange(0, len(clbb(0.0, lmax=100)))) + nlb) /
+    (clbb_res_fun_ska5(np.arange(0, len(clbb(0.0, lmax=100)))) + nlb))))
 
-print((np.mean((clbb_res_fun_test(np.arange(0, len(clbb(0.0, lmax=100)))) + nlb) /
-               (clbb_res_fun_ska1(np.arange(0, len(clbb(0.0, lmax=100)))) + nlb))))
+print((np.mean(
+    (clbb_res_fun_test(np.arange(0, len(clbb(0.0, lmax=100)))) + nlb) /
+    (clbb_res_fun_ska1(np.arange(0, len(clbb(0.0, lmax=100)))) + nlb))))
 
-print((np.mean((clbb_res_fun_test(np.arange(0, len(clbb(0.0, lmax=100)))) + nlb) /
-               (clbb_res_fun_ska01(np.arange(0, len(clbb(0.0, lmax=100)))) + nlb))))
-
+print((np.mean(
+    (clbb_res_fun_test(np.arange(0, len(clbb(0.0, lmax=100)))) + nlb) /
+    (clbb_res_fun_ska01(np.arange(0, len(clbb(0.0, lmax=100)))) + nlb))))
 
 # Fairly good agreement
 

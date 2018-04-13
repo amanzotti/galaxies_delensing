@@ -6,7 +6,6 @@ import scipy.ndimage
 import maps
 import qest
 import spec
-
 '''
 TEst that cl_unl has the right format as the one that is used in spt. (l+1) factors etc
 
@@ -25,7 +24,8 @@ def bl(fwhm_arcmin, lmax):
          * lmax             - maximum multipole.
     """
     ls = np.arange(0, lmax + 1)
-    return np.exp(-(fwhm_arcmin * np.pi / 180. / 60.)**2 / (16. * np.log(2.)) * ls * (ls + 1.))
+    return np.exp(-(fwhm_arcmin * np.pi / 180. / 60.)**2 /
+                  (16. * np.log(2.)) * ls * (ls + 1.))
 
 
 def nl(noise_uK_arcmin, fwhm_arcmin, lmax):
@@ -37,7 +37,13 @@ def nl(noise_uK_arcmin, fwhm_arcmin, lmax):
     return (noise_uK_arcmin * np.pi / 180. / 60.)**2 / bl(fwhm_arcmin, lmax)**2
 
 
-def calc_lensed_clbb_first_order(lbins, clee, clpp, lmax, nx=1024, dx=2. / 60. / 180. * np.pi, w=None):
+def calc_lensed_clbb_first_order(lbins,
+                                 clee,
+                                 clpp,
+                                 lmax,
+                                 nx=1024,
+                                 dx=2. / 60. / 180. * np.pi,
+                                 w=None):
 
     # print np.sqrt(clee),np.sqrt(clpp)
     ret = maps.cfft(nx, dx)
@@ -48,7 +54,13 @@ def calc_lensed_clbb_first_order(lbins, clee, clpp, lmax, nx=1024, dx=2. / 60. /
     # return ret.get_ml(lbins, w=w)
 
 
-def calc_lensed_clbb_first_order_curl(lbins, clee, clpp, lmax, nx=1024, dx=2. / 60. / 180. * np.pi, w=None):
+def calc_lensed_clbb_first_order_curl(lbins,
+                                      clee,
+                                      clpp,
+                                      lmax,
+                                      nx=1024,
+                                      dx=2. / 60. / 180. * np.pi,
+                                      w=None):
     ret = maps.cfft(nx, dx)
     qeep = qest.qest_blm_EX(np.sqrt(clee), np.sqrt(clpp))
     qeep.fill_resp(qeep, ret, np.ones(lmax + 1), 2. * np.ones(lmax + 1))

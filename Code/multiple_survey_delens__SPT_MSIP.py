@@ -14,7 +14,8 @@ def bl(fwhm_arcmin, lmax):
          * lmax             - maximum multipole.
     """
     ls = np.arange(0, lmax + 1)
-    return np.exp(-(fwhm_arcmin * np.pi / 180. / 60.)**2 / (16. * np.log(2.)) * ls * (ls + 1.))
+    return np.exp(-(fwhm_arcmin * np.pi / 180. / 60.)**2 /
+                  (16. * np.log(2.)) * ls * (ls + 1.))
 
 
 def nl(noise_uK_arcmin, fwhm_arcmin, lmax):
@@ -64,7 +65,8 @@ def main(labels, year, spectra_file='../Data/limber_spectra_delens.pkl'):
 
     # single survey save
     for label in surveys:
-        np.savetxt(output_dir + '/correlation_values_3G_MSIP/rho_{}.txt'.format(label),
+        np.savetxt(output_dir +
+                   '/correlation_values_3G_MSIP/rho_{}.txt'.format(label),
                    np.vstack((lbins, rho[label])).T)
 
     cgk = np.zeros((len(labels) + 1, np.size(lbins)))
@@ -88,10 +90,14 @@ def main(labels, year, spectra_file='../Data/limber_spectra_delens.pkl'):
 
     ells_nlp = np.arange(0, len(nlpp[1, :]))
 
-    assert ((year >= 0) & (year < 5)), "years of SPT3G operation needs to be between 0 and 6"
+    assert ((year >= 0) &
+            (year < 5)), "years of SPT3G operation needs to be between 0 and 6"
 
     noise_fun = interp1d(
-        ells_nlp, nlpp[year, :, :] * ells_nlp**4 / 4., bounds_error=False, fill_value=1e10)
+        ells_nlp,
+        nlpp[year, :, :] * ells_nlp**4 / 4.,
+        bounds_error=False,
+        fill_value=1e10)
     ckk_noise = np.zeros_like(ckk)
     ckk_noise = noise_fun(lbins)
 
@@ -110,26 +116,31 @@ def main(labels, year, spectra_file='../Data/limber_spectra_delens.pkl'):
             remove_wise_cib_idx = [labels.index('cib'), labels.index('wise')]
             cgki = np.delete(cgk[:, i], remove_wise_cib_idx)
             cggi = np.delete(
-                np.delete(cgg[:, :, i], remove_wise_cib_idx, 0), remove_wise_cib_idx, 1)
+                np.delete(cgg[:, :, i], remove_wise_cib_idx, 0),
+                remove_wise_cib_idx, 1)
         else:
             cgki = cgk[:, i]
             cggi = cgg[:, :, i]
 
-        rho_comb[i] = np.sqrt(np.dot(cgki, np.dot(
-            np.linalg.inv(cggi), cgki)) / ckk[i])
-        rho_gals[i] = np.sqrt(np.dot(
-            cgki[:-1], np.dot(np.linalg.inv(cggi[:-1, :-1]), cgki[:-1])) / ckk[i])
+        rho_comb[i] = np.sqrt(
+            np.dot(cgki, np.dot(np.linalg.inv(cggi), cgki)) / ckk[i])
+        rho_gals[i] = np.sqrt(
+            np.dot(cgki[:-1], np.dot(np.linalg.inv(cggi[:-1, :-1]), cgki[:-1]))
+            / ckk[i])
 
-    np.savetxt(output_dir + '/correlation_values_3G_MSIP/rho_{}.txt'.format('comb'),
-               np.vstack((lbins, rho_comb)).T)
-    np.savetxt(output_dir + '/correlation_values_3G_MSIP/rho_{}.txt'.format('gals'),
-               np.vstack((lbins, rho_gals)).T)
+    np.savetxt(
+        output_dir + '/correlation_values_3G_MSIP/rho_{}.txt'.format('comb'),
+        np.vstack((lbins, rho_comb)).T)
+    np.savetxt(
+        output_dir + '/correlation_values_3G_MSIP/rho_{}.txt'.format('gals'),
+        np.vstack((lbins, rho_gals)).T)
     # if isinstance(cmb, dict):
     #     np.savetxt(output_dir + '/limber_spectra/rho_{}.txt'.format('cmb_' + cmb['label']),
     #                np.vstack((lbins, rho_cmb)).T)
     # else:
 
-    np.savetxt(output_dir + '/correlation_values_3G_MSIP/rho_{}.txt'.format('year_' + year),
+    np.savetxt(output_dir +
+               '/correlation_values_3G_MSIP/rho_{}.txt'.format('year_' + year),
                np.vstack((lbins, rho_cmb)).T)
 
     # rho['comb'] = rho_comb

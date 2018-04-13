@@ -1,4 +1,3 @@
-
 # # Fisher Analysis
 
 import numpy as np
@@ -32,8 +31,8 @@ plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern Roman']})
 pars = camb.CAMBparams()
 # This function sets up CosmoMC-like settings, with one massive neutrino
 # and helium set using BBN consistency
-pars.set_cosmology(H0=70, ombh2=0.0226, omch2=0.112,
-                   mnu=0.029, omk=0, tau=0.079)
+pars.set_cosmology(
+    H0=70, ombh2=0.0226, omch2=0.112, mnu=0.029, omk=0, tau=0.079)
 pars.InitPower.set_params(ns=0.96, r=0., nt=0)
 pars.set_for_lmax(5000, lens_potential_accuracy=3)
 # pars.set_for_lmax?
@@ -97,14 +96,14 @@ def nl(noise_uK_arcmin, fwhm_arcmin, lmax):
     return (noise_uK_arcmin * np.pi / 180. / 60.)**2 / bl(fwhm_arcmin, lmax)**2
 
 
-def fisher_r_nt(r_fid=0.2, fid=None,
+def fisher_r_nt(r_fid=0.2,
+                fid=None,
                 lmin=10,
                 lmax=2000,
                 noise_uK_arcmin=4.5,
                 fwhm_arcmin=4.,
                 clbb_cov=None,
-                fsky=0.5
-                ):
+                fsky=0.5):
 
     nlb = nl(noise_uK_arcmin, fwhm_arcmin, lmax=lmax)
     ell_nlb = np.arange(0, len(nlb))
@@ -117,21 +116,23 @@ def fisher_r_nt(r_fid=0.2, fid=None,
     if clbb_cov is None:
         clbb_cov = clbb(r_fid, fid, lmax=lmax)
 
-    Cov = np.sqrt(2. / (fsky * (2. * np.arange(0, len(nlb)) + 1.))
-                  ) * (clbb_cov + nlb)
+    Cov = np.sqrt(2. / (fsky *
+                        (2. * np.arange(0, len(nlb)) + 1.))) * (clbb_cov + nlb)
 
-#     print(r_fid, fid,Cov)
+    #     print(r_fid, fid,Cov)
 
     dx = r_fid * 0.02 + 0.01
-    dBl_dr = (-clbb(r_fid + 2. * dx, fid, lmax=lmax) + 8. * clbb(r_fid + dx, fid, lmax=lmax) -
-              8. * clbb(r_fid - dx, fid, lmax=lmax) + clbb(r_fid - 2. * dx, fid, lmax=lmax)) / (12. * dx)
-#     print(dBl_dr)
+    dBl_dr = (-clbb(r_fid + 2. * dx, fid, lmax=lmax) + 8. * clbb(
+        r_fid + dx, fid, lmax=lmax) - 8. * clbb(r_fid - dx, fid, lmax=lmax) +
+              clbb(r_fid - 2. * dx, fid, lmax=lmax)) / (12. * dx)
+    #     print(dBl_dr)
 
     dx = fid * 0.05 + 0.04
-    nt_deriv = (-clbb(r_fid, fid + 2 * dx, lmax=lmax) + 8. * clbb(r_fid, fid + dx, lmax=lmax) -
-                8. * clbb(r_fid, fid - dx, lmax=lmax) + clbb(r_fid, fid - 2 * dx, lmax=lmax)) / (12. * dx)
-#     print(nt_deriv)
-#     print(dBl_dr, nt_deriv)
+    nt_deriv = (-clbb(r_fid, fid + 2 * dx, lmax=lmax) + 8. * clbb(
+        r_fid, fid + dx, lmax=lmax) - 8. * clbb(r_fid, fid - dx, lmax=lmax) +
+                clbb(r_fid, fid - 2 * dx, lmax=lmax)) / (12. * dx)
+    #     print(nt_deriv)
+    #     print(dBl_dr, nt_deriv)
 
     Frr = np.sum(np.nan_to_num(dBl_dr**2 / Cov**2)[lmin:lmax])
     Fnn = np.sum(np.nan_to_num(nt_deriv**2 / Cov**2)[lmin:lmax])
@@ -143,10 +144,10 @@ def fisher_r_nt(r_fid=0.2, fid=None,
     F_matrix[0, 1] = Fnr
     F_matrix[1, 1] = Fnn
 
-#     print(F_matrix)
+    #     print(F_matrix)
     sigma_r = np.sqrt(np.linalg.inv(F_matrix)[0, 0])
     sigma_nt = np.sqrt(np.linalg.inv(F_matrix)[1, 1])
-#     print(sigma_r,sigma_nt)
+    #     print(sigma_r,sigma_nt)
     return (sigma_r, sigma_nt, np.sqrt(1 / Frr), np.sqrt(1 / Fnn))
 
 
@@ -159,7 +160,6 @@ output_dir = Config_ini.get('test', 'save_dir')
 # print('')
 # print(Fore.RED + '')
 # print('')
-
 
 # # =====================================
 # # TEST
@@ -179,15 +179,14 @@ gal_nums = np.linspace(0.01, 100, 20)
 for z_mean in z_meadians:
     # label = 'z_median_{:.3}'.format(z_mean)
     for gal_num in gal_nums:
-        rho_names.append(
-            'rho_test_z_median_{:.3}_ngal_{:.1f}.txt'.format(z_mean, gal_num))
+        rho_names.append('rho_test_z_median_{:.3}_ngal_{:.1f}.txt'.format(
+            z_mean, gal_num))
 
 cmb = 'Planck'
 lbins, rho, rho_comb_dict, rho_cmb = multiple_z_med_delens.main(
     cmb, z_means=z_meadians, gal_nums=gal_nums)
 ells_cmb = np.loadtxt(output_dir + 'cmb_cl/ell.txt')
 # rho_names = rho.keys()
-
 
 # deep survey to delens or what is giving you E-mode
 # BICEP level 3 muK and 30 arcmin beam
@@ -209,25 +208,30 @@ nle = nl(noise_uK_arcmin, fwhm_arcmin, lmax=ells_cmb[-1])[2:]
 B_test = rho_to_Bres.main(['test'], nle)
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 clbb_lensed = InterpolatedUnivariateSpline(
-    lbins, lbins * (lbins + 1.) * np.nan_to_num(B_test) / 2. / np.pi, ext='extrapolate')
+    lbins,
+    lbins * (lbins + 1.) * np.nan_to_num(B_test) / 2. / np.pi,
+    ext='extrapolate')
 print(rho_names)
 B_res3 = rho_to_Bres.main(rho_names, nle)
 # B_res3, lbins = rho_to_Bres.load_res(rho_names)
 
 lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
 
-
 clbb_res = {}
 for i, probe in enumerate(rho_names):
     if probe == 'test':
         print(i, probe)
         clbb_res[probe] = InterpolatedUnivariateSpline(
-            lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
+            lbins,
+            lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi,
+            ext='extrapolate')
     else:
         print(i, probe.split('.txt')[0].split('rho_test_')[1])
-        clbb_res[probe.split('.txt')[0].split('rho_test_')[1]] = InterpolatedUnivariateSpline(
-            lbins, lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi, ext='extrapolate')
-
+        clbb_res[probe.split('.txt')[0].split('rho_test_')[
+            1]] = InterpolatedUnivariateSpline(
+                lbins,
+                lbins * (lbins + 1.) * np.nan_to_num(B_res3[i]) / 2. / np.pi,
+                ext='extrapolate')
 
 b_res_power = np.zeros((len(z_meadians), len(gal_nums)))
 
@@ -239,8 +243,8 @@ for i, z_mean in enumerate(z_meadians):
         probe = 'rho_test_z_median_{:.3}_ngal_{:.1f}.txt'.format(
             z_mean, gal_num)
         probe = probe.split('.txt')[0].split('rho_test_')[1]
-        b_res_power[i, j] = 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25)
-                                                         ) / clbb_lensed(np.arange(4, 100, 25)))
+        b_res_power[i, j] = 1. - np.mean(clbb_res[probe](np.arange(4, 100, 25))
+                                         / clbb_lensed(np.arange(4, 100, 25)))
 np.save('./b_res_power_matrix', b_res_power)
 np.save('./z_meadians', z_meadians)
 np.save('./gal_nums', gal_nums)
@@ -269,8 +273,8 @@ for i, label in enumerate(rho_names):
         lmin=50,
         lmax=lmax,
         fsky=fsky,
-        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))
-                                 ) + clbb_tens(r_fid, lmax=lmax),
+        clbb_cov=clbb_res[probe](np.arange(0, len(clbb(0.0, lmax=lmax)))) +
+        clbb_tens(r_fid, lmax=lmax),
         noise_uK_arcmin=0.,
         fwhm_arcmin=fwhm_arcmin)
 
@@ -289,7 +293,6 @@ for i, label in enumerate(rho_names):
 
 print('')
 print('')
-
 
 # Fairly good agreement
 

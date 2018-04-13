@@ -1,5 +1,3 @@
-
-
 # from __future__ import print_function
 import scipy as sp
 import numpy as np
@@ -37,11 +35,9 @@ pyximport.install(reload_support=True)
 # except Exception as e:
 #     print('probably palettable not found')
 
-
 datadir = '../../Data/limber_spectra/'
 
 image_dir = '../../images/'
-
 
 # Import data
 kappakernel_l30 = np.loadtxt(datadir + 'kappa_kernel_l30.txt')
@@ -53,21 +49,17 @@ lsstkernel_l100 = np.loadtxt(datadir + 'lsst_kernel_l100.txt')
 skakernel_l100 = np.loadtxt(datadir + 'ska_kernel_l100.txt')
 weakkernel_l100 = np.loadtxt(datadir + 'weak_kernel_l100.txt')
 
-
 # cibkernel_l30 = np.loadtxt(datadir + 'cib_kernel_l30.txt')
 cibkernel_l100 = np.loadtxt(datadir + 'cib_kernel_l100.txt')
 # cibkernel_l500 = np.loadtxt(datadir + 'cib_kernel_l500.txt')
-
 
 deskernel_l30 = np.loadtxt(datadir + 'des_kernel_l30.txt')
 deskernel_l100 = np.loadtxt(datadir + 'des_kernel_l100.txt')
 deskernel_l500 = np.loadtxt(datadir + 'des_kernel_l500.txt')
 
-
 desikernel_l30 = np.loadtxt(datadir + 'desi_kernel_l30.txt')
 desikernel_l100 = np.loadtxt(datadir + 'desi_kernel_l100.txt')
 desikernel_l500 = np.loadtxt(datadir + 'desi_kernel_l500.txt')
-
 
 # ============================================
 # SIZE OF THE PICTURE
@@ -82,18 +74,16 @@ inches_per_pt = 1.0 / 72.27
 golden_ratio = (np.sqrt(5) - 1.0) / 2.0  # because it looks good
 ratio = 0.7
 fig_width_in = fig_width_pt * inches_per_pt  # figure width in inches
-fig_height_in = fig_width_in * ratio   # figure height in inches
+fig_height_in = fig_width_in * ratio  # figure height in inches
 fig_dims = [fig_width_in, fig_height_in]  # fig dims as a list
 # ============================================
 # ============================================
-
 
 # ============================================
 # SET LATEX
 plt.rc('text', usetex=True)
 plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern Roman']})
 # ============================================
-
 
 font_size = 16.
 plt.rcParams['font.size'] = font_size
@@ -122,7 +112,6 @@ plt.rcParams['path.simplify'] = False
 # Have the legend only plot one point instead of two, turn off the
 # frame, and reduce the space between the point and the label
 
-
 # ============================================
 # LEGEND
 # ============================================
@@ -130,9 +119,8 @@ plt.rcParams['path.simplify'] = False
 plt.rcParams['legend.frameon'] = False
 plt.rcParams['legend.numpoints'] = 1
 plt.rcParams['legend.handletextpad'] = 0.3
-plt.rcParams['legend.handlelength'] = font_size /9.
+plt.rcParams['legend.handlelength'] = font_size / 9.
 # ============================================
-
 
 # PLOTS
 fg = plt.figure(figsize=fig_dims)
@@ -140,41 +128,52 @@ fg = plt.figure(figsize=fig_dims)
 print(fig_dims)
 ax1 = fg.add_subplot(111)
 
-plt.plot(kappakernel_l30[:, 0], kappakernel_l100[:, 1] /
-         np.max(kappakernel_l100[:, 1]), label=r'CMB', alpha=0.8)
+plt.plot(
+    kappakernel_l30[:, 0],
+    kappakernel_l100[:, 1] / np.max(kappakernel_l100[:, 1]),
+    label=r'CMB',
+    alpha=0.8)
 # plt.plot(kappakernel_l30[:, 0], kappakernel_l100[:, 1] /
 #          np.max(kappakernel_l100[:, 1]), color='#e41a1c', linestyle=':')
 # plt.plot(kappakernel_l30[:, 0], kappakernel_l500[:, 1] /
 #          np.max(kappakernel_l500[:, 1]), color='#e41a1c', linestyle='--')
 
-plt.plot(cibkernel_l100[:, 0], cibkernel_l100[:, 1] /
-         np.max(cibkernel_l100[:, 1]), label=r'CIB')
+plt.plot(
+    cibkernel_l100[:, 0],
+    cibkernel_l100[:, 1] / np.max(cibkernel_l100[:, 1]),
+    label=r'CIB')
 # plt.plot(cibkernel_l30[:, 0], cibkernel_l100[:, 1] /
 #          np.max(cibkernel_l100[:, 1]), color='#377eb8', linestyle=':')
 # plt.plot(cibkernel_l30[:, 0], cibkernel_l500[:, 1] /
 #          np.max(cibkernel_l500[:, 1]), color='#377eb8', linestyle='--')
 
-plt.plot(deskernel_l30[:, 0], deskernel_l100[:, 1] /
-         np.max(deskernel_l100[:, 1]), label=r'DES', alpha=0.8)
+plt.plot(
+    deskernel_l30[:, 0],
+    deskernel_l100[:, 1] / np.max(deskernel_l100[:, 1]),
+    label=r'DES',
+    alpha=0.8)
 # plt.plot(deskernel_l30[:, 0], deskernel_l100[:, 1] /
 #          np.max(deskernel_l100[:, 1]), color='#4daf4a', linestyle=':')
 # plt.plot(deskernel_l30[:, 0], deskernel_l500[:, 1] /
 #          np.max(deskernel_l500[:, 1]), color='#4daf4a', linestyle='--')
 
-
-plt.plot(skakernel_l100[:, 0], skakernel_l100[:, 1] /
-         np.max(skakernel_l100[:, 1]), label=r'SKA', alpha=0.8)
-
+plt.plot(
+    skakernel_l100[:, 0],
+    skakernel_l100[:, 1] / np.max(skakernel_l100[:, 1]),
+    label=r'SKA',
+    alpha=0.8)
 
 # plt.plot(lsstkernel_l100[:, 0], lsstkernel_l100[:, 1] /
 #          np.max(lsstkernel_l100[:, 1]), label=r'$LSST$', alpha=0.8)
 
-plt.plot(desikernel_l30[:, 0], desikernel_l100[:, 1] /
-         np.max(desikernel_l100[:, 1]), label=r'DESI', alpha=0.8)
+plt.plot(
+    desikernel_l30[:, 0],
+    desikernel_l100[:, 1] / np.max(desikernel_l100[:, 1]),
+    label=r'DESI',
+    alpha=0.8)
 
 # plt.plot(weakkernel_l100[:, 0], weakkernel_l100[:, 1] /
 #          np.max(weakkernel_l100[:, 1]), label=r'$Weak Lensing$', alpha=0.8)
-
 
 # plt.plot(desikernel_l30[:,0],deskernel_l100[:,1]/np.max(desikernel_l100[:,1]),color='#984ea3',linestyle=':')
 # plt.plot(desikernel_l30[:,0],desikernel_l500[:,1]/np.max(desikernel_l500[:,1]),color='#984ea3',linestyle='--')
@@ -183,7 +182,7 @@ plt.plot(desikernel_l30[:, 0], desikernel_l100[:, 1] /
 #       np.max(desikernel_l30[:, 1]))
 plt.xlabel(r'z')
 plt.ylabel(r' $W(z)$ ')
-plt.legend(loc='best', ncol =3 ,mode='expand' )
+plt.legend(loc='best', ncol=3, mode='expand')
 plt.xlim(0, 4.5)
 plt.ylim(0, 1.4)
 fg.tight_layout()

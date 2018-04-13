@@ -17,7 +17,6 @@ cosmosis_dir = '/home/manzotti/cosmosis/'
 inifile = '/home/manzotti/cosmosis/modules/limber/galaxies_delens.ini'
 n_slices = 2
 
-
 Config_ini = ConfigParser.ConfigParser()
 values = ConfigParser.ConfigParser()
 Config_ini.read(inifile)
@@ -26,9 +25,8 @@ output_dir = Config_ini.get('test', 'save_dir')
 
 values.read(cosmosis_dir + values_file)
 
-
-lbins = np.loadtxt(cosmosis_dir + output_dir + '/limber_spectra/ells__delens.txt')
-
+lbins = np.loadtxt(
+    cosmosis_dir + output_dir + '/limber_spectra/ells__delens.txt')
 
 ckk = np.loadtxt(cosmosis_dir + output_dir + '/limber_spectra/clk_delens.txt')
 
@@ -48,25 +46,25 @@ rho_cib_des = np.zeros((np.size(lbins)))
 rho_des = np.zeros((np.size(lbins)))
 rho_cib = np.zeros((np.size(lbins)))
 
-
 labels = ['cib', 'des', 'ska10', 'ska5', 'ska1', 'ska01', 'lsst', 'euclid']
 
 cl_cross_k = {}
 cl_auto = {}
 rho = {}
 for label in labels:
-  cl_cross_k[label] = np.loadtxt(cosmosis_dir + output_dir +
-                                 '/limber_spectra/cl' + label + 'k_delens.txt')
-  cl_auto[label] = np.loadtxt(cosmosis_dir + output_dir +
-                              '/limber_spectra/cl' + label + label + '_delens.txt')
-  rho[label] = cl_cross_k[label] / np.sqrt(ckk[:] * cl_auto[label])
-
+    cl_cross_k[
+        label] = np.loadtxt(cosmosis_dir + output_dir + '/limber_spectra/cl' +
+                            label + 'k_delens.txt')
+    cl_auto[
+        label] = np.loadtxt(cosmosis_dir + output_dir + '/limber_spectra/cl' +
+                            label + label + '_delens.txt')
+    rho[label] = cl_cross_k[label] / np.sqrt(ckk[:] * cl_auto[label])
 
 # single survey save
 for label in labels:
-  np.savetxt(cosmosis_dir + output_dir + '/limber_spectra/rho_{}.txt'.format(label),
-             np.vstack((lbins, rho[label])).T)
-
+    np.savetxt(
+        cosmosis_dir + output_dir + '/limber_spectra/rho_{}.txt'.format(label),
+        np.vstack((lbins, rho[label])).T)
 
 # Multiple surveys
 
@@ -76,50 +74,60 @@ cgk = np.zeros((len(labels) + 1, np.size(lbins)))
 cgg = np.zeros((len(labels) + 1, len(labels) + 1, np.size(lbins)))
 
 for i in np.arange(0, n_slices):
-  cgk[i, :] = np.loadtxt(cosmosis_dir + output_dir +
-                         '/limber_spectra/cl' + labels[i] + 'k_delens.txt')
+    cgk[i, :] = np.loadtxt(cosmosis_dir + output_dir + '/limber_spectra/cl' +
+                           labels[i] + 'k_delens.txt')
 
-  for j in np.arange(i, n_slices):
-    cgg[i, j, :] = np.loadtxt(cosmosis_dir + output_dir +
-                              '/limber_spectra/cl' + labels[i] + labels[j] + '_delens.txt')
-    cgg[j, i, :] = cgg[i, j, :]
+    for j in np.arange(i, n_slices):
+        cgg[i, j, :] = np.loadtxt(
+            cosmosis_dir + output_dir + '/limber_spectra/cl' + labels[i] +
+            labels[j] + '_delens.txt')
+        cgg[j, i, :] = cgg[i, j, :]
 
 output_file("./lines.html", title="line plot example")
 # output_notebook()
-radio_button_group = RadioButtonGroup(
-    labels=["CIB", "DES"], active=0)
+radio_button_group = RadioButtonGroup(labels=["CIB", "DES"], active=0)
 
-
-
-p = figure(title="Tracer corralation", x_axis_label=r'$\ell$', y_axis_label=r'$\rho$', plot_width=800, plot_height=400)
+p = figure(
+    title="Tracer corralation",
+    x_axis_label=r'$\ell$',
+    y_axis_label=r'$\rho$',
+    plot_width=800,
+    plot_height=400)
 p.title.text = 'init'
-source = ColumnDataSource(data=dict(x=lbins, y=rho['cib'], cib = rho['cib'], des = rho['des']))
+source = ColumnDataSource(
+    data=dict(x=lbins, y=rho['cib'], cib=rho['cib'], des=rho['des']))
 r = p.line('x', 'y', source=source, line_width=3, line_alpha=0.6)
 p.xaxis.bounds = (0, 2000)
 p.yaxis.bounds = (0, 1)
+
 
 def update_data(attrname, old, new):
 
     # Get the current slider values
     print('in here')
-    print(old,new)
-    print(new==1)
-    p.title.text = "active " +radio_button_group.active
+    print(old, new)
+    print(new == 1)
+    p.title.text = "active " + radio_button_group.active
     # Generate the new curve
-    if new ==1:
+    if new == 1:
         y = rho['des']
     else:
         y = rho['cib']
     r.data_source.data['y'] = y
 
-callback = CustomJS(args=dict(source=source), code="""
+
+callback = CustomJS(
+    args=dict(source=source),
+    code="""
         var data = source.get('data');
         data['x'] = data['x'];
         data['y'] = data['des'];
         source.trigger('change');
     """)
 
-callback2 = CustomJS(args=dict(source=source), code="""
+callback2 = CustomJS(
+    args=dict(source=source),
+    code="""
         var data = source.get('data');
         data['x'] = data['x'];
         data['y'] = data['cib'];
@@ -129,7 +137,7 @@ callback2 = CustomJS(args=dict(source=source), code="""
 toggle1 = Button(label="CIB", callback=callback2, name='cib')
 toggle2 = Button(label="DES", callback=callback, name='des')
 
-layout = column(toggle1,toggle2, p)
+layout = column(toggle1, toggle2, p)
 save(layout)
 # # add cmb lensing
 
@@ -138,7 +146,6 @@ save(layout)
 # cgg[:, -1, :] = cgg[-1, :, :]
 # # add noise
 # cgg[-1, -1, :] = ckk  # + ckk_noise
-
 
 # for i, ell in enumerate(lbins):
 #   rho_comb[i] = np.dot(cgk[:, i], np.dot(np.linalg.inv(cgg[:, :, i]), cgk[:, i])) / ckk[i]

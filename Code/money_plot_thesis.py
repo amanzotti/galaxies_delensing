@@ -16,7 +16,6 @@ import pickle as pk
 
 from matplotlib import cm
 
-
 # ============================================
 # SIZE OF THE PICTURE
 # ============================================
@@ -30,18 +29,16 @@ inches_per_pt = 1.0 / 72.27
 golden_ratio = (np.sqrt(5) - 1.0) / 2.0  # because it looks good
 ratio = 0.5
 fig_width_in = fig_width_pt * inches_per_pt  # figure width in inches
-fig_height_in = fig_width_in * ratio   # figure height in inches
+fig_height_in = fig_width_in * ratio  # figure height in inches
 fig_dims = [fig_width_in, fig_height_in]  # fig dims as a list
 # ============================================
 # ============================================
-
 
 # ============================================
 # SET LATEX
 plt.rc('text', usetex=True)
 plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern Roman']})
 # ============================================
-
 
 font_size = 12.
 plt.rcParams['font.size'] = font_size
@@ -70,7 +67,6 @@ plt.rcParams['path.simplify'] = False
 # Have the legend only plot one point instead of two, turn off the
 # frame, and reduce the space between the point and the label
 
-
 # ============================================
 # LEGEND
 # ============================================
@@ -87,9 +83,9 @@ plt.close()
 # PLOTS
 fg = plt.figure(figsize=fig_dims)
 N = 4
-ind = np.arange(N)    # the x locations for the groups
-ind= np.array([0,2,4,6])
-width = 0.55       # the width of the bars: can also be len(x) sequence
+ind = np.arange(N)  # the x locations for the groups
+ind = np.array([0, 2, 4, 6])
+width = 0.55  # the width of the bars: can also be len(x) sequence
 
 # ==========================================
 # ==========================================
@@ -100,11 +96,11 @@ p2 = plt.barh(ind[0], -14, width, left=-6 - 8, alpha=0.8)
 p2 = plt.barh(ind[0], -27, width, left=-6 - 8 - 14, alpha=0.8)
 
 p1 = plt.barh(ind[0] + 1.5 * width, 36, width, color='#7f7f7f', alpha=0.8)
-p2 = plt.barh(ind[0] + 1.5 * width, 41 - 36, width, color='#bcbd22', left=36, alpha=0.8)
+p2 = plt.barh(
+    ind[0] + 1.5 * width, 41 - 36, width, color='#bcbd22', left=36, alpha=0.8)
 
 # ==========================================
 # ==========================================
-
 
 # ==========================================
 plt.gca().set_prop_cycle(None)
@@ -113,10 +109,16 @@ p2 = plt.barh(ind[1], -35., width * 1.1, left=-6., alpha=0.8)
 p2 = plt.barh(ind[1], -14, width * 1.1, left=-6 - 35, alpha=0.8)
 p2 = plt.barh(ind[1], -27, width * 1.1, left=-6 - 35 - 14, alpha=0.8)
 
-p1 = plt.barh(ind[1] + 1.5 * width, 36, width * 0.9, color='#7f7f7f', alpha=0.8)
-p2 = plt.barh(ind[1] + 1.5 * width, 56 - 36, width * 0.9, color='#bcbd22', left=36, alpha=0.8)
+p1 = plt.barh(
+    ind[1] + 1.5 * width, 36, width * 0.9, color='#7f7f7f', alpha=0.8)
+p2 = plt.barh(
+    ind[1] + 1.5 * width,
+    56 - 36,
+    width * 0.9,
+    color='#bcbd22',
+    left=36,
+    alpha=0.8)
 # ==========================================
-
 
 # ==========================================
 # ==========================================
@@ -125,8 +127,15 @@ p1 = plt.barh(ind[2], -10., width * 1.1, alpha=0.8)
 p2 = plt.barh(ind[2], -40., width * 1.1, left=-10., alpha=0.8)
 p2 = plt.barh(ind[2], -56., width * 1.1, left=-10. - 40., alpha=0.8)
 
-p1 = plt.barh(ind[2] + 1.5 * width, 40, width * 0.9, color='#7f7f7f', alpha=0.8)
-p2 = plt.barh(ind[2] + 1.5 * width, 69 - 40, width * 0.9, color='#bcbd22', left=40, alpha=0.8)
+p1 = plt.barh(
+    ind[2] + 1.5 * width, 40, width * 0.9, color='#7f7f7f', alpha=0.8)
+p2 = plt.barh(
+    ind[2] + 1.5 * width,
+    69 - 40,
+    width * 0.9,
+    color='#bcbd22',
+    left=40,
+    alpha=0.8)
 
 # ==========================================
 # ==========================================
@@ -138,9 +147,21 @@ p1 = plt.barh(ind[3], -48, width * 1.1, alpha=0.8)
 p2 = plt.barh(ind[3], -56, width * 1.1, left=-48, alpha=0.8)
 p2 = plt.barh(ind[3], -84, width * 1.1, left=-48 - 56, alpha=0.8)
 
-p1 = plt.barh(ind[3] + 1.5 * width, 60, width * 0.9, color='#7f7f7f', alpha=0.8, label='LSS')
-p2 = plt.barh(ind[3] + 1.5 * width, 86 - 60, width * 0.9,
-              color='#bcbd22', left=60, alpha=0.8, label='LSS +CMB')
+p1 = plt.barh(
+    ind[3] + 1.5 * width,
+    60,
+    width * 0.9,
+    color='#7f7f7f',
+    alpha=0.8,
+    label='LSS')
+p2 = plt.barh(
+    ind[3] + 1.5 * width,
+    86 - 60,
+    width * 0.9,
+    color='#bcbd22',
+    left=60,
+    alpha=0.8,
+    label='LSS +CMB')
 
 # ==========================================
 # ==========================================

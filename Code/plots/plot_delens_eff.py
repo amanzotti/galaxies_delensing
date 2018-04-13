@@ -1,4 +1,3 @@
-
 from __future__ import division
 # from __future__ import print_function
 import scipy as sp
@@ -32,7 +31,6 @@ pyximport.install(reload_support=True)
 
 image_dir = '../../images/'
 
-
 # ============================================
 # SIZE OF THE PICTURE
 # ============================================
@@ -46,11 +44,10 @@ inches_per_pt = 1.0 / 72.27
 # golden_ratio  = (np.sqrt(5) - 1.0) / 2.0  # because it looks good
 ratio = 0.8
 fig_width_in = fig_width_pt * inches_per_pt  # figure width in inches
-fig_height_in = fig_width_in * ratio   # figure height in inches
+fig_height_in = fig_width_in * ratio  # figure height in inches
 fig_dims = [fig_width_in, fig_height_in]  # fig dims as a list
 # ============================================
 # ============================================
-
 
 # ============================================
 # SET LATEX
@@ -58,7 +55,6 @@ plt.rc('text', usetex=False)
 plt.rcParams['text.latex.preamble'] = [r'\usepackage{amsmath}']
 plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern Roman']})
 # ============================================
-
 
 font_size = 10.
 plt.rcParams['font.size'] = font_size
@@ -85,7 +81,6 @@ plt.rcParams['path.simplify'] = False
 
 plt.rcParams['axes.linewidth'] = 1.0
 
-
 # ============================================
 # LEGEND
 # ============================================
@@ -104,8 +99,10 @@ def load_res(labels):
     datadir = '/home/manzotti/cosmosis/modules/limber/galaxies_delens/'
     res_list = {}
     for label in labels:
-        res_list[label] = (np.loadtxt(datadir + 'limber_spectra/cbb_res_' + label + '.txt'))
+        res_list[label] = (
+            np.loadtxt(datadir + 'limber_spectra/cbb_res_' + label + '.txt'))
     return res_list
+
 
 surveys = ['cib', 'des']
 # , 'comb_des_cib', 'comb_des_cib_cmb',
@@ -117,10 +114,9 @@ B_res = load_res(surveys)
 
 ells_cmb = np.loadtxt(datadir + 'cmb_cl/ell.txt')
 
-
-clbb_th = np.loadtxt(
-    datadir + 'cmb_cl/bb.txt')
-clbb_th *= 2. * np.pi / (ells_cmb.astype(float) * (ells_cmb.astype(float) + 1.))
+clbb_th = np.loadtxt(datadir + 'cmb_cl/bb.txt')
+clbb_th *= 2. * np.pi / (ells_cmb.astype(float) *
+                         (ells_cmb.astype(float) + 1.))
 
 # PLOTS
 fg = plt.figure(figsize=fig_dims)
@@ -131,14 +127,19 @@ ax1 = fg.add_subplot(111)
 # ax1.set_color_cycle(palettable.colorbrewer.qualitative.Dark2_8.mpl_colors)
 
 # plt.plot(ell, clkappacib / np.sqrt(clkappa * (clcib + 225.)), linestyle='--')
-plt.plot(res_lbins, B_res['cib'] / np.interp(res_lbins, ells_cmb,
-                                             clbb_th), label='CIB')
-plt.plot(res_lbins, B_res['des'] / np.interp(res_lbins, ells_cmb,
-                                             clbb_th), label='DES')
+plt.plot(
+    res_lbins,
+    B_res['cib'] / np.interp(res_lbins, ells_cmb, clbb_th),
+    label='CIB')
+plt.plot(
+    res_lbins,
+    B_res['des'] / np.interp(res_lbins, ells_cmb, clbb_th),
+    label='DES')
 
 plt.xlabel(r'$\ell$')
 plt.ylabel(
-    r' $\rho_{\ell} = \frac{C_{\ell}^{I\kappa}}{\sqrt{C_{\ell}^{II} C_{\ell}^{\kappa \kappa}  }  }$ ')
+    r' $\rho_{\ell} = \frac{C_{\ell}^{I\kappa}}{\sqrt{C_{\ell}^{II} C_{\ell}^{\kappa \kappa}  }  }$ '
+)
 plt.legend(loc='best')
 plt.xlim(40, 1000)
 plt.ylim(0., 1.)
@@ -146,8 +147,16 @@ plt.ylim(0., 1.)
 
 # ============================================
 # FINALLY SAVE
-plt.savefig(image_dir + 'delens_eff.pdf', dpi=600, papertype='Letter',
-            format='pdf', transparent=True)
-plt.savefig(image_dir + 'delens_eff.png', dpi=600, papertype='Letter',
-            format='png', transparent=True)
+plt.savefig(
+    image_dir + 'delens_eff.pdf',
+    dpi=600,
+    papertype='Letter',
+    format='pdf',
+    transparent=True)
+plt.savefig(
+    image_dir + 'delens_eff.png',
+    dpi=600,
+    papertype='Letter',
+    format='png',
+    transparent=True)
 plt.clf()

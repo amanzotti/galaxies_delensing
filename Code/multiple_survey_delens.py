@@ -14,7 +14,8 @@ def bl(fwhm_arcmin, lmax):
          * lmax             - maximum multipole.
     """
     ls = np.arange(0, lmax + 1)
-    return np.exp(-(fwhm_arcmin * np.pi / 180. / 60.)**2 / (16. * np.log(2.)) * ls * (ls + 1.))
+    return np.exp(-(fwhm_arcmin * np.pi / 180. / 60.)**2 /
+                  (16. * np.log(2.)) * ls * (ls + 1.))
 
 
 def nl(noise_uK_arcmin, fwhm_arcmin, lmax):
@@ -89,7 +90,10 @@ def main(labels, cmb, spectra_file='../Data/limber_spectra_delens.pkl'):
         noise_phi = np.loadtxt('./quicklens_data/nlkk.dat')
         # noise_cmb = nl(noise, beam, lmax=4000)
         noise_fun = interp1d(
-            noise_phi[:, 0], noise_phi[:, 1], bounds_error=False, fill_value=1e10)
+            noise_phi[:, 0],
+            noise_phi[:, 1],
+            bounds_error=False,
+            fill_value=1e10)
         ckk_noise = np.zeros_like(ckk)
         ckk_noise = noise_fun(lbins)
 
@@ -97,7 +101,8 @@ def main(labels, cmb, spectra_file='../Data/limber_spectra_delens.pkl'):
         noise = 2.0
         beam = 30
         noise_phi = np.loadtxt(
-            './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
+            './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(
+                noise, beam))
         noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
         # noise_cmb = nl(noise, beam, lmax=4000)
         noise_fun = interp1d(np.arange(0, len(noise_phi)), noise_phi)
@@ -108,7 +113,8 @@ def main(labels, cmb, spectra_file='../Data/limber_spectra_delens.pkl'):
         noise = 2.0
         beam = 2
         noise_phi = np.loadtxt(
-            './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
+            './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(
+                noise, beam))
         noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
         # noise_cmb = nl(noise, beam, lmax=4000)
         noise_fun = interp1d(np.arange(0, len(noise_phi)), noise_phi)
@@ -119,7 +125,8 @@ def main(labels, cmb, spectra_file='../Data/limber_spectra_delens.pkl'):
         noise = 7.0
         beam = 1
         noise_phi = np.loadtxt(
-            './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
+            './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(
+                noise, beam))
         noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
         # noise_cmb = nl(noise, beam, lmax=4000)
         noise_fun = interp1d(np.arange(0, len(noise_phi)), noise_phi)
@@ -132,7 +139,10 @@ def main(labels, cmb, spectra_file='../Data/limber_spectra_delens.pkl'):
 
         # this is already a kappa noise
         noise_fun = interp1d(
-            noise_phi[:, 0], noise_phi[:, 1] * 1e-7, bounds_error=False, fill_value=1e10)
+            noise_phi[:, 0],
+            noise_phi[:, 1] * 1e-7,
+            bounds_error=False,
+            fill_value=1e10)
         ckk_noise = np.zeros_like(ckk)
         ckk_noise = noise_fun(lbins)
 
@@ -140,7 +150,8 @@ def main(labels, cmb, spectra_file='../Data/limber_spectra_delens.pkl'):
         noise = 0.1
         beam = 2
         noise_phi = np.loadtxt(
-            './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
+            './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(
+                noise, beam))
         noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
         # noise_cmb = nl(noise, beam, lmax=4000)
         noise_fun = interp1d(np.arange(0, len(noise_phi)), noise_phi)
@@ -151,7 +162,8 @@ def main(labels, cmb, spectra_file='../Data/limber_spectra_delens.pkl'):
         noise = 9.
         beam = 1
         noise_phi = np.loadtxt(
-            './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(noise, beam))
+            './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(
+                noise, beam))
         noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
         # noise_cmb = nl(noise, beam, lmax=4000)
 
@@ -163,7 +175,8 @@ def main(labels, cmb, spectra_file='../Data/limber_spectra_delens.pkl'):
         noise = cmb['noise_in_pol']
         beam = cmb['beam']
         noise_phi = np.loadtxt(
-            './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(noise, int(beam)))
+            './quicklens_data/min_var_noise_{}muk_{}beam.txt'.format(
+                noise, int(beam)))
         noise_phi *= np.arange(0, len(noise_phi))**4. / 4.
         # noise_cmb = nl(noise, beam, lmax=4000)
         noise_fun = interp1d(np.arange(0, len(noise_phi)), noise_phi)
@@ -189,26 +202,30 @@ def main(labels, cmb, spectra_file='../Data/limber_spectra_delens.pkl'):
             remove_wise_cib_idx = [labels.index('cib'), labels.index('wise')]
             cgki = np.delete(cgk[:, i], remove_wise_cib_idx)
             cggi = np.delete(
-                np.delete(cgg[:, :, i], remove_wise_cib_idx, 0), remove_wise_cib_idx, 1)
+                np.delete(cgg[:, :, i], remove_wise_cib_idx, 0),
+                remove_wise_cib_idx, 1)
         else:
             cgki = cgk[:, i]
             cggi = cgg[:, :, i]
 
-        rho_comb[i] = np.sqrt(np.dot(cgki, np.dot(
-            np.linalg.inv(cggi), cgki)) / ckk[i])
-        rho_gals[i] = np.sqrt(np.dot(
-            cgki[:-1], np.dot(np.linalg.inv(cggi[:-1, :-1]), cgki[:-1])) / ckk[i])
+        rho_comb[i] = np.sqrt(
+            np.dot(cgki, np.dot(np.linalg.inv(cggi), cgki)) / ckk[i])
+        rho_gals[i] = np.sqrt(
+            np.dot(cgki[:-1], np.dot(np.linalg.inv(cggi[:-1, :-1]), cgki[:-1]))
+            / ckk[i])
 
     np.savetxt(output_dir + '/limber_spectra/rho_{}.txt'.format('comb'),
                np.vstack((lbins, rho_comb)).T)
     np.savetxt(output_dir + '/limber_spectra/rho_{}.txt'.format('gals'),
                np.vstack((lbins, rho_gals)).T)
     if isinstance(cmb, dict):
-        np.savetxt(output_dir + '/limber_spectra/rho_{}.txt'.format('cmb_' + cmb['label']),
+        np.savetxt(output_dir +
+                   '/limber_spectra/rho_{}.txt'.format('cmb_' + cmb['label']),
                    np.vstack((lbins, rho_cmb)).T)
     else:
-        np.savetxt(output_dir + '/limber_spectra/rho_{}.txt'.format('cmb_' + cmb),
-                   np.vstack((lbins, rho_cmb)).T)
+        np.savetxt(
+            output_dir + '/limber_spectra/rho_{}.txt'.format('cmb_' + cmb),
+            np.vstack((lbins, rho_cmb)).T)
 
     # rho['comb'] = rho_comb
     # rho['gals'] = rho_gals
