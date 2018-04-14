@@ -7,7 +7,7 @@ try:
 except ImportError:
     import functools as functools32
 
-# import sys
+import sys
 # import os
 import camb
 from camb import model, initialpower
@@ -17,9 +17,11 @@ import rho_to_Bres
 from scipy.interpolate import InterpolatedUnivariateSpline
 from colorama import init
 from colorama import Fore
-# import datetime
+import datetime
 
-# sys.stdout = open('run_analysis_S4' + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"+'.txt'), 'w')
+sys.stdout = open(
+    'run_analysis_3G_MSIP' +
+    datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S" + '.txt'), 'w')
 
 init(autoreset=True)
 np.seterr(divide='ignore', invalid='ignore')
@@ -200,6 +202,9 @@ def combine_deep_high_res(deep_noise,
     return deep, nle
 
 
+# SPT 3G noise levels in polarization from http://bicep.rc.fas.harvard.edu/bkspt/analysis_logbook/analysis/20180405_msip_alens/
+noise_SPT3G_pol = {0: 5.38, 1: 3.8, 2: 3.11, 3: 2.69, 4: 2.40, 5: 2.2}
+
 # cosmology values!!!!!!
 
 # This function sets up CosmoMC-like settings, with one massive neutrino
@@ -230,6 +235,7 @@ cle = totCL[:, 1]
 ells_cmb = np.arange(0, len(cle))
 clp = powers['lens_potential'][:, 0] / (ells_cmb *
                                         (ells_cmb + 1))**2 * (2. * np.pi)
+
 cle = cle * 7.42835025e12 / (ells_cmb * (ells_cmb + 1)) * (2. * np.pi)
 clpp_fun = InterpolatedUnivariateSpline(
     ells_cmb[:5000], np.nan_to_num(clp[:5000]), ext=2)
@@ -265,28 +271,7 @@ for year in [0, 1, 2, 3, 4, 5]:
     ]
     # This needs to be Bicep like, the value of the deep exp
 
-    # deep
-    deep = {}
-    deep['noise_uK_arcmin'] = 2.
-    deep['fwhm_arcmin'] = 30.
-    # high res
-    high_res = {}
-    high_res['noise_uK_arcmin'] = 3
-    high_res['fwhm_arcmin'] = 1.
-
-    # not used right now
-    ell_range_deep = [20, 800]
-    ell_range_high = [50, ells_cmb[-1]]
-    nle_deep = nl(
-        deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
-    nle_high = nl(
-        deep['noise_uK_arcmin'], high_res['fwhm_arcmin'],
-        lmax=ells_cmb[-1])[2:]
-    nle_high[:ell_range_high[0]] = np.inf
-    nle_deep[:ell_range_deep[0]] = np.inf
-    nle_deep[ell_range_deep[1]:] = np.inf
-    nle = 1 / (1 / nle_high + 1 / nle_deep)
-    nle[np.where(nle == np.inf)] = 1e20
+    nle = nl(noise_SPT3G_pol[year], 1.6, lmax=ells_cmb[-1])[2:]
 
     # deep survey to delens or what is giving you E-mode
     nle_fun = InterpolatedUnivariateSpline(np.arange(0, len(nle)), nle, ext=2)
@@ -317,10 +302,11 @@ for year in [0, 1, 2, 3, 4, 5]:
     for probe in rho_names[0:]:
         probe = probe.split('.txt')[0].split('rho_')[1]
         print(probe)
-        print('30<ell<230=', 1. - np.mean(clbb_res[probe](np.arange(
-            30, 330, 25)) / clbb_lensed(np.arange(30, 330, 25))),
-              '30<ell<330=', 1. - np.mean(clbb_res[probe](np.arange(
-                  30, 230, 75)) / clbb_lensed(np.arange(30, 230, 75))))
+        print('30<ell<230=',
+              np.mean(clbb_res[probe](np.arange(30, 330, 25)) / clbb_lensed(
+                  np.arange(30, 330, 25))), '30<ell<330=',
+              np.mean(clbb_res[probe](np.arange(30, 230, 75)) / clbb_lensed(
+                  np.arange(30, 230, 75))))
         print('')
 
     print('')
@@ -335,7 +321,7 @@ for year in [0, 1, 2, 3, 4, 5]:
     # noise_uK_arcmin=4.5,
     # fwhm_arcmin=4.,
 
-    run_fisher_cases(rho_names, lmin, lmax, deep)
+    # run_fisher_cases(rho_names, lmin, lmax, deep)
 
 # ==============================
 # ==============================
@@ -344,29 +330,12 @@ for year in [0, 1, 2, 3, 4, 5]:
 # ==============================
 # This needs to be Bicep like, the value of the deep exp
 
-# deep
-deep = {}
-deep['noise_uK_arcmin'] = 1.5
-deep['fwhm_arcmin'] = 15.
-# high res
-high_res = {}
-high_res['noise_uK_arcmin'] = 1.
-high_res['fwhm_arcmin'] = 1.
-
-# not used right now
-ell_range_deep = [20, 800]
-ell_range_high = [50, ells_cmb[-1]]
-nle_deep = nl(
-    deep['noise_uK_arcmin'], deep['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
-nle_high = nl(
-    deep['noise_uK_arcmin'], high_res['fwhm_arcmin'], lmax=ells_cmb[-1])[2:]
-nle_high[:ell_range_high[0]] = np.inf
-nle_deep[:ell_range_deep[0]] = np.inf
-nle_deep[ell_range_deep[1]:] = np.inf
-nle = 1 / (1 / nle_high + 1 / nle_deep)
-nle[np.where(nle == np.inf)] = 1e20
-
 for year in [0, 1, 2, 3, 4, 5]:
+
+    nle = nl(noise_SPT3G_pol[year], 1.6, lmax=ells_cmb[-1])[2:]
+
+    # deep survey to delens or what is giving you E-mode
+    nle_fun = InterpolatedUnivariateSpline(np.arange(0, len(nle)), nle, ext=2)
 
     # In[ ]:
     print(Fore.RED + 'CMB SPT3G {} no SKA at all'.format(year))
@@ -388,6 +357,9 @@ for year in [0, 1, 2, 3, 4, 5]:
         'rho_SPT3G_{}.txt'.format('year_' + str(year))
     ]
     # deep survey to delens or what is giving you E-mode
+    nle_high = nl(
+        deep['noise_uK_arcmin'], high_res['fwhm_arcmin'],
+        lmax=ells_cmb[-1])[2:]
     nle_fun = InterpolatedUnivariateSpline(np.arange(0, len(nle)), nle, ext=2)
     B_res3 = rho_to_Bres.main(rho_names, nle_fun, clpp_fun, clee_fun)
     lbins = np.loadtxt(output_dir + 'limber_spectra/cbb_res_ls.txt')
@@ -405,10 +377,11 @@ for year in [0, 1, 2, 3, 4, 5]:
     for probe in rho_names[0:]:
         probe = probe.split('.txt')[0].split('rho_')[1]
         print(probe)
-        print('30<ell<230=', 1. - np.mean(clbb_res[probe](np.arange(
-            30, 330, 25)) / clbb_lensed(np.arange(30, 330, 25))),
-              '30<ell<330=', 1. - np.mean(clbb_res[probe](np.arange(
-                  30, 230, 75)) / clbb_lensed(np.arange(30, 230, 75))))
+        print('30<ell<230=',
+              np.mean(clbb_res[probe](np.arange(30, 330, 25)) / clbb_lensed(
+                  np.arange(30, 330, 25))), '30<ell<330=',
+              np.mean(clbb_res[probe](np.arange(30, 230, 75)) / clbb_lensed(
+                  np.arange(30, 230, 75))))
         print('')
 
     print('')
@@ -417,11 +390,16 @@ for year in [0, 1, 2, 3, 4, 5]:
     print('')
     print('')
     print('')
-    run_fisher_cases(rho_names, lmin, lmax, deep)
+    # run_fisher_cases(rho_names, lmin, lmax, deep)
 
 for year in [0, 1, 2, 3, 4, 5]:
 
     print(Fore.RED + 'CMB SPT3G year {} + LSST '.format(year))
+
+    nle = nl(noise_SPT3G_pol[year], 1.6, lmax=ells_cmb[-1])[2:]
+
+    # deep survey to delens or what is giving you E-mode
+    nle_fun = InterpolatedUnivariateSpline(np.arange(0, len(nle)), nle, ext=2)
 
     #  'wise', 'euclid', 'des_weak', 'lsst', 'ska10',
     # #              'ska01', 'ska5', 'ska1', 'cib', 'desi', 'des']
@@ -455,10 +433,11 @@ for year in [0, 1, 2, 3, 4, 5]:
     for probe in rho_names[0:]:
         probe = probe.split('.txt')[0].split('rho_')[1]
         print(probe)
-        print('30<ell<230=', 1. - np.mean(clbb_res[probe](np.arange(
-            30, 330, 25)) / clbb_lensed(np.arange(30, 330, 25))),
-              '30<ell<330=', 1. - np.mean(clbb_res[probe](np.arange(
-                  30, 230, 75)) / clbb_lensed(np.arange(30, 230, 75))))
+        print('30<ell<230=',
+              np.mean(clbb_res[probe](np.arange(30, 330, 25)) / clbb_lensed(
+                  np.arange(30, 330, 25))), '30<ell<330=',
+              np.mean(clbb_res[probe](np.arange(30, 230, 75)) / clbb_lensed(
+                  np.arange(30, 230, 75))))
     print('')
 
     print('')
@@ -468,4 +447,4 @@ for year in [0, 1, 2, 3, 4, 5]:
     print('')
     print('')
 
-    run_fisher_cases(rho_names, lmin, lmax, deep)
+    # run_fisher_cases(rho_names, lmin, lmax, deep)

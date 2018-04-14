@@ -1,10 +1,13 @@
 '''
-This take the power spectra cross with CMB lensign and auto of different surveys ans spits out their rho as in Shwerwin Smithful
+This take the power spectra cross with CMB lensing and auto of different
+surveys and spits out their rho as in Shwerwin Smithful.
+This particular script was done for the SPT 3G MSIP and use 3G noise
+levels with iterative lensing reconstruction from Kimmy.
 '''
 
 import numpy as np
-import scipy.integrate
-from scipy.interpolate import RectBivariateSpline, interp1d, InterpolatedUnivariateSpline
+# import scipy.integrate
+from scipy.interpolate import interp1d, InterpolatedUnivariateSpline
 import pickle
 
 
@@ -30,6 +33,15 @@ def nl(noise_uK_arcmin, fwhm_arcmin, lmax):
 def main(labels,
          year,
          spectra_file='../Data/limber_spectra_delens_SPT_MSIP.pkl'):
+    """ returns the cross correlation factor rho for all the tracers
+        passed with labels.
+          * labels - tracers to use. they need to be the same of the
+                    dictionary used in the spectra file.
+          * year     - year of operation of SPT3G for the lensing noise
+          * spectra_file  - spectra obtain with run galaxies delens.
+                            or a different script but the format has to
+                            be right.
+    """
 
     output_dir = '/home/manzotti/galaxies_delensing/Data/'
     cls = pickle.load(open(spectra_file, 'rb'))
@@ -97,9 +109,10 @@ def main(labels,
         (year >= 0) &
         (year <= 5)), "years of SPT3G operation needs to be between 0 and 6"
 
+    # CAMB and the limber code returns [l(l+1)]^2 C^phi/(2pi)
     noise_fun = interp1d(
         ells_nlp,
-        nlpp[year, :] * ells_nlp**4 / 4.,
+        nlpp[year, :] * ((ells_nlp) * (ells_nlp + 1.))**2 / 2. / np.pi,
         bounds_error=False,
         fill_value=1e10)
     ckk_noise = np.zeros_like(ckk)

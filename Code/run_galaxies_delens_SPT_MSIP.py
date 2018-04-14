@@ -313,7 +313,9 @@ def main(ini_par):
     # CIB
     # =======
     # j2k = 1.e-6 / np.sqrt(83135.)  # for 353
+
     lkern = kappa_kernel.kern(z, hspline, chispline, pars.omegac, h, xlss)
+
     cib = cib_hall.ssed_kern(
         h,
         z,

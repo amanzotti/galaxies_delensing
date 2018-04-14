@@ -100,8 +100,8 @@ def compute_res_parallel(rho_filename, output_dir, clee_fun, clpp_fun,
                 1. - (clee / (clee + nle_fun(ell))) * rho_fun(ell)**2)
 
     lbins_int = np.linspace(4, 360, 60)
-    options1 = {'limit': 1500, 'epsabs': 0., 'epsrel': 5.e1}
-    options2 = {'limit': 1500, 'epsabs': 0., 'epsrel': 5.e1}
+    options1 = {'limit': 1500, 'epsabs': 0., 'epsrel': 5.e-3}
+    options2 = {'limit': 1500, 'epsabs': 0., 'epsrel': 5.e-3}
 
     tic = time.time()
     clbb_res_ell = [
