@@ -67,46 +67,46 @@ def compute_res_parallel(rho_filename, output_dir, clee_fun, clpp_fun,
     # print('start integration')
 
     if rho_filename == 'test':
-        lmax = 2000
+        lmax = 5000
 
         def integrand(theta, ell, L):
             clee = clee_fun(ell)
             # typical integrand to get BB from EE and phi. no correlation rho here
             return (ell / (2. * np.pi)**2 *
                     (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(
-                        np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta)))
-                    * clee * (np.sin(2. * theta))**2)
+                        np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))) * clee * (np.sin(2. * theta))**2)
     else:
         rho_filename = output_dir + 'correlation_values_3G_MSIP/' + rho_filename
-        # print(rho_filename)
+        print(rho_filename)
         rho = np.loadtxt(rho_filename)[:, 1]
         lbins = np.loadtxt(rho_filename)[:, 0]
         # print(lbins)
         rho_fun = InterpolatedUnivariateSpline(
             lbins, np.nan_to_num(rho), ext='zeros')
-        lmax = 3000
+        lmax = 5000
 
         def integrand(theta, ell, L):
             """
             integrand to get the residual B-mode
             """
             clee = clee_fun(ell)
-            # print(ell, L, rho_fun(ell))
+            # print(" ")
+            # print(ell, rho_fun(ell))
 
             return (ell / (2. * np.pi)**2 *
                     (L * ell * np.cos(theta) - ell**2)**2 * clpp_fun(
                         np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta))
             ) * clee * (np.sin(2. * theta))**2) * (
-                1. - (clee / (clee + nle_fun(ell))) * rho_fun(ell)**2)
+                1. - (clee / (clee + nle_fun(ell))) * rho_fun(np.sqrt(L**2 + ell**2 - 2. * ell * L * np.cos(theta)))**2)
 
-    lbins_int = np.linspace(4, 360, 60)
+    lbins_int = np.linspace(29, 2000, 200)
     options1 = {'limit': 1500, 'epsabs': 0., 'epsrel': 5.e-3}
     options2 = {'limit': 1500, 'epsabs': 0., 'epsrel': 5.e-3}
 
     tic = time.time()
     clbb_res_ell = [
         integrate.nquad(
-            integrand, [[0., 2. * np.pi], [8, lmax]],
+            integrand, [[0., 2. * np.pi], [30, lmax]],
             args=(L, ),
             opts=[options1, options2])[0] for L in lbins_int
     ]
@@ -305,7 +305,7 @@ def main(rho_names, nle_fun, clpp_fun, clee_fun):
     print('in rho_to res', cpu_count(), rho_names)
     cpus = np.min([len(rho_names), cpu_count() - 2])
     return Parallel(
-        n_jobs=cpus, verbose=0)(delayed(compute_res_parallel)(
+        n_jobs=1, verbose=0)(delayed(compute_res_parallel)(
             i, output_dir, clee_fun, clpp_fun, nle_fun) for i in rho_names)
 
 
